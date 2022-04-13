@@ -5,7 +5,6 @@ from logging import Logger
 
 import click
 
-from ..cli.file_hash_cli import hash_, validate_
 from .cli_app import App
 
 logger = logger = Logger(__name__)
@@ -33,7 +32,3 @@ def init_ctx_obj(context: click.Context, verbose):
     """Init the context.obj custom object."""
     context.obj = App({}, verbose)
     context.obj.config = {"key": "oh so important"}
-
-
-main.add_command(hash_)
-main.add_command(validate_)
