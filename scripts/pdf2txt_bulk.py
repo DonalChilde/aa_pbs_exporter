@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """Export all the pdf files in a directory to text files"""
 import argparse
+import os
 import sys
 from pathlib import Path
-import os
 from typing import List, Optional
 
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
-
-# foo
 
 
 def extract_text_to_file(file_path_in: Path, file_path_out: Path):
@@ -27,14 +25,14 @@ def parse_args(args: Optional[List[str]]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__, add_help=True)
     parser.add_argument(
         "source_dir",
-        type=os.path.abspath,
+        type=os.path.abspath,  # type: ignore
         default=None,
         nargs=1,
         help="Path to source directory.",
     )
     parser.add_argument(
         "dest_dir",
-        type=os.path.abspath,
+        type=os.path.abspath,  # type: ignore
         default=None,
         nargs=1,
         help="Path to destination directory.",
