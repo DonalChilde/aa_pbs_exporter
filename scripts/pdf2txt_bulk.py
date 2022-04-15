@@ -9,6 +9,8 @@ from typing import List, Optional
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
+# foo
+
 
 def extract_text_to_file(file_path_in: Path, file_path_out: Path):
     parent = file_path_out.parent
