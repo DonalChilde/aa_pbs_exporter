@@ -1,10 +1,8 @@
 import logging
 from dataclasses import dataclass, field
-from datetime import date, datetime, time, timedelta
+from datetime import date, time, timedelta
 from typing import Dict, Sequence
 
-import pyparsing as pp
-import pytest
 from pfmsoft.text_chunk_parser.text_chunk_parser import Chunk, ChunkParser
 
 from aa_pbs_exporter.pilot_pbs_2022 import parser as pbs_parser
@@ -33,6 +31,7 @@ def test_footer(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               PHL 787  INTL                             PAGE  1990",
             ),
             expected_state="footer",
@@ -55,6 +54,7 @@ def test_first_header(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/",
             ),
             expected_state="first_header",
@@ -70,6 +70,7 @@ def test_second_header(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01",
             ),
             expected_state="second_header",
@@ -88,6 +89,7 @@ def test_dash_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−",
             ),
             expected_state="dash_line",
@@ -101,7 +103,7 @@ def test_base_eq_line(caplog):
     caplog.set_level(logging.INFO)
     tests = [
         ParseTest(
-            chunk=Chunk(chunk_id="1", text="PHL 787"),
+            chunk=Chunk(chunk_id="1", source=__name__, text="PHL 787"),
             expected_state="base_eq",
             data={"base": "PHL", "equipment": "787"},
         )
@@ -115,6 +117,7 @@ def test_sequence_header_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "SEQ 1313   28 OPS   POSN CA FO                GREEK OPERATION                          MO TU WE TH FR SA SU ",
             ),
             expected_state="sequence_header",
@@ -135,6 +138,7 @@ def test_report_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "                RPT 0800/0800                                                          −− −− −− −− −−  7 −−",
             ),
             expected_state="report",
@@ -147,6 +151,7 @@ def test_report_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "                RPT 1545/1545                                                          −− −− −− −− −− −− −−",
             ),
             expected_state="report",
@@ -159,6 +164,7 @@ def test_report_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "3",
+                __name__,
                 "                RPT 0652/0652",
             ),
             expected_state="report",
@@ -178,6 +184,7 @@ def test_flight_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "2  2/2 26 2112  DFW 0600/0700  B LAX 0725/1025   3.25          2.35X",
             ),
             expected_state="flight",
@@ -202,6 +209,7 @@ def test_flight_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "1  1/1 64  508  MBJ 1306/1406    DFW 1700/1800   3.54                                  −− −− −− −− −− −− −−",
             ),
             expected_state="flight",
@@ -231,6 +239,7 @@ def test_release_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "                                 RLS 0054/0054   6.05   0.00   6.05  10.18        9.48 −− −− −−",
             ),
             expected_state="release",
@@ -248,6 +257,7 @@ def test_release_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "                                 RLS 2203/2203   3.00   0.49   3.49   7.38        7.08",
             ),
             expected_state="release",
@@ -265,6 +275,7 @@ def test_release_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "3",
+                __name__,
                 "                                 RLS 0825/0325   7.15   0.00   7.15   8.45        8.15 16 −− 18 −− −− −− −−",
             ),
             expected_state="release",
@@ -289,6 +300,7 @@ def test_hotel_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "                LHR HI HIGH STREET                          442073684023   23.50       −− −− 25 −− −− −− −−",
             ),
             expected_state="hotel",
@@ -303,6 +315,7 @@ def test_hotel_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "                ATH HOTEL INFO IN CCI/CREW PORTAL                          25.10       −− −− −− −− −− −− −−",
             ),
             expected_state="hotel",
@@ -317,6 +330,7 @@ def test_hotel_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "3",
+                __name__,
                 "                BDL SHERATON SPRINGFIELD MONARCH PLACE HOTE 14137811010    21.02",
             ),
             expected_state="hotel",
@@ -338,6 +352,7 @@ def test_additional_hotel_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "4",
+                __name__,
                 "               +LAS THE WESTIN LAS VEGAS HOTEL              17028365900",
             ),
             expected_state="additional_hotel",
@@ -358,6 +373,7 @@ def test_transportation_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "                    COMET CAR HIRE (CCH) LTD                442088979984               −− −− −−",
             ),
             expected_state="transportation",
@@ -370,6 +386,7 @@ def test_transportation_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "                    TRANS INFO IN CCI/CREW PORTAL                                      −− −−  1",
             ),
             expected_state="transportation",
@@ -382,6 +399,7 @@ def test_transportation_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "3",
+                __name__,
                 "                    SHUTTLE",
             ),
             expected_state="transportation",
@@ -401,6 +419,7 @@ def test_total_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "1",
+                __name__,
                 "TTL                                             15.47   0.37  16.24        57.26",
             ),
             expected_state="total",
@@ -415,6 +434,7 @@ def test_total_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "2",
+                __name__,
                 "TTL                                              4.58   0.17   5.15         7.18       −− −− −−",
             ),
             expected_state="total",
@@ -429,6 +449,7 @@ def test_total_line(caplog):
         ParseTest(
             chunk=Chunk(
                 "3",
+                __name__,
                 "TTL                                              4.54   0.21   5.15         7.16       30 −−  1",
             ),
             expected_state="total",
