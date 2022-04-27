@@ -38,6 +38,10 @@ def _logger(test_log_path):
     chunk_logger.addHandler(handler)
     chunk_logger.setLevel(TEST_LOG_LEVEL)
     logger.info("%s library added to log file.", "pfmsoft.text_chunk_parser")
+    chunk_logger = logging.getLogger("aa_pbs_exporter")
+    chunk_logger.addHandler(handler)
+    chunk_logger.setLevel(TEST_LOG_LEVEL)
+    logger.info("%s library added to log file.", "aa_pbs_exporter")
     return logger
 
 
@@ -52,7 +56,7 @@ def test_log_path_(test_app_data_dir) -> Path:
 @pytest.fixture(scope="session", name="test_app_data_dir")
 def test_app_data_dir_(tmp_path_factory) -> Path:
     """make a temp directory for app data."""
-    test_app_data_dir = tmp_path_factory.mktemp("click_hash-")
+    test_app_data_dir = tmp_path_factory.mktemp("aa_pbs_exporter")
     return test_app_data_dir
 
 
@@ -80,6 +84,17 @@ def load_json_resource(
     return resource
 
 
+@pytest.fixture(scope="session", name="pairing_text_files")
+def pairing_text_file_resources(logger: logging.Logger):
+    resource_path: str = "tests.aa_pbs_exporter.resources.text.2022_05"
+    resource_names = collect_resource_names(resource_path, [".txt"])
+    file_resources = load_file_resources(
+        resource_path, resource_names, logger, path_only=True
+    )
+    return file_resources
+
+
+# TODO move file resource loading to applib
 def load_file_resources(
     resource_path: str,
     resource_names: List[str],

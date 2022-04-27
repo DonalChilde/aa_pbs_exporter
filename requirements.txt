@@ -2,3 +2,4 @@ click
 pdfminer.six
 git+https://github.com/DonalChilde/text-chunk-parser.git
 pyparsing
+marshmallow

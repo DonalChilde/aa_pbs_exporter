@@ -25,7 +25,7 @@ def _parse_test(parse_tests: Sequence[ParseTest], parser: ChunkParser):
         assert data == test.data
 
 
-def test_footer(caplog):
+def test_footer(caplog, logger: logging.Logger):
     caplog.set_level(logging.INFO)
     tests = [
         ParseTest(
@@ -45,6 +45,7 @@ def test_footer(caplog):
             },
         )
     ]
+    logger.info(tests)
     _parse_test(tests, pbs_parser.FooterLine)
 
 
@@ -99,16 +100,16 @@ def test_dash_line(caplog):
     _parse_test(tests, pbs_parser.DashLine)
 
 
-def test_base_eq_line(caplog):
+def test_base_equipment_line(caplog):
     caplog.set_level(logging.INFO)
     tests = [
         ParseTest(
             chunk=Chunk(chunk_id="1", source=__name__, text="PHL 787"),
-            expected_state="base_eq",
+            expected_state="base_equipment",
             data={"base": "PHL", "equipment": "787"},
         )
     ]
-    _parse_test(tests, pbs_parser.BaseEqLine)
+    _parse_test(tests, pbs_parser.BaseEquipmentLine)
 
 
 def test_sequence_header_line(caplog):
@@ -401,6 +402,26 @@ def test_transportation_line(caplog):
                 "3",
                 __name__,
                 "                    SHUTTLE",
+            ),
+            expected_state="transportation",
+            data={
+                "transportation": "SHUTTLE",
+                "transportation_phone": [],
+                "calendar_entries": [],
+            },
+        ),
+    ]
+    _parse_test(tests, pbs_parser.TransportationLine)
+
+
+def test_trans_unicode(caplog):
+    caplog.set_level(logging.INFO)
+    tests = [
+        ParseTest(
+            chunk=Chunk(
+                "4",
+                __name__,
+                "                    J & G’S CITYWIDE EXPRESS                5127868131",
             ),
             expected_state="transportation",
             data={

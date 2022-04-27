@@ -1,8 +1,11 @@
+import logging
 from datetime import date, datetime, time, timedelta
-from typing import Any, Tuple
+from typing import Any, Dict, Sequence, Tuple
 
 import pyparsing as pp
-from pfmsoft.text_chunk_parser import Chunk, ChunkParser, ParseContext
+from pfmsoft.text_chunk_parser import Chunk, ChunkParser, ParseContext, ParseSchema
+
+logger = logging.getLogger(__name__)
 
 
 def short_string_to_date(s: str, loc: int, tocs: pp.ParseResults) -> date:
@@ -25,7 +28,18 @@ def string_to_int(s: str, loc: int, tocs: pp.ParseResults) -> int:
     return int(tocs[0])
 
 
+def zero_duration(s: str, loc: int, tocs: pp.ParseResults) -> timedelta:
+    _, _, _ = s, loc, tocs
+    return timedelta(0)
+
+
+def duration_to_timedelta_2(s: str, loc: int, tocs: pp.ParseResults) -> timedelta:
+    _, _ = s, loc
+    return timedelta(hours=int(tocs.dur.hours), minutes=int(tocs.dur.minutes))
+
+
 DASH_UNICODE = "\u002d\u2212"
+PUNCT_UNICODE = "\u2019"
 DASH = pp.Word(DASH_UNICODE)
 DAY_NUMERAL = pp.Word(pp.nums, exact=2)("day").set_parse_action(string_to_int)
 SHORT_MONTH = pp.Word(pp.alphas, exact=3)("month")
@@ -60,9 +74,10 @@ DAY_OF_SEQUENCE = pp.Group(
     + "/"
     + pp.Word(pp.nums, exact=1).set_parse_action(string_to_int)("a")
 )("day_of_sequence")
-FLIGHT_NUMBER = pp.Word(pp.nums, as_keyword=True)("flight_number")
+FLIGHT_NUMBER = pp.Word(pp.nums)("flight_number")
 CITY_CODE = pp.Word(pp.alphas, exact=3, as_keyword=True)
 CREW_MEAL = pp.Word(pp.alphas, exact=1, as_keyword=True)
+DEADHEAD_BLOCK = pp.Literal("AA").set_parse_action(zero_duration)
 DURATION = pp.Combine(
     pp.Word(pp.nums, min=1)("hours") + "." + pp.Word(pp.nums, exact=2)("minutes")
 ).set_parse_action(duration_to_timedelta)
@@ -223,7 +238,7 @@ class DashLine(PyparsingChunkParser):
         return definition
 
 
-class BaseEqLine(PyparsingChunkParser):
+class BaseEquipmentLine(PyparsingChunkParser):
     """
     _summary_
 
@@ -237,7 +252,7 @@ class BaseEqLine(PyparsingChunkParser):
     """
 
     def __init__(self):
-        super().__init__(new_state="base_eq", parser=self._define_parser())
+        super().__init__(new_state="base_equipment", parser=self._define_parser())
 
     def _define_parser(self) -> pp.ParserElement:
         definition = pp.StringStart() + BASE + EQUIPMENT + pp.StringEnd()
@@ -331,6 +346,7 @@ class FlightLine(PyparsingChunkParser):
             + DAY_OF_SEQUENCE
             + EQUIPMENT_CODE("equipment_code")
             + FLIGHT_NUMBER
+            + pp.Opt("D" + pp.WordEnd())("deadhead")
             + CITY_CODE("departure_city")
             + TIME("departure_local")
             + "/"
@@ -340,7 +356,7 @@ class FlightLine(PyparsingChunkParser):
             + TIME("arrival_local")
             + "/"
             + TIME("arrival_home")
-            + DURATION("block")
+            + pp.MatchFirst([DURATION("block"), DEADHEAD_BLOCK("block")])
             + pp.Opt(DURATION("ground"))
             + pp.Opt("X")("equipment_change")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
@@ -414,7 +430,7 @@ class HotelLine(PyparsingChunkParser):
                     pp.OneOrMore(
                         ~PHONE_NUMBER
                         + ~DURATION
-                        + pp.Word(pp.printables, as_keyword=True)
+                        + pp.Word(PUNCT_UNICODE + pp.printables, as_keyword=True)
                     ),
                     default=None,
                 )
@@ -452,7 +468,8 @@ class AdditionalHotelLine(PyparsingChunkParser):
             + pp.original_text_for(
                 pp.Opt(
                     pp.OneOrMore(
-                        ~PHONE_NUMBER + pp.Word(pp.printables, as_keyword=True)
+                        ~PHONE_NUMBER
+                        + pp.Word(PUNCT_UNICODE + pp.printables, as_keyword=True)
                     ),
                     default=None,
                 )
@@ -488,7 +505,9 @@ class TransportationLine(PyparsingChunkParser):
             pp.StringStart()
             + pp.original_text_for(
                 pp.Opt(
-                    pp.OneOrMore(~PHONE_NUMBER + pp.Word(pp.printables)),
+                    pp.OneOrMore(
+                        ~PHONE_NUMBER + pp.Word(PUNCT_UNICODE + pp.printables)
+                    ),
                     default=None,
                 )
             )("transportation")
@@ -499,6 +518,26 @@ class TransportationLine(PyparsingChunkParser):
             + pp.StringEnd()
         )
         return definition
+
+    # def parse(
+    #     self,
+    #     chunk: Chunk,
+    #     state: str,
+    #     context: ParseContext,
+    # ) -> Tuple[str, Any]:
+    #     """returns a tuple of (state,data)"""
+    #     try:
+    #         dashes = chunk.text.replace("u\2212", "-")
+    #         ascii_text = (
+    #             unicodedata.normalize("NFKD", dashes).encode("ascii", "ignore").decode()
+    #         )
+    #         print(chunk.text)
+    #         print(dashes)
+    #         print(ascii_text)
+    #         result = self.parser.parse_string(ascii_text)
+    #     except pp.ParseException as exc:
+    #         self.raise_parse_fail(str(exc), chunk, state, exc=exc)
+    #     return (self.new_state, result.as_dict())
 
 
 class TotalLine(PyparsingChunkParser):
@@ -531,3 +570,65 @@ class TotalLine(PyparsingChunkParser):
             + pp.StringEnd()
         )
         return definition
+
+
+class SkipChunk(ChunkParser):
+    def __init__(self) -> None:
+        pass
+
+    def parse(
+        self,
+        chunk: Chunk,
+        state: str,
+        context: ParseContext,
+    ) -> Tuple[str, Dict]:
+
+        return (state, {})
+
+
+class PbsSchema(ParseSchema):
+    def __init__(self) -> None:
+        self.schema = self._define_schema()
+
+    def _define_schema(self) -> Dict[str, Sequence[ChunkParser]]:
+        schema: Dict[str, Sequence[ChunkParser]] = {
+            "origin": [FirstHeaderLine(), SkipChunk()],
+            "first_header": [SecondHeaderLine()],
+            "second_header": [DashLine()],
+            "dash_line": [SequenceHeaderLine(), FooterLine(), BaseEquipmentLine()],
+            "base_equipment": [SequenceHeaderLine()],
+            "sequence_header": [ReportLine()],
+            "report": [FlightLine()],
+            "flight": [FlightLine(), ReleaseLine()],
+            "release": [HotelLine(), TotalLine()],
+            "hotel": [TransportationLine()],
+            "transportation": [AdditionalHotelLine(), ReportLine()],
+            "additional_hotel": [TransportationLine()],
+            "total": [DashLine()],
+            "footer": [FirstHeaderLine()],
+        }
+        return schema
+
+    def expected(self, state: str) -> Sequence[ChunkParser]:
+        return self.schema[state]
+
+
+class PbsContext(ParseContext):
+    def parsed_data(self, state: str, data: Any, chunk: Chunk, parser: "ChunkParser"):
+        """Handle the parsed data."""
+        logger.info("Entered parsed_data")
+
+    def initialize(self):
+        """
+        Do any work required to initialize the context.
+
+        _extended_summary_
+        """
+        logger.info("Initialize context")
+
+    def cleanup(self):
+        """
+        Do any work required to clean up after context
+
+        """
+        logger.info("Cleanup context")
