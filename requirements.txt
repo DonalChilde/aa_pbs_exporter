@@ -3,3 +3,4 @@ pdfminer.six
 git+https://github.com/DonalChilde/text-chunk-parser.git
 pyparsing
 marshmallow
+pydantic >= 1.9.0

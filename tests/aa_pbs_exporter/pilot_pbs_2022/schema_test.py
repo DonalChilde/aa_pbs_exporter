@@ -1,25 +1,18 @@
-import json
+# pylint: disable=missing-docstring
 import logging
+from io import StringIO
 from pathlib import Path
 from typing import Dict
 
-import pytest
-from pfmsoft.text_chunk_parser import (
-    AllFailedToParseException,
-    ChunkProvider,
-    FileChunkProvider,
-    Parser,
-    StringChunkProvider,
-)
+from pfmsoft.text_chunk_parser import AllFailedToParseException, ChunkIterator, Parser
 from pydantic.json import pydantic_encoder
 from tests.aa_pbs_exporter.conftest import FileResource
 
-from aa_pbs_exporter.pilot_pbs_2022.parser_2 import PbsContext, PbsSchema
+from aa_pbs_exporter.models.bid_package import BidPackage
+from aa_pbs_exporter.pilot_pbs_2022.parser_2 import PbsResultHander, PbsSchema
 
 TEST_1 = """
-RESERVE PRIMARY BIDDING PROCESS
 
-MAY 2022
 
 
 
@@ -93,46 +86,73 @@ COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               BOS 737  DOM             
 """
 
 
-def schema_test(
-    logger: logging.Logger, context: PbsContext, provider: ChunkProvider, test_name: str
-):
+# def schema_test(
+#     logger: logging.Logger,
+#     handler: PbsResultHander,
+#     chunk_iterator: ChunkIterator,
+#     test_name: str,
+# ) -> BidPackage:
+#     schema = PbsSchema()
+#     parser = Parser(schema, log_on_success=False)
+#     logging.info("Begining schema test with source: %s", test_name)
+#     try:
+#         parser.parse(handler, chunk_iterator)
+#     except AllFailedToParseException as exc:
+#         logger.exception(exc)
+#         assert False
+
+
+def test_first_page(logger: logging.Logger, caplog):
+    caplog.set_level(logging.INFO)
     schema = PbsSchema()
-    parser = Parser(schema, log_on_success=False)
-    logging.info("Begining schema test with source: %s", test_name)
-    try:
-        parser.parse(context, provider)
-    except AllFailedToParseException as exc:
-        logger.exception(exc)
-        assert False
+    parser = Parser(schema, log_on_success=True)
+    source_text = StringIO(TEST_1)
+    chunk_iterator = ChunkIterator(source_text, "First Page Test")
+    with PbsResultHander(year=2022) as handler:
+        try:
+            parser.parse(handler, chunk_iterator)
+            bid_package = handler.bid_package
+        except AllFailedToParseException as exc:
+            logger.warning(exc)
+    assert bid_package.base == {"BOS"}
 
 
-def test_first_page(logger: logging.Logger):
-    context = PbsContext(year=2022)
-
-    with StringChunkProvider("First page test", TEST_1) as provider:
-        schema_test(logger, context, provider, "First page test")
+def parse_file(file_path: Path, year: int) -> BidPackage:
+    schema = PbsSchema()
+    parser = Parser(schema, log_on_success=True)
+    with (
+        PbsResultHander(year=year) as handler,
+        open(file_path, "rt", encoding="utf-8") as file,
+    ):
+        chunk_iterator = ChunkIterator(file, source=str(file_path))
+        parser.parse(handler, chunk_iterator)
+        return handler.bid_package
 
 
 def test_file(logger: logging.Logger, pairing_text_files: Dict[str, FileResource]):
     resource_name = "PBS_BOS_May_2022_20220408124104.txt"
-    context = PbsContext(year=2022)
     file_path = pairing_text_files[resource_name].file_path
-    with FileChunkProvider(resource_name, file_path) as provider:
-        schema_test(logger, context, provider, resource_name)
+    try:
+        bid_package = parse_file(file_path, 2022)
+    except AllFailedToParseException as exc:
+        logger.warning(exc)
+    assert bid_package.base == {"BOS"}
     # print(context.package)
-    assert context.package.base == set(["BOS"])
 
 
 def test_all_files(
     capsys, logger: logging.Logger, pairing_text_files: Dict[str, FileResource]
 ):
     for resource_name, resource in pairing_text_files.items():
-        context = PbsContext(year=2022)
         file_path = resource.file_path
         with capsys.disabled():
             print(f"Beginning test of {resource_name}")
-        with FileChunkProvider(resource_name, file_path) as provider:
-            schema_test(logger, context, provider, resource_name)
+        try:
+            bid_package = parse_file(file_path, 2022)
+            assert bid_package.base
+        except AllFailedToParseException as exc:
+            logger.warning(exc)
+            assert False
 
 
 def test_file_serialize_pydantic(
@@ -141,14 +161,15 @@ def test_file_serialize_pydantic(
     test_app_data_dir: Path,
 ):
     resource_name = "PBS_BOS_May_2022_20220408124104.txt"
-    context = PbsContext(year=2022)
     file_path = pairing_text_files[resource_name].file_path
-    with FileChunkProvider(resource_name, file_path) as provider:
-        schema_test(logger, context, provider, resource_name)
+    try:
+        bid_package = parse_file(file_path, 2022)
+    except AllFailedToParseException as exc:
+        logger.warning(exc)
     # print(context.package)
 
-    assert context.package.base == set(["BOS"])
+    assert bid_package.base == set(["BOS"])
     file_path = test_app_data_dir / "boston.json"
-    file_path.write_text(context.package.json(indent=2))
-    print(context.package.bid_sequences[-1].duty_periods[-1].flights[-1].json(indent=2))
+    file_path.write_text(bid_package.json(indent=2))
+    print(bid_package.bid_sequences[-1].duty_periods[-1].flights[-1].json(indent=2))
     assert False

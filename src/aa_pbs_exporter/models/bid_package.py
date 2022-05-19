@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 from dataclasses import dataclass, field
 from datetime import date, time, timedelta
 from typing import List, Optional, Set
@@ -45,9 +47,9 @@ class BidSequence:
 @dataclass
 class DutyPeriod:
     report_local: time
-    report_hbt: time
+    report_home: time
     release_local: time
-    release_hbt: time
+    release_home: time
     block: timedelta
     synth: timedelta
     total_pay: timedelta
@@ -66,11 +68,11 @@ class Flight:
     deadhead: bool
     departure_station: str
     departure_local: time
-    departure_hbt: time
+    departure_home: time
     crewmeal: str
     arrival_station: str
     arrival_local: time
-    arrival_hbt: time
+    arrival_home: time
     block: timedelta
     synth: timedelta
     ground: timedelta

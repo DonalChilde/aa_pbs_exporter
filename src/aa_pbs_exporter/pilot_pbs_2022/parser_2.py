@@ -1,9 +1,38 @@
+# -*- coding: utf-8 -*-
+#
+#  parser_2.py
+#  _project_
+#
+#  Created by Chad Lowe on 2022-05-19.
+#  Copyright 2022 Chad Lowe. All rights reserved.
+#
+"""
+Todo:
+
+    - decide on serialization to json method.
+        - duration formats string roundtrip
+        - marshmallow vs pydantic
+        - pydantic base vs dataclass
+    - cli
+        - export to text
+        - parse text
+        - sensible file names
+        - split json files by base and equipment
+"""
+# pylint: disable=missing-docstring
 import logging
-from datetime import date, datetime, time, timedelta
-from typing import Any, Dict, List, Sequence, Tuple
+from datetime import date, time, timedelta
+from typing import Any, Dict, List, Sequence
 
 import pyparsing as pp
-from pfmsoft.text_chunk_parser import Chunk, ChunkParser, ParseContext, ParseSchema
+from pfmsoft.text_chunk_parser import (
+    Chunk,
+    ChunkParser,
+    ParseResult,
+    ParseResultHandler,
+    ParseSchema,
+)
+from pfmsoft.text_chunk_parser.chunk_parser import SkipChunk
 
 from aa_pbs_exporter.models import bid_package_pydantic_base as model
 
@@ -64,14 +93,16 @@ class PyparsingChunkParser(ChunkParser):
         self,
         chunk: Chunk,
         state: str,
-        context: ParseContext,
-    ) -> Tuple[str, Any]:
+        parse_hints: Dict | None = None,
+    ) -> ParseResult:
         """returns a tuple of (state,data)"""
         try:
             result = self.parser.parse_string(chunk.text)
         except pp.ParseException as exc:
             self.raise_parse_fail(str(exc), chunk, state, exc=exc)
-        return (self.new_state, result.as_dict())
+        return ParseResult(
+            new_state=self.new_state, data=result.as_dict(), parser=self, chunk=chunk
+        )
 
 
 class FooterLine(PyparsingChunkParser):
@@ -300,7 +331,7 @@ class ReportLine(PyparsingChunkParser):
             + "RPT"
             + pp.Word(pp.nums, exact=4, as_keyword=True)("report_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("report_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("report_home")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
             + pp.Opt(
                 pp.Literal("sequence")
@@ -311,9 +342,6 @@ class ReportLine(PyparsingChunkParser):
             + pp.StringEnd()
         )
         return definition
-
-
-# FIXME flight.dutyperiod field
 
 
 class FlightLine(PyparsingChunkParser):
@@ -345,14 +373,14 @@ class FlightLine(PyparsingChunkParser):
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("departure_city")
             + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_home")
             + pp.Opt(pp.Word(pp.alphas, exact=1, as_keyword=True), default="")(
                 "crew_meal"
             )
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("arrival_city")
             + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_home")
             + DURATION("block")
             + pp.Opt(DURATION("ground"), default="0.00")
             + pp.Opt("X")("equipment_change")
@@ -392,14 +420,14 @@ class FlightDeadheadLine(PyparsingChunkParser):
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("departure_city")
             + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("departure_home")
             + pp.Opt(pp.Word(pp.alphas, exact=1, as_keyword=True), default="")(
                 "crew_meal"
             )
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("arrival_city")
             + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("arrival_home")
             + pp.Word(pp.alphas, exact=2)("deadhead_block")
             + DURATION("synth")
             + pp.Opt(DURATION("ground"), default="0.00")
@@ -434,7 +462,7 @@ class ReleaseLine(PyparsingChunkParser):
             + "RLS"
             + pp.Word(pp.nums, exact=4, as_keyword=True)("release_local")
             + "/"
-            + pp.Word(pp.nums, exact=4, as_keyword=True)("release_hbt")
+            + pp.Word(pp.nums, exact=4, as_keyword=True)("release_home")
             + DURATION("block")
             + DURATION("synth")
             + DURATION("total_pay")
@@ -674,18 +702,18 @@ class TotalLine(PyparsingChunkParser):
         return definition
 
 
-class SkipChunk(ChunkParser):
-    def __init__(self) -> None:
-        pass
+# class SkipChunk(ChunkParser):
+#     def __init__(self) -> None:
+#         pass
 
-    def parse(
-        self,
-        chunk: Chunk,
-        state: str,
-        context: ParseContext,
-    ) -> Tuple[str, Dict]:
+#     def parse(
+#         self,
+#         chunk: Chunk,
+#         state: str,
+#         parse_hints: Dict | None = None,
+#     ) -> ParseResult:
 
-        return (state, {})
+#         return ParseResult(state, {}, self, chunk)
 
 
 class PbsSchema(ParseSchema):
@@ -735,33 +763,34 @@ def mmdd_to_date(mmdd: Dict[str, str], year: int) -> date:
     return date(year, month, day)
 
 
-class ContextParseException(Exception):
+class ResultHandlerException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
         # FIXME expand on this
 
 
-class PbsContext(ParseContext):
+class PbsResultHander(ParseResultHandler):
     def __init__(self, year: int) -> None:
+        super().__init__()
         self.year = year
-        self.package: model.BidPackage | None = None
+        self.bid_package: model.BidPackage | None = None
         self.current_page_sequences: List[model.BidSequence] = []
         self.header_count = 0
         self.calendar_entries: List[str] = []
 
     def second_header(self, data: Dict[str, Any], chunk: Chunk):
-        if self.package is None:
-            self.package = model.BidPackage(
+        if self.bid_package is None:
+            self.bid_package = model.BidPackage(
                 date_from=mmdd_to_date(data["calendar_from"], self.year),
                 date_to=mmdd_to_date(data["calendar_to"], self.year),
                 source=chunk.source,
             )
 
     def base_equipment(self, data):
-        self.package.base.add(data["base"])
+        self.bid_package.base.add(data["base"])
         if sat_base := data.get("satelite_base", None):
-            self.package.satelite_bases.add(sat_base)
-        self.package.equipment.add(data["equipment"])
+            self.bid_package.satelite_bases.add(sat_base)
+        self.bid_package.equipment.add(data["equipment"])
 
     def sequence_header(self, data, chunk: Chunk):
         bid_sequence = model.BidSequence(
@@ -773,7 +802,7 @@ class PbsContext(ParseContext):
             total_pay=timedelta(),
             tafb=timedelta(),
             internal_page=0,
-            from_line=chunk.chunk_id,
+            from_line=chunk.count,
             to_line=0,
             positions=set(data["positions"]),
             operations=set(data["operations"]),
@@ -785,9 +814,9 @@ class PbsContext(ParseContext):
     def report(self, data):
         duty_period = model.DutyPeriod(
             report_local=hhmm_to_time(data["report_local"]),
-            report_hbt=hhmm_to_time(data["report_hbt"]),
+            report_home=hhmm_to_time(data["report_home"]),
             release_local=time(hour=0, minute=0, second=30),
-            release_hbt=time(hour=0, minute=0, second=30),
+            release_home=time(hour=0, minute=0, second=30),
             block=timedelta(),
             synth=timedelta(),
             total_pay=timedelta(),
@@ -807,11 +836,11 @@ class PbsContext(ParseContext):
             deadhead=False,
             departure_station=data["departure_city"],
             departure_local=hhmm_to_time(data["departure_local"]),
-            departure_hbt=hhmm_to_time(data["departure_hbt"]),
+            departure_home=hhmm_to_time(data["departure_home"]),
             crewmeal=data["crew_meal"],
             arrival_station=data["arrival_city"],
             arrival_local=hhmm_to_time(data["arrival_local"]),
-            arrival_hbt=hhmm_to_time(data["arrival_hbt"]),
+            arrival_home=hhmm_to_time(data["arrival_home"]),
             block=duration_dot_to_timedelta(data["block"]),
             synth=timedelta(),
             ground=duration_dot_to_timedelta(data["ground"]),
@@ -828,11 +857,11 @@ class PbsContext(ParseContext):
             deadhead=True,
             departure_station=data["departure_city"],
             departure_local=hhmm_to_time(data["departure_local"]),
-            departure_hbt=hhmm_to_time(data["departure_hbt"]),
+            departure_home=hhmm_to_time(data["departure_home"]),
             crewmeal=data["crew_meal"],
             arrival_station=data["arrival_city"],
             arrival_local=hhmm_to_time(data["arrival_local"]),
-            arrival_hbt=hhmm_to_time(data["arrival_hbt"]),
+            arrival_home=hhmm_to_time(data["arrival_home"]),
             block=timedelta(),
             synth=duration_dot_to_timedelta(data["synth"]),
             ground=duration_dot_to_timedelta(data["ground"]),
@@ -844,7 +873,7 @@ class PbsContext(ParseContext):
     def release(self, data):
         duty_period = self.current_page_sequences[-1].duty_periods[-1]
         duty_period.release_local = hhmm_to_time(data["release_local"])
-        duty_period.release_hbt = hhmm_to_time(data["release_hbt"])
+        duty_period.release_home = hhmm_to_time(data["release_home"])
         duty_period.block = duration_dot_to_timedelta(data["block"])
         duty_period.synth = duration_dot_to_timedelta(data["synth"])
         duty_period.total_pay = duration_dot_to_timedelta(data["total_pay"])
@@ -889,13 +918,13 @@ class PbsContext(ParseContext):
         bid_sequence.synth = duration_dot_to_timedelta(data["synth"])
         bid_sequence.total_pay = duration_dot_to_timedelta(data["total_pay"])
         bid_sequence.tafb = duration_dot_to_timedelta(data["tafb"])
-        bid_sequence.to_line = int(chunk.chunk_id)
+        bid_sequence.to_line = int(chunk.count)
         self.calendar_entries.extend(data["calendar_entries"])
         self.collect_start_dates(
             bid_sequence=bid_sequence,
             calendar_entries=self.calendar_entries,
-            start=self.package.date_from,  # type: ignore
-            end=self.package.date_to,  # type: ignore
+            start=self.bid_package.date_from,  # type: ignore
+            end=self.bid_package.date_to,  # type: ignore
         )
 
     def footer(self, data):
@@ -906,7 +935,7 @@ class PbsContext(ParseContext):
                 division=data["division"],
             )
             bid_sequence.internal_page = int(data["internal_page"])
-        self.package.bid_sequences.extend(self.current_page_sequences)
+        self.bid_package.bid_sequences.extend(self.current_page_sequences)
         # reset for next page of data
         self.current_page_sequences.clear()
         self.calendar_entries.clear()
@@ -920,54 +949,56 @@ class PbsContext(ParseContext):
     ):
         pass
 
-    def parsed_data(self, state: str, data: Any, chunk: Chunk, parser: "ChunkParser"):
+    def parsed_data(self, parse_result: ParseResult):
         """Handle the parsed data."""
         try:
-            match state:
+            match parse_result.new_state:
+                case "origin":
+                    pass
+                case "first_header":
+                    pass
                 case "second_header":
-                    self.second_header(data, chunk)
+                    self.second_header(parse_result.data, parse_result.chunk)
                 case "base_equipment":
-                    self.base_equipment(data)
+                    self.base_equipment(parse_result.data)
                 case "sequence_header":
-                    self.sequence_header(data, chunk)
+                    self.sequence_header(parse_result.data, parse_result.chunk)
                 case "report":
-                    self.report(data)
+                    self.report(parse_result.data)
                 case "flight":
-                    self.flight(data)
+                    self.flight(parse_result.data)
                 case "flight_deadhead":
-                    self.flight_deadhead(data)
+                    self.flight_deadhead(parse_result.data)
                 case "release":
-                    self.release(data)
+                    self.release(parse_result.data)
                 case "hotel":
-                    self.hotel(data)
+                    self.hotel(parse_result.data)
                 case "transportation":
-                    self.transportation(data)
+                    self.transportation(parse_result.data)
                 case "additional_hotel":
-                    self.additional_hotel(data)
+                    self.additional_hotel(parse_result.data)
                 case "additional_transportation":
-                    self.additional_transportation(data)
+                    self.additional_transportation(parse_result.data)
                 case "total":
-                    self.total(data, chunk)
+                    self.total(parse_result.data, parse_result.chunk)
                 case "footer":
-                    self.footer(data)
+                    self.footer(parse_result.data)
 
         except Exception as exc:
-            raise ContextParseException(
-                "a better message", state, data, chunk, parser
-            ) from exc
+            raise ResultHandlerException("a better message", parse_result) from exc
 
-    def initialize(self):
-        """
-        Do any work required to initialize the context.
+    # def initialize(self):
+    #     """
+    #     Do any work required to initialize the context.
 
-        _extended_summary_
-        """
+    #     _extended_summary_
+    #     """
 
-        logger.info("Initialize context")
+    #     logger.info("Initialize context")
 
-    def cleanup(self):
-        """
-        Do any work required to clean up after context
+    # def cleanup(self):
+    #     """
+    #     Do any work required to clean up after context
 
-        """
-        logger.info("Cleanup context")
+    #     """
+    #     logger.info("Cleanup context")
