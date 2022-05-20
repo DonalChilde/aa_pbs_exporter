@@ -7,38 +7,26 @@
 - Testing
   - cmd line tests
   - test resources
+  - test parse against known values
+  - tox
+  - check output for sanity and usability
+  - round trip serialize and test.
 - Click
   - bash completion
-  - modular click layout
-  - std in/std out
-  - error handling
-  - ctx.obj
-  - verbose output
-  - progress bar
-- Optional Rich output
-  - optional imports
-- PyPi packging
-- Read the docs
-  - Sphinx
-  - check out cc for doc format examples
-  - make modular docs, so its easy to remove example code
-  - doc all the places to remove example code
-  - improve dev setup docs with material from cc
+  - completion time
+- PyPi release
 - Git
-  - git hooks
-  - git badges
-- App
-  - Configuration
-    - app config
-      - env variables
-    - app data directory
-  - file info
-    - returns a dict of file info.
-  - file hashes
-    - hash factory to calculate multiple hashes with one disk read.
-- file info, hash app
-  - support multiple simultainious hashes.
-  - output to std out
-  - output dict or csv list
-  - patternmatching input option, requires dir for input.
-  - compare known hashes to files?
+  - write out project structure in dev docs
+- Documentation
+  - api docs
+  - Sphinx
+    - Detailed how to instructions
+    - installations instructions
+    - github readme imports, badges, etc
+  - Read the docs
+    - Sphinx
+    - check out cc for doc format examples
+- CLI
+  - split output files by base and equipment
+- Model
+  - BidPackage.base can be singular, satelite bases should be set.

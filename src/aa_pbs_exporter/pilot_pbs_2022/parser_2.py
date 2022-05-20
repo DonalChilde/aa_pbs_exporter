@@ -6,19 +6,7 @@
 #  Created by Chad Lowe on 2022-05-19.
 #  Copyright 2022 Chad Lowe. All rights reserved.
 #
-"""
-Todo:
 
-    - decide on serialization to json method.
-        - duration formats string roundtrip
-        - marshmallow vs pydantic
-        - pydantic base vs dataclass
-    - cli
-        - export to text
-        - parse text
-        - sensible file names
-        - split json files by base and equipment
-"""
 # pylint: disable=missing-docstring
 import logging
 from datetime import date, time, timedelta
@@ -31,7 +19,10 @@ from pfmsoft.text_chunk_parser import (
     ParseResult,
     ParseResultHandler,
     ParseSchema,
+    Parser,
+    ChunkIterator,
 )
+from pathlib import Path
 from pfmsoft.text_chunk_parser.chunk_parser import SkipChunk
 
 from aa_pbs_exporter.models import bid_package_pydantic_base as model
@@ -737,7 +728,7 @@ class PbsSchema(ParseSchema):
             "additional_hotel": [AdditionalTransportationLine(), ReportLine()],
             "additional_transportation": [ReportLine()],
             "total": [DashLine()],
-            "footer": [FirstHeaderLine()],
+            "footer": [FirstHeaderLine(), SkipChunk()],
         }
         return schema
 
@@ -1002,3 +993,28 @@ class PbsResultHander(ParseResultHandler):
 
     #     """
     #     logger.info("Cleanup context")
+
+
+def parse_file(file_path: Path, year: int) -> model.BidPackage:
+    schema = PbsSchema()
+    parser = Parser(schema, log_on_success=True)
+    with (
+        PbsResultHander(year=year) as handler,
+        open(file_path, "rt", encoding="utf-8") as file,
+    ):
+        chunk_iterator = ChunkIterator(file, source=str(file_path))
+        parser.parse(handler, chunk_iterator)
+        return handler.bid_package
+
+
+def save_package_to_json(file_path: Path, package: model.BidPackage):
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    file_path.write_text(package.json(indent=2))
+
+
+def sensible_file_name(package: model.BidPackage) -> Path:
+    start_date: date = package.date_from
+    base = package.base
+    # equipment = ""
+    file_name = Path(f"{start_date.isoformat()}-{base}")
+    return file_name
