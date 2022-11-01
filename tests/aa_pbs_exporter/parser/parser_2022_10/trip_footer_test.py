@@ -7,24 +7,24 @@ test_data = [
     raw.TripFooter(
         source=raw.SourceText(
             1,
-            "                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
+            "TTL                                              7.50   0.00   7.50        10.20       −− −− −−",
         ),
-        block="MIA",
-        synth="SONESTA MIAMI AIRPORT",
-        total_pay="13054469000",
-        tafb="11.27",
-        calendar="−− −− −− −− −− −− −−",
+        block="7.50",
+        synth="0.00",
+        total_pay="7.50",
+        tafb="10.20",
+        calendar="−− −− −−",
     ),
     raw.TripFooter(
         source=raw.SourceText(
             2,
-            "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
+            "TTL                                             17.18   0.00  17.18        60.04",
         ),
-        block="MIA",
-        synth="SONESTA MIAMI AIRPORT",
-        total_pay="13054469000",
-        tafb="11.27",
-        calendar="−− −− −− −− −− −− −−",
+        block="17.18",
+        synth="0.00",
+        total_pay="17.18",
+        tafb="60.04",
+        calendar="",
     ),
 ]
 

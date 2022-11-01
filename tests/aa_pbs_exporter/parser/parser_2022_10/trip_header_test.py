@@ -12,6 +12,32 @@ test_data = [
         number="25064",
         ops_count="1",
         positions="CA FO",
+        operations="",
+        special_qualification="",
+        calendar="",
+    ),
+    raw.TripHeader(
+        source=raw.SourceText(
+            1,
+            "SEQ 6292    1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU",
+        ),
+        number="6292",
+        ops_count="1",
+        positions="CA FO",
+        operations="SPANISH",
+        special_qualification="",
+        calendar="",
+    ),
+    raw.TripHeader(
+        source=raw.SourceText(
+            1,
+            "SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU",
+        ),
+        number="16945",
+        ops_count="1",
+        positions="CA FO",
+        operations="",
+        special_qualification="SPECIAL QUALIFICATION",
         calendar="",
     ),
 ]

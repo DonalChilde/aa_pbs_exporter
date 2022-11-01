@@ -7,20 +7,20 @@ test_data = [
     raw.TransportationAdditional(
         source=raw.SourceText(
             1,
-            "                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
+            "                    SKY TRANSPORTATION SERVICE, LLC         8566169633",
         ),
-        name="SONESTA MIAMI AIRPORT",
-        phone="13054469000",
-        calendar="−− −− −− −− −− −− −−",
+        name="SKY TRANSPORTATION SERVICE, LLC",
+        phone="8566169633",
+        calendar="",
     ),
     raw.TransportationAdditional(
         source=raw.SourceText(
             2,
-            "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
+            "                    DESERT COACH                            6022866161",
         ),
-        name="SONESTA MIAMI AIRPORT",
-        phone="13054469000",
-        calendar="−− −− −− −− −− −− −−",
+        name="DESERT COACH",
+        phone="6022866161",
+        calendar="",
     ),
 ]
 
