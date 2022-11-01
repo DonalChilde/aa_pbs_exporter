@@ -1,6 +1,84 @@
 [build-system]
-requires = ["setuptools >= 40.6.0", "wheel"]
+requires = ["setuptools >= 58.0.0"]
 build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "aa_pbs_exporter"
+description = "Convert AA PBS pairing package .pdf to .json"
+# readme = "README.rst"
+requires-python = ">=3.10"
+keywords = ["Python", "aa_pbs_exporter"]
+license = { file = "LICENSE" }
+# 
+urls = { Home-page = "https://github.com/DonalChilde/aa_pbs_exporter" }
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+]
+dependencies = ["click", "pdfminer.six", "pyparsing", "marshmallow", "pydantic"]
+dynamic = ["version", "readme"]
+
+[tool.setuptools.dynamic]
+version = { attr = "aa_pbs_exporter.__version__" }
+readme = { file = ["README.rst"] }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.optional-dependencies]
+# build= [
+#     # Packaging and Distribution
+#     # NOTE: pip and setuptools should be installed/upgraded separately
+#     "wheel",
+#     "twine",
+#     "pip-tools",
+#     "build",
+# ]
+dev = [
+    # Packaging and Distribution
+    # NOTE: pip and setuptools should be installed/upgraded separately
+    "wheel",
+    "twine",
+    "pip-tools",
+    "build",
+
+    # Linting and Formatting
+    "black",
+    "coverage",
+    "pylint",
+    "mypy",
+    # "doc8",
+
+    # Testing
+    "tox",
+    "pytest",
+    "pytest-cov",
+
+    # Source control
+    "pre-commit",
+
+    # Tools
+    "pysnooper",
+
+    # Documentation
+    "Sphinx",
+    "sphinx-autobuild",
+    "sphinx-autodoc-typehints",
+    "sphinx_rtd_theme",
+    "myst-parser",
+
+    # Vscode
+    "esbonio",
+    "rst2html",
+    "rstcheck",
+]
+
 
 [tool.isort]
 profile = "black"
@@ -10,28 +88,9 @@ src_paths = ["src", "test"]
 line-length = 88
 target-version = ['py310']
 
-# [tool.coverage.run]
-# branch = True
+[tool.pylint.format]
+# for black compatability
+max-line-length = "88"
 
-# [tool.coverage.report]
-# # Regexes for lines to exclude from consideration
-# exclude_lines =
-#     # Have to re-enable the standard pragma
-#     pragma: no cover
-
-#     # Don't complain about missing debug-only code:
-#     def __repr__
-#     if self\.debug
-
-#     # Don't complain if tests don't hit defensive assertion code:
-#     raise AssertionError
-#     raise NotImplementedError
-
-#     # Don't complain if non-runnable code isn't run:
-#     if 0:
-#     if __name__ == .__main__.:
-
-# ignore_errors = True
-
-# [tool.coverage.html]
-# directory = coverage_html_report
+[project.scripts]
+aa-pbs-exporter = "aa_pbs_exporter.cli.main_cli:main"

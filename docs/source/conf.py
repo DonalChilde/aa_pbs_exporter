@@ -13,25 +13,21 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../src"))
-
-import aa_pbs_exporter
+sys.path.insert(0, os.path.abspath("../../src"))
+import aa_pbs_exporter  # pylint: disable=wrong-import-position
 
 # -- Project information -----------------------------------------------------
-
+# pylint: disable=invalid-name
 project = "aa_pbs_exporter"
-copyright = "2022, Chad Lowe"
-author = "Chad Lowe"
-
-
-# The version info for the project you're documenting, acts as replacement
-# for |version| and |release|, also used in various other places throughout
-# the built documents.
-#
-# The short X.Y version.
-version = aa_pbs_exporter.__version__
+# pylint: disable=redefined-builtin
+copyright = "2022" + ", " + aa_pbs_exporter.__author__
+author = aa_pbs_exporter.__author__
 # The full version, including alpha/beta/rc tags.
-release = aa_pbs_exporter.__version__
+release = aa_pbs_exporter.__release__
+# The short X.Y.Z version.
+version = aa_pbs_exporter.__version__
+
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -44,6 +40,7 @@ extensions = [
     "sphinx_autodoc_typehints",
     "sphinx_rtd_theme",
     "sphinx.ext.intersphinx",
+    "myst_parser",
 ]
 
 # Mapping Example
@@ -66,7 +63,7 @@ exclude_patterns = []
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = [".rst", ".md"]
 
 # The master toctree document.
 master_doc = "index"
@@ -106,66 +103,3 @@ html_theme = "sphinx_rtd_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
-# -- Options for HTMLHelp output ---------------------------------------
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = "aa_pbs_exporter_doc"
-
-
-# -- Options for LaTeX output ------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, documentclass
-# [howto, manual, or own class]).
-latex_documents = [
-    (
-        master_doc,
-        "aa_pbs_exporter.tex",
-        "aa_pbs_exporter Documentation",
-        "Chad Lowe",
-        "manual",
-    ),
-]
-
-
-# -- Options for manual page output ------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, "aa_pbs_exporter", "aa_pbs_exporter Documentation", [author], 1)
-]
-
-
-# -- Options for Texinfo output ----------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (
-        master_doc,
-        "aa_pbs_exporter",
-        "aa_pbs_exporter Documentation",
-        author,
-        "aa_pbs_exporter",
-        "One line description of project.",
-        "Miscellaneous",
-    ),
-]
