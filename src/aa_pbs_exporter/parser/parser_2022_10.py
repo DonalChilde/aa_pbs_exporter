@@ -1,3 +1,4 @@
+from typing import Sequence, Dict
 from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10.raw_bid_package import SourceText
 from aa_pbs_exporter.util import state_parser as sp
@@ -34,10 +35,77 @@ DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 class ParseContext:
     def __init__(self, file_name: str) -> None:
-        self.bid_package = raw.Package(file_name=file_name, package_date=None)
+        self.bid_package = raw.Package(file_name=file_name)
 
     def handle_parse(self, data):
-        pass
+        # print(f"In Handle with {data.__class__.__qualname__}")
+        match data.__class__.__qualname__:
+            case "PageHeader1":
+                self.bid_package.pages.append(raw.Page(page_header_1=data))
+            case "PageHeader2":
+                self.bid_package.pages[-1].page_header_2 = data
+            case "HeaderSeparator":
+                pass
+            case "BaseEquipment":
+                self.bid_package.pages[-1].base_equipment = data
+            case "TripHeader":
+                self.bid_package.pages[-1].trips.append(raw.Trip(header=data))
+            case "DutyPeriodReport":
+                self.bid_package.pages[-1].trips[-1].dutyperiods.append(
+                    raw.DutyPeriod(report=data)
+                )
+            case "Flight":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
+                    data
+                )
+            case "DuytPeriodRelease":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = data
+            case "Hotel":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].hotel = data
+            case "HotelAdditional":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[
+                    -1
+                ].hotel_additional = data
+            case "Transportation":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[
+                    -1
+                ].transportation = data
+            case "TransportationAdditional":
+                self.bid_package.pages[-1].trips[-1].dutyperiods[
+                    -1
+                ].transportation_additional = data
+            case "TripFooter":
+                self.bid_package.pages[-1].trips[-1].footer = data
+            case "TripSeparator":
+                # could validate trip here
+                pass
+            case "PageFooter":
+                # could validate page here
+                pass
+
+
+class ParseScheme(sp.ParseScheme):
+    def __init__(self) -> None:
+        self.scheme: Dict[str, Sequence[sp.Parser]] = {
+            "start": [PageHeader1()],
+            "page_header_1": [PageHeader2()],
+            "page_header_2": [HeaderSeparator()],
+            "header_separator": [TripHeader()],
+            "trip_header": [DutyPeriodReport()],
+            "dutyperiod_report": [Flight(), FlightDeadhead()],
+            "flight": [Flight(), FlightDeadhead(), DutyPeriodRelease()],
+            "dutyperiod_release": [Hotel(), TripFooter()],
+            "hotel": [Transportation()],
+            "transportation": [DutyPeriodReport(), HotelAdditional()],
+            "hotel_additional": [TransportationAdditional()],
+            "transportation_additional": [DutyPeriodReport()],
+            "trip_footer": [TripSeparator()],
+            "trip_separator": [TripHeader(), PageFooter()],
+            "page_footer": [PageHeader1()],
+        }
+
+    def expected(self, state: str) -> Sequence[sp.Parser]:
+        return self.scheme[state]
 
 
 class PageHeader1(sp.Parser):
@@ -141,7 +209,9 @@ class TripHeader(sp.Parser):
                 + pp.Suppress("OPERATION"),
                 default=list(),
             )("operations")
-            + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"))("special_qualification")
+            + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"), default="")(
+                "special_qualification"
+            )
             + pp.Or([CALENDAR_HEADER, (pp.Literal("Replaces") + "prior" + "month")])
             + pp.StringEnd()
         )
@@ -157,6 +227,8 @@ class TripHeader(sp.Parser):
             number=result["number"],
             ops_count=result["ops_count"],
             positions=" ".join(result["positions"]),
+            operations=" ".join(result["operations"]),
+            special_qualification=" ".join(result["special_qualification"]),
             calendar="",
         )
         ctx.handle_parse(parsed)
@@ -446,8 +518,8 @@ class Transportation(sp.Parser):
         parsed = raw.Transportation(
             source=source,
             name=result["transportation"],
-            phone=result["transportation_phone"],
-            calendar=result["calendar_entries"],
+            phone=" ".join(result["transportation_phone"]),
+            calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse(parsed)
         return self.success_state
@@ -476,8 +548,8 @@ class TransportationAdditional(sp.Parser):
         parsed = raw.TransportationAdditional(
             source=source,
             name=result["transportation"],
-            phone=result["transportation_phone"],
-            calendar=result["calendar_entries"],
+            phone=" ".join(result["transportation_phone"]),
+            calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse(parsed)
         return self.success_state
@@ -509,7 +581,7 @@ class TripFooter(sp.Parser):
             synth=result["synth"],
             total_pay=result["total_pay"],
             tafb=result["tafb"],
-            calendar=result["calendar_entries"],
+            calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse(parsed)
         return self.success_state
@@ -526,7 +598,7 @@ class PageFooter(sp.Parser):
             + "EFF"
             + DATE_DDMMMYY("effective")
             + pp.Word(pp.alphas, exact=3)("base")
-            + pp.Opt(pp.Word(pp.alphas, exact=3)("satelite_base"))
+            + pp.Opt(pp.Word(pp.alphas, exact=3)("satelite_base"), default="")
             + pp.Word(pp.nums, exact=3)("equipment")
             + (pp.Literal("INTL") | pp.Literal("DOM"))("division")
             + "PAGE"
@@ -542,7 +614,7 @@ class PageFooter(sp.Parser):
             raise sp.ParseException(f"{error}") from error
         parsed = raw.PageFooter(
             source=source,
-            issued=result["block"],
+            issued=result["issued"],
             effective=result["effective"],
             base=result["base"],
             satelite_base=result["satelite_base"],

@@ -41,6 +41,8 @@ class TripHeader:
     number: str
     ops_count: str
     positions: str
+    operations: str
+    special_qualification: str
     calendar: str
 
 
@@ -155,16 +157,18 @@ class PackageDate:
 @dataclass
 class DutyPeriod:
     report: DutyPeriodReport
-    release: DuytPeriodRelease
-    hotel: Hotel
-    transportation: Transportation
+    release: DuytPeriodRelease | None = None
+    hotel: Hotel | None = None
+    transportation: Transportation | None = None
+    hotel_additional: HotelAdditional | None = None
+    transportation_additional: TransportationAdditional | None = None
     flights: List[Flight] = field(default_factory=list)
 
 
 @dataclass
 class Trip:
     header: TripHeader
-    footer: TripFooter
+    footer: TripFooter | None = None
     calendar: List = field(default_factory=list)
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
 
@@ -172,14 +176,14 @@ class Trip:
 @dataclass
 class Page:
     page_header_1: PageHeader1
-    page_header_2: PageHeader2 | None
-    base_equipment: BaseEquipment | None
-    page_footer: PageFooter | None
+    page_header_2: PageHeader2 | None = None
+    base_equipment: BaseEquipment | None = None
+    page_footer: PageFooter | None = None
     trips: List[Trip] = field(default_factory=list)
 
 
 @dataclass
 class Package:
     file_name: str
-    package_date: PackageDate | None
+    # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)
