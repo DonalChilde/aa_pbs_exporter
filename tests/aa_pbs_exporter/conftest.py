@@ -8,7 +8,11 @@ from typing import Any, Dict, List, Optional, Union
 
 import pytest
 
-from aa_pbs_exporter.app_lib.logging import rotating_file_handler
+# from aa_pbs_exporter.app_lib.logging import rotating_file_handler
+from aa_pbs_exporter.util.logging import (
+    rotating_file_handler,
+    add_handlers_to_target_logger,
+)
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
@@ -30,19 +34,19 @@ def _logger(test_log_path):
     handler = rotating_file_handler(
         log_dir=log_dir, file_name=__name__, log_level=TEST_LOG_LEVEL
     )
-    logger = logging.getLogger(__name__)
-    logger.setLevel(TEST_LOG_LEVEL)
-    logger.addHandler(handler)
-    logger.info("Rotating file logger %s initialized.", __name__)
-    chunk_logger = logging.getLogger("pfmsoft.text_chunk_parser")
-    chunk_logger.addHandler(handler)
-    chunk_logger.setLevel(TEST_LOG_LEVEL)
-    logger.info("%s library added to log file.", "pfmsoft.text_chunk_parser")
-    chunk_logger = logging.getLogger("aa_pbs_exporter")
-    chunk_logger.addHandler(handler)
-    chunk_logger.setLevel(TEST_LOG_LEVEL)
-    logger.info("%s library added to log file.", "aa_pbs_exporter")
-    return logger
+    test_logger = logging.getLogger(__name__)
+    test_logger.setLevel(TEST_LOG_LEVEL)
+    test_logger.addHandler(handler)
+    test_logger.info("Rotating file logger %s initialized.", __name__)
+    # chunk_logger = logging.getLogger("pfmsoft.text_chunk_parser")
+    # chunk_logger.addHandler(handler)
+    # chunk_logger.setLevel(TEST_LOG_LEVEL)
+    # logger.info("%s library added to log file.", "pfmsoft.text_chunk_parser")
+    project_logger = logging.getLogger("aa_pbs_exporter")
+    add_handlers_to_target_logger(test_logger, project_logger)
+    project_logger.setLevel(TEST_LOG_LEVEL)
+    test_logger.info("%s logs added to log file.", "aa_pbs_exporter")
+    return test_logger
 
 
 @pytest.fixture(scope="session", name="test_log_path")
