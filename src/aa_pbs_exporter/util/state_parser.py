@@ -63,10 +63,18 @@ def parse_line(line_number: int, line: str, parsers: Sequence[Parser], ctx) -> s
     for parser in parsers:
         try:
             new_state = parser.parse(line_number=line_number, line=line, ctx=ctx)
-            logger.info("%s: PARSED %r: %s", line_number, parser, line)
+            logger.info(
+                "\n\t%s: PARSED %r: %r", line_number, parser.__class__.__name__, line
+            )
             return new_state
         except ParseException as error:
-            logger.info("%s: FAILED %r: %s\n\t%s", line_number, parser, line, error)
+            logger.info(
+                "\n\t%s: FAILED %r: %r\n\t%r",
+                line_number,
+                parser.__class__.__name__,
+                line,
+                error,
+            )
     raise ParseException(
         f"No parser found for {line_number}: {line}\nTried {parsers!r}"
     )
