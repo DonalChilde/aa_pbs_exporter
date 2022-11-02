@@ -1,4 +1,4 @@
-from typing import Sequence, Dict
+from typing import Callable, Sequence, Dict
 from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10.raw_bid_package import SourceText
 from aa_pbs_exporter.util import state_parser as sp
@@ -31,6 +31,19 @@ CALENDAR_ENTRY = pp.Or(
     ]
 )
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
+
+
+def data_starts(index: str, line: str) -> bool:
+    _ = index
+    if "DEPARTURE" in line:
+        return True
+    return False
+
+
+def make_skipper() -> Callable[[str, str], bool]:
+    return sp.MultiTest(
+        testers=[sp.SkipTillMatch(matcher=data_starts), sp.SkipBlankLines()]
+    )
 
 
 class ParseContext:
@@ -90,12 +103,13 @@ class ParseScheme(sp.ParseScheme):
             "start": [PageHeader1()],
             "page_header_1": [PageHeader2()],
             "page_header_2": [HeaderSeparator()],
-            "header_separator": [TripHeader()],
+            "header_separator": [TripHeader(), BaseEquipment()],
+            "base_equipment": [TripHeader()],
             "trip_header": [DutyPeriodReport()],
             "dutyperiod_report": [Flight(), FlightDeadhead()],
             "flight": [Flight(), FlightDeadhead(), DutyPeriodRelease()],
             "dutyperiod_release": [Hotel(), TripFooter()],
-            "hotel": [Transportation()],
+            "hotel": [Transportation(), DutyPeriodReport(), HotelAdditional()],
             "transportation": [DutyPeriodReport(), HotelAdditional()],
             "hotel_additional": [TransportationAdditional()],
             "transportation_additional": [DutyPeriodReport()],
@@ -515,9 +529,10 @@ class Transportation(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
+        logger.debug("result: %r", result.as_dict())
         parsed = raw.Transportation(
             source=source,
-            name=result["transportation"],
+            name=result.get("transportation", ""),
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )

@@ -92,5 +92,8 @@ target-version = ['py310']
 # for black compatability
 max-line-length = "88"
 
+[tool.pylint.'MESSAGES CONTROL']
+extension-pkg-whitelist = "pydantic"
+
 [project.scripts]
 aa-pbs-exporter = "aa_pbs_exporter.cli.main_cli:main"
