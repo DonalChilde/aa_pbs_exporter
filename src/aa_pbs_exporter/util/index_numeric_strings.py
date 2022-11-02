@@ -10,7 +10,6 @@
 ####################################################
 from typing import Iterable, Iterator
 
-
 from .indexed_string import IndexedString
 
 

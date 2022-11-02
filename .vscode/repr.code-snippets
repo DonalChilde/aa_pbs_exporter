@@ -21,9 +21,9 @@
       "    # field_names = (key for key in self.__dict__ if not key.startswith('_'))",
       "    indent = ' ' * 4",
       "    rep = [f'{cls_name}(']",
-      "    for field in field_names:",
-      "        value = getattr(self, field)",
-      "        rep.append(f'{indent}{field} = {value!r}')",
+      "    for field_ in field_names:",
+      "        value = getattr(self, field_)",
+      "        rep.append(f'{indent}{field_} = {value!r}')",
       "    rep.append(')')",
       "    return '\\n'.join(rep)"
     ],

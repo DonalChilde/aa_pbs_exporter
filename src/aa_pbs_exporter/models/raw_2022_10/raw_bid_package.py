@@ -1,189 +1,81 @@
 from dataclasses import dataclass, field
-from typing import List
+from datetime import datetime
+from typing import List, Sequence
+
+from aa_pbs_exporter.models.raw_2022_10.raw_lines import (
+    BaseEquipment,
+    DutyPeriodRelease,
+    DutyPeriodReport,
+    Flight,
+    Hotel,
+    HotelAdditional,
+    PageFooter,
+    PageHeader1,
+    PageHeader2,
+    Transportation,
+    TransportationAdditional,
+    TripFooter,
+    TripHeader,
+)
+from aa_pbs_exporter.models.raw_2022_10.translate import extract_start_dates
+from aa_pbs_exporter.util.dataclass_repr_mixin import DataclassReprMixin
 
 
 @dataclass
-class SourceText:
-    line_no: int
-    txt: str
-
-    def __repr__(self):
-        return f"{self.line_no}: {self.txt}"
-
-
-@dataclass
-class PageHeader1:
-    source: SourceText
-
-
-@dataclass
-class PageHeader2:
-    source: SourceText
-    calendar_range: str
-
-
-@dataclass
-class HeaderSeparator:
-    source: SourceText
-
-
-@dataclass
-class BaseEquipment:
-    source: SourceText
-    base: str
-    satelite_base: str
-    equipment: str
-
-
-@dataclass
-class TripHeader:
-    source: SourceText
-    number: str
-    ops_count: str
-    positions: str
-    operations: str
-    special_qualification: str
-    calendar: str
-
-
-@dataclass
-class DutyPeriodReport:
-    source: SourceText
-    report: str
-    calendar: str
-
-
-@dataclass
-class Flight:
-    source: SourceText
-    dutyperiod_index: str
-    d_a: str
-    eq_code: str
-    flight_number: str
-    deadhead: str
-    departure_station: str
-    departure_time: str
-    meal: str
-    arrival_station: str
-    arrival_time: str
-    block: str
-    synth: str
-    ground: str
-    equipment_change: str
-    calendar: str
-
-
-@dataclass
-class DuytPeriodRelease:
-    source: SourceText
-    release: str
-    block: str
-    synth: str
-    total_pay: str
-    duty: str
-    flight_duty: str
-    calendar: str
-
-
-@dataclass
-class Hotel:
-    source: SourceText
-    layover_city: str
-    name: str
-    phone: str
-    rest: str
-    calendar: str
-
-
-@dataclass
-class HotelAdditional:
-    source: SourceText
-    layover_city: str
-    name: str
-    phone: str
-    calendar: str
-
-
-@dataclass
-class Transportation:
-    source: SourceText
-    name: str
-    phone: str
-    calendar: str
-
-
-@dataclass
-class TransportationAdditional:
-    source: SourceText
-    name: str
-    phone: str
-    calendar: str
-
-
-@dataclass
-class TripFooter:
-    source: SourceText
-    block: str
-    synth: str
-    total_pay: str
-    tafb: str
-    calendar: str
-
-
-@dataclass
-class TripSeparator:
-    source: SourceText
-
-
-@dataclass
-class PageFooter:
-    source: SourceText
-    issued: str
-    effective: str
-    base: str
-    satelite_base: str
-    equipment: str
-    division: str
-    page: str
-
-
-@dataclass
-class PackageDate:
-    source: SourceText
-    month: str
-    year: str
-
-
-@dataclass
-class DutyPeriod:
+class DutyPeriod(DataclassReprMixin):
     report: DutyPeriodReport
-    release: DuytPeriodRelease | None = None
+    release: DutyPeriodRelease | None = None
     hotel: Hotel | None = None
     transportation: Transportation | None = None
     hotel_additional: HotelAdditional | None = None
     transportation_additional: TransportationAdditional | None = None
     flights: List[Flight] = field(default_factory=list)
 
+    def __repr__(self):  # pylint: disable=useless-parent-delegation
+        return super().__repr__()
+
 
 @dataclass
-class Trip:
+class Trip(DataclassReprMixin):
     header: TripHeader
     footer: TripFooter | None = None
-    calendar: List = field(default_factory=list)
+    # calendar: List = field(default_factory=list)
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
+
+    def __repr__(self):  # pylint: disable=useless-parent-delegation
+        return super().__repr__()
+
+    def start_dates(self, effective: datetime, from_to: str) -> Sequence[datetime]:
+        return extract_start_dates(trip=self, effective=effective, from_to=from_to)
 
 
 @dataclass
-class Page:
+class Page(DataclassReprMixin):
     page_header_1: PageHeader1
     page_header_2: PageHeader2 | None = None
     base_equipment: BaseEquipment | None = None
     page_footer: PageFooter | None = None
     trips: List[Trip] = field(default_factory=list)
 
+    def __repr__(self):  # pylint: disable=useless-parent-delegation
+        return super().__repr__()
+
+    def effective(self) -> datetime:
+        if self.page_footer is not None:
+            return datetime.strptime(self.page_footer.effective, "%d&b%Y")
+        raise ValueError("Tried to get effective date, but page_footer was None.")
+
+    def from_to(self) -> str:
+        if self.page_header_2 is None:
+            raise ValueError("Tried to get from_to but page_header_2 was None.")
+        return self.page_header_2.calendar_range
+
 
 @dataclass
-class Package:
+class Package(DataclassReprMixin):
     file_name: str
     # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)
+
+    def __repr__(self):  # pylint: disable=useless-parent-delegation
+        return super().__repr__()

@@ -1,11 +1,25 @@
 import logging
+from dataclasses import asdict
 from datetime import date, datetime
+from pprint import PrettyPrinter
 
-import logging
-from aa_pbs_exporter.util.state_parser import parse_lines
+import pytest
+
+from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
+from aa_pbs_exporter.models.raw_2022_10.translate import (
+    days_in_range,
+    expand_from_to,
+    extract_calendar_entries,
+    extract_start_dates,
+)
 from aa_pbs_exporter.parser import parser_2022_10 as parser
+from aa_pbs_exporter.util.state_parser import parse_lines
 
-test_string="""   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/
+pp = PrettyPrinter(indent=2, compact=True)
+#####
+
+TEST_STRING = """
+   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/
 DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01
 −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−
 SEQ 16942   1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU
@@ -82,17 +96,56 @@ TTL                                              4.20   0.55   5.15         6.16
 
 COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               DFW 320  DOM                              PAGE   341"""
 
-def test_page(logger:logging.Logger):
-    # ctx = ParseContextTest("Test String")
-    ctx=parser.ParseContext("Test string")
+
+@pytest.fixture(scope="module", name="parsed_bid_page")
+def parsed_bid_page_fixture() -> raw.Page:
+    ctx = parser.ParseContext("Test string")
     scheme = parser.ParseScheme()
-    lines=test_string.split("\n")
-    parse_lines(lines,scheme,ctx,skipper=parser.make_skipper())
-    page=ctx.bid_package.pages[-1]
-    assert page.trips[-1].header.number=="16945"
-    assert page.trips[-2].dutyperiods[0].hotel.name=="AT&T HOTEL"
-    assert page.trips[-2].dutyperiods[0].transportation.name=="J & G’S CITYWIDE EXPRESS"
+    lines = TEST_STRING.split("\n")
+    parse_lines(lines, scheme, ctx, skipper=parser.make_skipper())
+    page = ctx.bid_package.pages[-1]
+    _ = asdict
+    # pp.pprint(asdict(page))
+    # pp.pprint(page)
+    # print(page)
+    return page
+
+
+def test_extract_calendar_entries(parsed_bid_page: raw.Page, logger: logging.Logger):
+    _ = logger
+    expected = "−− −− −− −− −− −− −− −− −− 11 −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −−".split()
+    for trip in parsed_bid_page.trips:
+        entries = extract_calendar_entries(trip)
+        assert expected == entries
     # assert False
+
+
+def test_expand_from_to():
+    effective = datetime.strptime("02MAY2022", "%d%b%Y")
+    from_to = "05/02−06/01"
+    from_date, to_date = expand_from_to(effective, from_to)
+    assert datetime(year=2022, month=5, day=2) == from_date
+    assert datetime(year=2022, month=6, day=1) == to_date
+
+
+def test_days_in_range():
+    effective = datetime.strptime("02MAY2022", "%d%b%Y")
+    from_to = "05/02−06/01"
+    from_date, to_date = expand_from_to(effective, from_to)
+    days = days_in_range(from_date, to_date)
+    assert days == 31
+
+
+def test_extract_start_dates(parsed_bid_page: raw.Page):
+    effective = datetime.strptime(parsed_bid_page.page_footer.effective, "%d%b%Y")
+    for trip in parsed_bid_page.trips:
+        start_dates = extract_start_dates(
+            trip, effective, parsed_bid_page.page_header_2.calendar_range
+        )
+        assert len(start_dates) == 1
+        assert start_dates == [datetime(year=2022, month=5, day=11)]
+
+
 def test_slice():
     effective = datetime.strptime("02MAY2022", "%d%b%Y")
     effective_date = effective.date()

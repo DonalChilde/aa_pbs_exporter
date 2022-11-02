@@ -4,7 +4,7 @@ from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.parser import parser_2022_10 as parsers
 
 test_data = [
-    raw.DuytPeriodRelease(
+    raw.DutyPeriodRelease(
         source=raw.SourceText(
             1,
             "                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
@@ -17,7 +17,7 @@ test_data = [
         flight_duty="5.49",
         calendar="−− −− −− −− −− −− −−",
     ),
-    raw.DuytPeriodRelease(
+    raw.DutyPeriodRelease(
         source=raw.SourceText(
             1,
             "                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",

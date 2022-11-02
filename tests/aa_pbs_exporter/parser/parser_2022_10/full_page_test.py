@@ -1,9 +1,12 @@
 import logging
-from aa_pbs_exporter.util.state_parser import parse_lines
-from aa_pbs_exporter.parser import parser_2022_10 as parser
+
 from tests.aa_pbs_exporter.parser.parser_2022_10.test_context import ParseContextTest
 
-test_string="""   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/
+from aa_pbs_exporter.parser import parser_2022_10 as parser
+from aa_pbs_exporter.util.state_parser import parse_lines
+
+test_string = """
+   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/
 DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01
 −−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−
 SEQ 16942   1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU
@@ -80,14 +83,17 @@ TTL                                              4.20   0.55   5.15         6.16
 
 COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               DFW 320  DOM                              PAGE   341"""
 
-def test_page(logger:logging.Logger):
+
+def test_page(logger: logging.Logger):
     # ctx = ParseContextTest("Test String")
-    ctx=parser.ParseContext("Test string")
+    ctx = parser.ParseContext("Test string")
     scheme = parser.ParseScheme()
-    lines=test_string.split("\n")
-    parse_lines(lines,scheme,ctx,skipper=parser.make_skipper())
-    page=ctx.bid_package.pages[-1]
-    assert page.trips[-1].header.number=="16945"
-    assert page.trips[-2].dutyperiods[0].hotel.name=="AT&T HOTEL"
-    assert page.trips[-2].dutyperiods[0].transportation.name=="J & G’S CITYWIDE EXPRESS"
+    lines = test_string.split("\n")
+    parse_lines(lines, scheme, ctx, skipper=parser.make_skipper())
+    page = ctx.bid_package.pages[-1]
+    assert page.trips[-1].header.number == "16945"
+    assert page.trips[-2].dutyperiods[0].hotel.name == "AT&T HOTEL"
+    assert (
+        page.trips[-2].dutyperiods[0].transportation.name == "J & G’S CITYWIDE EXPRESS"
+    )
     # assert False

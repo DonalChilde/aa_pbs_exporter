@@ -1,9 +1,12 @@
-from typing import Callable, Sequence, Dict
-from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
-from aa_pbs_exporter.models.raw_2022_10.raw_bid_package import SourceText
-from aa_pbs_exporter.util import state_parser as sp
-import pyparsing as pp
 import logging
+from typing import Callable, Dict, Sequence
+
+import pyparsing as pp
+
+from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
+from aa_pbs_exporter.models.raw_2022_10 import raw_lines
+from aa_pbs_exporter.models.raw_2022_10.raw_lines import SourceText
+from aa_pbs_exporter.util import state_parser as sp
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -71,7 +74,7 @@ class ParseContext:
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
                     data
                 )
-            case "DuytPeriodRelease":
+            case "DutyPeriodRelease":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = data
             case "Hotel":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].hotel = data
@@ -94,7 +97,7 @@ class ParseContext:
                 pass
             case "PageFooter":
                 # could validate page here
-                pass
+                self.bid_package.pages[-1].page_footer = data
 
 
 class ParseScheme(sp.ParseScheme):
@@ -129,7 +132,7 @@ class PageHeader1(sp.Parser):
     def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
         if "DEPARTURE" in line:
             source = SourceText(line_number, line)
-            parsed = raw.PageHeader1(source=source)
+            parsed = raw_lines.PageHeader1(source=source)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'DEPARTURE' not found in line.")
@@ -143,7 +146,7 @@ class PageHeader2(sp.Parser):
         words = line.split()
         if words[-2] == "CALENDAR":
             source = SourceText(line_number, line)
-            parsed = raw.PageHeader2(source=source, calendar_range=words[-1])
+            parsed = raw_lines.PageHeader2(source=source, calendar_range=words[-1])
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException(f"Found {words[-2]} instead of 'CALENDAR' in line.")
@@ -156,7 +159,7 @@ class HeaderSeparator(sp.Parser):
     def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
         if "-" * 5 in line or "\u2212" * 5 in line:
             source = SourceText(line_number, line)
-            parsed = raw.HeaderSeparator(source=source)
+            parsed = raw_lines.HeaderSeparator(source=source)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -169,7 +172,7 @@ class TripSeparator(sp.Parser):
     def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
         if "-" * 5 in line or "\u2212" * 5 in line:
             source = SourceText(line_number, line)
-            parsed = raw.TripSeparator(source=source)
+            parsed = raw_lines.TripSeparator(source=source)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -192,7 +195,7 @@ class BaseEquipment(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.BaseEquipment(
+        parsed = raw_lines.BaseEquipment(
             source=source,
             base=result["base"],
             satelite_base=result.get("satelite_base", ""),
@@ -236,7 +239,7 @@ class TripHeader(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.TripHeader(
+        parsed = raw_lines.TripHeader(
             source=source,
             number=result["number"],
             ops_count=result["ops_count"],
@@ -272,7 +275,7 @@ class DutyPeriodReport(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.DutyPeriodReport(
+        parsed = raw_lines.DutyPeriodReport(
             source=source,
             report=result["report"],
             calendar=" ".join(result["calendar_entries"]),
@@ -317,7 +320,7 @@ class Flight(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.Flight(
+        parsed = raw_lines.Flight(
             source=source,
             dutyperiod_index=result["dutyperiod"],
             d_a=result["day_of_sequence"],
@@ -375,7 +378,7 @@ class FlightDeadhead(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.Flight(
+        parsed = raw_lines.Flight(
             source=source,
             dutyperiod_index=result["dutyperiod"],
             d_a=result["day_of_sequence"],
@@ -419,7 +422,7 @@ class DutyPeriodRelease(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.DuytPeriodRelease(
+        parsed = raw_lines.DutyPeriodRelease(
             source=source,
             release=result["release_time"],
             block=result["block"],
@@ -459,7 +462,7 @@ class Hotel(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.Hotel(
+        parsed = raw_lines.Hotel(
             source=source,
             layover_city=result["layover_city"],
             name=result["hotel"],
@@ -498,7 +501,7 @@ class HotelAdditional(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.HotelAdditional(
+        parsed = raw_lines.HotelAdditional(
             source=source,
             layover_city=result["layover_city"],
             name=result["hotel"],
@@ -530,7 +533,7 @@ class Transportation(sp.Parser):
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         logger.debug("result: %r", result.as_dict())
-        parsed = raw.Transportation(
+        parsed = raw_lines.Transportation(
             source=source,
             name=result.get("transportation", ""),
             phone=" ".join(result["transportation_phone"]),
@@ -560,7 +563,7 @@ class TransportationAdditional(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.TransportationAdditional(
+        parsed = raw_lines.TransportationAdditional(
             source=source,
             name=result["transportation"],
             phone=" ".join(result["transportation_phone"]),
@@ -590,7 +593,7 @@ class TripFooter(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.TripFooter(
+        parsed = raw_lines.TripFooter(
             source=source,
             block=result["block"],
             synth=result["synth"],
@@ -627,7 +630,7 @@ class PageFooter(sp.Parser):
             result = self._parser.parse_string(line)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = raw.PageFooter(
+        parsed = raw_lines.PageFooter(
             source=source,
             issued=result["issued"],
             effective=result["effective"],

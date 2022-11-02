@@ -1,9 +1,11 @@
 import importlib
 import logging
 from typing import List
-from aa_pbs_exporter.util.state_parser import parse_file
-from aa_pbs_exporter.parser import parser_2022_10 as parser
+
 from tests.aa_pbs_exporter.conftest import PackageResource
+
+from aa_pbs_exporter.parser import parser_2022_10 as parser
+from aa_pbs_exporter.util.state_parser import parse_file
 
 
 def test_phx(pairing_text_files: List[PackageResource], logger: logging.Logger):
