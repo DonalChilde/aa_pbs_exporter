@@ -22,16 +22,23 @@ test_data = [
         phone="8088712702",
         calendar="−− −− −−",
     ),
+    raw.Transportation(
+        source=raw.SourceText(
+            2,
+            "                                                                                      −− −− −−",
+        ),
+        name="",
+        phone="",
+        calendar="−− −− −−",
+    ),
 ]
 
-
-def test_transportation():
+#                                                                                       −− −− −−
+def test_transportation(logger):
     ctx = ParseContextTest("None")
     expected_state = "transportation"
     parser = parsers.Transportation()
     for data in test_data:
         state = parser.parse(data.source.line_no, data.source.txt, ctx)
         assert state == expected_state
-        print("expected", ctx.parsed_data)
-        print("parsed", ctx.parsed_data)
         assert data == ctx.parsed_data

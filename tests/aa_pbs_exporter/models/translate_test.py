@@ -1,7 +1,9 @@
 import logging
+from datetime import date, datetime
+
+import logging
 from aa_pbs_exporter.util.state_parser import parse_lines
 from aa_pbs_exporter.parser import parser_2022_10 as parser
-from tests.aa_pbs_exporter.parser.parser_2022_10.test_context import ParseContextTest
 
 test_string="""   DAY          −−DEPARTURE−−    −−−ARRIVAL−−−                GRND/        REST/
 DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01
@@ -91,3 +93,18 @@ def test_page(logger:logging.Logger):
     assert page.trips[-2].dutyperiods[0].hotel.name=="AT&T HOTEL"
     assert page.trips[-2].dutyperiods[0].transportation.name=="J & G’S CITYWIDE EXPRESS"
     # assert False
+def test_slice():
+    effective = datetime.strptime("02MAY2022", "%d%b%Y")
+    effective_date = effective.date()
+    assert effective_date == date(year=2022, month=5, day=2)
+    from_to = "05/02−06/01"
+    from_md = from_to[:5]
+    to_md = from_to[6:]
+    assert from_md == "05/02"
+    assert to_md == "06/01"
+    parsed = datetime.strptime(f"{from_md}/{effective_date.year}", "%m/%d/%Y")
+    from_date = parsed.date()
+    assert from_date == date(year=2022, month=5, day=2)
+    parsed = datetime.strptime(f"{to_md}/{effective_date.year}", "%m/%d/%Y")
+    to_date = parsed.date()
+    assert to_date == date(year=2022, month=6, day=1)

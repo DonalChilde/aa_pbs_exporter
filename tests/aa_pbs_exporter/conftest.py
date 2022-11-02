@@ -4,7 +4,7 @@ import logging
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Sequence, Union
 
 import pytest
 
@@ -16,6 +16,12 @@ from aa_pbs_exporter.util.logging import (
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
+
+
+@dataclass
+class PackageResource:
+    package: str
+    name: str
 
 
 @dataclass
@@ -88,14 +94,26 @@ def load_json_resource(
     return resource
 
 
+def package_resource_files(resource_package: str) -> Sequence[PackageResource]:
+    result = []
+    for file in resources.files(resource_package).iterdir():
+        if file.is_file() and not file.name.startswith("__"):
+            result.append(PackageResource(resource_package, file.name))
+    return result
+
+
 @pytest.fixture(scope="session", name="pairing_text_files")
 def pairing_text_file_resources(logger: logging.Logger):
     resource_path: str = "tests.aa_pbs_exporter.resources.text.2022_05"
-    resource_names = collect_resource_names(resource_path, [".txt"])
-    file_resources = load_file_resources(
-        resource_path, resource_names, logger, path_only=True
-    )
-    return file_resources
+    # result = []
+    # for file in resources.files(resource_path).iterdir():
+    #     result.append(PackageResource(resource_path, file.name))
+
+    # resource_names = collect_resource_names(resource_path, [".txt"])
+    # file_resources = load_file_resources(
+    #     resource_path, resource_names, logger, path_only=True
+    # )
+    return package_resource_files(resource_path)
 
 
 # TODO move file resource loading to applib
