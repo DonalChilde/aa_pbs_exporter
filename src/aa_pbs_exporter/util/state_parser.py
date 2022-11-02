@@ -1,6 +1,6 @@
 ####################################################
 #                                                  #
-#          src/snippets/parsing/parser.py
+#          src/snippets/parsing/state_parser.py
 #                                                  #
 ####################################################
 # Created by: Chad Lowe                            #
@@ -8,13 +8,39 @@
 # Last Modified: _iso_date_         #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
-from pathlib import Path
-from typing import Iterable, Sequence
-
 import logging
+from pathlib import Path
+from typing import Callable, Iterable, Sequence
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
+
+
+class SkipBlankLines:
+    def __call__(self, index: str, line: str) -> bool:
+        return bool(line.strip())
+
+
+class SkipTillMatch:
+    def __init__(self, matcher: Callable[[str, str], bool]) -> None:
+        self.matcher = matcher
+        self.procede = False
+
+    def __call__(self, index: str, line: str) -> bool:
+        if self.procede:
+            return True
+        if self.matcher(index, line):
+            self.procede = True
+            return True
+        return False
+
+
+class MultiTest:
+    def __init__(self, testers: Sequence[Callable[[str, str], bool]]) -> None:
+        self.testers: Sequence[Callable[[str, str], bool]] = list(testers)
+
+    def __call__(self, index: str, line: str) -> bool:
+        return all((tester(index, line) for tester in self.testers))
 
 
 class Parser:
@@ -26,6 +52,9 @@ class Parser:
         a future parse attempt.
         """
         raise NotImplementedError
+
+    def __repr__(self):
+        return f"{self.__class__.__qualname__}()"
 
 
 class ParseScheme:
@@ -40,23 +69,35 @@ class ParseException(Exception):
     """Use this exception to signal a failed parse."""
 
 
-def parse_file(file_path: Path, scheme: ParseScheme, ctx, skip_blank: bool = True):
+def parse_file(
+    file_path: Path,
+    scheme: ParseScheme,
+    ctx,
+    skipper: Callable[[str, str], bool] | None = None,
+):
     with open(file_path, encoding="utf-8") as file:
-        parse_lines(file, scheme=scheme, ctx=ctx, skip_blank=skip_blank)
+        try:
+            parse_lines(file, scheme=scheme, ctx=ctx, skipper=skipper)
+        except ParseException as error:
+            logger.error("%s Failed to parse %r", file_path, error)
+            raise error
 
 
 def parse_lines(
-    lines: Iterable[str], scheme: ParseScheme, ctx, skip_blank: bool = True
+    lines: Iterable[str],
+    scheme: ParseScheme,
+    ctx,
+    skipper: Callable[[str, str], bool] | None = None,
 ):
     state = "start"
     for line_number, line in enumerate(lines):
-        if skip_blank:
-            if not line.strip():
-                continue
+        if skipper is not None and not skipper(str(line_number), line):
+            continue
         try:
             state = parse_line(line_number, line, scheme.expected(state), ctx)
         except ParseException as error:
             logger.error("%s", error)
+            raise error
 
 
 def parse_line(line_number: int, line: str, parsers: Sequence[Parser], ctx) -> str:
