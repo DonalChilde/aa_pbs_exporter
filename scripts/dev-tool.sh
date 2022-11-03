@@ -102,9 +102,9 @@ DIST_DIR=${DIST_DIR:-"$PROJECT_DIR/dist"}
 #################################################
 
 function clean() { ## Clean build,python, and test artifacts.
-    clean:build
-    clean:pyc
-    clean:test
+    clean-build
+    clean-pyc
+    clean-test
 }
 
 function clean-build() { ## Clean build artifacts.
