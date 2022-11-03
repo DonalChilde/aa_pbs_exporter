@@ -21,7 +21,13 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
 ]
-dependencies = ["click", "pdfminer.six", "pyparsing", "marshmallow", "pydantic"]
+dependencies = [
+    "click",
+    "pdfminer.six",
+    "pyparsing",
+    "airportsdata",
+    "pydantic",
+]
 dynamic = ["version", "readme"]
 
 [tool.setuptools.dynamic]
