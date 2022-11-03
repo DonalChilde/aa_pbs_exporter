@@ -1,11 +1,7 @@
 from datetime import datetime, timedelta
 
 from pydantic import BaseModel
-
-
-class Airport(BaseModel):
-    iata: str
-    tz: str
+from aa_pbs_exporter.airports.airport_model import Airport
 
 
 class Transportation(BaseModel):
@@ -16,6 +12,7 @@ class Transportation(BaseModel):
 class Hotel(BaseModel):
     name: str
     phone: str
+    transportation: Transportation
 
 
 class Layover(BaseModel):
@@ -27,7 +24,7 @@ class Layover(BaseModel):
 
 class Flight(BaseModel):
     dutyperiod_index: int
-    index_: int
+    idx: int
     d_a: str
     eq_code: str
     number: str
@@ -44,7 +41,7 @@ class Flight(BaseModel):
 
 
 class DutyPeriod(BaseModel):
-    index_: int
+    idx: int
     report: datetime
     report_station: str
     release: datetime
@@ -55,6 +52,7 @@ class DutyPeriod(BaseModel):
     duty: timedelta
     flight_duty: timedelta
     flights: list[Flight]
+    layover: Layover | None
 
 
 class Trip(BaseModel):
@@ -63,6 +61,8 @@ class Trip(BaseModel):
     satelite_base: str
     positions: str
     operations: str
+    division: str
+    equipment: str
     special_qualifications: bool
     block: timedelta
     synth: timedelta
@@ -71,7 +71,7 @@ class Trip(BaseModel):
     dutyperiods: list[DutyPeriod]
 
 
-class PairingPackage(BaseModel):
+class BidPackage(BaseModel):
     source: str
     base: str
     start: datetime
