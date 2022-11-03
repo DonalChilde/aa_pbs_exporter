@@ -72,24 +72,25 @@ class ParseContext:
                 )
             case "Flight":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
-                    data
+                    raw.Flight(flight=data)
                 )
             case "DutyPeriodRelease":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = data
             case "Hotel":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].hotel = data
+                layover = raw.Layover(hotel=data)
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
             case "HotelAdditional":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].hotel_additional = data
+                ].layover.hotel_additional = data
             case "Transportation":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].transportation = data
+                ].layover.transportation = data
             case "TransportationAdditional":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].transportation_additional = data
+                ].layover.transportation_additional = data
             case "TripFooter":
                 self.bid_package.pages[-1].trips[-1].footer = data
             case "TripSeparator":
