@@ -1,17 +1,18 @@
 from tests.aa_pbs_exporter.parser.parser_2022_10.test_context import ParseContextTest
 
-from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.parser import parser_2022_10 as parsers
+from aa_pbs_exporter.models.raw_2022_10 import raw_lines
+
 
 test_data = [
-    raw.BaseEquipment(
-        source=raw.SourceText(1, "BOS 737"),
+    raw_lines.BaseEquipment(
+        source=raw_lines.SourceText(1, "BOS 737"),
         base="BOS",
         satelite_base="",
         equipment="737",
     ),
-    raw.BaseEquipment(
-        source=raw.SourceText(2, "LAX SAN 737"),
+    raw_lines.BaseEquipment(
+        source=raw_lines.SourceText(2, "LAX SAN 737"),
         base="LAX",
         satelite_base="SAN",
         equipment="737",

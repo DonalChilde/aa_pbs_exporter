@@ -1,9 +1,12 @@
+import importlib
 import logging
 from dataclasses import asdict
 from datetime import date, datetime
 from pprint import PrettyPrinter
+from typing import List
 
 import pytest
+from tests.aa_pbs_exporter.conftest import PackageResource
 
 from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10.translate import (
@@ -11,9 +14,10 @@ from aa_pbs_exporter.models.raw_2022_10.translate import (
     expand_from_to,
     extract_calendar_entries,
     extract_start_dates,
+    collect_airports,
 )
 from aa_pbs_exporter.parser import parser_2022_10 as parser
-from aa_pbs_exporter.util.state_parser import parse_lines
+from aa_pbs_exporter.util.state_parser import parse_file, parse_lines
 
 pp = PrettyPrinter(indent=2, compact=True)
 #####
@@ -161,3 +165,28 @@ def test_slice():
     parsed = datetime.strptime(f"{to_md}/{effective_date.year}", "%m/%d/%Y")
     to_date = parsed.date()
     assert to_date == date(year=2022, month=6, day=1)
+
+
+@pytest.fixture(scope="module", name="parsed_bid_package")
+def parse_package(pairing_text_files: List[PackageResource], logger: logging.Logger):
+    ctx = parse_city("LAX", pairing_text_files, logger)
+    return ctx.bid_package
+
+
+def parse_city(
+    city: str, pairing_text_files: List[PackageResource], logger
+) -> parser.ParseContext:
+    scheme = parser.ParseScheme()
+    for resource in [x for x in pairing_text_files if city in x.name]:
+        with importlib.resources.path(resource.package, resource.name) as file_path:
+            logger.info("Parsing %s.%s", resource.package, resource.name)
+            ctx = parser.ParseContext(str(file_path))
+            parse_file(file_path, scheme=scheme, ctx=ctx, skipper=parser.make_skipper())
+            return ctx
+
+
+def test_collect_airports(parsed_bid_package: raw.Package):
+    airports = collect_airports(parsed_bid_package)
+    print(airports)
+    assert len(airports) > 5
+    assert False
