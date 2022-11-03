@@ -12,14 +12,14 @@ class Transportation(BaseModel):
 class Hotel(BaseModel):
     name: str
     phone: str
-    transportation: Transportation
+    transportation: Transportation | None
 
 
 class Layover(BaseModel):
     odl: timedelta
     city: str
-    hotel: Hotel
-    additional_hotel: Hotel
+    hotel: Hotel | None
+    additional_hotel: Hotel | None
 
 
 class Flight(BaseModel):
