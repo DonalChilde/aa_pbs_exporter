@@ -25,7 +25,7 @@ DATE = ""
 TIME = ""
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 
-
+# TODO consolidate validation functions, make reporting easier and more consistent
 @dataclass
 class ResolvedFlight(DataclassReprMixin):
     resolved_trip_start: datetime
@@ -294,10 +294,10 @@ class Trip(DataclassReprMixin):
         return self.header.ops_count
 
     def base(self, page: "Page") -> str:
-        return page.page_footer.base  # type: ignore
+        return page.base()  # type: ignore
 
     def satelite_base(self, page: "Page") -> str | None:
-        return page.page_footer.satelite_base  # type: ignore
+        return page.satelite_base()  # type: ignore
 
     def positions(self) -> str:
         return self.header.positions
@@ -382,6 +382,14 @@ class Trip(DataclassReprMixin):
             else:
                 # This will cause an error if any but the last dp has no layover.
                 report = None  # type: ignore
+        tafb = self.tafb()
+        if (
+            tafb
+            != self.dutyperiods[-1].release_time() - self.dutyperiods[0].report_time()
+        ):
+            raise ValueError(
+                f"{tafb=} does not match trip release - trip report. start_date={resolved_start_date} trip={self}"
+            )
 
     def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
         """Builds a list of no-tz datetime representing start dates for trips."""
@@ -464,6 +472,12 @@ class Page(DataclassReprMixin):
             return datetime.strptime(self.page_footer.issued, DATE)
         raise ValueError("Tried to get issued date, but page_footer was None.")
 
+    def base(self) -> str:
+        return self.page_footer.base.upper()  # type: ignore
+
+    def satelite_base(self) -> str:
+        return self.page_footer.satelite_base.upper()  # type: ignore
+
     def from_to(self) -> tuple[datetime, datetime]:
         if self.page_header_2 is None:
             raise ValueError("Tried to get from_to but page_header_2 was None.")
@@ -485,18 +499,30 @@ class Package(DataclassReprMixin):
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
 
+    def from_to(self) -> tuple[datetime, datetime]:
+        return self.pages[0].from_to()
+
+    def base(self) -> str:
+        return self.pages[0].base()
+
+    def satelite_bases(self) -> Set[str]:
+        bases: Set[str] = set()
+        for page in self.pages:
+            page_sat = page.satelite_base()
+            if is_iata(page_sat):
+                bases.add(page_sat)
+        return bases
+
     def collect_iata_codes(self) -> Set[str]:
         iatas: set[str] = set()
+        iatas.add(self.base())
+        iatas.update(self.satelite_bases())
         for page in self.pages:
             for trip in page.trips:
                 for dutyperiod in trip.dutyperiods:
                     for flight in dutyperiod.flights:
                         iatas.add(flight.departure_station())
                         iatas.add(flight.arrival_station())
-        if None in iatas:
-            iatas.remove(None)  # type: ignore
-        if "" in iatas:
-            iatas.remove("")
         return iatas
 
     def resolve_package_dates(self, airports: dict[str, Airport]):
@@ -507,6 +533,12 @@ class Package(DataclassReprMixin):
                 trip.resolve_all_the_dates(
                     from_date=from_date, to_date=to_date, airports=airports
                 )
+
+
+def is_iata(iata: str) -> bool:
+    if isinstance(iata, str) and len(iata) == 3:
+        return True
+    return False
 
 
 def parse_time(time_str: str) -> time.struct_time:

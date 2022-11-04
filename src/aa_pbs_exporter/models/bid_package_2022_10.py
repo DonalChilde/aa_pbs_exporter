@@ -74,7 +74,8 @@ class Trip(BaseModel):
 class BidPackage(BaseModel):
     source: str
     base: str
-    start: datetime
-    end: datetime
+    satelite_bases: set[str]
+    from_date: datetime
+    to_date: datetime
     trips: list[Trip]
     airports: dict[str, Airport]
