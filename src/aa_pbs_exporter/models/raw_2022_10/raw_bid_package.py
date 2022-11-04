@@ -40,18 +40,13 @@ class ResolvedDutyperiod(DataclassReprMixin):
     release: datetime
 
 
-# @dataclass
-# class ResolvedTrip(DataclassReprMixin):
-#     resolved_start_date: datetime
-#     dutyperiods: list[ResolvedDutyperiod] = field(default_factory=list)
-
-
 @dataclass
 class LocalHbt(DataclassReprMixin):
     local: str
     hbt: str
 
 
+@dataclass
 class Flight(DataclassReprMixin):
     flight: raw_lines.Flight
     resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)

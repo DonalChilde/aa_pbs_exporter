@@ -10,11 +10,6 @@ from tests.aa_pbs_exporter.conftest import PackageResource
 
 from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10.translate import (
-    days_in_range,
-    expand_from_to,
-    extract_calendar_entries,
-    extract_start_dates,
-    collect_airports,
     translate_package,
 )
 from aa_pbs_exporter.parser import parser_2022_10 as parser
@@ -116,39 +111,39 @@ def parsed_bid_page_fixture() -> raw.Page:
     return page
 
 
-def test_extract_calendar_entries(parsed_bid_page: raw.Page, logger: logging.Logger):
-    _ = logger
-    expected = "−− −− −− −− −− −− −− −− −− 11 −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −−".split()
-    for trip in parsed_bid_page.trips:
-        entries = extract_calendar_entries(trip)
-        assert expected == entries
-    # assert False
+# def test_extract_calendar_entries(parsed_bid_page: raw.Page, logger: logging.Logger):
+#     _ = logger
+#     expected = "−− −− −− −− −− −− −− −− −− 11 −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −− −−".split()
+#     for trip in parsed_bid_page.trips:
+#         entries = extract_calendar_entries(trip)
+#         assert expected == entries
+#     # assert False
 
 
-def test_expand_from_to():
-    effective = datetime.strptime("02MAY2022", "%d%b%Y")
-    from_to = "05/02−06/01"
-    from_date, to_date = expand_from_to(effective, from_to)
-    assert datetime(year=2022, month=5, day=2) == from_date
-    assert datetime(year=2022, month=6, day=1) == to_date
+# def test_expand_from_to():
+#     effective = datetime.strptime("02MAY2022", "%d%b%Y")
+#     from_to = "05/02−06/01"
+#     from_date, to_date = expand_from_to(effective, from_to)
+#     assert datetime(year=2022, month=5, day=2) == from_date
+#     assert datetime(year=2022, month=6, day=1) == to_date
 
 
-def test_days_in_range():
-    effective = datetime.strptime("02MAY2022", "%d%b%Y")
-    from_to = "05/02−06/01"
-    from_date, to_date = expand_from_to(effective, from_to)
-    days = days_in_range(from_date, to_date)
-    assert days == 31
+# def test_days_in_range():
+#     effective = datetime.strptime("02MAY2022", "%d%b%Y")
+#     from_to = "05/02−06/01"
+#     from_date, to_date = expand_from_to(effective, from_to)
+#     days = days_in_range(from_date, to_date)
+#     assert days == 31
 
 
-def test_extract_start_dates(parsed_bid_page: raw.Page):
-    effective = datetime.strptime(parsed_bid_page.page_footer.effective, "%d%b%Y")
-    for trip in parsed_bid_page.trips:
-        start_dates = extract_start_dates(
-            trip, effective, parsed_bid_page.page_header_2.calendar_range
-        )
-        assert len(start_dates) == 1
-        assert start_dates == [datetime(year=2022, month=5, day=11)]
+# def test_extract_start_dates(parsed_bid_page: raw.Page):
+#     effective = datetime.strptime(parsed_bid_page.page_footer.effective, "%d%b%Y")
+#     for trip in parsed_bid_page.trips:
+#         start_dates = extract_start_dates(
+#             trip, effective, parsed_bid_page.page_header_2.calendar_range
+#         )
+#         assert len(start_dates) == 1
+#         assert start_dates == [datetime(year=2022, month=5, day=11)]
 
 
 def test_slice():
@@ -185,11 +180,11 @@ def parse_city(
             return ctx
 
 
-def test_collect_airports(parsed_bid_package: raw.Package):
-    airports = collect_airports(parsed_bid_package)
-    print(airports)
-    assert len(airports) > 5
-    # assert False
+# def test_collect_airports(parsed_bid_package: raw.Package):
+#     airports = collect_airports(parsed_bid_package)
+#     print(airports)
+#     assert len(airports) > 5
+#     # assert False
 
 
 def test_translate_package(parsed_bid_package: raw.Package, caplog):

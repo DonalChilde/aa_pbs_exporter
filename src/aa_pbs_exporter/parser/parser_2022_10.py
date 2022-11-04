@@ -72,7 +72,7 @@ class ParseContext:
                 )
             case "Flight":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
-                    raw.Flight(flight=data)
+                    raw.Flight()
                 )
             case "DutyPeriodRelease":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = data
