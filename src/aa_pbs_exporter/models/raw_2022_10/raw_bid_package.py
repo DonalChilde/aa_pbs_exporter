@@ -1,12 +1,19 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-import time
 from typing import List, Set
 from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.models.raw_2022_10 import raw_lines
-from aa_pbs_exporter.util.complete_partial_datetime import complete_future_mdt
+from aa_pbs_exporter.util.complete_partial_datetime import (
+    complete_future_mdt,
+    complete_future_time,
+)
 from aa_pbs_exporter.util.dataclass_repr_mixin import DataclassReprMixin
 from aa_pbs_exporter.util.index_numeric_strings import index_numeric_strings
 from aa_pbs_exporter.util.parse_duration_regex import (
@@ -17,12 +24,37 @@ from aa_pbs_exporter.util.parse_duration_regex import pattern_HHHMM
 DATE = ""
 TIME = ""
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
-# TODO make Layover class, refactor
 
 
 @dataclass
+class ResolvedFlight(DataclassReprMixin):
+    resolved_trip_start: datetime
+    departure: datetime
+    arrival: datetime
+
+
+@dataclass
+class ResolvedDutyperiod(DataclassReprMixin):
+    resolved_trip_start: datetime
+    report: datetime
+    release: datetime
+
+
+# @dataclass
+# class ResolvedTrip(DataclassReprMixin):
+#     resolved_start_date: datetime
+#     dutyperiods: list[ResolvedDutyperiod] = field(default_factory=list)
+
+
+@dataclass
+class LocalHbt(DataclassReprMixin):
+    local: str
+    hbt: str
+
+
 class Flight(DataclassReprMixin):
     flight: raw_lines.Flight
+    resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -45,9 +77,9 @@ class Flight(DataclassReprMixin):
     def departure_station(self) -> str:
         return self.flight.departure_station.upper()
 
-    def departure_time(self) -> tuple[str, str]:
+    def departure_time(self) -> LocalHbt:
         local, hbt = self.flight.departure_time.split("/")
-        return local, hbt
+        return LocalHbt(local, hbt)
 
     def resolved_departure_time(self, resolved_report: datetime) -> str:
         raise NotImplementedError
@@ -58,9 +90,9 @@ class Flight(DataclassReprMixin):
     def arrival_station(self) -> str:
         return self.flight.arrival_station.upper()
 
-    def arrival_time(self) -> tuple[str, str]:
+    def arrival_time(self) -> LocalHbt:
         local, hbt = self.flight.arrival_time.split("/")
-        return local, hbt
+        return LocalHbt(local, hbt)
 
     def resolved_arrival_time(self, resolved_departure_time: datetime) -> str:
         raise NotImplementedError
@@ -157,22 +189,21 @@ class DutyPeriod(DataclassReprMixin):
     release: raw_lines.DutyPeriodRelease | None = None
     layover: Layover | None = None
     flights: List[Flight] = field(default_factory=list)
+    resolved_reports: dict[datetime, ResolvedDutyperiod] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
 
-    def resolved_report_time(
-        self, resolved_start_date: datetime, trip: "Trip", airports: dict[str, Airport]
-    ) -> datetime:
-        raise NotImplementedError
-
-    def resolved_release_time(
-        self, resolved_report: datetime, airports: dict[str, Airport]
-    ):
-        raise NotImplementedError
+    def report_time(self) -> LocalHbt:
+        local, hbt = self.report.report.split("/")
+        return LocalHbt(local, hbt)
 
     def report_station(self) -> str:
         return self.flights[0].departure_station()
+
+    def release_time(self) -> LocalHbt:
+        local, hbt = self.release.release.split("/")  # type: ignore
+        return LocalHbt(local, hbt)
 
     def release_station(self) -> str:
         return self.flights[-1].arrival_station()
@@ -197,11 +228,53 @@ class DutyPeriod(DataclassReprMixin):
         value = self.release.flight_duty  # type: ignore
         return parse_duration(value)
 
-    def collect_departure_arrival(
-        self, resolved_report_time: datetime, airports: dict[str, Airport]
-    ) -> list[tuple[datetime, datetime, Flight]]:
-        """Collect departure and arrival times for flights by adding block and ground times."""
-        raise NotImplementedError
+    def resolve_flight_dates(
+        self,
+        resolved_start_date: datetime,
+        resolved_report: datetime,
+        airports: dict[str, Airport],
+    ):
+        """Resolve departure and arrival times for the start date."""
+        depart_lcl = self.flights[0].departure_time().local
+        tz_string = airports[self.flights[0].departure_station()].tz
+        departure = complete_future_time(
+            resolved_report, depart_lcl, tz_info=ZoneInfo(tz_string), strf=TIME
+        )
+        for flight in self.flights:
+            depart_lcl = flight.departure_time().local
+            if departure.strftime("%H%M") != depart_lcl:
+                raise ValueError(
+                    f"{departure.isoformat()} time does not "
+                    f"match local departure {depart_lcl} {flight=}"
+                )
+            if flight.block() > timedelta():
+                arrival = departure + flight.block()
+            elif flight.synth() > timedelta():
+                arrival = departure + flight.synth()
+            else:
+                raise ValueError(
+                    f"{flight=} block and synth are 0, unable to compute arrival time."
+                )
+            tz_string = airports[flight.arrival_station()].tz
+            arrival = arrival.astimezone(ZoneInfo(tz_string))
+            arrival_lcl = flight.arrival_time().local
+            if arrival.strftime("%H%M") != arrival_lcl:
+                raise ValueError(
+                    f"{arrival.isoformat()} time does not "
+                    f"match local arrival {arrival_lcl} {flight=}"
+                )
+            flight.resolved_flights[resolved_start_date] = ResolvedFlight(
+                resolved_trip_start=resolved_start_date,
+                departure=departure,
+                arrival=arrival,
+            )
+            ground = flight.ground()
+            if ground > timedelta():
+                departure = arrival + ground
+            else:
+                # This will cause an error if any but the last flight is
+                # missing a ground time
+                departure = None
 
 
 @dataclass
@@ -209,6 +282,7 @@ class Trip(DataclassReprMixin):
     header: raw_lines.TripHeader
     footer: raw_lines.TripFooter | None = None
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
+    resolved_start_dates: list[datetime] = field(default_factory=list)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -256,14 +330,62 @@ class Trip(DataclassReprMixin):
         value = self.footer.tafb  # type: ignore
         return parse_duration(value)
 
-    def collected_report_release(
-        self, start_date: datetime, airports: dict[str, Airport]
-    ) -> list[tuple[datetime, datetime, DutyPeriod]]:
-        """Calculate resolved report and release by adding duty and rest for dutyperiods."""
-        raise NotImplementedError
+    def resolve_all_the_dates(
+        self, from_date: datetime, to_date: datetime, airports: dict[str, Airport]
+    ):
+        """Resolve all the report, release, departure, and arrival dates for each start date."""
+        start_dates = self._start_dates(from_date=from_date, to_date=to_date)
+        self._resolve_start_dates(start_dates=start_dates, airports=airports)
+        for start in self.resolved_start_dates:
+            self._resolve_trip_dates(start, airports=airports)
 
-    def start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
-        calendar_entries = self.calendar_entries()
+    def _resolve_trip_dates(
+        self, resolved_start_date: datetime, airports: dict[str, Airport]
+    ):
+        """Calculate resolved report, release, departure, and arrival.
+
+        Complete calculations by adding up times as necessary.
+
+        """
+        first_report_time = parse_time(self.dutyperiods[0].report_time().local)
+        report = resolved_start_date.replace(
+            hour=first_report_time.tm_hour, minute=first_report_time.tm_min
+        )
+        for dutyperiod in self.dutyperiods:
+            local_rpt = dutyperiod.report_time().local
+            if report.strftime("%H%M") != local_rpt:
+                raise ValueError(
+                    f"{report.isoformat()} time does not "
+                    f"match local report {local_rpt} {dutyperiod=}"
+                )
+            tz_string = airports[dutyperiod.release_station()].tz
+            release = report + dutyperiod.duty()
+            release = release.astimezone(ZoneInfo(tz_string))
+            local_rls = dutyperiod.release_time().local
+            if release.strftime("%H%M") != local_rls:
+                raise ValueError(
+                    f"{release.isoformat()} time does not match "
+                    f"local release {local_rls} {dutyperiod=}"
+                )
+            resolved = ResolvedDutyperiod(
+                resolved_trip_start=resolved_start_date, report=report, release=release
+            )
+            dutyperiod.resolved_reports[resolved.resolved_trip_start] = resolved
+            dutyperiod.resolve_flight_dates(
+                resolved_start_date=resolved_start_date,
+                resolved_report=report,
+                airports=airports,
+            )
+            if dutyperiod.layover is not None:
+                # This should make resolved_ref == the report of the next dp
+                report = release + dutyperiod.layover.rest()
+            else:
+                # This will cause an error if any but the last dp has no layover.
+                report = None  # type: ignore
+
+    def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
+        """Builds a list of no-tz datetime representing start dates for trips."""
+        calendar_entries = self._calendar_entries()
         days = int((to_date - from_date) / timedelta(days=1)) + 1
         if days != len(calendar_entries):
             raise ValueError(
@@ -281,9 +403,10 @@ class Trip(DataclassReprMixin):
             start_dates.append(start_date)
         return start_dates
 
-    def resolved_start_dates(
+    def _resolve_start_dates(
         self, start_dates: list[datetime], airports: dict[str, Airport]
-    ) -> list[datetime]:
+    ):
+        """set the tz aware resolved start dates for this trip."""
         resolved_start_dates = []
         departure_station = self.dutyperiods[0].flights[0].departure_station().upper()
         tz_string = airports[departure_station].tz
@@ -295,9 +418,10 @@ class Trip(DataclassReprMixin):
                 tzinfo=tz_info, hour=struct.tm_hour, minute=struct.tm_min
             )
             resolved_start_dates.append(resolved_start_date)
-        return resolved_start_dates
+        self.resolved_start_dates = resolved_start_dates
 
-    def calendar_entries(self) -> list[str]:
+    def _calendar_entries(self) -> list[str]:
+        """Make a list of the calendar entries for this trip."""
         calendar_strings: list[str] = []
         for dutyperiod in self.dutyperiods:
             calendar_strings.append(dutyperiod.report.calendar)
@@ -374,6 +498,20 @@ class Package(DataclassReprMixin):
         if "" in iatas:
             iatas.remove("")
         return iatas
+
+    def resolve_package_dates(self, airports: dict[str, Airport]):
+        """Resolve all the report, release, departure, and arrival times for the start dates."""
+        for page in self.pages:
+            from_date, to_date = page.from_to()
+            for trip in page.trips:
+                trip.resolve_all_the_dates(
+                    from_date=from_date, to_date=to_date, airports=airports
+                )
+
+
+def parse_time(time_str: str) -> time.struct_time:
+    struct = time.strptime(time_str, TIME)
+    return struct
 
 
 def parse_duration(dur_str: str) -> timedelta:

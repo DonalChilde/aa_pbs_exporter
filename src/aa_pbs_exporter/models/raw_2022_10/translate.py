@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+import time
 from typing import Sequence
 from zoneinfo import ZoneInfo
 
@@ -7,14 +8,15 @@ from aa_pbs_exporter.airports.airports import by_iata
 from aa_pbs_exporter.models import bid_package_2022_10 as aa
 from aa_pbs_exporter.models.raw_2022_10 import raw_bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10 import raw_lines
-from aa_pbs_exporter.util.complete_partial_datetime import complete_future_mdt
+
+# from aa_pbs_exporter.util.complete_partial_datetime import complete_future_mdt
 from aa_pbs_exporter.util.index_numeric_strings import index_numeric_strings
 
 
 def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
     base = bid_package.pages[0].page_footer.base
-    effective = bid_package.pages[0].effective
-    from_to = bid_package.pages[0].from_to
+    effective = bid_package.pages[0].effective()
+    from_to = bid_package.pages[0].from_to()
     start, end = expand_from_to(effective=effective, from_to=from_to)
     aa_trips: list[aa.Trip] = []
     airports = collect_airports(bid_package=bid_package)
@@ -57,10 +59,11 @@ def translate_trip_starts(
 ) -> list[aa.Trip]:
     aa_trips: list[aa.Trip] = []
     for start_date in start_dates:
+        first_departure_airport = trip.dutyperiods[0].flights[0].departure_station
         resolved_first_report = resolve_start_date(
             start_date=start_date,
             first_report=trip.dutyperiods[0].report.report,
-            tz_string=airports[trip.dutyperiods[0].flights[0].departure_station],
+            tz_string=airports[first_departure_airport].tz,
         )
         aa_trip = aa.Trip(
             number=trip.header.number,
@@ -126,7 +129,30 @@ def translate_dutyperiods(
 
 
 def make_layover(dutyperiod: raw.DutyPeriod) -> aa.Layover:
-    raise NotImplementedError
+    if dutyperiod.hotel is None:
+        return None
+    layover = aa.Layover(
+        odl=parse_duration(dutyperiod.hotel.rest),
+        city=dutyperiod.hotel.layover_city,
+        hotel=translate_hotel(dutyperiod.hotel, dutyperiod.transportation),
+        additional_hotel=translate_hotel(
+            dutyperiod.hotel_additional, dutyperiod.transportation_additional
+        ),
+    )
+    return layover
+
+
+def translate_hotel(hotel, transportation) -> aa.Hotel | None:
+    if hotel is None or hotel.name == "":
+        return None
+    aa_hotel = aa.Hotel(name=hotel.name, phone=hotel.phone, transportation=None)
+    if transportation is None:
+        return aa_hotel
+    aa_transportation = aa.Transportation(
+        name=transportation.name, phone=transportation.phone
+    )
+    aa_hotel.transportation = aa_transportation
+    return aa_hotel
 
 
 def release_and_next_report(
@@ -177,14 +203,16 @@ def translate_flights(
     return aa_flights
 
 
-def parse_duration(dur_str: str) -> timedelta:
-    raise NotImplementedError
-
-
-def resolve_start_date(
-    start_date: datetime, first_report: str, tz_string: str
-) -> datetime:
-    raise NotImplementedError
+# def resolve_start_date(
+#     start_date: datetime, first_report: str, tz_string: str
+# ) -> datetime:
+#     tz_info = ZoneInfo(tz_string)
+#     local, hbt = first_report.split("/")
+#     struct = time.strptime(local, "%H%M")
+#     start_date = start_date.replace(
+#         tzinfo=tz_info, hour=struct.tm_hour, minute=struct.tm_min
+#     )
+#     return start_date
 
 
 def dutyperiod_report_release(
@@ -199,78 +227,80 @@ def flight_departure_arrival(
     raise NotImplementedError
 
 
-def collect_airports(bid_package: raw.Package) -> dict[str, Airport]:
-    iatas: set[str] = set()
-    for page in bid_package.pages:
-        iatas.add(page.page_footer.base)
-        iatas.add(page.page_footer.satelite_base)
-        for trip in page.trips:
-            for dutyperiod in trip.dutyperiods:
-                for flight in dutyperiod.flights:
-                    iatas.add(flight.departure_station)
-                    iatas.add(flight.arrival_station)
-    if None in iatas:
-        iatas.remove(None)  # type: ignore
-    if "" in iatas:
-        iatas.remove("")
-    airports = dict({iata: by_iata(iata) for iata in iatas})
-    return airports
+# def collect_airports(bid_package: raw.Package) -> dict[str, Airport]:
+#     iatas: set[str] = set()
+#     for page in bid_package.pages:
+#         iatas.add(page.page_footer.base)
+#         iatas.add(page.page_footer.satelite_base)
+#         for trip in page.trips:
+#             for dutyperiod in trip.dutyperiods:
+#                 for flight in dutyperiod.flights:
+#                     iatas.add(flight.departure_station)
+#                     iatas.add(flight.arrival_station)
+#     if None in iatas:
+#         iatas.remove(None)  # type: ignore
+#     if "" in iatas:
+#         iatas.remove("")
+#     airports: dict[str, Airport] = {}
+#     for iata in iatas:
+#         airports[iata] = by_iata(iata)
+#     return airports
 
 
-def extract_start_dates(
-    trip: raw.Trip, effective: datetime, from_to: str
-) -> Sequence[datetime]:
-    calendar_entries = extract_calendar_entries(trip)
-    from_date, to_date = expand_from_to(effective, from_to)
-    days = days_in_range(from_date, to_date)
-    if days != len(calendar_entries):
-        raise ValueError(
-            f"{days} days in range, but {len(calendar_entries)} entries in calendar."
-        )
-    indexed_days = list(index_numeric_strings(calendar_entries))
-    start_dates: list[datetime] = []
-    for idx in indexed_days:
-        start_date = from_date + timedelta(days=idx.idx)
-        if start_date.day != int(idx.str_value):
-            raise ValueError(
-                f"Error building date. start_date: {from_date}, "
-                f"day: {idx.str_value}, calendar_entries:{calendar_entries!r}"
-            )
-        start_dates.append(start_date)
-    return start_dates
+# def extract_start_dates(
+#     trip: raw.Trip, effective: datetime, from_to: str
+# ) -> Sequence[datetime]:
+#     calendar_entries = extract_calendar_entries(trip)
+#     from_date, to_date = expand_from_to(effective, from_to)
+#     days = days_in_range(from_date, to_date)
+#     if days != len(calendar_entries):
+#         raise ValueError(
+#             f"{days} days in range, but {len(calendar_entries)} entries in calendar."
+#         )
+#     indexed_days = list(index_numeric_strings(calendar_entries))
+#     start_dates: list[datetime] = []
+#     for idx in indexed_days:
+#         start_date = from_date + timedelta(days=idx.idx)
+#         if start_date.day != int(idx.str_value):
+#             raise ValueError(
+#                 f"Error building date. start_date: {from_date}, "
+#                 f"day: {idx.str_value}, calendar_entries:{calendar_entries!r}"
+#             )
+#         start_dates.append(start_date)
+#     return start_dates
 
 
-def days_in_range(from_date: date, to_date: date) -> int:
-    delta = to_date - from_date
-    return int(delta / timedelta(days=1)) + 1
+# def days_in_range(from_date: date, to_date: date) -> int:
+#     delta = to_date - from_date
+#     return int(delta / timedelta(days=1)) + 1
 
 
-def expand_from_to(effective: datetime, from_to: str) -> tuple[datetime, datetime]:
-    from_md = from_to[:5]
-    to_md = from_to[6:]
-    strf = "%m/%d"
-    from_date = complete_future_mdt(effective, from_md, strf=strf)
-    to_date = complete_future_mdt(effective, to_md, strf=strf)
-    return from_date, to_date
+# def expand_from_to(effective: datetime, from_to: str) -> tuple[datetime, datetime]:
+#     from_md = from_to[:5]
+#     to_md = from_to[6:]
+#     strf = "%m/%d"
+#     from_date = complete_future_mdt(effective, from_md, strf=strf)
+#     to_date = complete_future_mdt(effective, to_md, strf=strf)
+#     return from_date, to_date
 
 
-def extract_calendar_entries(trip: raw.Trip) -> list[str]:
-    calendar_strings: list[str] = []
-    for dutyperiod in trip.dutyperiods:
-        calendar_strings.append(dutyperiod.report.calendar)
-        for flight in dutyperiod.flights:
-            calendar_strings.append(flight.calendar)
-        calendar_strings.append(dutyperiod.release.calendar)
-        if dutyperiod.hotel:
-            calendar_strings.append(dutyperiod.hotel.calendar)
-        if dutyperiod.transportation:
-            calendar_strings.append(dutyperiod.transportation.calendar)
-        if dutyperiod.hotel_additional:
-            calendar_strings.append(dutyperiod.hotel_additional.calendar)
-        if dutyperiod.transportation_additional:
-            calendar_strings.append(dutyperiod.transportation_additional.calendar)
-    calendar_strings.append(trip.footer.calendar)
-    calendar_entries: list[str] = []
-    for entry in calendar_strings:
-        calendar_entries.extend(entry.split())
-    return calendar_entries
+# def extract_calendar_entries(trip: raw.Trip) -> list[str]:
+#     calendar_strings: list[str] = []
+#     for dutyperiod in trip.dutyperiods:
+#         calendar_strings.append(dutyperiod.report.calendar)
+#         for flight in dutyperiod.flights:
+#             calendar_strings.append(flight.calendar)
+#         calendar_strings.append(dutyperiod.release.calendar)
+#         if dutyperiod.hotel:
+#             calendar_strings.append(dutyperiod.hotel.calendar)
+#         if dutyperiod.transportation:
+#             calendar_strings.append(dutyperiod.transportation.calendar)
+#         if dutyperiod.hotel_additional:
+#             calendar_strings.append(dutyperiod.hotel_additional.calendar)
+#         if dutyperiod.transportation_additional:
+#             calendar_strings.append(dutyperiod.transportation_additional.calendar)
+#     calendar_strings.append(trip.footer.calendar)
+#     calendar_entries: list[str] = []
+#     for entry in calendar_strings:
+#         calendar_entries.extend(entry.split())
+# return calendar_entries

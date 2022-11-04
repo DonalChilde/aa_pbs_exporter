@@ -15,6 +15,7 @@ from aa_pbs_exporter.models.raw_2022_10.translate import (
     extract_calendar_entries,
     extract_start_dates,
     collect_airports,
+    translate_package,
 )
 from aa_pbs_exporter.parser import parser_2022_10 as parser
 from aa_pbs_exporter.util.state_parser import parse_file, parse_lines
@@ -168,18 +169,17 @@ def test_slice():
 
 
 @pytest.fixture(scope="module", name="parsed_bid_package")
-def parse_package(pairing_text_files: List[PackageResource], logger: logging.Logger):
-    ctx = parse_city("LAX", pairing_text_files, logger)
+def parse_package(pairing_text_files: List[PackageResource]):
+    ctx = parse_city("LAX", pairing_text_files)
     return ctx.bid_package
 
 
 def parse_city(
-    city: str, pairing_text_files: List[PackageResource], logger
+    city: str, pairing_text_files: List[PackageResource]
 ) -> parser.ParseContext:
     scheme = parser.ParseScheme()
     for resource in [x for x in pairing_text_files if city in x.name]:
         with importlib.resources.path(resource.package, resource.name) as file_path:
-            logger.info("Parsing %s.%s", resource.package, resource.name)
             ctx = parser.ParseContext(str(file_path))
             parse_file(file_path, scheme=scheme, ctx=ctx, skipper=parser.make_skipper())
             return ctx
@@ -189,4 +189,10 @@ def test_collect_airports(parsed_bid_package: raw.Package):
     airports = collect_airports(parsed_bid_package)
     print(airports)
     assert len(airports) > 5
-    assert False
+    # assert False
+
+
+def test_translate_package(parsed_bid_package: raw.Package, caplog):
+    caplog.set_level(logging.WARNING)
+    aa_package = translate_package(parsed_bid_package, source="tests")
+    assert len(aa_package.trips) > 5
