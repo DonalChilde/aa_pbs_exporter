@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.Transportation(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "                    SIN FIN DE SERVICIOS                    3331223240",
         ),
@@ -14,7 +15,7 @@ test_data = [
         calendar="",
     ),
     lines.Transportation(
-        source=lines.SourceText(
+        source=IndexedString(
             2,
             "                    VIP TRANSPORTATION− OGG                 8088712702                 −− −− −−",
         ),
@@ -23,7 +24,7 @@ test_data = [
         calendar="−− −− −−",
     ),
     lines.Transportation(
-        source=lines.SourceText(
+        source=IndexedString(
             2,
             "                                                                                      −− −− −−",
         ),
@@ -39,6 +40,6 @@ def test_transportation(logger):
     expected_state = "transportation"
     parser = line_parser.Transportation()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         assert data == ctx.parsed_data

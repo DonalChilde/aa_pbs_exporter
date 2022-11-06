@@ -29,9 +29,24 @@ def complete_future_time(
     if start.tzinfo is None and tz_info is not start.tzinfo:
         raise ValueError("tz_info must be None if ref_datetime.tzinfo is None.")
     parsed = time.strptime(future, strf)
-    partial = datetime_from_struct(
-        parsed, year=start.year, month=start.month, day=start.day, tz_info=tz_info
-    )
+    if tz_info is None:
+        partial = datetime_from_struct(
+            parsed,
+            year=start.year,
+            month=start.month,
+            day=start.day,
+            tz_info=None,
+            aware=False,
+        )
+    else:
+        partial = datetime_from_struct(
+            parsed,
+            year=start.year,
+            month=start.month,
+            day=start.day,
+            tz_info=tz_info,
+            aware=True,
+        )
     if partial < start:
         increment = timedelta(days=1)
         logger.debug("adding %s to %s", increment, partial.isoformat())
@@ -60,7 +75,10 @@ def complete_future_mdt(
         # if the start year is not a leap year, find the next leap year.
         while not isleap(year):
             year += 1
-    partial = datetime_from_struct(parsed, year=year, tz_info=tz_info)
+    if tz_info is None:
+        partial = datetime_from_struct(parsed, year=year, tz_info=tz_info, aware=False)
+    else:
+        partial = datetime_from_struct(parsed, year=year, tz_info=tz_info, aware=True)
     if partial < start:
         logger.debug("adding one year to %s", partial.isoformat())
         partial = partial.replace(year=partial.year + 1)

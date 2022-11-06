@@ -12,7 +12,9 @@ import pytest
 from aa_pbs_exporter.util.logging import (
     add_handlers_to_target_logger,
     rotating_file_handler,
+    DEFAULT_FORMAT,
 )
+from aa_pbs_exporter.util.tz_aware_formatter import TZAwareFormatter
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
@@ -37,13 +39,21 @@ def _logger(test_log_path):
     """A central logger that will log to file."""
     # log_file_name = f"{__name__}.log"
     log_dir: Path = test_log_path
+    formatter = TZAwareFormatter(fmt=DEFAULT_FORMAT)
     handler = rotating_file_handler(
-        log_dir=log_dir, file_name=__name__, log_level=TEST_LOG_LEVEL
+        log_dir=log_dir,
+        file_name=__name__,
+        log_level=TEST_LOG_LEVEL,
+        formater=formatter,
     )
+    print(handler)
     test_logger = logging.getLogger(__name__)
     test_logger.setLevel(TEST_LOG_LEVEL)
     test_logger.addHandler(handler)
-    test_logger.info("Rotating file logger %s initialized.", __name__)
+    test_logger.warning("Does this even work?")
+    test_logger.info(
+        "Rotating file logger %s initialized with handler= %r", __name__, handler
+    )
     # chunk_logger = logging.getLogger("pfmsoft.text_chunk_parser")
     # chunk_logger.addHandler(handler)
     # chunk_logger.setLevel(TEST_LOG_LEVEL)

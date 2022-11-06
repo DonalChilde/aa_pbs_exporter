@@ -19,9 +19,16 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
+DEFAULT_FORMAT = (
+    "%(asctime)s %(levelname)s:%(funcName)s: %(message)s [in %(pathname)s:%(lineno)d]"
+)
+
 
 def rotating_file_handler(
-    log_dir: Path, file_name: str, log_level: int, format_string: str | None = None
+    log_dir: Path,
+    file_name: str,
+    log_level: int,
+    formater: logging.Formatter | None = None,
 ) -> RotatingFileHandler:
     """
     Convenience function to init a rotating file handler.
@@ -40,23 +47,24 @@ def rotating_file_handler(
     """
 
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / Path(file_name)
-    log_file.with_suffix(".log")
+    if file_name.endswith(".log"):
+        log_file = log_dir / Path(file_name)
+    else:
+        log_file = log_dir / Path(f"{file_name}.log")
     handler = RotatingFileHandler(log_file, maxBytes=102400, backupCount=10)
-    if format_string is None:
-        format_string = (
-            "%(asctime)s %(levelname)s:%(funcName)s: "
-            "%(message)s [in %(pathname)s:%(lineno)d]"
-        )
-    handler.setFormatter(logging.Formatter(format_string))
+    if formater is None:
+        formater = logging.Formatter(fmt=DEFAULT_FORMAT)
+    handler.setFormatter(fmt=formater)
     handler.setLevel(log_level)
     return handler
 
 
 def rotating_file_logger(
+    logger_name: str,
     log_dir: Path,
-    log_name: str,
     log_level: int,
+    logfile_name: str | None = None,
+    formater: logging.Formatter | None = None,
 ):
     """
     Configures a logger with a rotating file handler.
@@ -71,9 +79,11 @@ def rotating_file_logger(
     Returns:
         The logger.
     """
-    logger_ = logging.getLogger(log_name)
+    logger_ = logging.getLogger(logger_name)
+    if logfile_name is None:
+        logfile_name = logger_name
     handler = rotating_file_handler(
-        log_dir=log_dir, file_name=log_name, log_level=log_level
+        log_dir=log_dir, file_name=logfile_name, log_level=log_level, formater=formater
     )
     logger_.addHandler(handler)
     logger_.setLevel(log_level)
@@ -112,58 +122,3 @@ def add_handlers_to_target_logger(
         )
         target_logger.addHandler(handler)
     target_logger.info("Added handlers from %s to %s", source_logger, target_logger)
-
-
-# def configure_file_logger(
-#     log_dir: Path, logger_name: str, log_level: int
-# ) -> logging.Logger:
-#     """Configure a logger with a RotatingFileHandler.
-
-#     Note: Calling this function more than once with the same logger_name
-#     will result in duplicated logs.
-#     """
-#     log_file_name = f"{logger_name}.log"
-#     logger_ = logging.getLogger(logger_name)
-#     log_dir_path: Path = Path(log_dir)
-#     log_dir_path.mkdir(parents=True, exist_ok=True)
-#     log_file_path = log_dir_path / Path(log_file_name)
-#     handler = log_file_handler(log_file_path, log_level=log_level)
-#     logger_.addHandler(handler)
-#     logger_.setLevel(log_level)
-#     ############################################################
-#     # NOTE add file handler to other library modules as needed #
-#     ############################################################
-#     # async_logger = logging.getLogger("eve_esi_jobs")
-#     # async_logger.addHandler(file_handler)
-#     # async_logger.setLevel(log_level)
-#     logger_.info("Rotating File Logger initializd at %s", log_file_path)
-#     return logger_
-
-
-# def log_file_handler(
-#     file_path: Path,
-#     log_level: int = logging.WARNING,
-#     format_string: Optional[str] = None,
-# ):
-#     """
-#     _summary_
-
-#     _extended_summary_
-
-#     Args:
-#         file_path (_type_): _description_
-#         log_level (_type_, optional): _description_. Defaults to logging.WARNING.
-#         format_string (_type_, optional): _description_. Defaults to None.
-
-#     Returns:
-#         _type_: _description_
-#     """
-#     handler = RotatingFileHandler(file_path, maxBytes=102400, backupCount=10)
-#     if format_string is None:
-#         format_string = (
-#             "%(asctime)s %(levelname)s:%(funcName)s: "
-#             "%(message)s [in %(pathname)s:%(lineno)d]"
-#         )
-#     handler.setFormatter(logging.Formatter(format_string))
-#     handler.setLevel(log_level)
-#     return handler

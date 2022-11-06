@@ -1,20 +1,12 @@
 from dataclasses import dataclass
 
 from aa_pbs_exporter.util.dataclass_repr_mixin import DataclassReprMixin
-
-
-@dataclass
-class SourceText(DataclassReprMixin):
-    line_no: int
-    txt: str
-
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 
 @dataclass
 class PageHeader1(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -22,7 +14,7 @@ class PageHeader1(DataclassReprMixin):
 
 @dataclass
 class PageHeader2(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     calendar_range: str
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
@@ -31,7 +23,7 @@ class PageHeader2(DataclassReprMixin):
 
 @dataclass
 class HeaderSeparator(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -39,7 +31,7 @@ class HeaderSeparator(DataclassReprMixin):
 
 @dataclass
 class BaseEquipment(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     base: str
     satelite_base: str
     equipment: str
@@ -50,7 +42,7 @@ class BaseEquipment(DataclassReprMixin):
 
 @dataclass
 class TripHeader(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     number: str
     ops_count: str
     positions: str
@@ -64,7 +56,7 @@ class TripHeader(DataclassReprMixin):
 
 @dataclass
 class DutyPeriodReport(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     report: str
     calendar: str
 
@@ -74,9 +66,9 @@ class DutyPeriodReport(DataclassReprMixin):
 
 @dataclass
 class Flight(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     dutyperiod_index: str
-    d_a: str
+    dep_arr_day: str
     eq_code: str
     flight_number: str
     deadhead: str
@@ -97,7 +89,7 @@ class Flight(DataclassReprMixin):
 
 @dataclass
 class DutyPeriodRelease(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     release: str
     block: str
     synth: str
@@ -112,7 +104,7 @@ class DutyPeriodRelease(DataclassReprMixin):
 
 @dataclass
 class Hotel(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     layover_city: str
     name: str
     phone: str
@@ -125,7 +117,7 @@ class Hotel(DataclassReprMixin):
 
 @dataclass
 class HotelAdditional(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     layover_city: str
     name: str
     phone: str
@@ -137,7 +129,7 @@ class HotelAdditional(DataclassReprMixin):
 
 @dataclass
 class Transportation(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     name: str
     phone: str
     calendar: str
@@ -148,7 +140,7 @@ class Transportation(DataclassReprMixin):
 
 @dataclass
 class TransportationAdditional(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     name: str
     phone: str
     calendar: str
@@ -159,7 +151,7 @@ class TransportationAdditional(DataclassReprMixin):
 
 @dataclass
 class TripFooter(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     block: str
     synth: str
     total_pay: str
@@ -172,7 +164,7 @@ class TripFooter(DataclassReprMixin):
 
 @dataclass
 class TripSeparator(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -180,7 +172,7 @@ class TripSeparator(DataclassReprMixin):
 
 @dataclass
 class PageFooter(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     issued: str
     effective: str
     base: str
@@ -195,7 +187,7 @@ class PageFooter(DataclassReprMixin):
 
 @dataclass
 class PackageDate(DataclassReprMixin):
-    source: SourceText
+    source: IndexedString
     month: str
     year: str
 

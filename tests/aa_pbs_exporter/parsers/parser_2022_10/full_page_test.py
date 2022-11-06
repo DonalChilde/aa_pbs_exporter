@@ -11,7 +11,7 @@ from aa_pbs_exporter.util.state_parser import parse_lines
 _ = _lax_777_intl
 
 
-def test_page(logger: logging.Logger, lax_777_intl: ParseTestingData):
+def test_page(logger, lax_777_intl: ParseTestingData):
     ctx = line_parser.ParseContext("Test string")
     scheme = line_parser.ParseScheme()
     lines = lax_777_intl.source_txt.read_text().split("\n")

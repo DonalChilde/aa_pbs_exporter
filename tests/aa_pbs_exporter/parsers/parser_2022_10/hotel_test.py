@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.Hotel(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
         ),
@@ -16,7 +17,7 @@ test_data = [
         calendar="−− −− −− −− −− −− −−",
     ),
     lines.Hotel(
-        source=lines.SourceText(
+        source=IndexedString(
             2,
             "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
         ),
@@ -34,7 +35,7 @@ def test_hotel():
     expected_state = "hotel"
     parser = line_parser.Hotel()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)

@@ -5,8 +5,8 @@ import pyparsing as pp
 
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.models.raw_2022_10.lines import SourceText
 from aa_pbs_exporter.util import state_parser as sp
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -36,14 +36,14 @@ CALENDAR_ENTRY = pp.Or(
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 
-def data_starts(index: str, line: str) -> bool:
-    _ = index
-    if "DEPARTURE" in line:
+def data_starts(indexed_string: IndexedString) -> bool:
+
+    if "DEPARTURE" in indexed_string.txt:
         return True
     return False
 
 
-def make_skipper() -> Callable[[str, str], bool]:
+def make_skipper() -> Callable[[IndexedString], bool]:
     return sp.MultiTest(
         testers=[sp.SkipTillMatch(matcher=data_starts), sp.SkipBlankLines()]
     )
@@ -130,10 +130,9 @@ class PageHeader1(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "page_header_1"
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
-        if "DEPARTURE" in line:
-            source = SourceText(line_number, line)
-            parsed = lines.PageHeader1(source=source)
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+        if "DEPARTURE" in indexed_string.txt:
+            parsed = lines.PageHeader1(source=indexed_string)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'DEPARTURE' not found in line.")
@@ -143,24 +142,24 @@ class PageHeader2(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "page_header_2"
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
-        words = line.split()
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+        words = indexed_string.txt.split()
         if words[-2] == "CALENDAR":
-            source = SourceText(line_number, line)
-            parsed = lines.PageHeader2(source=source, calendar_range=words[-1])
+            parsed = lines.PageHeader2(source=indexed_string, calendar_range=words[-1])
             ctx.handle_parse(parsed)
             return self.success_state
-        raise sp.ParseException(f"Found {words[-2]} instead of 'CALENDAR' in line.")
+        raise sp.ParseException(
+            f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
+        )
 
 
 class HeaderSeparator(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "header_separator"
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
-        if "-" * 5 in line or "\u2212" * 5 in line:
-            source = SourceText(line_number, line)
-            parsed = lines.HeaderSeparator(source=source)
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+        if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
+            parsed = lines.HeaderSeparator(source=indexed_string)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -170,10 +169,9 @@ class TripSeparator(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "trip_separator"
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
-        if "-" * 5 in line or "\u2212" * 5 in line:
-            source = SourceText(line_number, line)
-            parsed = lines.TripSeparator(source=source)
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+        if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
+            parsed = lines.TripSeparator(source=indexed_string)
             ctx.handle_parse(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -190,14 +188,13 @@ class BaseEquipment(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.BaseEquipment(
-            source=source,
+            source=indexed_string,
             base=result["base"],
             satelite_base=result.get("satelite_base", ""),
             equipment=result["equipment"],
@@ -234,14 +231,13 @@ class TripHeader(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.TripHeader(
-            source=source,
+            source=indexed_string,
             number=result["number"],
             ops_count=result["ops_count"],
             positions=" ".join(result["positions"]),
@@ -270,14 +266,13 @@ class DutyPeriodReport(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.DutyPeriodReport(
-            source=source,
+            source=indexed_string,
             report=result["report"],
             calendar=" ".join(result["calendar_entries"]),
         )
@@ -315,16 +310,15 @@ class Flight(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.Flight(
-            source=source,
+            source=indexed_string,
             dutyperiod_index=result["dutyperiod"],
-            d_a=result["day_of_sequence"],
+            dep_arr_day=result["day_of_sequence"],
             eq_code=result["equipment_code"],
             flight_number=result["flight_number"],
             deadhead="",
@@ -373,16 +367,15 @@ class FlightDeadhead(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.Flight(
-            source=source,
+            source=indexed_string,
             dutyperiod_index=result["dutyperiod"],
-            d_a=result["day_of_sequence"],
+            dep_arr_day=result["day_of_sequence"],
             eq_code=result["equipment_code"],
             flight_number=result["flight_number"],
             deadhead=result["deadhead"],
@@ -417,14 +410,13 @@ class DutyPeriodRelease(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.DutyPeriodRelease(
-            source=source,
+            source=indexed_string,
             release=result["release_time"],
             block=result["block"],
             synth=result["synth"],
@@ -457,14 +449,13 @@ class Hotel(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.Hotel(
-            source=source,
+            source=indexed_string,
             layover_city=result["layover_city"],
             name=result["hotel"],
             phone=result["hotel_phone"],
@@ -496,14 +487,13 @@ class HotelAdditional(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.HotelAdditional(
-            source=source,
+            source=indexed_string,
             layover_city=result["layover_city"],
             name=result["hotel"],
             phone=result["hotel_phone"],
@@ -527,15 +517,13 @@ class Transportation(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        logger.debug("result: %r", result.as_dict())
         parsed = lines.Transportation(
-            source=source,
+            source=indexed_string,
             name=result.get("transportation", ""),
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
@@ -558,14 +546,13 @@ class TransportationAdditional(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.TransportationAdditional(
-            source=source,
+            source=indexed_string,
             name=result["transportation"],
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
@@ -588,14 +575,13 @@ class TripFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.TripFooter(
-            source=source,
+            source=indexed_string,
             block=result["block"],
             synth=result["synth"],
             total_pay=result["total_pay"],
@@ -625,14 +611,14 @@ class PageFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, line_number: int, line: str, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         try:
-            source = SourceText(line_number, line)
-            result = self._parser.parse_string(line)
+
+            result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
         parsed = lines.PageFooter(
-            source=source,
+            source=indexed_string,
             issued=result["issued"],
             effective=result["effective"],
             base=result["base"],

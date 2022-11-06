@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.PageFooter(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644",
         ),
@@ -18,7 +19,7 @@ test_data = [
         page="644",
     ),
     lines.PageFooter(
-        source=lines.SourceText(
+        source=IndexedString(
             2,
             "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178",
         ),
@@ -38,7 +39,7 @@ def test_page_footer():
     expected_state = "page_footer"
     parser = line_parser.PageFooter()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)

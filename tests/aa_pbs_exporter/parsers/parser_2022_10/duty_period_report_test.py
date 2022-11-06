@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.DutyPeriodReport(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "                RPT 1237/1237                                                           2 −− −− −− −− −− −−",
         ),
@@ -20,7 +21,7 @@ def test_dutyperiod_report():
     expected_state = "dutyperiod_report"
     parser = line_parser.DutyPeriodReport()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)

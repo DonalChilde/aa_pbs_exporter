@@ -2,15 +2,16 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.Flight(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "1  1/1 65 2131  SAN 1337/1337    ORD 1935/1735   3.58          1.10X                   −− −− −− −− −− −− −−",
         ),
         dutyperiod_index="1",
-        d_a="1/1",
+        dep_arr_day="1/1",
         eq_code="65",
         flight_number="2131",
         deadhead="",
@@ -33,7 +34,7 @@ def test_flight():
     expected_state = "flight"
     parser = line_parser.Flight()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)

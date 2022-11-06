@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from uuid import UUID
 
 from pydantic import BaseModel
 from aa_pbs_exporter.airports.airport_model import Airport
@@ -25,7 +26,7 @@ class Layover(BaseModel):
 class Flight(BaseModel):
     dutyperiod_index: int
     idx: int
-    d_a: str
+    dep_arr_day: str
     eq_code: str
     number: str
     deadhead: bool
@@ -56,6 +57,7 @@ class DutyPeriod(BaseModel):
 
 
 class Trip(BaseModel):
+    uuid: UUID
     number: str
     base: str
     satelite_base: str

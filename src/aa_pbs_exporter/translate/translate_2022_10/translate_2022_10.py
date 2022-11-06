@@ -31,13 +31,14 @@ def translate_pages(page: raw.Page) -> list[aa.Trip]:
     for trip in page.trips:
         for resolved_start_date in trip.resolved_start_dates:
             aa_trip = aa.Trip(
+                uuid=trip.uuid(resolved_start_date=resolved_start_date),
                 number=trip.number(),
                 base=trip.base(page=page),
                 satelite_base=trip.satelite_base(page=page),
                 positions=trip.positions(),
                 operations=trip.operations(),
-                division=trip.division(),
-                equipment=trip.equipment(),
+                division=trip.division(page=page),
+                equipment=trip.equipment(page=page),
                 special_qualifications=trip.special_qualification(),
                 block=trip.block(),
                 synth=trip.synth(),
@@ -127,7 +128,7 @@ def translate_flights(
         aa_flight = aa.Flight(
             dutyperiod_index=flight.dp_idx(),
             idx=idx + 1,
-            d_a=flight.d_a(),
+            dep_arr_day=flight.dep_arr_day(),
             eq_code=flight.eq_code(),
             number=flight.number(),
             deadhead=flight.deadhead(),

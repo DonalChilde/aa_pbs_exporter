@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.TripFooter(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "TTL                                              7.50   0.00   7.50        10.20       −− −− −−",
         ),
@@ -16,7 +17,7 @@ test_data = [
         calendar="−− −− −−",
     ),
     lines.TripFooter(
-        source=lines.SourceText(
+        source=IndexedString(
             2,
             "TTL                                             17.18   0.00  17.18        60.04",
         ),
@@ -34,7 +35,7 @@ def test_trip_footer():
     expected_state = "trip_footer"
     parser = line_parser.TripFooter()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)

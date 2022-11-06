@@ -3,10 +3,13 @@
 # pylint: disable=missing-function-docstring
 
 import time
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
-from typing import List, Set
+from typing import Any, List, Set
 from zoneinfo import ZoneInfo
+from uuid import UUID, uuid5
+import json
+from aa_pbs_exporter import PROJECT_NAMESPACE
 
 from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.models.raw_2022_10 import lines
@@ -21,8 +24,8 @@ from aa_pbs_exporter.util.parse_duration_regex import (
 )
 from aa_pbs_exporter.util.parse_duration_regex import pattern_HHHMM
 
-DATE = ""
-TIME = ""
+DATE = "%d%b%Y"
+TIME = "%H%M"
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 
 # TODO consolidate validation functions, make reporting easier and more consistent
@@ -57,8 +60,8 @@ class Flight(DataclassReprMixin):
     def dp_idx(self) -> str:
         return self.flight.dutyperiod_index
 
-    def d_a(self) -> str:
-        return self.flight.d_a
+    def dep_arr_day(self) -> str:
+        return self.flight.dep_arr_day
 
     def eq_code(self) -> str:
         return self.flight.eq_code
@@ -105,7 +108,7 @@ class Flight(DataclassReprMixin):
         return parse_duration(value)
 
     def equipment_change(self) -> bool:
-        raise NotImplementedError
+        return bool(self.equipment_change)
 
 
 @dataclass
@@ -278,9 +281,22 @@ class Trip(DataclassReprMixin):
     footer: lines.TripFooter | None = None
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
     resolved_start_dates: list[datetime] = field(default_factory=list)
+    cached_values: dict[str, Any] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
+
+    def uuid(self, resolved_start_date: datetime) -> UUID:
+        cached_str = self.cached_values.get("hash_string", None)
+        if cached_str is None:
+            cached_str = (
+                f"{json.dumps(asdict(self.header))}"
+                f"{json.dumps(asdict(self.footer))}"
+                # f"{json.dumps(list([asdict(x) for x in self.dutyperiods]))}"
+            )
+            self.cached_values["hash_string"] = cached_str
+        value = f"{resolved_start_date.isoformat()}{cached_str}"
+        return uuid5(PROJECT_NAMESPACE, value)
 
     def number(self) -> str:
         return self.header.number
@@ -377,14 +393,11 @@ class Trip(DataclassReprMixin):
             else:
                 # This will cause an error if any but the last dp has no layover.
                 report = None  # type: ignore
-        tafb = self.tafb()
-        if (
-            tafb
-            != self.dutyperiods[-1].release_time() - self.dutyperiods[0].report_time()
-        ):
-            raise ValueError(
-                f"{tafb=} does not match trip release - trip report. start_date={resolved_start_date} trip={self}"
-            )
+        # tafb = self.tafb()
+        #     if tafb*-1 != resolved. release - report:
+        #         raise ValueError(
+        #             f"{tafb.total_seconds()} does not match {(release-report).total_seconds()} {release=} - {report=}. start_date={resolved_start_date} trip={self}"
+        #         )
 
     def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
         """Builds a list of no-tz datetime representing start dates for trips."""
@@ -396,12 +409,12 @@ class Trip(DataclassReprMixin):
             )
         indexed_days = list(index_numeric_strings(calendar_entries))
         start_dates: list[datetime] = []
-        for idx in indexed_days:
-            start_date = from_date + timedelta(days=idx.idx)
-            if start_date.day != int(idx.str_value):
+        for indexed in indexed_days:
+            start_date = from_date + timedelta(days=indexed.idx)
+            if start_date.day != int(indexed.txt):
                 raise ValueError(
                     f"Error building date. start_date: {from_date}, "
-                    f"day: {idx.str_value}, calendar_entries:{calendar_entries!r}"
+                    f"day: {indexed.txt}, calendar_entries:{calendar_entries!r}"
                 )
             start_dates.append(start_date)
         return start_dates
@@ -414,8 +427,8 @@ class Trip(DataclassReprMixin):
         departure_station = self.dutyperiods[0].flights[0].departure_station().upper()
         tz_string = airports[departure_station].tz
         tz_info = ZoneInfo(tz_string)
-        local = self.dutyperiods[0].flights[0].departure_time_local()
-        struct = time.strptime(local, TIME)
+        dep_time = self.dutyperiods[0].flights[0].departure_time()
+        struct = time.strptime(dep_time.local, TIME)
         for start_date in start_dates:
             resolved_start_date = start_date.replace(
                 tzinfo=tz_info, hour=struct.tm_hour, minute=struct.tm_min
@@ -429,16 +442,21 @@ class Trip(DataclassReprMixin):
         for dutyperiod in self.dutyperiods:
             calendar_strings.append(dutyperiod.report.calendar)
             for flight in dutyperiod.flights:
-                calendar_strings.append(flight.calendar)
+                calendar_strings.append(flight.flight.calendar)
             calendar_strings.append(dutyperiod.release.calendar)  # type: ignore
-            if dutyperiod.hotel:
-                calendar_strings.append(dutyperiod.hotel.calendar)
-            if dutyperiod.transportation:
-                calendar_strings.append(dutyperiod.transportation.calendar)
-            if dutyperiod.hotel_additional:
-                calendar_strings.append(dutyperiod.hotel_additional.calendar)
-            if dutyperiod.transportation_additional:
-                calendar_strings.append(dutyperiod.transportation_additional.calendar)
+            if dutyperiod.layover:
+                if dutyperiod.layover.hotel:
+                    calendar_strings.append(dutyperiod.layover.hotel.calendar)
+                if dutyperiod.layover.transportation:
+                    calendar_strings.append(dutyperiod.layover.transportation.calendar)
+                if dutyperiod.layover.hotel_additional:
+                    calendar_strings.append(
+                        dutyperiod.layover.hotel_additional.calendar
+                    )
+                if dutyperiod.layover.transportation_additional:
+                    calendar_strings.append(
+                        dutyperiod.layover.transportation_additional.calendar
+                    )
         calendar_strings.append(self.footer.calendar)  # type: ignore
         calendar_entries: list[str] = []
         for entry in calendar_strings:

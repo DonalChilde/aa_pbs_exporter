@@ -2,10 +2,11 @@ from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseConte
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.util.indexed_string import IndexedString
 
 test_data = [
     lines.DutyPeriodRelease(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
         ),
@@ -18,7 +19,7 @@ test_data = [
         calendar="−− −− −− −− −− −− −−",
     ),
     lines.DutyPeriodRelease(
-        source=lines.SourceText(
+        source=IndexedString(
             1,
             "                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",
         ),
@@ -38,7 +39,7 @@ def test_dutyperiod_release():
     expected_state = "dutyperiod_release"
     parser = line_parser.DutyPeriodRelease()
     for data in test_data:
-        state = parser.parse(data.source.line_no, data.source.txt, ctx)
+        state = parser.parse(data.source, ctx)
         assert state == expected_state
         print("expected", ctx.parsed_data)
         print("parsed", ctx.parsed_data)
