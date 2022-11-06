@@ -5,11 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-02T07:58:50-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-11-06T07:30:52-07:00         #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from datetime import date, datetime, time, tzinfo
 from time import struct_time
+from zoneinfo import ZoneInfo
 
 
 def date_from_struct(
@@ -44,12 +45,14 @@ def time_from_struct(
 
 def datetime_from_struct(
     struct: struct_time,
+    *,
     year: int | None = None,
     month: int | None = None,
     day: int | None = None,
     hour: int | None = None,
     minute: int | None = None,
     second: int | None = None,
+    microsecond: int | None = None,
     tz_info: tzinfo | None = None,
 ) -> datetime:
     if year is None:
@@ -64,4 +67,8 @@ def datetime_from_struct(
         minute = struct.tm_min
     if second is None:
         second = struct.tm_sec
+    if microsecond is None:
+        microsecond = 0
+    if tz_info is None:
+        tz_info = ZoneInfo(struct.tm_zone)
     return datetime(year, month, day, hour, minute, second, tzinfo=tz_info)
