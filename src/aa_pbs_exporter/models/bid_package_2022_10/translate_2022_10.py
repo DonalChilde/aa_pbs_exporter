@@ -30,6 +30,7 @@ def translate_pages(page: raw.Page, source: str) -> list[aa.Trip]:
     aa_trips: list[aa.Trip] = []
     for trip in page.trips:
         for resolved_start_date in trip.resolved_start_dates:
+            assert trip.footer is not None
             aa_trip = aa.Trip(
                 uuid=trip.uuid(resolved_start_date=resolved_start_date),
                 number=trip.number(),
@@ -83,9 +84,10 @@ def translate_dutyperiods(
     return aa_dutyperiods
 
 
-def translate_layover(layover: raw.Layover) -> aa.Layover | None:
+def translate_layover(layover: raw.Layover | None) -> aa.Layover | None:
     if layover is None:
         return None
+    # FIXME think through empty object logic, raw.layover returns empty string when no info
     if layover.hotel_name():
         if layover.transportation_name():
             aa_transportation = aa.Transportation(
@@ -115,13 +117,13 @@ def translate_layover(layover: raw.Layover) -> aa.Layover | None:
         )
     else:
         aa_add_hotel = None
-    layover = aa.Layover(
+    aa_layover = aa.Layover(
         odl=layover.rest(),
         city=layover.city(),
         hotel=aa_hotel,
         additional_hotel=aa_add_hotel,
     )
-    return layover
+    return aa_layover
 
 
 def translate_flights(
@@ -131,7 +133,7 @@ def translate_flights(
     aa_flights: list[aa.Flight] = []
     for idx, flight in enumerate(dutyperiod.flights):
         aa_flight = aa.Flight(
-            dutyperiod_index=flight.dp_idx(),
+            dutyperiod_index=int(flight.dp_idx()),
             idx=idx + 1,
             dep_arr_day=flight.dep_arr_day(),
             eq_code=flight.eq_code(),

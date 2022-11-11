@@ -56,9 +56,6 @@ class Flight:
     resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)
     cached_values: dict[str, Any] = field(default_factory=dict)
 
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
-
     def dp_idx(self) -> str:
         return self.flight.dutyperiod_index
 
@@ -95,13 +92,16 @@ class Flight:
         return LocalHbt(local, hbt)
 
     def block(self) -> timedelta:
-        return self._cached_duration("block", self.flight.block)  # type: ignore
+        assert self.flight is not None
+        return self._cached_duration("block", self.flight.block)
 
     def synth(self) -> timedelta:
-        return self._cached_duration("synth", self.flight.synth)  # type: ignore
+        assert self.flight is not None
+        return self._cached_duration("synth", self.flight.synth)
 
     def ground(self) -> timedelta:
-        return self._cached_duration("ground", self.flight.ground)  # type: ignore
+        assert self.flight is not None
+        return self._cached_duration("ground", self.flight.ground)
 
     def equipment_change(self) -> bool:
         return bool(self.equipment_change)
@@ -109,7 +109,7 @@ class Flight:
     def _cached_duration(self, key: str, raw_str: str) -> timedelta:
         cached_value = self.cached_values.get(key, None)
         if cached_value is None:
-            cached_value = parse_duration(raw_str)  # type: ignore
+            cached_value = parse_duration(raw_str)
             self.cached_values[key] = cached_value
         return cached_value
 
@@ -122,71 +122,53 @@ class Layover:
     transportation_additional: lines.TransportationAdditional | None = None
     cached_values: dict[str, Any] = field(default_factory=dict)
 
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
-
     def city(self) -> str:
         return self.hotel.layover_city
 
     def rest(self) -> timedelta:
-        return self._cached_duration("rest", self.hotel.rest)  # type: ignore
+        assert self.hotel is not None
+        return self._cached_duration("rest", self.hotel.rest)
 
-    def hotel_name(self) -> str | None:
-        if not self.hotel.name:
-            return None
+    def hotel_name(self) -> str:
         return self.hotel.name
 
-    def hotel_phone(self) -> str | None:
-        if not self.hotel.phone:
-            return None
+    def hotel_phone(self) -> str:
         return self.hotel.phone
 
-    def transportation_name(self) -> str | None:
+    def transportation_name(self) -> str:
         if self.transportation is None:
-            return None
-        if not self.transportation.name:
-            return None
+            return ""
         return self.transportation.name
 
-    def transportation_phone(self) -> str | None:
+    def transportation_phone(self) -> str:
         if self.transportation is None:
-            return None
-        if not self.transportation.phone:
-            return None
+            return ""
         return self.transportation.phone
 
-    def hotel_additional_name(self) -> str | None:
+    def hotel_additional_name(self) -> str:
         if self.hotel_additional is None:
-            return None
-        if not self.hotel_additional.name:
-            return None
+            return ""
         return self.hotel_additional.name
 
-    def hotel_additional_phone(self) -> str | None:
+    def hotel_additional_phone(self) -> str:
         if self.hotel_additional is None:
-            return None
-        if not self.hotel_additional.phone:
-            return None
+            return ""
         return self.hotel_additional.phone
 
-    def transportation_additional_name(self) -> str | None:
+    def transportation_additional_name(self) -> str:
         if self.transportation_additional is None:
-            return None
-        if not self.transportation_additional.name:
-            return None
+            return ""
         return self.transportation_additional.name
 
-    def transportation_additional_phone(self) -> str | None:
+    def transportation_additional_phone(self) -> str:
         if self.transportation_additional is None:
-            return None
-        if not self.transportation_additional.phone:
-            return None
+            return ""
         return self.transportation_additional.phone
 
     def _cached_duration(self, key: str, raw_str: str) -> timedelta:
         cached_value = self.cached_values.get(key, None)
         if cached_value is None:
-            cached_value = parse_duration(raw_str)  # type: ignore
+            cached_value = parse_duration(raw_str)
             self.cached_values[key] = cached_value
         return cached_value
 
@@ -200,9 +182,6 @@ class DutyPeriod:
     resolved_reports: dict[datetime, ResolvedDutyperiod] = field(default_factory=dict)
     cached_values: dict[str, Any] = field(default_factory=dict)
 
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
-
     def report_time(self) -> LocalHbt:
         local, hbt = self.report.report.split("/")
         return LocalHbt(local, hbt)
@@ -211,26 +190,32 @@ class DutyPeriod:
         return self.flights[0].departure_station()
 
     def release_time(self) -> LocalHbt:
-        local, hbt = self.release.release.split("/")  # type: ignore
+        assert self.release is not None
+        local, hbt = self.release.release.split("/")
         return LocalHbt(local, hbt)
 
     def release_station(self) -> str:
         return self.flights[-1].arrival_station()
 
     def block(self) -> timedelta:
-        return self._cached_duration("block", self.release.block)  # type: ignore
+        assert self.release is not None
+        return self._cached_duration("block", self.release.block)
 
     def synth(self) -> timedelta:
-        return self._cached_duration("synth", self.release.synth)  # type: ignore
+        assert self.release is not None
+        return self._cached_duration("synth", self.release.synth)
 
     def pay(self) -> timedelta:
-        return self._cached_duration("total_pay", self.release.total_pay)  # type: ignore
+        assert self.release is not None
+        return self._cached_duration("total_pay", self.release.total_pay)
 
     def duty(self) -> timedelta:
-        return self._cached_duration("duty", self.release.duty)  # type: ignore
+        assert self.release is not None
+        return self._cached_duration("duty", self.release.duty)
 
     def flight_duty(self) -> timedelta:
-        return self._cached_duration("flight_duty", self.release.flight_duty)  # type: ignore
+        assert self.release is not None
+        return self._cached_duration("flight_duty", self.release.flight_duty)
 
     def _sum_flight_durations(self, resolved_start_date: datetime) -> timedelta:
         total = timedelta()
@@ -245,7 +230,7 @@ class DutyPeriod:
     def _cached_duration(self, key: str, raw_str: str) -> timedelta:
         cached_value = self.cached_values.get(key, None)
         if cached_value is None:
-            cached_value = parse_duration(raw_str)  # type: ignore
+            cached_value = parse_duration(raw_str)
             self.cached_values[key] = cached_value
         return cached_value
 
@@ -275,44 +260,46 @@ class DutyPeriod:
         """Resolve departure and arrival times for the start date."""
         depart_lcl = self.flights[0].departure_time().local
         tz_string = airports[self.flights[0].departure_station()].tz
-        departure = complete_future_time(
+        next_departure: datetime = complete_future_time(
             resolved_report, depart_lcl, tz_info=ZoneInfo(tz_string), strf=TIME
         )
-        for flight in self.flights:
-            depart_lcl = flight.departure_time().local
-            if departure.strftime("%H%M") != depart_lcl:
-                raise ValueError(
-                    f"{departure.isoformat()} time does not "
-                    f"match local departure {depart_lcl} {flight=}"
-                )
+        for idx, flight in enumerate(self.flights):
+            # depart_lcl = flight.departure_time().local
+            # if departure.strftime("%H%M") != depart_lcl:
+            #     raise ValueError(
+            #         f"{departure.isoformat()} time does not "
+            #         f"match local departure {depart_lcl} {flight=}"
+            #     )
             if flight.block() > timedelta():
-                arrival = departure + flight.block()
+                arrival = next_departure + flight.block()
             elif flight.synth() > timedelta():
-                arrival = departure + flight.synth()
+                arrival = next_departure + flight.synth()
             else:
                 raise ValueError(
                     f"{flight=} block and synth are 0, unable to compute arrival time."
                 )
             tz_string = airports[flight.arrival_station()].tz
             arrival = arrival.astimezone(ZoneInfo(tz_string))
-            arrival_lcl = flight.arrival_time().local
-            if arrival.strftime("%H%M") != arrival_lcl:
-                raise ValueError(
-                    f"{arrival.isoformat()} time does not "
-                    f"match local arrival {arrival_lcl} {flight=}"
-                )
+            # arrival_lcl = flight.arrival_time().local
+            # if arrival.strftime("%H%M") != arrival_lcl:
+            #     raise ValueError(
+            #         f"{arrival.isoformat()} time does not "
+            #         f"match local arrival {arrival_lcl} {flight=}"
+            #     )
             flight.resolved_flights[resolved_start_date] = ResolvedFlight(
                 resolved_trip_start=resolved_start_date,
-                departure=departure,
+                departure=next_departure,
                 arrival=arrival,
             )
-            ground = flight.ground()
-            if ground > timedelta():
-                departure = arrival + ground
+
+            if idx + 1 < len(self.flights):
+                ground = flight.ground()
+                next_departure = arrival + ground
             else:
-                # This will cause an error if any but the last flight is
-                # missing a ground time
-                departure = None
+                # this is the last time through the loop, all dates should be resolved.
+                # set an impossible date just to make the typecheckers happy, and
+                # make it obvious during validation if it somehow slips through.
+                next_departure = datetime(*(1900, 1, 1))
 
 
 @dataclass
@@ -322,9 +309,6 @@ class Trip:
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
     resolved_start_dates: list[datetime] = field(default_factory=list)
     cached_values: dict[str, Any] = field(default_factory=dict)
-
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
 
     def uuid(self, resolved_start_date: datetime) -> UUID:
         cached_value = self.cached_values.get("hash_string", None)
@@ -345,22 +329,22 @@ class Trip:
         return self.header.ops_count
 
     def base(self, page: "Page") -> str:
-        return page.base()  # type: ignore
+        return page.base()
 
-    def satelite_base(self, page: "Page") -> str | None:
-        return page.satelite_base()  # type: ignore
+    def satelite_base(self, page: "Page") -> str:
+        return page.satelite_base()
 
     def positions(self) -> str:
         return self.header.positions
 
-    def operations(self) -> str | None:
+    def operations(self) -> str:
         return self.header.operations
 
     def division(self, page: "Page") -> str:
-        return page.page_footer.division  # type: ignore
+        return page.division()
 
     def equipment(self, page: "Page") -> str:
-        return page.page_footer.equipment  # type: ignore
+        return page.equipment()
 
     def special_qualification(self) -> bool:
         return bool(self.header.special_qualification)
@@ -368,21 +352,25 @@ class Trip:
     def _cached_duration(self, key: str, raw_str: str) -> timedelta:
         cached_value = self.cached_values.get(key, None)
         if cached_value is None:
-            cached_value = parse_duration(raw_str)  # type: ignore
+            cached_value = parse_duration(raw_str)
             self.cached_values[key] = cached_value
         return cached_value
 
     def block(self) -> timedelta:
-        return self._cached_duration("block", self.footer.block)  # type: ignore
+        assert self.footer is not None
+        return self._cached_duration("block", self.footer.block)
 
     def synth(self) -> timedelta:
-        return self._cached_duration("synth", self.footer.synth)  # type: ignore
+        assert self.footer is not None
+        return self._cached_duration("synth", self.footer.synth)
 
     def pay(self) -> timedelta:
-        return self._cached_duration("total_pay", self.footer.total_pay)  # type: ignore
+        assert self.footer is not None
+        return self._cached_duration("total_pay", self.footer.total_pay)
 
     def tafb(self) -> timedelta:
-        return self._cached_duration("tafb", self.footer.tafb)  # type: ignore
+        assert self.footer is not None
+        return self._cached_duration("tafb", self.footer.tafb)
 
     def resolve_all_the_dates(
         self, from_date: datetime, to_date: datetime, airports: dict[str, Airport]
@@ -419,28 +407,32 @@ class Trip:
 
         """
         first_report_time = parse_time(self.dutyperiods[0].report_time().local)
-        report = resolved_start_date.replace(
+        next_report: datetime = resolved_start_date.replace(
             hour=first_report_time.tm_hour, minute=first_report_time.tm_min
         )
-        for dutyperiod in self.dutyperiods:
+        for idx, dutyperiod in enumerate(self.dutyperiods):
             tz_string = airports[dutyperiod.release_station()].tz
-            release = report + dutyperiod.duty()
+            release = next_report + dutyperiod.duty()
             release = release.astimezone(ZoneInfo(tz_string))
             resolved = ResolvedDutyperiod(
-                resolved_trip_start=resolved_start_date, report=report, release=release
+                resolved_trip_start=resolved_start_date,
+                report=next_report,
+                release=release,
             )
             dutyperiod.resolved_reports[resolved.resolved_trip_start] = resolved
             dutyperiod.resolve_flight_dates(
                 resolved_start_date=resolved_start_date,
-                resolved_report=report,
+                resolved_report=next_report,
                 airports=airports,
             )
-            if dutyperiod.layover is not None:
-                # This should make resolved_ref == the report of the next dp
-                report = release + dutyperiod.layover.rest()
+            if idx + 1 < len(self.dutyperiods):
+                assert dutyperiod.layover is not None
+                next_report = release + dutyperiod.layover.rest()
             else:
-                # This will cause an error if any but the last dp has no layover.
-                report = None  # type: ignore
+                # this is the last time through the loop, all dates should be resolved.
+                # set an impossible date just to make the typecheckers happy, and
+                # make it obvious during validation if it somehow slips through.
+                next_report = datetime(*(1900, 1, 1))
 
     def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
         """Builds a list of no-tz datetime representing start dates for trips."""
@@ -487,7 +479,8 @@ class Trip:
             calendar_strings.append(dutyperiod.report.calendar)
             for flight in dutyperiod.flights:
                 calendar_strings.append(flight.flight.calendar)
-            calendar_strings.append(dutyperiod.release.calendar)  # type: ignore
+            assert dutyperiod.release is not None
+            calendar_strings.append(dutyperiod.release.calendar)
             if dutyperiod.layover:
                 if dutyperiod.layover.hotel:
                     calendar_strings.append(dutyperiod.layover.hotel.calendar)
@@ -501,7 +494,8 @@ class Trip:
                     calendar_strings.append(
                         dutyperiod.layover.transportation_additional.calendar
                     )
-        calendar_strings.append(self.footer.calendar)  # type: ignore
+        assert self.footer is not None
+        calendar_strings.append(self.footer.calendar)
         calendar_entries: list[str] = []
         for entry in calendar_strings:
             calendar_entries.extend(entry.split())
@@ -516,9 +510,6 @@ class Page:
     page_footer: lines.PageFooter | None = None
     trips: List[Trip] = field(default_factory=list)
 
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
-
     def effective(self) -> datetime:
         if self.page_footer is not None:
             return datetime.strptime(self.page_footer.effective, DATE)
@@ -529,11 +520,21 @@ class Page:
             return datetime.strptime(self.page_footer.issued, DATE)
         raise ValueError("Tried to get issued date, but page_footer was None.")
 
+    def division(self) -> str:
+        assert self.page_footer is not None
+        return self.page_footer.division
+
+    def equipment(self) -> str:
+        assert self.page_footer is not None
+        return self.page_footer.equipment
+
     def base(self) -> str:
-        return self.page_footer.base.upper()  # type: ignore
+        assert self.page_footer is not None
+        return self.page_footer.base.upper()
 
     def satelite_base(self) -> str:
-        return self.page_footer.satelite_base.upper()  # type: ignore
+        assert self.page_footer is not None
+        return self.page_footer.satelite_base.upper()
 
     def from_to(self) -> tuple[datetime, datetime]:
         if self.page_header_2 is None:
@@ -578,9 +579,6 @@ class Package:
     source: str
     # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)
-
-    def __repr__(self):  # pylint: disable=useless-parent-delegation
-        return super().__repr__()
 
     def from_to(self) -> tuple[datetime, datetime]:
         return self.pages[0].from_to()
