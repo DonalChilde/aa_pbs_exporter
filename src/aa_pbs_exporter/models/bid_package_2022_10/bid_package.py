@@ -3,6 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 from aa_pbs_exporter.airports.airport_model import Airport
+from aa_pbs_exporter.util.line_ref import LineReference
 
 
 class Transportation(BaseModel):
@@ -71,6 +72,7 @@ class Trip(BaseModel):
     total_pay: timedelta
     tafb: timedelta
     dutyperiods: list[DutyPeriod]
+    line_ref: LineReference | None
 
 
 class BidPackage(BaseModel):

@@ -38,14 +38,6 @@ readme = { file = ["README.rst"] }
 where = ["src"]
 
 [project.optional-dependencies]
-# build= [
-#     # Packaging and Distribution
-#     # NOTE: pip and setuptools should be installed/upgraded separately
-#     "wheel",
-#     "twine",
-#     "pip-tools",
-#     "build",
-# ]
 dev = [
     # Packaging and Distribution
     # NOTE: pip and setuptools should be installed/upgraded separately
@@ -71,6 +63,7 @@ dev = [
 
     # Tools
     "pysnooper",
+    "devtools[pygments]",
 
     # Documentation
     "Sphinx",
@@ -102,4 +95,4 @@ max-line-length = "92"
 extension-pkg-whitelist = "pydantic"
 
 [project.scripts]
-aa-pbs-exporter = "aa_pbs_exporter.cli.main_cli:main"
+aa-pbs-exporter = "aa_pbs_exporter.cli.cli_main:cli"

@@ -4,6 +4,7 @@ from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.airports.airports import by_iata
 from aa_pbs_exporter.models.bid_package_2022_10 import bid_package as aa
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
+from aa_pbs_exporter.util.line_ref import LineReference
 
 
 def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
@@ -14,7 +15,7 @@ def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
     from_date, to_date = bid_package.from_to()
     aa_trips: list[aa.Trip] = []
     for page in bid_package.pages:
-        aa_trips.extend(translate_pages(page=page))
+        aa_trips.extend(translate_pages(page=page, source=bid_package.source))
     return aa.BidPackage(
         source=source,
         base=bid_package.base(),
@@ -26,7 +27,7 @@ def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
     )
 
 
-def translate_pages(page: raw.Page) -> list[aa.Trip]:
+def translate_pages(page: raw.Page, source: str) -> list[aa.Trip]:
     aa_trips: list[aa.Trip] = []
     for trip in page.trips:
         for resolved_start_date in trip.resolved_start_dates:
@@ -46,6 +47,11 @@ def translate_pages(page: raw.Page) -> list[aa.Trip]:
                 tafb=trip.tafb(),
                 dutyperiods=translate_dutyperiods(
                     resolved_start_date=resolved_start_date, trip=trip
+                ),
+                line_ref=LineReference(
+                    source=source,
+                    from_line=trip.header.source.idx,
+                    to_line=trip.footer.source.idx,
                 ),
             )
             aa_trips.append(aa_trip)

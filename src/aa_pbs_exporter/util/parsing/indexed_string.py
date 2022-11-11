@@ -21,4 +21,4 @@ class IndexedString:
         return f"{cls_name}(idx={self.idx}, txt={self.txt!r})"
 
     def __str__(self):
-        return f"{self.idx}: {self.txt}"
+        return f"{self.idx}: {self.txt!r}"

@@ -5,8 +5,15 @@ import pyparsing as pp
 
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.util import state_parser as sp
-from aa_pbs_exporter.util.indexed_string import IndexedString
+from aa_pbs_exporter.util.parsing import state_parser as sp
+from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.util.parsing.parse_context import ParseContext
+from aa_pbs_exporter.util.publisher_consumer import MessagePublisher
+from aa_pbs_exporter.util.parsing.indexed_string_filter import (
+    MultiTest,
+    SkipTillMatch,
+    SkipBlankLines,
+)
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -44,61 +51,64 @@ def data_starts(indexed_string: IndexedString) -> bool:
 
 
 def make_skipper() -> Callable[[IndexedString], bool]:
-    return sp.MultiTest(
-        testers=[sp.SkipTillMatch(matcher=data_starts), sp.SkipBlankLines()]
-    )
+    return MultiTest(testers=[SkipTillMatch(matcher=data_starts), SkipBlankLines()])
 
 
-class ParseContext:
-    def __init__(self, file_name: str) -> None:
-        self.bid_package = raw.Package(file_name=file_name)
+class LineParseContext(ParseContext):
+    def __init__(self, source: str, messenger: MessagePublisher | None = None) -> None:
+        if messenger is None:
+            self.messenger = MessagePublisher(consumers=[])
+        else:
+            self.messenger = messenger
+        self.source_name = source
+        self.bid_package = raw.Package(source=source)
 
-    def handle_parse(self, data):
+    def handle_parse_result(self, result):
         # print(f"In Handle with {data.__class__.__qualname__}")
-        match data.__class__.__qualname__:
+        match result.__class__.__qualname__:
             case "PageHeader1":
-                self.bid_package.pages.append(raw.Page(page_header_1=data))
+                self.bid_package.pages.append(raw.Page(page_header_1=result))
             case "PageHeader2":
-                self.bid_package.pages[-1].page_header_2 = data
+                self.bid_package.pages[-1].page_header_2 = result
             case "HeaderSeparator":
                 pass
             case "BaseEquipment":
-                self.bid_package.pages[-1].base_equipment = data
+                self.bid_package.pages[-1].base_equipment = result
             case "TripHeader":
-                self.bid_package.pages[-1].trips.append(raw.Trip(header=data))
+                self.bid_package.pages[-1].trips.append(raw.Trip(header=result))
             case "DutyPeriodReport":
                 self.bid_package.pages[-1].trips[-1].dutyperiods.append(
-                    raw.DutyPeriod(report=data)
+                    raw.DutyPeriod(report=result)
                 )
             case "Flight":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
-                    raw.Flight(flight=data)
+                    raw.Flight(flight=result)
                 )
             case "DutyPeriodRelease":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = data
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = result
             case "Hotel":
-                layover = raw.Layover(hotel=data)
+                layover = raw.Layover(hotel=result)
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
             case "HotelAdditional":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].layover.hotel_additional = data
+                ].layover.hotel_additional = result
             case "Transportation":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].layover.transportation = data
+                ].layover.transportation = result
             case "TransportationAdditional":
                 self.bid_package.pages[-1].trips[-1].dutyperiods[
                     -1
-                ].layover.transportation_additional = data
+                ].layover.transportation_additional = result
             case "TripFooter":
-                self.bid_package.pages[-1].trips[-1].footer = data
+                self.bid_package.pages[-1].trips[-1].footer = result
             case "TripSeparator":
                 # could validate trip here
                 pass
             case "PageFooter":
                 # could validate page here
-                self.bid_package.pages[-1].page_footer = data
+                self.bid_package.pages[-1].page_footer = result
 
 
 class ParseScheme(sp.ParseScheme):
@@ -133,7 +143,7 @@ class PageHeader1(sp.Parser):
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "DEPARTURE" in indexed_string.txt:
             parsed = lines.PageHeader1(source=indexed_string)
-            ctx.handle_parse(parsed)
+            ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'DEPARTURE' not found in line.")
 
@@ -146,7 +156,7 @@ class PageHeader2(sp.Parser):
         words = indexed_string.txt.split()
         if words[-2] == "CALENDAR":
             parsed = lines.PageHeader2(source=indexed_string, calendar_range=words[-1])
-            ctx.handle_parse(parsed)
+            ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException(
             f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
@@ -160,7 +170,7 @@ class HeaderSeparator(sp.Parser):
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = lines.HeaderSeparator(source=indexed_string)
-            ctx.handle_parse(parsed)
+            ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
 
@@ -172,7 +182,7 @@ class TripSeparator(sp.Parser):
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = lines.TripSeparator(source=indexed_string)
-            ctx.handle_parse(parsed)
+            ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
 
@@ -199,7 +209,7 @@ class BaseEquipment(sp.Parser):
             satelite_base=result.get("satelite_base", ""),
             equipment=result["equipment"],
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -245,7 +255,7 @@ class TripHeader(sp.Parser):
             special_qualification=" ".join(result["special_qualification"]),
             calendar="",
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -276,7 +286,7 @@ class DutyPeriodReport(sp.Parser):
             report=result["report"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -333,7 +343,7 @@ class Flight(sp.Parser):
             equipment_change=result["equipment_change"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -390,7 +400,7 @@ class FlightDeadhead(sp.Parser):
             equipment_change=result["equipment_change"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -425,7 +435,7 @@ class DutyPeriodRelease(sp.Parser):
             flight_duty=result["flight_duty"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -462,7 +472,7 @@ class Hotel(sp.Parser):
             rest=result["rest"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -499,7 +509,7 @@ class HotelAdditional(sp.Parser):
             phone=result["hotel_phone"],
             calendar="".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -528,7 +538,7 @@ class Transportation(sp.Parser):
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -557,7 +567,7 @@ class TransportationAdditional(sp.Parser):
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -588,7 +598,7 @@ class TripFooter(sp.Parser):
             tafb=result["tafb"],
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state
 
 
@@ -627,5 +637,5 @@ class PageFooter(sp.Parser):
             division=result["division"],
             page=result["internal_page"],
         )
-        ctx.handle_parse(parsed)
+        ctx.handle_parse_result(parsed)
         return self.success_state

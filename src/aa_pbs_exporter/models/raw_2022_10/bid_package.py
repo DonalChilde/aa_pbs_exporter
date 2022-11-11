@@ -19,6 +19,8 @@ from aa_pbs_exporter.util.complete_partial_datetime import (
 )
 from aa_pbs_exporter.util.dataclass_repr_mixin import DataclassReprMixin
 from aa_pbs_exporter.util.index_numeric_strings import index_numeric_strings
+from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.util.line_ref import LineReference
 from aa_pbs_exporter.util.parse_duration_regex import (
     parse_duration as regex_parse_duration,
 )
@@ -26,6 +28,7 @@ from aa_pbs_exporter.util.parse_duration_regex import pattern_HHHMM
 
 DATE = "%d%b%Y"
 TIME = "%H%M"
+MONTH_DAY = "%m/%d"
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 
 # TODO consolidate validation functions, make reporting easier and more consistent
@@ -53,6 +56,7 @@ class LocalHbt(DataclassReprMixin):
 class Flight(DataclassReprMixin):
     flight: lines.Flight
     resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)
+    cached_values: dict[str, Any] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -92,23 +96,24 @@ class Flight(DataclassReprMixin):
         local, hbt = self.flight.arrival_time.split("/")
         return LocalHbt(local, hbt)
 
-    def resolved_arrival_time(self, resolved_departure_time: datetime) -> str:
-        raise NotImplementedError
-
     def block(self) -> timedelta:
-        value = self.flight.block  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("block", self.flight.block)  # type: ignore
 
     def synth(self) -> timedelta:
-        value = self.flight.synth  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("synth", self.flight.synth)  # type: ignore
 
     def ground(self) -> timedelta:
-        value = self.flight.ground  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("ground", self.flight.ground)  # type: ignore
 
     def equipment_change(self) -> bool:
         return bool(self.equipment_change)
+
+    def _cached_duration(self, key: str, raw_str: str) -> timedelta:
+        cached_value = self.cached_values.get(key, None)
+        if cached_value is None:
+            cached_value = parse_duration(raw_str)  # type: ignore
+            self.cached_values[key] = cached_value
+        return cached_value
 
 
 @dataclass
@@ -117,6 +122,7 @@ class Layover(DataclassReprMixin):
     transportation: lines.Transportation | None = None
     hotel_additional: lines.HotelAdditional | None = None
     transportation_additional: lines.TransportationAdditional | None = None
+    cached_values: dict[str, Any] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -125,8 +131,7 @@ class Layover(DataclassReprMixin):
         return self.hotel.layover_city
 
     def rest(self) -> timedelta:
-        value = self.hotel.rest  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("rest", self.hotel.rest)  # type: ignore
 
     def hotel_name(self) -> str | None:
         if not self.hotel.name:
@@ -180,6 +185,13 @@ class Layover(DataclassReprMixin):
             return None
         return self.transportation_additional.phone
 
+    def _cached_duration(self, key: str, raw_str: str) -> timedelta:
+        cached_value = self.cached_values.get(key, None)
+        if cached_value is None:
+            cached_value = parse_duration(raw_str)  # type: ignore
+            self.cached_values[key] = cached_value
+        return cached_value
+
 
 @dataclass
 class DutyPeriod(DataclassReprMixin):
@@ -188,6 +200,7 @@ class DutyPeriod(DataclassReprMixin):
     layover: Layover | None = None
     flights: List[Flight] = field(default_factory=list)
     resolved_reports: dict[datetime, ResolvedDutyperiod] = field(default_factory=dict)
+    cached_values: dict[str, Any] = field(default_factory=dict)
 
     def __repr__(self):  # pylint: disable=useless-parent-delegation
         return super().__repr__()
@@ -207,24 +220,53 @@ class DutyPeriod(DataclassReprMixin):
         return self.flights[-1].arrival_station()
 
     def block(self) -> timedelta:
-        value = self.release.block  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("block", self.release.block)  # type: ignore
 
     def synth(self) -> timedelta:
-        value = self.release.synth  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("synth", self.release.synth)  # type: ignore
 
     def pay(self) -> timedelta:
-        value = self.release.total_pay  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("total_pay", self.release.total_pay)  # type: ignore
 
     def duty(self) -> timedelta:
-        value = self.release.duty  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("duty", self.release.duty)  # type: ignore
 
     def flight_duty(self) -> timedelta:
-        value = self.release.flight_duty  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("flight_duty", self.release.flight_duty)  # type: ignore
+
+    def _sum_flight_durations(self, resolved_start_date: datetime) -> timedelta:
+        total = timedelta()
+        for flight in self.flights:
+            total = total + (
+                flight.resolved_flights[resolved_start_date].arrival
+                - flight.resolved_flights[resolved_start_date].departure
+            )
+            total = total + flight.ground()
+        return total
+
+    def _cached_duration(self, key: str, raw_str: str) -> timedelta:
+        cached_value = self.cached_values.get(key, None)
+        if cached_value is None:
+            cached_value = parse_duration(raw_str)  # type: ignore
+            self.cached_values[key] = cached_value
+        return cached_value
+
+    def _source_lines(self) -> list[IndexedString]:
+        source_lines: list[IndexedString] = []
+        source_lines.append(self.report.source)
+        for flight in self.flights:
+            source_lines.append(flight.flight.source)
+        if self.release:
+            source_lines.append(self.release.source)
+        if self.layover:
+            source_lines.append(self.layover.hotel.source)
+            if value := self.layover.transportation:
+                source_lines.append(value.source)
+            if self.layover.hotel_additional:
+                source_lines.append(self.layover.hotel_additional.source)
+            if self.layover.transportation_additional:
+                source_lines.append(self.layover.transportation_additional.source)
+        return source_lines
 
     def resolve_flight_dates(
         self,
@@ -287,15 +329,15 @@ class Trip(DataclassReprMixin):
         return super().__repr__()
 
     def uuid(self, resolved_start_date: datetime) -> UUID:
-        cached_str = self.cached_values.get("hash_string", None)
-        if cached_str is None:
-            cached_str = (
+        cached_value = self.cached_values.get("hash_string", None)
+        if cached_value is None:
+            cached_value = (
                 f"{json.dumps(asdict(self.header))}"
                 f"{json.dumps(asdict(self.footer))}"
                 # f"{json.dumps(list([asdict(x) for x in self.dutyperiods]))}"
             )
-            self.cached_values["hash_string"] = cached_str
-        value = f"{resolved_start_date.isoformat()}{cached_str}"
+            self.cached_values["hash_string"] = cached_value
+        value = f"{resolved_start_date.isoformat()}{cached_value}"
         return uuid5(PROJECT_NAMESPACE, value)
 
     def number(self) -> str:
@@ -325,21 +367,24 @@ class Trip(DataclassReprMixin):
     def special_qualification(self) -> bool:
         return bool(self.header.special_qualification)
 
+    def _cached_duration(self, key: str, raw_str: str) -> timedelta:
+        cached_value = self.cached_values.get(key, None)
+        if cached_value is None:
+            cached_value = parse_duration(raw_str)  # type: ignore
+            self.cached_values[key] = cached_value
+        return cached_value
+
     def block(self) -> timedelta:
-        value = self.footer.block  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("block", self.footer.block)  # type: ignore
 
     def synth(self) -> timedelta:
-        value = self.footer.synth  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("synth", self.footer.synth)  # type: ignore
 
     def pay(self) -> timedelta:
-        value = self.footer.total_pay  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("total_pay", self.footer.total_pay)  # type: ignore
 
     def tafb(self) -> timedelta:
-        value = self.footer.tafb  # type: ignore
-        return parse_duration(value)
+        return self._cached_duration("tafb", self.footer.tafb)  # type: ignore
 
     def resolve_all_the_dates(
         self, from_date: datetime, to_date: datetime, airports: dict[str, Airport]
@@ -349,6 +394,23 @@ class Trip(DataclassReprMixin):
         self._resolve_start_dates(start_dates=start_dates, airports=airports)
         for start in self.resolved_start_dates:
             self._resolve_trip_dates(start, airports=airports)
+
+    def _line_range(self) -> str:
+        if self.footer:
+            to_line = self.footer.source.idx
+        else:
+            to_line = "UNDEFINED"
+        return f"{self.header.source.idx}-{to_line}"
+
+    def _source_lines(self) -> list[IndexedString]:
+        source_lines: list[IndexedString] = []
+        source_lines.append(self.header.source)
+        for dutyperiod in self.dutyperiods:
+            # pylint: disable=protected-access
+            source_lines.extend(dutyperiod._source_lines())
+        if self.footer:
+            source_lines.append(self.footer.source)
+        return source_lines
 
     def _resolve_trip_dates(
         self, resolved_start_date: datetime, airports: dict[str, Airport]
@@ -363,21 +425,9 @@ class Trip(DataclassReprMixin):
             hour=first_report_time.tm_hour, minute=first_report_time.tm_min
         )
         for dutyperiod in self.dutyperiods:
-            local_rpt = dutyperiod.report_time().local
-            if report.strftime("%H%M") != local_rpt:
-                raise ValueError(
-                    f"{report.isoformat()} time does not "
-                    f"match local report {local_rpt} {dutyperiod=}"
-                )
             tz_string = airports[dutyperiod.release_station()].tz
             release = report + dutyperiod.duty()
             release = release.astimezone(ZoneInfo(tz_string))
-            local_rls = dutyperiod.release_time().local
-            if release.strftime("%H%M") != local_rls:
-                raise ValueError(
-                    f"{release.isoformat()} time does not match "
-                    f"local release {local_rls} {dutyperiod=}"
-                )
             resolved = ResolvedDutyperiod(
                 resolved_trip_start=resolved_start_date, report=report, release=release
             )
@@ -393,11 +443,6 @@ class Trip(DataclassReprMixin):
             else:
                 # This will cause an error if any but the last dp has no layover.
                 report = None  # type: ignore
-        # tafb = self.tafb()
-        #     if tafb*-1 != resolved. release - report:
-        #         raise ValueError(
-        #             f"{tafb.total_seconds()} does not match {(release-report).total_seconds()} {release=} - {report=}. start_date={resolved_start_date} trip={self}"
-        #         )
 
     def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
         """Builds a list of no-tz datetime representing start dates for trips."""
@@ -405,7 +450,8 @@ class Trip(DataclassReprMixin):
         days = int((to_date - from_date) / timedelta(days=1)) + 1
         if days != len(calendar_entries):
             raise ValueError(
-                f"{days} days in range, but {len(calendar_entries)} entries in calendar."
+                f"{days} days in range, but {len(calendar_entries)} entries "
+                f"in calendar for trip {self!r}."
             )
         indexed_days = list(index_numeric_strings(calendar_entries))
         start_dates: list[datetime] = []
@@ -497,15 +543,41 @@ class Page(DataclassReprMixin):
         effective = self.effective()
         from_md = self.page_header_2.calendar_range[:5]
         to_md = self.page_header_2.calendar_range[6:]
-        strf = "%m/%d"
+        strf = MONTH_DAY
         from_date = complete_future_mdt(effective, from_md, strf=strf)
         to_date = complete_future_mdt(effective, to_md, strf=strf)
         return from_date, to_date
 
+    def internal_page(self) -> str:
+        if self.page_footer is None:
+            raise ValueError("Tried to get internal_page but page_footer was None.")
+        return self.page_footer.page
+
+    def _line_range(self) -> str:
+        if self.page_footer:
+            to_line = self.page_footer.source.idx
+        else:
+            to_line = "UNDEFINED"
+        return f"{self.page_header_1.source.idx}-{to_line}"
+
+    def _source_lines(self) -> list[IndexedString]:
+        source_lines: list[IndexedString] = []
+        source_lines.append(self.page_header_1.source)
+        if self.page_header_2:
+            source_lines.append(self.page_header_2.source)
+        if self.base_equipment:
+            source_lines.append(self.base_equipment.source)
+        for trip in self.trips:
+            # pylint: disable=protected-access
+            source_lines.extend(trip._source_lines())
+        if self.page_footer:
+            source_lines.append(self.page_footer.source)
+        return source_lines
+
 
 @dataclass
 class Package(DataclassReprMixin):
-    file_name: str
+    source: str
     # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)
 

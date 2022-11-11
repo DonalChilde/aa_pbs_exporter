@@ -1,8 +1,10 @@
+from pathlib import Path
 from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
-from aa_pbs_exporter.util.indexed_string import IndexedString
+from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
+from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
 test_data = [
     lines.TripFooter(
@@ -30,13 +32,11 @@ test_data = [
 ]
 
 
-def test_trip_footer():
-    ctx = ParseContextTest("None")
-    expected_state = "trip_footer"
-    parser = line_parser.TripFooter()
-    for data in test_data:
-        state = parser.parse(data.source, ctx)
-        assert state == expected_state
-        print("expected", ctx.parsed_data)
-        print("parsed", ctx.parsed_data)
-        assert data == ctx.parsed_data
+def test_trip_footer(test_app_data_dir: Path):
+    run_line_test(
+        name="test_trip_footer",
+        output_dir=test_app_data_dir,
+        test_data=test_data,
+        expected_state="trip_footer",
+        parser=line_parser.TripFooter(),
+    )

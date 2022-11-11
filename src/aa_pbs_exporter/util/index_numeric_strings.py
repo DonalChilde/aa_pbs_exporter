@@ -10,7 +10,7 @@
 ####################################################
 from typing import Iterable, Iterator
 
-from .indexed_string import IndexedString
+from .parsing.indexed_string import IndexedString
 
 
 def index_numeric_strings(string_values: Iterable[str]) -> Iterator[IndexedString]:
