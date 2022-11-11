@@ -17,10 +17,8 @@ from aa_pbs_exporter.util.complete_partial_datetime import (
     complete_future_mdt,
     complete_future_time,
 )
-from aa_pbs_exporter.util.dataclass_repr_mixin import DataclassReprMixin
 from aa_pbs_exporter.util.index_numeric_strings import index_numeric_strings
 from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
-from aa_pbs_exporter.util.line_ref import LineReference
 from aa_pbs_exporter.util.parse_duration_regex import (
     parse_duration as regex_parse_duration,
 )
@@ -31,29 +29,29 @@ TIME = "%H%M"
 MONTH_DAY = "%m/%d"
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 
-# TODO consolidate validation functions, make reporting easier and more consistent
+
 @dataclass
-class ResolvedFlight(DataclassReprMixin):
+class ResolvedFlight:
     resolved_trip_start: datetime
     departure: datetime
     arrival: datetime
 
 
 @dataclass
-class ResolvedDutyperiod(DataclassReprMixin):
+class ResolvedDutyperiod:
     resolved_trip_start: datetime
     report: datetime
     release: datetime
 
 
 @dataclass
-class LocalHbt(DataclassReprMixin):
+class LocalHbt:
     local: str
     hbt: str
 
 
 @dataclass
-class Flight(DataclassReprMixin):
+class Flight:
     flight: lines.Flight
     resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)
     cached_values: dict[str, Any] = field(default_factory=dict)
@@ -117,7 +115,7 @@ class Flight(DataclassReprMixin):
 
 
 @dataclass
-class Layover(DataclassReprMixin):
+class Layover:
     hotel: lines.Hotel
     transportation: lines.Transportation | None = None
     hotel_additional: lines.HotelAdditional | None = None
@@ -194,7 +192,7 @@ class Layover(DataclassReprMixin):
 
 
 @dataclass
-class DutyPeriod(DataclassReprMixin):
+class DutyPeriod:
     report: lines.DutyPeriodReport
     release: lines.DutyPeriodRelease | None = None
     layover: Layover | None = None
@@ -318,7 +316,7 @@ class DutyPeriod(DataclassReprMixin):
 
 
 @dataclass
-class Trip(DataclassReprMixin):
+class Trip:
     header: lines.TripHeader
     footer: lines.TripFooter | None = None
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
@@ -511,7 +509,7 @@ class Trip(DataclassReprMixin):
 
 
 @dataclass
-class Page(DataclassReprMixin):
+class Page:
     page_header_1: lines.PageHeader1
     page_header_2: lines.PageHeader2 | None = None
     base_equipment: lines.BaseEquipment | None = None
@@ -576,7 +574,7 @@ class Page(DataclassReprMixin):
 
 
 @dataclass
-class Package(DataclassReprMixin):
+class Package:
     source: str
     # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)

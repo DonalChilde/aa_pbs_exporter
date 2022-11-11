@@ -4,7 +4,6 @@ from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.airports.airports import by_iata
 from aa_pbs_exporter.models.bid_package_2022_10 import bid_package as aa
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
-from aa_pbs_exporter.util.line_ref import LineReference
 
 
 def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
@@ -48,7 +47,7 @@ def translate_pages(page: raw.Page, source: str) -> list[aa.Trip]:
                 dutyperiods=translate_dutyperiods(
                     resolved_start_date=resolved_start_date, trip=trip
                 ),
-                line_ref=LineReference(
+                line_ref=aa.LineReference(
                     source=source,
                     from_line=trip.header.source.idx,
                     to_line=trip.footer.source.idx,

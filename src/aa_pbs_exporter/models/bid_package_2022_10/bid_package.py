@@ -3,7 +3,12 @@ from uuid import UUID
 
 from pydantic import BaseModel
 from aa_pbs_exporter.airports.airport_model import Airport
-from aa_pbs_exporter.util.line_ref import LineReference
+
+
+class LineReference(BaseModel):
+    source: str
+    from_line: int
+    to_line: int
 
 
 class Transportation(BaseModel):
