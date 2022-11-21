@@ -17,10 +17,12 @@ def test_page(logger, lax_777_intl: ParseTestingData):
     scheme = line_parser.ParseScheme()
     lines = lax_777_intl.source_txt.read_text().split("\n")
     parse_lines(lines, scheme, ctx, skipper=line_parser.make_skipper())
-    page = ctx.bid_package.pages[-1]
+    page = ctx.results_obj.pages[-1]
     assert page.trips[-1].header.number == "683"
+    assert page.trips[-2].dutyperiods[0].layover is not None
+    assert page.trips[-2].dutyperiods[0].layover.transportation is not None
     assert page.trips[-2].dutyperiods[0].layover.hotel.name == "COURTYARD CENTRAL PARK"
     assert page.trips[-2].dutyperiods[0].layover.transportation.name == "DESERT COACH"
-    translated = translate_package(bid_package=ctx.bid_package, source="lax_777_intl")
+    translated = translate_package(bid_package=ctx.results_obj, source="lax_777_intl")
     print(translated)
     # assert False

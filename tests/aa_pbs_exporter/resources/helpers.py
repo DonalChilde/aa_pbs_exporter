@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from importlib import resources
 
-from aa_pbs_exporter.util.parsing.parse_context import DevParseContext
+from aa_pbs_exporter.util.parsing.parse_context import DevParseContext, NoOpParseContext
 from aa_pbs_exporter.util.parsing.state_parser import Parser
 
 
@@ -49,9 +49,10 @@ def run_line_test(
 ):
     output_path = output_dir / Path("lines") / f"{name}.txt"
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    ctx = NoOpParseContext(source_name=name)
     with open(output_path, mode="w", encoding="utf-8") as fp_out:
-        ctx = DevParseContext(source_name=name, fp_out=fp_out)
+        dev_ctx = DevParseContext(source_name=name, fp_out=fp_out, wrapped_context=ctx)
         for data in test_data:
-            state = parser.parse(data.source, ctx)
+            state = parser.parse(data.source, dev_ctx)
             assert state == expected_state
-            assert data == ctx.result
+            assert data == dev_ctx.result

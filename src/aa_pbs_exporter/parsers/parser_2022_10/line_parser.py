@@ -1,14 +1,18 @@
 import logging
-from typing import Callable, Dict, Sequence
+from pathlib import Path
+from typing import Callable, Dict, Iterable, Sequence
 
 import pyparsing as pp
 
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
-from aa_pbs_exporter.models.raw_2022_10 import lines
+from aa_pbs_exporter.models.raw_2022_10 import lines as raw_lines
 from aa_pbs_exporter.util.parsing import state_parser as sp
 from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.util.parsing.parse_context import ParseContext
-from aa_pbs_exporter.util.publisher_consumer import MessagePublisher
+from aa_pbs_exporter.util.publisher_consumer import (
+    MessageConsumer,
+    MessagePublisherMixin,
+)
 from aa_pbs_exporter.util.parsing.indexed_string_filter import (
     MultiTest,
     SkipTillMatch,
@@ -54,61 +58,75 @@ def make_skipper() -> Callable[[IndexedString], bool]:
     return MultiTest(testers=[SkipTillMatch(matcher=data_starts), SkipBlankLines()])
 
 
-class LineParseContext(ParseContext):
-    def __init__(self, source: str, messenger: MessagePublisher | None = None) -> None:
-        if messenger is None:
-            self.messenger = MessagePublisher(consumers=[])
+class LineParseContext(ParseContext, MessagePublisherMixin):
+    def __init__(
+        self,
+        source_name: str,
+        message_consumers: Sequence[MessageConsumer] | None = None,
+    ) -> None:
+        super().__init__(
+            source_name=source_name, results_obj=raw.Package(source=source_name)
+        )
+        if message_consumers is None:
+            self.message_consumers = []
         else:
-            self.messenger = messenger
-        self.source_name = source
-        self.bid_package = raw.Package(source=source)
+            self.message_consumers = message_consumers
+        # self.bid_package = raw.Package(source=source_name)
+
+    @property
+    def results_obj(self) -> raw.Package:
+        return self._results_obj
+
+    @results_obj.setter
+    def results_obj(self, value: raw.Package):
+        self._results_obj = value
 
     def handle_parse_result(self, result):
         # print(f"In Handle with {data.__class__.__qualname__}")
         match result.__class__.__qualname__:
             case "PageHeader1":
-                self.bid_package.pages.append(raw.Page(page_header_1=result))
+                self.results_obj.pages.append(raw.Page(page_header_1=result))
             case "PageHeader2":
-                self.bid_package.pages[-1].page_header_2 = result
+                self.results_obj.pages[-1].page_header_2 = result
             case "HeaderSeparator":
                 pass
             case "BaseEquipment":
-                self.bid_package.pages[-1].base_equipment = result
+                self.results_obj.pages[-1].base_equipment = result
             case "TripHeader":
-                self.bid_package.pages[-1].trips.append(raw.Trip(header=result))
+                self.results_obj.pages[-1].trips.append(raw.Trip(header=result))
             case "DutyPeriodReport":
-                self.bid_package.pages[-1].trips[-1].dutyperiods.append(
+                self.results_obj.pages[-1].trips[-1].dutyperiods.append(
                     raw.DutyPeriod(report=result)
                 )
             case "Flight":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
+                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].flights.append(
                     raw.Flight(flight=result)
                 )
             case "DutyPeriodRelease":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = result
+                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].release = result
             case "Hotel":
                 layover = raw.Layover(hotel=result)
-                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
+                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover = layover
             case "HotelAdditional":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[
-                    -1
-                ].layover.hotel_additional = result
+                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
+                assert layover is not None
+                layover.hotel_additional = result
             case "Transportation":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[
-                    -1
-                ].layover.transportation = result
+                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
+                assert layover is not None
+                layover.transportation = result
             case "TransportationAdditional":
-                self.bid_package.pages[-1].trips[-1].dutyperiods[
-                    -1
-                ].layover.transportation_additional = result
+                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
+                assert layover is not None
+                layover.transportation_additional = result
             case "TripFooter":
-                self.bid_package.pages[-1].trips[-1].footer = result
+                self.results_obj.pages[-1].trips[-1].footer = result
             case "TripSeparator":
                 # could validate trip here
                 pass
             case "PageFooter":
                 # could validate page here
-                self.bid_package.pages[-1].page_footer = result
+                self.results_obj.pages[-1].page_footer = result
 
 
 class ParseScheme(sp.ParseScheme):
@@ -142,7 +160,7 @@ class PageHeader1(sp.Parser):
 
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "DEPARTURE" in indexed_string.txt:
-            parsed = lines.PageHeader1(source=indexed_string)
+            parsed = raw_lines.PageHeader1(source=indexed_string)
             ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'DEPARTURE' not found in line.")
@@ -155,7 +173,9 @@ class PageHeader2(sp.Parser):
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         words = indexed_string.txt.split()
         if words[-2] == "CALENDAR":
-            parsed = lines.PageHeader2(source=indexed_string, calendar_range=words[-1])
+            parsed = raw_lines.PageHeader2(
+                source=indexed_string, calendar_range=words[-1]
+            )
             ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException(
@@ -169,7 +189,7 @@ class HeaderSeparator(sp.Parser):
 
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
-            parsed = lines.HeaderSeparator(source=indexed_string)
+            parsed = raw_lines.HeaderSeparator(source=indexed_string)
             ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -181,7 +201,7 @@ class TripSeparator(sp.Parser):
 
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
-            parsed = lines.TripSeparator(source=indexed_string)
+            parsed = raw_lines.TripSeparator(source=indexed_string)
             ctx.handle_parse_result(parsed)
             return self.success_state
         raise sp.ParseException("'-----' not found in line.")
@@ -203,11 +223,11 @@ class BaseEquipment(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.BaseEquipment(
+        parsed = raw_lines.BaseEquipment(
             source=indexed_string,
-            base=result["base"],
-            satelite_base=result.get("satelite_base", ""),
-            equipment=result["equipment"],
+            base=result["base"],  # type: ignore
+            satelite_base=result.get("satelite_base", ""),  # type: ignore
+            equipment=result["equipment"],  # type: ignore
         )
         ctx.handle_parse_result(parsed)
         return self.success_state
@@ -246,10 +266,10 @@ class TripHeader(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.TripHeader(
+        parsed = raw_lines.TripHeader(
             source=indexed_string,
-            number=result["number"],
-            ops_count=result["ops_count"],
+            number=result["number"],  # type: ignore
+            ops_count=result["ops_count"],  # type: ignore
             positions=" ".join(result["positions"]),
             operations=" ".join(result["operations"]),
             special_qualification=" ".join(result["special_qualification"]),
@@ -281,9 +301,9 @@ class DutyPeriodReport(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.DutyPeriodReport(
+        parsed = raw_lines.DutyPeriodReport(
             source=indexed_string,
-            report=result["report"],
+            report=result["report"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -313,7 +333,7 @@ class Flight(sp.Parser):
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("arrival_station")
             + DUALTIME("arrival_time")
             + DURATION("block")
-            # FIXME synth time?
+            # FIXME synth time? Can this happen on a non deadhead?
             + pp.Opt(DURATION("ground"), default="0.00")
             + pp.Opt("X", default="")("equipment_change")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
@@ -325,22 +345,22 @@ class Flight(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.Flight(
+        parsed = raw_lines.Flight(
             source=indexed_string,
-            dutyperiod_index=result["dutyperiod"],
-            dep_arr_day=result["day_of_sequence"],
-            eq_code=result["equipment_code"],
-            flight_number=result["flight_number"],
+            dutyperiod_index=result["dutyperiod"],  # type: ignore
+            dep_arr_day=result["day_of_sequence"],  # type: ignore
+            eq_code=result["equipment_code"],  # type: ignore
+            flight_number=result["flight_number"],  # type: ignore
             deadhead="",
-            departure_station=result["departure_station"],
-            departure_time=result["departure_time"],
-            meal=result["crew_meal"],
-            arrival_station=result["arrival_station"],
-            arrival_time=result["arrival_time"],
-            block=result["block"],
+            departure_station=result["departure_station"],  # type: ignore
+            departure_time=result["departure_time"],  # type: ignore
+            meal=result["crew_meal"],  # type: ignore
+            arrival_station=result["arrival_station"],  # type: ignore
+            arrival_time=result["arrival_time"],  # type: ignore
+            block=result["block"],  # type: ignore
             synth="0.00",
-            ground=result["ground"],
-            equipment_change=result["equipment_change"],
+            ground=result["ground"],  # type: ignore
+            equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -382,22 +402,22 @@ class FlightDeadhead(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.Flight(
+        parsed = raw_lines.Flight(
             source=indexed_string,
-            dutyperiod_index=result["dutyperiod"],
-            dep_arr_day=result["day_of_sequence"],
-            eq_code=result["equipment_code"],
-            flight_number=result["flight_number"],
-            deadhead=result["deadhead"],
-            departure_station=result["departure_station"],
-            departure_time=result["departure_time"],
-            meal=result["crew_meal"],
-            arrival_station=result["arrival_station"],
-            arrival_time=result["arrival_time"],
+            dutyperiod_index=result["dutyperiod"],  # type: ignore
+            dep_arr_day=result["day_of_sequence"],  # type: ignore
+            eq_code=result["equipment_code"],  # type: ignore
+            flight_number=result["flight_number"],  # type: ignore
+            deadhead=result["deadhead"],  # type: ignore
+            departure_station=result["departure_station"],  # type: ignore
+            departure_time=result["departure_time"],  # type: ignore
+            meal=result["crew_meal"],  # type: ignore
+            arrival_station=result["arrival_station"],  # type: ignore
+            arrival_time=result["arrival_time"],  # type: ignore
             block="0.00",
-            synth=result["synth"],
-            ground=result["ground"],
-            equipment_change=result["equipment_change"],
+            synth=result["synth"],  # type: ignore
+            ground=result["ground"],  # type: ignore
+            equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -425,14 +445,14 @@ class DutyPeriodRelease(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.DutyPeriodRelease(
+        parsed = raw_lines.DutyPeriodRelease(
             source=indexed_string,
-            release=result["release_time"],
-            block=result["block"],
-            synth=result["synth"],
-            total_pay=result["total_pay"],
-            duty=result["duty"],
-            flight_duty=result["flight_duty"],
+            release=result["release_time"],  # type: ignore
+            block=result["block"],  # type: ignore
+            synth=result["synth"],  # type: ignore
+            total_pay=result["total_pay"],  # type: ignore
+            duty=result["duty"],  # type: ignore
+            flight_duty=result["flight_duty"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -464,12 +484,12 @@ class Hotel(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.Hotel(
+        parsed = raw_lines.Hotel(
             source=indexed_string,
-            layover_city=result["layover_city"],
-            name=result["hotel"],
-            phone=result["hotel_phone"],
-            rest=result["rest"],
+            layover_city=result["layover_city"],  # type: ignore
+            name=result["hotel"],  # type: ignore
+            phone=result["hotel_phone"],  # type: ignore
+            rest=result["rest"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -502,11 +522,11 @@ class HotelAdditional(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.HotelAdditional(
+        parsed = raw_lines.HotelAdditional(
             source=indexed_string,
-            layover_city=result["layover_city"],
-            name=result["hotel"],
-            phone=result["hotel_phone"],
+            layover_city=result["layover_city"],  # type: ignore
+            name=result["hotel"],  # type: ignore
+            phone=result["hotel_phone"],  # type: ignore
             calendar="".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -532,9 +552,9 @@ class Transportation(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.Transportation(
+        parsed = raw_lines.Transportation(
             source=indexed_string,
-            name=result.get("transportation", ""),
+            name=result.get("transportation", ""),  # type: ignore
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
@@ -561,9 +581,9 @@ class TransportationAdditional(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.TransportationAdditional(
+        parsed = raw_lines.TransportationAdditional(
             source=indexed_string,
-            name=result["transportation"],
+            name=result["transportation"],  # type: ignore
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
@@ -590,12 +610,12 @@ class TripFooter(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.TripFooter(
+        parsed = raw_lines.TripFooter(
             source=indexed_string,
-            block=result["block"],
-            synth=result["synth"],
-            total_pay=result["total_pay"],
-            tafb=result["tafb"],
+            block=result["block"],  # type: ignore
+            synth=result["synth"],  # type: ignore
+            total_pay=result["total_pay"],  # type: ignore
+            tafb=result["tafb"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
         ctx.handle_parse_result(parsed)
@@ -627,15 +647,29 @@ class PageFooter(sp.Parser):
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
             raise sp.ParseException(f"{error}") from error
-        parsed = lines.PageFooter(
+        parsed = raw_lines.PageFooter(
             source=indexed_string,
-            issued=result["issued"],
-            effective=result["effective"],
-            base=result["base"],
-            satelite_base=result["satelite_base"],
-            equipment=result["equipment"],
-            division=result["division"],
-            page=result["internal_page"],
+            issued=result["issued"],  # type: ignore
+            effective=result["effective"],  # type: ignore
+            base=result["base"],  # type: ignore
+            satelite_base=result["satelite_base"],  # type: ignore
+            equipment=result["equipment"],  # type: ignore
+            division=result["division"],  # type: ignore
+            page=result["internal_page"],  # type: ignore
         )
         ctx.handle_parse_result(parsed)
         return self.success_state
+
+
+def parse_file(file_path: Path, ctx: LineParseContext) -> raw.Package:
+    scheme = ParseScheme()
+    skipper = make_skipper()
+    sp.parse_file(file_path=file_path, scheme=scheme, ctx=ctx, skipper=skipper)
+    return ctx.results_obj
+
+
+def parse_lines(lines: Iterable[str], ctx: LineParseContext) -> raw.Package:
+    scheme = ParseScheme()
+    skipper = make_skipper()
+    sp.parse_lines(lines=lines, scheme=scheme, ctx=ctx, skipper=skipper)
+    return ctx.results_obj

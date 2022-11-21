@@ -166,7 +166,7 @@ function deps-install-main() { ## Install the main requirements
 }
 
 function deps-install-dev() { ## Install the dev requirements
-    deps_install $REQUIREMENTS_DEV
+    deps-install $REQUIREMENTS_DEV
 }
 
 function deps-install-editable() { ## Install the project in editable mode.

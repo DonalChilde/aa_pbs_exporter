@@ -1,9 +1,25 @@
 from pathlib import Path
+from time import perf_counter_ns
 
 import click
+import logging
+
+from aa_pbs_exporter.cli.extract_text_cli import extract
+from aa_pbs_exporter.cli.parse_text import parse
+from aa_pbs_exporter import PROJECT_SLUG
+from aa_pbs_exporter.util.logging import rotating_file_logger
 
 # To override default settings by loading from config file, see:
 # https://click.palletsprojects.com/en/8.1.x/commands/#overriding-defaults
+
+APP_DIR = click.get_app_dir(PROJECT_SLUG)
+LOG_DIR = Path(APP_DIR).expanduser() / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+# TODO change init location so that can make customizable log level based on verbosity,
+# TODO custom file name based on date? so that each run gets its own log?
+rotating_file_logger(
+    logger_name=PROJECT_SLUG, log_dir=LOG_DIR, log_level=logging.WARNING
+)
 
 
 @click.command()
@@ -23,7 +39,9 @@ def cli(ctx: click.Context, debug: bool, verbose: int):
     """A stub with verbose and debug flag capabilities."""
     # ensure that ctx.obj exists and is a dict (in case `cli()` is called
     # by means other than the `if __name__` block below)
+    click.echo(f"logging at {LOG_DIR}")
     ctx.ensure_object(dict)
+    ctx.obj["START_TIME"] = perf_counter_ns()
     ctx.obj["DEBUG"] = debug
     click.echo(f"Verbosity: {verbose}")
     ctx.obj["VERBOSE"] = verbose
@@ -74,9 +92,9 @@ def manipulate_file(ctx: click.Context, file_in: Path, file_out: Path, overwrite
         raise click.UsageError(f"Error writing file at {file_out}. {exc}")
 
 
-cli.add_command(hello)
-cli.add_command(sync)
-cli.add_command(manipulate_file)
+cli.add_command(extract)
+cli.add_command(parse)
 
-if __name__ == "__main__":
-    cli(obj={})
+
+# if __name__ == "__main__":
+#     cli(obj={})  # type: ignore

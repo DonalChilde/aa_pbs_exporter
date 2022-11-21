@@ -1,13 +1,14 @@
-from typing import Callable, List
+import logging
+from typing import Callable
+
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 from aa_pbs_exporter.parsers.parser_2022_10.line_parser import LineParseContext
-
-import logging
 
 logger = logging.getLogger(__name__)
 
 
 def validate_bid_package(bid_package: raw.Package, ctx: LineParseContext):
+    bid_package.complete_package()
     checks: list[Callable[[raw.Trip, raw.Page, str], str]] = [
         ops_count_matches_resolved_start_date_count,
         tafb_matches_resolved_report_release,
@@ -17,7 +18,7 @@ def validate_bid_package(bid_package: raw.Package, ctx: LineParseContext):
         resolved_depart_arrive_within_dutyperiod,
         cumulative_flights_within_dutytime,
     ]
-    indent = "\n\t"
+    indent = "\n    - "
     for page in bid_package.pages:
         for trip in page.trips:
             fail_msgs: list[str] = []
@@ -27,18 +28,13 @@ def validate_bid_package(bid_package: raw.Package, ctx: LineParseContext):
                 if fail_msg:
                     fail_msgs.append(fail_msg)
             if fail_msgs:
-                logger.warning(
-                    "%s failed for %r from page %s",
-                    check.__qualname__,
-                    trip,
-                    page.internal_page(),
-                )
-                # pylint: disable=protected-access
-                ctx.messenger.publish_message(
+                msg = (
                     f"Trip {trip.number()} from source line {trip._line_range()} "
-                    f"failed validation. See logs for details. \n"
-                    f"{indent.join(fail_msgs)}"
+                    f"failed validation. See logs for details. \n  Fail Messages:"
+                    f"{indent}{indent.join(fail_msgs)}\n"
                 )
+                ctx.publish_message(msg)
+                logger.warning(msg)
 
 
 def ops_count_matches_resolved_start_date_count(
@@ -49,7 +45,9 @@ def ops_count_matches_resolved_start_date_count(
         start_dates := len(trip.resolved_start_dates)
     ):
         fail_msg = f"Parsed value {ops_count=} does not match count of {start_dates=}"
-        logger.warning("Validation fail %s\n%r", fail_msg, trip)
+        logger.warning(
+            "Validation fail %s\n%s\n", fail_msg, trip._indent_str(indent_level=2)
+        )
         return fail_msg
     return ""
 
@@ -68,7 +66,9 @@ def tafb_matches_resolved_report_release(
                 f"Trip tafb {trip.tafb()} does not match release - report {trip_length}"
                 f"for trip start {resolved.isoformat()}"
             )
-            logger.warning("Validation fail %s\n%r", fail_msg, trip)
+            logger.warning(
+                "Validation fail %s\n%s\n", fail_msg, trip._indent_str(indent_level=2)
+            )
             return fail_msg
     return ""
 
@@ -89,7 +89,11 @@ def resolved_report_release_time_matches_parsed_duty(
                     f"dutyperiod length of {length} does not match parsed "
                     f"{dutyperiod.duty()} for dutyperiod {idx+1}"
                 )
-                logger.warning("Validation fail %s\n%r", fail_msg, trip)
+                logger.warning(
+                    "Validation fail %s\n%s\n",
+                    fail_msg,
+                    trip._indent_str(indent_level=2),
+                )
                 return fail_msg
     return ""
 

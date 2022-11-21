@@ -9,18 +9,17 @@
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Dict, Sequence
+from abc import ABC, abstractmethod
 
 
-class MessageConsumer:
+class MessageConsumer(ABC):
     """
     A consumer of messages.
 
     Subclass this, and override `consume_messages` to provide custom behavior.
     """
 
-    def __init__(self) -> None:
-        pass
-
+    @abstractmethod
     def consume_message(
         self,
         msg: str,
@@ -47,17 +46,13 @@ class MessageConsumer:
         raise NotImplementedError("Subclass and override this method.")
 
 
-class MessagePublisher:
+class MessagePublisherMixin:
     """
     Holds message consumers, and publishes messages to them.
 
     Args:
         consumers: The message consumers.
     """
-
-    def __init__(self, consumers: Sequence[MessageConsumer]) -> None:
-
-        self.consumers = list(consumers)
 
     def publish_message(
         self,
@@ -77,7 +72,7 @@ class MessagePublisher:
                 log levels. Defaults to None.
             extras: A optional Dict which can hold extra information. Defaults to None.
         """
-        for consumer in self.consumers:
+        for consumer in self.message_consumers:  # type: ignore
             consumer.consume_message(msg, category=category, level=level, extras=extras)
 
 

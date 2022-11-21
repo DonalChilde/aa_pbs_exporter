@@ -20,12 +20,15 @@ class ParsedIndexedString:
     source: IndexedString
 
     def __str__(self) -> str:
+        return self._indent_str()
+
+    def _indent_str(self, indent: str = "", indent_level: int = 0) -> str:
         cls = self.__class__
         cls_name = cls.__name__
         field_names = [field.name for field in fields(cls)]
         source = getattr(self, "source", "source field not defined.")
         field_names.remove("source")
-        beginning = f"{source!s}\n{cls_name}("
+        beginning = f"{indent*indent_level}{source!s}\n{indent*indent_level}{cls_name}("
         field_strings = []
         for field_ in field_names:
             value = getattr(self, field_)

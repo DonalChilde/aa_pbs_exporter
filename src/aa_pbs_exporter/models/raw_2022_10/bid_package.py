@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 from uuid import UUID, uuid5
 import json
 from aa_pbs_exporter import PROJECT_NAMESPACE
+from aa_pbs_exporter.airports.airports import by_iata
 
 from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.models.raw_2022_10 import lines
@@ -29,16 +30,19 @@ TIME = "%H%M"
 MONTH_DAY = "%m/%d"
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 
+TAB = "\t"
+NL = "\n"
+
 
 @dataclass
-class ResolvedFlight:
+class ResolvedDepartArrive:
     resolved_trip_start: datetime
     departure: datetime
     arrival: datetime
 
 
 @dataclass
-class ResolvedDutyperiod:
+class ResolvedReportRelease:
     resolved_trip_start: datetime
     report: datetime
     release: datetime
@@ -53,8 +57,19 @@ class LocalHbt:
 @dataclass
 class Flight:
     flight: lines.Flight
-    resolved_flights: dict[datetime, ResolvedFlight] = field(default_factory=dict)
+    resolved_flights: dict[datetime, ResolvedDepartArrive] = field(default_factory=dict)
     cached_values: dict[str, Any] = field(default_factory=dict)
+
+    def __str__(self) -> str:
+        return self._indent_str()
+
+    def _indent_str(self, indent: str = "  ", indent_level: int = 0) -> str:
+        return (
+            f"{indent*indent_level}Flight:"
+            f"\n{self.flight._indent_str(indent,indent_level+1)}"
+            f"\n{indent*(indent_level+1)}resolved_flights: {self.resolved_flights!r}"
+            f"\n{indent*(indent_level+1)}cached_values: {self.cached_values!r}"
+        )
 
     def dp_idx(self) -> str:
         return self.flight.dutyperiod_index
@@ -122,6 +137,33 @@ class Layover:
     transportation_additional: lines.TransportationAdditional | None = None
     cached_values: dict[str, Any] = field(default_factory=dict)
 
+    def __str__(self) -> str:
+        return self._indent_str()
+
+    def _indent_str(self, indent: str = "  ", indent_level: int = 0):
+        if self.transportation:
+            transportation = self.transportation._indent_str(indent, indent_level + 1)
+        else:
+            transportation = f"{indent*(indent_level+1)}No transportation"
+        if self.hotel_additional:
+            add_hotel = self.hotel_additional._indent_str(indent, indent_level + 1)
+        else:
+            add_hotel = f"{indent*(indent_level+1)}No additional hotel"
+        if self.transportation_additional:
+            add_trans = self.transportation_additional._indent_str(
+                indent, indent_level + 1
+            )
+        else:
+            add_trans = f"{indent*(indent_level+1)}No additional transportation"
+        return (
+            f"{indent*indent_level}Layover:"
+            f"\n{self.hotel._indent_str(indent,indent_level+1)}"
+            f"\n{transportation}"
+            f"\n{add_hotel}"
+            f"\n{add_trans}"
+            f"\n{indent*(indent_level+1)}cached_values: {self.cached_values!r}"
+        )
+
     def city(self) -> str:
         return self.hotel.layover_city
 
@@ -133,7 +175,7 @@ class Layover:
         return self.hotel.name
 
     def hotel_phone(self) -> str:
-        return self.hotel.phone
+        return self.hotel.phone or ""
 
     def transportation_name(self) -> str:
         if self.transportation is None:
@@ -179,8 +221,39 @@ class DutyPeriod:
     release: lines.DutyPeriodRelease | None = None
     layover: Layover | None = None
     flights: List[Flight] = field(default_factory=list)
-    resolved_reports: dict[datetime, ResolvedDutyperiod] = field(default_factory=dict)
+    resolved_reports: dict[datetime, ResolvedReportRelease] = field(
+        default_factory=dict
+    )
     cached_values: dict[str, Any] = field(default_factory=dict)
+
+    def __str__(self) -> str:
+        return self._indent_str()
+
+    def _indent_str(self, indent: str = "  ", indent_level: int = 0) -> str:
+        if self.release is not None:
+            release = self.release._indent_str(indent, indent_level + 2)
+        else:
+            release = f"{indent*(indent_level+2)}No release"
+        if self.layover is not None:
+            layover = f"{self.layover._indent_str(indent,indent_level+1)}"
+        else:
+            layover = f"{indent*(indent_level+2)}No layover"
+        flight_strings = []
+        for flight in self.flights:
+            flight_strings.append(f"{flight._indent_str(indent,indent_level+2)}")
+        return (
+            f"{indent*indent_level}DutyPeriod:"
+            f"\n{indent*(indent_level+1)}Report:"
+            f"\n{self.report._indent_str(indent,indent_level+2)}"
+            f"\n{indent*(indent_level+1)}Flights:"
+            f"\n{NL.join(flight_strings)}"
+            f"\n{indent*(indent_level+1)}Release:"
+            f"\n{release}"
+            # f"\n{indent*(indent_level+1)}Layover:"
+            f"\n{layover}"
+            f"\n{indent*(indent_level+1)}resolved_reports: {self.resolved_reports!r}"
+            f"\n{indent*(indent_level+1)}cached_values: {self.cached_values!r}"
+        )
 
     def report_time(self) -> LocalHbt:
         local, hbt = self.report.report.split("/")
@@ -218,6 +291,10 @@ class DutyPeriod:
         return self._cached_duration("flight_duty", self.release.flight_duty)
 
     def _sum_flight_durations(self, resolved_start_date: datetime) -> timedelta:
+        """Total time from start of first flight to end of last flight.
+
+        dutyperiod and flights must be complete before calling this function.
+        """
         total = timedelta()
         for flight in self.flights:
             total = total + (
@@ -251,43 +328,47 @@ class DutyPeriod:
                 source_lines.append(self.layover.transportation_additional.source)
         return source_lines
 
-    def resolve_flight_dates(
+    def complete_dutyperiod(
+        self, resolved_trip_start: datetime, airports: dict[str, Airport]
+    ):
+        """Resolve the dutyperiods flight departure and arrival times.
+
+        The dutyperiod's resolved report and release times are expected to be in
+        self.resolved_reports
+        """
+        resolved_report = self.resolved_reports[resolved_trip_start].report
+        self._resolve_flights(
+            resolved_trip_start=resolved_trip_start,
+            resolved_report=resolved_report,
+            airports=airports,
+        )
+
+    def _resolve_flights(
         self,
-        resolved_start_date: datetime,
+        resolved_trip_start: datetime,
         resolved_report: datetime,
         airports: dict[str, Airport],
     ):
-        """Resolve departure and arrival times for the start date."""
+        """Resolve flight departure and arrival times for the start date."""
         depart_lcl = self.flights[0].departure_time().local
-        tz_string = airports[self.flights[0].departure_station()].tz
+        departure_tz = airports[self.flights[0].departure_station()].tz
+        # next_departure is updated each loop.
         next_departure: datetime = complete_future_time(
-            resolved_report, depart_lcl, tz_info=ZoneInfo(tz_string), strf=TIME
+            resolved_report, depart_lcl, tz_info=ZoneInfo(departure_tz), strf=TIME
         )
         for idx, flight in enumerate(self.flights):
-            # depart_lcl = flight.departure_time().local
-            # if departure.strftime("%H%M") != depart_lcl:
-            #     raise ValueError(
-            #         f"{departure.isoformat()} time does not "
-            #         f"match local departure {depart_lcl} {flight=}"
-            #     )
             if flight.block() > timedelta():
                 arrival = next_departure + flight.block()
             elif flight.synth() > timedelta():
                 arrival = next_departure + flight.synth()
             else:
                 raise ValueError(
-                    f"{flight=} block and synth are 0, unable to compute arrival time."
+                    f"block and synth are 0, unable to compute arrival time.\n{flight=}\n"
                 )
-            tz_string = airports[flight.arrival_station()].tz
-            arrival = arrival.astimezone(ZoneInfo(tz_string))
-            # arrival_lcl = flight.arrival_time().local
-            # if arrival.strftime("%H%M") != arrival_lcl:
-            #     raise ValueError(
-            #         f"{arrival.isoformat()} time does not "
-            #         f"match local arrival {arrival_lcl} {flight=}"
-            #     )
-            flight.resolved_flights[resolved_start_date] = ResolvedFlight(
-                resolved_trip_start=resolved_start_date,
+            arrival_tz = airports[flight.arrival_station()].tz
+            arrival = arrival.astimezone(ZoneInfo(arrival_tz))
+            flight.resolved_flights[resolved_trip_start] = ResolvedDepartArrive(
+                resolved_trip_start=resolved_trip_start,
                 departure=next_departure,
                 arrival=arrival,
             )
@@ -309,6 +390,29 @@ class Trip:
     dutyperiods: List[DutyPeriod] = field(default_factory=list)
     resolved_start_dates: list[datetime] = field(default_factory=list)
     cached_values: dict[str, Any] = field(default_factory=dict)
+
+    def __str__(self) -> str:
+        return self._indent_str()
+
+    def _indent_str(self, indent: str = "  ", indent_level: int = 0):
+        if self.footer:
+            footer = self.footer._indent_str(indent, indent_level + 2)
+        else:
+            footer = f"{indent*(indent_level+2)}No footer"
+        dp_strings = []
+        for dutyperiod in self.dutyperiods:
+            dp_strings.append(dutyperiod._indent_str(indent, indent_level + 2))
+        return (
+            f"{indent*indent_level}Trip:"
+            f"\n{indent*(indent_level+1)}Header:"
+            f"\n{self.header._indent_str(indent,indent_level+2)}"
+            f"\n{indent*(indent_level+1)}DutyPeriods:"
+            f"\n{NL.join(dp_strings)}"
+            f"\n{indent*(indent_level+1)}Footer:"
+            f"\n{footer}"
+            f"\n{indent*(indent_level+1)}resolved_start_dates: {self.resolved_start_dates!r}:"
+            f"\n{indent*(indent_level+1)}cached_values: {self.cached_values!r}:"
+        )
 
     def uuid(self, resolved_start_date: datetime) -> UUID:
         cached_value = self.cached_values.get("hash_string", None)
@@ -372,16 +476,18 @@ class Trip:
         assert self.footer is not None
         return self._cached_duration("tafb", self.footer.tafb)
 
-    def resolve_all_the_dates(
+    def complete_trip(
         self, from_date: datetime, to_date: datetime, airports: dict[str, Airport]
     ):
         """Resolve all the report, release, departure, and arrival dates for each start date."""
-        start_dates = self._start_dates(from_date=from_date, to_date=to_date)
-        self._resolve_start_dates(start_dates=start_dates, airports=airports)
+        start_dates = self._collect_start_dates(from_date=from_date, to_date=to_date)
+        self.cached_values["start_dates"] = start_dates
+        self._resolve_trip_start_dates(start_dates=start_dates, airports=airports)
         for start in self.resolved_start_dates:
-            self._resolve_trip_dates(start, airports=airports)
+            self._resolve_dutyperiods(start, airports=airports)
 
     def _line_range(self) -> str:
+        """The start and end line in the source text for this trip."""
         if self.footer:
             to_line = self.footer.source.idx
         else:
@@ -398,7 +504,7 @@ class Trip:
             source_lines.append(self.footer.source)
         return source_lines
 
-    def _resolve_trip_dates(
+    def _resolve_dutyperiods(
         self, resolved_start_date: datetime, airports: dict[str, Airport]
     ):
         """Calculate resolved report, release, departure, and arrival.
@@ -407,22 +513,22 @@ class Trip:
 
         """
         first_report_time = parse_time(self.dutyperiods[0].report_time().local)
+        # next_report is updated each pass through the loop.
         next_report: datetime = resolved_start_date.replace(
             hour=first_report_time.tm_hour, minute=first_report_time.tm_min
         )
         for idx, dutyperiod in enumerate(self.dutyperiods):
-            tz_string = airports[dutyperiod.release_station()].tz
+            release_tz: str = airports[dutyperiod.release_station()].tz
             release = next_report + dutyperiod.duty()
-            release = release.astimezone(ZoneInfo(tz_string))
-            resolved = ResolvedDutyperiod(
+            release = release.astimezone(ZoneInfo(release_tz))
+            resolved = ResolvedReportRelease(
                 resolved_trip_start=resolved_start_date,
                 report=next_report,
                 release=release,
             )
             dutyperiod.resolved_reports[resolved.resolved_trip_start] = resolved
-            dutyperiod.resolve_flight_dates(
-                resolved_start_date=resolved_start_date,
-                resolved_report=next_report,
+            dutyperiod.complete_dutyperiod(
+                resolved_trip_start=resolved_start_date,
                 airports=airports,
             )
             if idx + 1 < len(self.dutyperiods):
@@ -434,9 +540,12 @@ class Trip:
                 # make it obvious during validation if it somehow slips through.
                 next_report = datetime(*(1900, 1, 1))
 
-    def _start_dates(self, from_date: datetime, to_date: datetime) -> list[datetime]:
+    def _collect_start_dates(
+        self, from_date: datetime, to_date: datetime
+    ) -> list[datetime]:
         """Builds a list of no-tz datetime representing start dates for trips."""
         calendar_entries = self._calendar_entries()
+        self.cached_values["calendar_entries"] = calendar_entries
         days = int((to_date - from_date) / timedelta(days=1)) + 1
         if days != len(calendar_entries):
             raise ValueError(
@@ -444,6 +553,10 @@ class Trip:
                 f"in calendar for trip {self!r}."
             )
         indexed_days = list(index_numeric_strings(calendar_entries))
+        if len(indexed_days) != int(self.ops_count()):
+            raise ValueError(
+                f"Expected {self.ops_count()} dates, but found {indexed_days} in calendar {calendar_entries}"
+            )
         start_dates: list[datetime] = []
         for indexed in indexed_days:
             start_date = from_date + timedelta(days=indexed.idx)
@@ -453,16 +566,17 @@ class Trip:
                     f"day: {indexed.txt}, calendar_entries:{calendar_entries!r}"
                 )
             start_dates.append(start_date)
+        # print(f"Trip: {self.number()}, start dates: {start_dates}")
         return start_dates
 
-    def _resolve_start_dates(
+    def _resolve_trip_start_dates(
         self, start_dates: list[datetime], airports: dict[str, Airport]
     ):
         """set the tz aware resolved start dates for this trip."""
         resolved_start_dates = []
         departure_station = self.dutyperiods[0].flights[0].departure_station().upper()
-        tz_string = airports[departure_station].tz
-        tz_info = ZoneInfo(tz_string)
+        departure_tz = airports[departure_station].tz
+        tz_info = ZoneInfo(departure_tz)
         dep_time = self.dutyperiods[0].flights[0].departure_time()
         struct = time.strptime(dep_time.local, TIME)
         for start_date in start_dates:
@@ -552,6 +666,11 @@ class Page:
             raise ValueError("Tried to get internal_page but page_footer was None.")
         return self.page_footer.page
 
+    def complete_page(self, airports: dict[str, Airport]):
+        from_date, to_date = self.from_to()
+        for trip in self.trips:
+            trip.complete_trip(from_date=from_date, to_date=to_date, airports=airports)
+
     def _line_range(self) -> str:
         if self.page_footer:
             to_line = self.page_footer.source.idx
@@ -579,6 +698,7 @@ class Package:
     source: str
     # package_date: PackageDate | None
     pages: List[Page] = field(default_factory=list)
+    airports: dict[str, Airport] = field(default_factory=dict)
 
     def from_to(self) -> tuple[datetime, datetime]:
         return self.pages[0].from_to()
@@ -594,7 +714,18 @@ class Package:
                 bases.add(page_sat)
         return bases
 
-    def collect_iata_codes(self) -> Set[str]:
+    def complete_package(self):
+        self._collect_airports()
+        self._resolve_package_dates()
+
+    def _collect_airports(self):
+        airports: dict[str, Airport] = {}
+        for iata in self._collect_iata_codes():
+            airports[iata] = by_iata(iata)
+        self.airports = airports
+        # bid_package.resolve_package_dates(airports=airports)
+
+    def _collect_iata_codes(self) -> Set[str]:
         iatas: set[str] = set()
         iatas.add(self.base())
         iatas.update(self.satelite_bases())
@@ -606,14 +737,10 @@ class Package:
                         iatas.add(flight.arrival_station())
         return iatas
 
-    def resolve_package_dates(self, airports: dict[str, Airport]):
+    def _resolve_package_dates(self):
         """Resolve all the report, release, departure, and arrival times for the start dates."""
         for page in self.pages:
-            from_date, to_date = page.from_to()
-            for trip in page.trips:
-                trip.resolve_all_the_dates(
-                    from_date=from_date, to_date=to_date, airports=airports
-                )
+            page.complete_page(airports=self.airports)
 
 
 def is_iata(iata: str) -> bool:

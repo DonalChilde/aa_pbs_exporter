@@ -1,16 +1,11 @@
 from datetime import datetime
 
-from aa_pbs_exporter.airports.airport_model import Airport
-from aa_pbs_exporter.airports.airports import by_iata
 from aa_pbs_exporter.models.bid_package_2022_10 import bid_package as aa
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 
 
 def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
-    airports: dict[str, Airport] = {}
-    for iata in bid_package.collect_iata_codes():
-        airports[iata] = by_iata(iata)
-    bid_package.resolve_package_dates(airports=airports)
+
     from_date, to_date = bid_package.from_to()
     aa_trips: list[aa.Trip] = []
     for page in bid_package.pages:
@@ -22,7 +17,7 @@ def translate_package(bid_package: raw.Package, source: str) -> aa.BidPackage:
         from_date=from_date,
         to_date=to_date,
         trips=aa_trips,
-        airports=airports,
+        airports=bid_package.airports,
     )
 
 

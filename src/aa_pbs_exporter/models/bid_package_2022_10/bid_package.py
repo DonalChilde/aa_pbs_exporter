@@ -18,7 +18,7 @@ class Transportation(BaseModel):
 
 class Hotel(BaseModel):
     name: str
-    phone: str
+    phone: str | None
     transportation: Transportation | None
 
 
