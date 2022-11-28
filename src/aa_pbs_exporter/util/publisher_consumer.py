@@ -5,10 +5,10 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-14T04:34:10-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-11-27T06:33:27-07:00         #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
-from typing import Dict, Sequence
+from typing import Dict
 from abc import ABC, abstractmethod
 
 
@@ -29,7 +29,7 @@ class MessageConsumer(ABC):
         extras: Dict | None = None,
     ):
         """
-        Message consumer, usually called from a :class:`MessagePublisher`
+        Message consumer, usually called from a :class:`MessagePublisherMixin`
 
         Consumes a message in a particular way, eg. print to stdout
 
@@ -48,10 +48,9 @@ class MessageConsumer(ABC):
 
 class MessagePublisherMixin:
     """
-    Holds message consumers, and publishes messages to them.
+    Provides the publish_message method.
 
-    Args:
-        consumers: The message consumers.
+    Expects to find `self.message_consumers: Sequence[MessageConsumer]` defined on class.
     """
 
     def publish_message(

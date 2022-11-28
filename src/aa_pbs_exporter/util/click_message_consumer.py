@@ -1,6 +1,19 @@
+####################################################
+#                                                  #
+#  src/snippets/click/click_message_consumer.py
+#                                                  #
+####################################################
+# Created by: Chad Lowe                            #
+# Created on: 2022-11-27T06:42:11-07:00            #
+# Last Modified: _iso_date_         #
+# Source: https://github.com/DonalChilde/snippets  #
+####################################################
+
 from typing import Dict
-from aa_pbs_exporter.util.publisher_consumer import MessageConsumer
+
 import click
+
+from .publisher_consumer import MessageConsumer
 
 
 class ClickMessageConsumer(MessageConsumer):
