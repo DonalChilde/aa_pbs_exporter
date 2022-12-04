@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-02T07:27:43-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-12-04T01:04:14.715215+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Iterable, Iterator

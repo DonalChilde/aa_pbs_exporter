@@ -5,12 +5,11 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-10T15:45:42-07:00            #
-# Last Modified: 2022-11-17T05:29:38-07:00         #
+# Last Modified: 2022-12-03T23:51:03.919474+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from abc import ABC, abstractmethod
 from typing import TextIO, TypeVar
-
 
 T = TypeVar("T")
 

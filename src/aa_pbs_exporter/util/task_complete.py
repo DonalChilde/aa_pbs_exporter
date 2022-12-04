@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-13T12:22:09-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-12-03T23:45:37.160003+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from time import perf_counter_ns

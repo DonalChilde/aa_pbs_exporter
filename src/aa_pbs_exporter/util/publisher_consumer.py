@@ -5,21 +5,13 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-14T04:34:10-07:00            #
-# Last Modified: 2022-11-27T06:33:27-07:00         #
+# Last Modified: 2022-12-04T00:49:48.378209+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
-from typing import Dict
-from abc import ABC, abstractmethod
+from typing import Dict, Protocol, Sequence
 
 
-class MessageConsumer(ABC):
-    """
-    A consumer of messages.
-
-    Subclass this, and override `consume_messages` to provide custom behavior.
-    """
-
-    @abstractmethod
+class MessageConsumerProtocol(Protocol):
     def consume_message(
         self,
         msg: str,
@@ -39,11 +31,11 @@ class MessageConsumer(ABC):
             level: An optional int used to differentiate messages. Can correspond to
                 log levels. Defaults to None.
             extras: A optional Dict which can hold extra information. Defaults to None.
-
-        Raises:
-            NotImplementedError: _description_
         """
-        raise NotImplementedError("Subclass and override this method.")
+
+
+class HasMessageConsumersProtocol(Protocol):
+    message_consumers: Sequence[MessageConsumerProtocol]
 
 
 class MessagePublisherMixin:
@@ -52,6 +44,8 @@ class MessagePublisherMixin:
 
     Expects to find `self.message_consumers: Sequence[MessageConsumer]` defined on class.
     """
+
+    message_consumers: Sequence[MessageConsumerProtocol]
 
     def publish_message(
         self,
@@ -71,11 +65,11 @@ class MessagePublisherMixin:
                 log levels. Defaults to None.
             extras: A optional Dict which can hold extra information. Defaults to None.
         """
-        for consumer in self.message_consumers:  # type: ignore
+        for consumer in self.message_consumers:
             consumer.consume_message(msg, category=category, level=level, extras=extras)
 
 
-class StdoutConsumer(MessageConsumer):
+class StdoutConsumer(MessageConsumerProtocol):
     """
     Print messages to stdout.
     """

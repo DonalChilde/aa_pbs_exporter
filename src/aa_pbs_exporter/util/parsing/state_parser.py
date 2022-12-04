@@ -5,21 +5,21 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-31T14:54:41-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-12-03T23:51:03.920573+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
+from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
-from abc import ABC, abstractmethod
-from .parse_context import ParseContext
 
 from .indexed_string import IndexedString
+from .parse_context import ParseContext
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-
+# TODO invesitgate protocol wrappers idiom from article on phone. icloud drive?
 class Parser(ABC):
     @abstractmethod
     def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
@@ -32,6 +32,11 @@ class Parser(ABC):
         """
         result = None
         return ctx.handle_parse_result(result)
+
+    def parse_fail(self, msg, error: Exception | None = None):
+        if error:
+            raise ParseException(msg) from error
+        raise ParseException(msg)
 
     def __repr__(self):
         return f"{self.__class__.__qualname__}()"

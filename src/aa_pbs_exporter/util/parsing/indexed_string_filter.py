@@ -5,10 +5,11 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-10T15:27:45-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-12-03T23:51:03.921172+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Callable, Sequence
+
 from .indexed_string import IndexedString
 
 

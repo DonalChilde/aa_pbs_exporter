@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-29T09:11:28-07:00            #
-# Last Modified: 2022-11-10T08:01:43-07:00         #
+# Last Modified: 2022-12-03T23:49:38.693575+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from pathlib import Path

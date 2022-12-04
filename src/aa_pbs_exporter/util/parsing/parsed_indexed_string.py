@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-10T15:15:11-07:00            #
-# Last Modified: _iso_date_         #
+# Last Modified: 2022-12-03T23:51:03.920160+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from dataclasses import dataclass, fields

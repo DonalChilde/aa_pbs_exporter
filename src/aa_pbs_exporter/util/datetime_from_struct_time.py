@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-02T07:58:50-07:00            #
-# Last Modified: 2022-11-06T07:30:52-07:00         #
+# Last Modified: 2022-12-04T00:56:52.171104+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from datetime import date, datetime, time, tzinfo

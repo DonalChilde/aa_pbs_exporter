@@ -1,8 +1,16 @@
+####################################################
+#                                                  #
+#    src/snippets/datetime/factored_duration.py
+#                                                  #
+####################################################
+# Created by: Chad Lowe                            #
+# Created on: 2022-12-03T17:59:04-07:00            #
+# Last Modified: 2022-12-04T01:00:32.152328+00:00  #
+# Source: https://github.com/DonalChilde/snippets  #
+####################################################
 from dataclasses import asdict, dataclass
 from datetime import timedelta
 from decimal import Decimal
-
-# from snippets.math.make_decimal_string import make_decimal_string
 
 SECONDS_IN_HOUR = 60 * 60
 SECONDS_IN_DAY = 24 * SECONDS_IN_HOUR
