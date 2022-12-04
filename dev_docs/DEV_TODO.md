@@ -2,6 +2,10 @@
 
 ## Next rewrite
 
+- move build system to hatch, drop pip-tools, requirements
+- evaluate dev-tools for removal, update dev docs?
+- update pyproject.toml re hatch example.
+- document anything not really obvious.
 - parse prior month trip.
   - store on package, separate list?
 - yaml out
@@ -17,7 +21,7 @@
 - cli log
   - location
   - per parse log
-  - 
+  
 
 ## Bid Filter Feature
 
