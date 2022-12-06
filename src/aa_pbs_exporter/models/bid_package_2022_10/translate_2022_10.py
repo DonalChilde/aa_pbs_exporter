@@ -58,7 +58,7 @@ def translate_dutyperiods(
     trip: raw.Trip,
 ) -> list[aa.DutyPeriod]:
     aa_dutyperiods: list[aa.DutyPeriod] = []
-    for idx, dutyperiod in enumerate(trip.dutyperiods):
+    for idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
         aa_dutyperiod = aa.DutyPeriod(
             idx=idx,
             report=dutyperiod.resolved_reports[resolved_start_date].report,
@@ -128,7 +128,7 @@ def translate_flights(
     aa_flights: list[aa.Flight] = []
     for idx, flight in enumerate(dutyperiod.flights):
         aa_flight = aa.Flight(
-            dutyperiod_index=int(flight.dp_idx()),
+            dutyperiod_idx=int(flight.dp_idx()),
             idx=idx + 1,
             dep_arr_day=flight.dep_arr_day(),
             eq_code=flight.eq_code(),

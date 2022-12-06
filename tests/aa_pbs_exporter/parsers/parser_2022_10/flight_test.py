@@ -13,7 +13,7 @@ test_data = [
             1,
             "1  1/1 65 2131  SAN 1337/1337    ORD 1935/1735   3.58          1.10X                   −− −− −− −− −− −− −−",
         ),
-        dutyperiod_index="1",
+        dutyperiod_idx="1",
         dep_arr_day="1/1",
         eq_code="65",
         flight_number="2131",

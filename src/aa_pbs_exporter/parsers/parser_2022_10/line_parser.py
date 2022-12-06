@@ -10,7 +10,7 @@ from aa_pbs_exporter.util.parsing import state_parser as sp
 from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.util.parsing.parse_context import ParseContext
 from aa_pbs_exporter.util.publisher_consumer import (
-    MessageConsumer,
+    MessageConsumerProtocol,
     MessagePublisherMixin,
 )
 from aa_pbs_exporter.util.parsing.indexed_string_filter import (
@@ -62,7 +62,7 @@ class LineParseContext(ParseContext, MessagePublisherMixin):
     def __init__(
         self,
         source_name: str,
-        message_consumers: Sequence[MessageConsumer] | None = None,
+        message_consumers: Sequence[MessageConsumerProtocol] | None = None,
     ) -> None:
         super().__init__(
             source_name=source_name, results_obj=raw.Package(source=source_name)
@@ -347,7 +347,7 @@ class Flight(sp.Parser):
             raise sp.ParseException(f"{error}") from error
         parsed = raw_lines.Flight(
             source=indexed_string,
-            dutyperiod_index=result["dutyperiod"],  # type: ignore
+            dutyperiod_idx=result["dutyperiod"],  # type: ignore
             dep_arr_day=result["day_of_sequence"],  # type: ignore
             eq_code=result["equipment_code"],  # type: ignore
             flight_number=result["flight_number"],  # type: ignore
@@ -404,7 +404,7 @@ class FlightDeadhead(sp.Parser):
             raise sp.ParseException(f"{error}") from error
         parsed = raw_lines.Flight(
             source=indexed_string,
-            dutyperiod_index=result["dutyperiod"],  # type: ignore
+            dutyperiod_idx=result["dutyperiod"],  # type: ignore
             dep_arr_day=result["day_of_sequence"],  # type: ignore
             eq_code=result["equipment_code"],  # type: ignore
             flight_number=result["flight_number"],  # type: ignore

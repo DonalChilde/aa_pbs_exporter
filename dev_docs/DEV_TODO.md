@@ -2,12 +2,14 @@
 
 ## Next rewrite
 
-- move build system to hatch, drop pip-tools, requirements
+- move build system to hatch or poetry, drop pip-tools, requirements
 - evaluate dev-tools for removal, update dev docs?
 - update pyproject.toml re hatch example.
 - document anything not really obvious.
 - parse prior month trip.
+  - prior month trips are trips that were bid in the previous and are different due to a schedule change. They cannot be bid now.
   - store on package, separate list?
+  - low priority fix.
 - yaml out
 - add equipment field to bid package
   - rename page equipment field to bid_equipment, or status equipment
@@ -15,8 +17,8 @@
   - all the combinations of base/equipment
 - write more validations
 - collect stats on bid package
-- dutyperiod idx is 1 based to match flight.dp_idx
-- rename flight.dutperiod_index to flight.dutyperiod_idx for consistency
+- DONE dutyperiod idx is 1 based to match flight.dp_idx
+- DONE rename flight.dutperiod_index to flight.dutyperiod_idx for consistency
 - catch  errors in cli for better error reporting
 - cli log
   - location

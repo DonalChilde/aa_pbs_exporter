@@ -72,7 +72,7 @@ class Flight:
         )
 
     def dp_idx(self) -> str:
-        return self.flight.dutyperiod_index
+        return self.flight.dutyperiod_idx
 
     def dep_arr_day(self) -> str:
         return self.flight.dep_arr_day

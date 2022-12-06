@@ -50,7 +50,7 @@ class DutyPeriodReport(ParsedIndexedString):
 @dataclass
 class Flight(ParsedIndexedString):
     # source: IndexedString
-    dutyperiod_index: str
+    dutyperiod_idx: str
     dep_arr_day: str
     eq_code: str
     flight_number: str

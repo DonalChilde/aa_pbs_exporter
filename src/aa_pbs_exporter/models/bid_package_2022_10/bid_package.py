@@ -30,7 +30,7 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
-    dutyperiod_index: int
+    dutyperiod_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
