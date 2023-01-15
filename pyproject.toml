@@ -49,6 +49,7 @@ dev = [
 
     # Tools
     "pysnooper",
+    "devtools",
 ]
 lint = ["pylint", "mypy"]
 doc = [
