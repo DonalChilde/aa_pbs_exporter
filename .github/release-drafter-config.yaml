@@ -1,0 +1,41 @@
+# Produce release notes compatible with Keep A Change Log
+# https://keepachangelog.com/en/1.0.0/
+
+name-template: "v$NEXT_PATCH_VERSION"
+tag-template: "v$NEXT_PATCH_VERSION"
+template: |
+  ## [v$NEXT_PATCH_VERSION](https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
+
+  ### What's Changed in v$NEXT_PATCH_VERSION
+
+  _Describe the changes here_
+
+  $CHANGES
+
+change-template: "- $TITLE ([#$NUMBER]($URL))"
+category-template: "### $TITLE"
+exclude-labels:
+  - "changelog:skip"
+
+categories:
+  - title: Added
+    labels:
+      - "changelog:added"
+  - title: Changed
+    labels:
+      - "changelog:changed"
+  - title: Deprecated
+    labels:
+      - "changelog:deprecated "
+  - title: Removed
+    labels:
+      - "changelog:removed"
+  - title: Fixed
+    labels:
+      - "changelog:fixed"
+  - title: Security
+    labels:
+      - "changelog:security"
+  - title: "Dependency Updates"
+    labels:
+      - "changelog:dependencies"
