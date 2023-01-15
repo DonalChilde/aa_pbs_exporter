@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools >= 58.0.0"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 
 [project]
@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 keywords = ["Python", "aa_pbs_exporter"]
 license = { file = "LICENSE" }
 # 
-urls = { Home-page = "https://github.com/DonalChilde/aa_pbs_exporter" }
+# urls = { Home-page = "https://github.com/DonalChilde/aa_pbs_exporter" }
 # https://pypi.org/classifiers/
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -28,55 +28,40 @@ dependencies = [
     "airportsdata",
     "pydantic",
 ]
-dynamic = ["version", "readme"]
+version = "v0.0.0"
 
-[tool.setuptools.dynamic]
-version = { attr = "aa_pbs_exporter.__version__" }
-readme = { file = ["README.rst"] }
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[project.urls]
+Documentation = "https://github.com/DonalChilde/aa_pbs_exporter#readme"
+Documentation_rtd = "https://aa_pbs_exporter.readthedocs.io"
+Issues = "https://github.com/DonalChilde/aa_pbs_exporter/issues"
+Source = "https://github.com/DonalChilde/aa_pbs_exporter"
 
 [project.optional-dependencies]
 dev = [
-    # Packaging and Distribution
-    # NOTE: pip and setuptools should be installed/upgraded separately
-    "wheel",
-    "twine",
-    "pip-tools",
-    "build",
+
+    # Automation
+    "nox",
+    "pre-commit",
 
     # Linting and Formatting
     "black",
-    "coverage",
-    "pylint",
-    "mypy",
-    # "doc8",
-
-    # Testing
-    "tox",
-    "pytest",
-    "pytest-cov",
-
-    # Source control
-    "pre-commit",
+    "isort",
 
     # Tools
     "pysnooper",
-    "devtools[pygments]",
-
+]
+lint = ["pylint", "mypy"]
+doc = [
     # Documentation
     "Sphinx",
     "sphinx-autobuild",
     "sphinx-autodoc-typehints",
     "sphinx_rtd_theme",
     "myst-parser",
-
-    # Vscode
-    "esbonio",
-    "rst2html",
-    "rstcheck",
+    "sphinx-click",
 ]
+vscode = ["esbonio", "rst2html", "rstcheck"]
+testing = ["pytest", "coverage", "pytest-cov"]
 
 
 [tool.isort]
