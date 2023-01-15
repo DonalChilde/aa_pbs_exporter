@@ -48,8 +48,7 @@ dev = [
     "isort",
 
     # Tools
-    "pysnooper",
-    "devtools",
+
 ]
 lint = ["pylint", "mypy"]
 doc = [
@@ -62,7 +61,7 @@ doc = [
     "sphinx-click",
 ]
 vscode = ["esbonio", "rst2html", "rstcheck"]
-testing = ["pytest", "coverage", "pytest-cov"]
+testing = ["pytest", "coverage", "pytest-cov", "pysnooper", "devtools"]
 
 
 [tool.isort]
