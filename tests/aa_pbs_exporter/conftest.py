@@ -4,14 +4,26 @@ import logging
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Sequence, Union
 
 import pytest
 
-from aa_pbs_exporter.app_lib.logging import rotating_file_handler
+# from aa_pbs_exporter.app_lib.logging import rotating_file_handler
+from aa_pbs_exporter.util.logging import (
+    add_handlers_to_target_logger,
+    rotating_file_handler,
+    DEFAULT_FORMAT,
+)
+from aa_pbs_exporter.util.tz_aware_formatter import TZAwareFormatter
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
+
+
+@dataclass
+class PackageResource:
+    package: str
+    name: str
 
 
 @dataclass
@@ -27,22 +39,30 @@ def _logger(test_log_path):
     """A central logger that will log to file."""
     # log_file_name = f"{__name__}.log"
     log_dir: Path = test_log_path
+    formatter = TZAwareFormatter(fmt=DEFAULT_FORMAT)
     handler = rotating_file_handler(
-        log_dir=log_dir, file_name=__name__, log_level=TEST_LOG_LEVEL
+        log_dir=log_dir,
+        file_name=__name__,
+        log_level=TEST_LOG_LEVEL,
+        formater=formatter,
     )
-    logger = logging.getLogger(__name__)
-    logger.setLevel(TEST_LOG_LEVEL)
-    logger.addHandler(handler)
-    logger.info("Rotating file logger %s initialized.", __name__)
-    chunk_logger = logging.getLogger("pfmsoft.text_chunk_parser")
-    chunk_logger.addHandler(handler)
-    chunk_logger.setLevel(TEST_LOG_LEVEL)
-    logger.info("%s library added to log file.", "pfmsoft.text_chunk_parser")
-    chunk_logger = logging.getLogger("aa_pbs_exporter")
-    chunk_logger.addHandler(handler)
-    chunk_logger.setLevel(TEST_LOG_LEVEL)
-    logger.info("%s library added to log file.", "aa_pbs_exporter")
-    return logger
+    print(handler)
+    test_logger = logging.getLogger(__name__)
+    test_logger.setLevel(TEST_LOG_LEVEL)
+    test_logger.addHandler(handler)
+    test_logger.warning("Does this even work?")
+    test_logger.info(
+        "Rotating file logger %s initialized with handler= %r", __name__, handler
+    )
+    # chunk_logger = logging.getLogger("pfmsoft.text_chunk_parser")
+    # chunk_logger.addHandler(handler)
+    # chunk_logger.setLevel(TEST_LOG_LEVEL)
+    # logger.info("%s library added to log file.", "pfmsoft.text_chunk_parser")
+    project_logger = logging.getLogger("aa_pbs_exporter")
+    add_handlers_to_target_logger(test_logger, project_logger)
+    project_logger.setLevel(TEST_LOG_LEVEL)
+    test_logger.info("%s logs added to log file.", "aa_pbs_exporter")
+    return test_logger
 
 
 @pytest.fixture(scope="session", name="test_log_path")
@@ -84,14 +104,26 @@ def load_json_resource(
     return resource
 
 
+def package_resource_files(resource_package: str) -> Sequence[PackageResource]:
+    result = []
+    for file in resources.files(resource_package).iterdir():
+        if file.is_file() and not file.name.startswith("__"):
+            result.append(PackageResource(resource_package, file.name))
+    return result
+
+
 @pytest.fixture(scope="session", name="pairing_text_files")
 def pairing_text_file_resources(logger: logging.Logger):
     resource_path: str = "tests.aa_pbs_exporter.resources.text.2022_05"
-    resource_names = collect_resource_names(resource_path, [".txt"])
-    file_resources = load_file_resources(
-        resource_path, resource_names, logger, path_only=True
-    )
-    return file_resources
+    # result = []
+    # for file in resources.files(resource_path).iterdir():
+    #     result.append(PackageResource(resource_path, file.name))
+
+    # resource_names = collect_resource_names(resource_path, [".txt"])
+    # file_resources = load_file_resources(
+    #     resource_path, resource_names, logger, path_only=True
+    # )
+    return package_resource_files(resource_path)
 
 
 # TODO move file resource loading to applib

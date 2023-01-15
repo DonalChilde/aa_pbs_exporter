@@ -43,5 +43,10 @@
     "scope": "python",
     "prefix": "pylint_disable",
     "body": ["# pylint: disable=${1:_value_}"]
+  },
+  "method_stub": {
+    "scope": "python",
+    "prefix": "pfm_method_stub",
+    "body": ["def ${1:_method_name_}$0():", "\traise NotImplementedError"]
   }
 }
