@@ -12,10 +12,12 @@ from aa_pbs_exporter.parsers.parser_2022_10.line_parser import (
     LineParseContext,
     parse_file,
 )
-from aa_pbs_exporter.util.parsing.parse_context import DevParseContext
-from aa_pbs_exporter.util.task_complete import task_complete
-from aa_pbs_exporter.util.validate_file_out import validate_file_out
-from aa_pbs_exporter.util.click_message_consumer import ClickMessageConsumer
+from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
+from aa_pbs_exporter.snippets.click.task_complete import task_complete
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.click.click_message_consumer import (
+    ClickMessageConsumer,
+)
 
 
 @click.command()

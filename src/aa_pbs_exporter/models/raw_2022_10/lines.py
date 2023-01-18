@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from aa_pbs_exporter.util.parsing.parsed_indexed_string import ParsedIndexedString
+from aa_pbs_exporter.snippets.parsing.parsed_indexed_string import ParsedIndexedString
 
 
 @dataclass

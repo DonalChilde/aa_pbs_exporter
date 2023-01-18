@@ -15,7 +15,7 @@ Various duration parsing strategies using regex.
 
 import re
 
-from .factored_duration import FactoredDuration
+from aa_pbs_exporter.snippets.datetime.factored_duration import FactoredDuration
 
 HHH = r"(?P<hours>[0-9]+([,.][0-9]+)?)"
 MM = r"(?P<minutes>[0-5][0-9])"

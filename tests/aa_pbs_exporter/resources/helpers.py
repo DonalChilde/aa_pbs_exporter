@@ -2,8 +2,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from importlib import resources
 
-from aa_pbs_exporter.util.parsing.parse_context import DevParseContext, NoOpParseContext
-from aa_pbs_exporter.util.parsing.state_parser import Parser
+from aa_pbs_exporter.snippets.parsing.parse_context import (
+    DevParseContext,
+    NoOpParseContext,
+)
+from aa_pbs_exporter.snippets.parsing.state_parser import Parser
 
 
 @dataclass

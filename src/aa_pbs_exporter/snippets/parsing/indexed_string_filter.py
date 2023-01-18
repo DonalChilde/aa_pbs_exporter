@@ -10,7 +10,7 @@
 ####################################################
 from typing import Callable, Sequence
 
-from .indexed_string import IndexedString
+from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 
 class SkipBlankLines:

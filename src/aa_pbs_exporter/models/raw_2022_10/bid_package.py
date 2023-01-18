@@ -14,16 +14,16 @@ from aa_pbs_exporter.airports.airports import by_iata
 
 from aa_pbs_exporter.airports.airport_model import Airport
 from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.util.complete_partial_datetime import (
+from aa_pbs_exporter.snippets.datetime.complete_partial_datetime import (
     complete_future_mdt,
     complete_future_time,
 )
-from aa_pbs_exporter.util.index_numeric_strings import index_numeric_strings
-from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
-from aa_pbs_exporter.util.parse_duration_regex import (
+from aa_pbs_exporter.snippets.string.index_numeric_strings import index_numeric_strings
+from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration as regex_parse_duration,
 )
-from aa_pbs_exporter.util.parse_duration_regex import pattern_HHHMM
+from aa_pbs_exporter.snippets.datetime.parse_duration_regex import pattern_HHHMM
 
 DATE = "%d%b%Y"
 TIME = "%H%M"
