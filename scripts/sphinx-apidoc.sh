@@ -67,26 +67,27 @@ function _do_with_confirmation() {
     path=$(realpath ${ARGS[1]})
 
     # Define your actions
-    ACTION_1="echo 'Action_1'"
-    ACTION_2="echo 'Action_2'"
-    ACTION_3="ls -la $path"
+    ACTION_1="sphinx-apidoc -o $path/docs/source/api-reference --force --separate --module-first $path/src"
+    # ACTION_2="echo 'Action_2'"
+    # ACTION_3="ls -la $path"
 
     # Action messages
+    printf "\nNote this script expects to be run from the project root."
     printf "\nThis will run the following commands:"
     echo
     printf "\n\t$ACTION_1"
-    printf "\n\t$ACTION_2"
-    printf "\n\t$ACTION_3"
+    # printf "\n\t$ACTION_2"
+    # printf "\n\t$ACTION_3"
 
     # For spacing
     echo
     echo
 
-    # Delay message
-    printf "Take ten seconds to be sure:"
-    echo
-    _countdown 10
-    echo
+    # # Delay message
+    # printf "Take ten seconds to be sure:"
+    # echo
+    # _countdown 10
+    # echo
 
     # Confirmation dialog
     # https://stackoverflow.com/a/1885534/105844
@@ -95,8 +96,8 @@ function _do_with_confirmation() {
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         # Do the Actions
         eval $ACTION_1
-        eval $ACTION_2
-        eval $ACTION_3
+        # eval $ACTION_2
+        # eval $ACTION_3
     else
         echo "Action Declined"
         exit 1
