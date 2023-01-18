@@ -1,4 +1,5 @@
 # Changelog
+<!-- changelog-start -->
 
 ## [Unreleased](https://github.com/DonalChilde/aa_pbs_exporter/v0.0.0...refs/heads/master)
 <!-- Dont forget to update the Unreleased compare version to latest release tag -->
@@ -15,3 +16,5 @@ This is the start of something....
 - Project Start
 
 <https://keepachangelog.com/en/1.0.0/>
+
+<!-- changelog-end -->
