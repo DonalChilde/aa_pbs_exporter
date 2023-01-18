@@ -10,6 +10,7 @@ description = "Convert AA PBS pairing package .pdf to .json"
 requires-python = ">=3.10"
 keywords = ["Python", "aa_pbs_exporter"]
 license = { file = "LICENSE" }
+authors = [{ name = "Chad Lowe" }, { email = "pfmsoft.dev@gmail.com" }]
 # 
 # urls = { Home-page = "https://github.com/DonalChilde/aa_pbs_exporter" }
 # https://pypi.org/classifiers/
