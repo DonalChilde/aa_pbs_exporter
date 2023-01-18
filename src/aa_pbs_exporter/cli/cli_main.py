@@ -7,7 +7,7 @@ import logging
 from aa_pbs_exporter.cli.extract_text_cli import extract
 from aa_pbs_exporter.cli.parse_text import parse
 from aa_pbs_exporter import PROJECT_SLUG
-from aa_pbs_exporter.util.logging import rotating_file_logger
+from aa_pbs_exporter.snippets.logging.logging import rotating_file_logger
 
 # To override default settings by loading from config file, see:
 # https://click.palletsprojects.com/en/8.1.x/commands/#overriding-defaults

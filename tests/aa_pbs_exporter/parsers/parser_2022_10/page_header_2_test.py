@@ -1,11 +1,11 @@
 from pathlib import Path
-from aa_pbs_exporter.util.parsing.parse_context import DevParseContext
-from aa_pbs_exporter.util.parsing.state_parser import Parser
+from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
+from aa_pbs_exporter.snippets.parsing.state_parser import Parser
 from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
-from aa_pbs_exporter.util.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
 test_data = [

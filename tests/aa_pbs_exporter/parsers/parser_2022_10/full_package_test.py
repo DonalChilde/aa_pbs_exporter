@@ -5,7 +5,7 @@ from typing import List
 from tests.aa_pbs_exporter.conftest import PackageResource
 
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
-from aa_pbs_exporter.util.parsing.state_parser import parse_file
+from aa_pbs_exporter.snippets.parsing.state_parser import parse_file
 
 SENTINEL = False
 

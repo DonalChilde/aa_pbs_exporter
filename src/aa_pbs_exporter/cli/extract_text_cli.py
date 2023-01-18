@@ -2,10 +2,10 @@ from pathlib import Path
 
 import click
 
-from aa_pbs_exporter.util.extract_text_from_pdf_to_file import (
+from aa_pbs_exporter.snippets.pdf.extract_text_from_pdf_to_file import (
     extract_text_from_pdf_to_file,
 )
-from aa_pbs_exporter.util.task_complete import task_complete
+from aa_pbs_exporter.snippets.click.task_complete import task_complete
 
 
 @click.command()

@@ -13,8 +13,8 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
-from .indexed_string import IndexedString
-from .parse_context import ParseContext
+from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())

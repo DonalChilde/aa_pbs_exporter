@@ -7,7 +7,7 @@ from aa_pbs_exporter.models.bid_package_2022_10.translate_2022_10 import (
 )
 
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
-from aa_pbs_exporter.util.parsing.state_parser import parse_lines
+from aa_pbs_exporter.snippets.parsing.state_parser import parse_lines
 
 _ = lax_777_intl_fixture
 

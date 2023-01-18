@@ -13,7 +13,7 @@ from typing import Dict
 
 import click
 
-from .publisher_consumer import MessageConsumerProtocol
+from aa_pbs_exporter.snippets.messages.publisher_consumer import MessageConsumerProtocol
 
 
 class ClickMessageConsumer(MessageConsumerProtocol):

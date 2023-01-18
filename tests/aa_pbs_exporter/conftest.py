@@ -9,12 +9,12 @@ from typing import Any, Dict, List, Optional, Sequence, Union
 import pytest
 
 # from aa_pbs_exporter.app_lib.logging import rotating_file_handler
-from aa_pbs_exporter.util.logging import (
+from aa_pbs_exporter.snippets.logging.logging import (
     add_handlers_to_target_logger,
     rotating_file_handler,
     DEFAULT_FORMAT,
 )
-from aa_pbs_exporter.util.tz_aware_formatter import TZAwareFormatter
+from aa_pbs_exporter.snippets.logging.tz_aware_formatter import TZAwareFormatter
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG

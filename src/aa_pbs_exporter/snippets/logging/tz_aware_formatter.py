@@ -12,7 +12,9 @@ import logging
 from datetime import timezone
 from typing import Any, Mapping
 
-from .datetime_from_struct_time import datetime_from_struct
+from aa_pbs_exporter.snippets.datetime.datetime_from_struct_time import (
+    datetime_from_struct,
+)
 
 
 class TZAwareFormatter(logging.Formatter):

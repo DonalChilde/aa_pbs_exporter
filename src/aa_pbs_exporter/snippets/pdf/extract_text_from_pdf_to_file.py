@@ -16,7 +16,7 @@ from pathlib import Path
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
-from .validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 
 def extract_text_from_pdf_to_file(
