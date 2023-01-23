@@ -2,10 +2,10 @@ from tests.aa_pbs_exporter.resources.data_2022.lax_777_intl.fixtures import (
     lax_777_intl_fixture,
 )
 from tests.aa_pbs_exporter.resources.helpers import ParseTestingData
+
 from aa_pbs_exporter.models.bid_package_2022_10.translate_2022_10 import (
     translate_package,
 )
-
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
 from aa_pbs_exporter.snippets.parsing.state_parser import parse_lines
 

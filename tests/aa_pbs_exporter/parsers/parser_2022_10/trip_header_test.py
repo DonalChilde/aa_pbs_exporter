@@ -2,12 +2,12 @@ from pathlib import Path
 
 from devtools import debug
 from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
+from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
 from aa_pbs_exporter.models.raw_2022_10 import lines
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
 from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
-from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
 test_data = [
     lines.TripHeader(

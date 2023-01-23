@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from uuid import UUID
 
 from pydantic import BaseModel
+
 from aa_pbs_exporter.airports.airport_model import Airport
 
 

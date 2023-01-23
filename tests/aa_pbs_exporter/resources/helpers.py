@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from pathlib import Path
 from importlib import resources
+from pathlib import Path
 
 from aa_pbs_exporter.snippets.parsing.parse_context import (
     DevParseContext,

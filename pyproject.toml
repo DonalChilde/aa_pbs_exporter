@@ -37,6 +37,9 @@ Documentation_rtd = "https://aa_pbs_exporter.readthedocs.io"
 Issues = "https://github.com/DonalChilde/aa_pbs_exporter/issues"
 Source = "https://github.com/DonalChilde/aa_pbs_exporter"
 
+[project.scripts]
+aa-pbs-exporter = "aa_pbs_exporter.cli.cli_main:cli"
+
 [project.optional-dependencies]
 dev = [
 
@@ -62,7 +65,14 @@ doc = [
     "sphinx-click",
 ]
 vscode = ["esbonio", "rst2html", "rstcheck"]
-testing = ["pytest", "coverage", "pytest-cov", "pysnooper", "devtools"]
+testing = [
+    "pytest",
+    "coverage[toml]",
+    "pygments",
+    "pytest-cov",
+    "pysnooper",
+    "devtools",
+]
 
 
 [tool.isort]
@@ -80,5 +90,19 @@ max-line-length = "92"
 [tool.pylint.'MESSAGES CONTROL']
 extension-pkg-whitelist = "pydantic"
 
-[project.scripts]
-aa-pbs-exporter = "aa_pbs_exporter.cli.cli_main:cli"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+tests = ["tests", "*/tests"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+# omit the snippets directory, as they are often included without tests.
+omit = ["*/snippets/*"]
+# # fail_under = 100
+
+[tool.coverage.html]
+directory = "htmlcov"

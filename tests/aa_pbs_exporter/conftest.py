@@ -10,9 +10,9 @@ import pytest
 
 # from aa_pbs_exporter.app_lib.logging import rotating_file_handler
 from aa_pbs_exporter.snippets.logging.logging import (
+    DEFAULT_FORMAT,
     add_handlers_to_target_logger,
     rotating_file_handler,
-    DEFAULT_FORMAT,
 )
 from aa_pbs_exporter.snippets.logging.tz_aware_formatter import TZAwareFormatter
 
