@@ -10,10 +10,10 @@ from tests.aa_pbs_exporter.resources.data_2022.three_pages.fixtures import (
 from tests.aa_pbs_exporter.resources.helpers import ParseTestingData
 
 from aa_pbs_exporter.models.raw_2022_10.bid_package import Package
+from aa_pbs_exporter.models.raw_2022_10.validate import validate_bid_package
 from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 from aa_pbs_exporter.snippets.parsing.state_parser import parse_lines
-from aa_pbs_exporter.models.raw_2022_10.validate import validate_bid_package
 
 _ = lax_777_intl_fixture, three_pages_fixture
 

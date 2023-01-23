@@ -6,18 +6,18 @@ import pyparsing as pp
 
 from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 from aa_pbs_exporter.models.raw_2022_10 import lines as raw_lines
-from aa_pbs_exporter.snippets.parsing import state_parser as sp
-from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
-from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
 from aa_pbs_exporter.snippets.messages.publisher_consumer import (
     MessageConsumerProtocol,
     MessagePublisherMixin,
 )
+from aa_pbs_exporter.snippets.parsing import state_parser as sp
+from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.indexed_string_filter import (
     MultiTest,
-    SkipTillMatch,
     SkipBlankLines,
+    SkipTillMatch,
 )
+from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())

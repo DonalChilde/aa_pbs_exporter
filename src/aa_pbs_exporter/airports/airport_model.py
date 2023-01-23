@@ -1,7 +1,8 @@
-from datetime import datetime
-from pydantic import BaseModel
-from uuid import UUID, NAMESPACE_DNS, uuid5
 import hashlib
+from datetime import datetime
+from uuid import NAMESPACE_DNS, UUID, uuid5
+
+from pydantic import BaseModel
 
 PROJECT_NAMESPACE = uuid5(NAMESPACE_DNS, "pfmsoft.airportsdata")
 

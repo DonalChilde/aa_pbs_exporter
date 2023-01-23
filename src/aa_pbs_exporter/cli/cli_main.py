@@ -1,12 +1,12 @@
+import logging
 from pathlib import Path
 from time import perf_counter_ns
 
 import click
-import logging
 
+from aa_pbs_exporter import PROJECT_SLUG
 from aa_pbs_exporter.cli.extract_text_cli import extract
 from aa_pbs_exporter.cli.parse_text import parse
-from aa_pbs_exporter import PROJECT_SLUG
 from aa_pbs_exporter.snippets.logging.logging import rotating_file_logger
 
 # To override default settings by loading from config file, see:
