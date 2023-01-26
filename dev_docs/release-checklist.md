@@ -15,13 +15,18 @@ Before a release, ensure all of the following are completed.
 - [ ] Documentation is current.
 - [ ] Ensure Draft Release notes are current and accurate.
 - [ ] Ensure all changes committed and synced!
+- [ ] Make a PR on github to merge the release branch with master
+- [ ] Merge the PR
+- [ ] Checkout master branch
+  - `git fetch origin`
+  - `git checkout origin/master`
 - [ ] Tag the new version
   - `git tag -a v0.0.0 -m "release v0.0.0"`
 - [ ] Push the tag to origin
   - `git push origin v0.0.0`
-- [ ] Make a PR on github to merge the release branch with master
-- [ ] After merge, create release from Draft Release on github
+- [ ] Create release from Draft Release on github
   - [ ] Ensure correct tag and version are used.
+  - [ ] Update release notes as necessary, release drafter may have overwritten custom changes.
 - [ ] Update the origin/develop branch from master
   - `git fetch origin`
   - `git checkout origin/develop`
