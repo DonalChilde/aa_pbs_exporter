@@ -29,6 +29,7 @@ Before a release, ensure all of the following are completed.
   - [ ] Update release notes as necessary, release drafter may have overwritten custom changes.
 - [ ] Update the origin/develop branch from master
   - `git fetch origin`
-  - `git checkout origin/develop`
+  - `git checkout develop`
+  - `git pull`
   - `git merge origin/master`
   - `git push origin develop`
