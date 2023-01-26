@@ -29,7 +29,7 @@ dependencies = [
     "airportsdata",
     "pydantic",
 ]
-version = "v0.0.0"
+version = "v0.0.1"
 
 [project.urls]
 Documentation = "https://github.com/DonalChilde/aa_pbs_exporter#readme"
