@@ -1,14 +1,14 @@
 from pathlib import Path
 
-from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
+from tests.aa_pbs_exporter.pbs_2022_01.parse.test_context import ParseContextTest
 from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
-from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
-    lines.TripFooter(
+    raw.TripFooter(
         source=IndexedString(
             1,
             "TTL                                              7.50   0.00   7.50        10.20       −− −− −−",
@@ -19,7 +19,7 @@ test_data = [
         tafb="10.20",
         calendar="−− −− −−",
     ),
-    lines.TripFooter(
+    raw.TripFooter(
         source=IndexedString(
             2,
             "TTL                                             17.18   0.00  17.18        60.04",

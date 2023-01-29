@@ -1,4 +1,4 @@
-from aa_pbs_exporter.parsers.parser_2022_10.line_parser import LineParseContext
+from aa_pbs_exporter.pbs_2022_01.parse import LineParseContext
 
 
 class ParseContextTest(LineParseContext):

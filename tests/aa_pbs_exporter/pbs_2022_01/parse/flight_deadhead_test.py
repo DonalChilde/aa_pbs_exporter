@@ -1,15 +1,15 @@
 from pathlib import Path
 
-from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
+from tests.aa_pbs_exporter.pbs_2022_01.parse.test_context import ParseContextTest
 from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
-from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
-    lines.Flight(
+    raw.Flight(
         source=IndexedString(
             1,
             "4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31",
@@ -30,7 +30,7 @@ test_data = [
         equipment_change="",
         calendar="",
     ),
-    lines.Flight(
+    raw.Flight(
         source=IndexedString(
             1,
             "2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X",
