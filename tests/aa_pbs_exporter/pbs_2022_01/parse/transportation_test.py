@@ -9,27 +9,27 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.Transportation(
-        source=IndexedString(
-            1,
-            "                    SIN FIN DE SERVICIOS                    3331223240",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                    SIN FIN DE SERVICIOS                    3331223240",
         ),
         name="SIN FIN DE SERVICIOS",
         phone="3331223240",
         calendar="",
     ),
     raw.Transportation(
-        source=IndexedString(
-            2,
-            "                    VIP TRANSPORTATION− OGG                 8088712702                 −− −− −−",
+        source=raw.IndexedString(
+            idx=2,
+            txt="                    VIP TRANSPORTATION− OGG                 8088712702                 −− −− −−",
         ),
         name="VIP TRANSPORTATION− OGG",
         phone="8088712702",
         calendar="−− −− −−",
     ),
     raw.Transportation(
-        source=IndexedString(
-            2,
-            "                                                                                      −− −− −−",
+        source=raw.IndexedString(
+            idx=2,
+            txt="                                                                                      −− −− −−",
         ),
         name="",
         phone="",

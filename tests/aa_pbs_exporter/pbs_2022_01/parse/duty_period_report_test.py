@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.DutyPeriodReport(
-        source=IndexedString(
-            1,
-            "                RPT 1237/1237                                                           2 −− −− −− −− −− −−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                RPT 1237/1237                                                           2 −− −− −− −− −− −−",
         ),
         report="1237/1237",
         calendar="2 −− −− −− −− −− −−",

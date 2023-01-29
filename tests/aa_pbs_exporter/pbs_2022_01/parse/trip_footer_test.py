@@ -9,9 +9,9 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.TripFooter(
-        source=IndexedString(
-            1,
-            "TTL                                              7.50   0.00   7.50        10.20       −− −− −−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="TTL                                              7.50   0.00   7.50        10.20       −− −− −−",
         ),
         block="7.50",
         synth="0.00",
@@ -20,9 +20,9 @@ test_data = [
         calendar="−− −− −−",
     ),
     raw.TripFooter(
-        source=IndexedString(
-            2,
-            "TTL                                             17.18   0.00  17.18        60.04",
+        source=raw.IndexedString(
+            idx=2,
+            txt="TTL                                             17.18   0.00  17.18        60.04",
         ),
         block="17.18",
         synth="0.00",

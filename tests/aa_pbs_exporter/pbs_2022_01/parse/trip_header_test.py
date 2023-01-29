@@ -11,9 +11,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.TripHeader(
-        source=IndexedString(
-            1,
-            "SEQ 25064   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU",
+        source=raw.IndexedString(
+            idx=1,
+            txt="SEQ 25064   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU",
         ),
         number="25064",
         ops_count="1",
@@ -23,9 +23,9 @@ test_data = [
         calendar="",
     ),
     raw.TripHeader(
-        source=IndexedString(
-            1,
-            "SEQ 6292    1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU",
+        source=raw.IndexedString(
+            idx=1,
+            txt="SEQ 6292    1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU",
         ),
         number="6292",
         ops_count="1",
@@ -35,9 +35,9 @@ test_data = [
         calendar="",
     ),
     raw.TripHeader(
-        source=IndexedString(
-            1,
-            "SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU",
+        source=raw.IndexedString(
+            idx=1,
+            txt="SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU",
         ),
         number="16945",
         ops_count="1",

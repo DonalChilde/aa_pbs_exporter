@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.HeaderSeparator(
-        source=IndexedString(
-            1,
-            "−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−",
         ),
     ),
 ]

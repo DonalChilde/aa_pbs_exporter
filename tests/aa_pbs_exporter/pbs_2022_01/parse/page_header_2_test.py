@@ -8,9 +8,9 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.PageHeader2(
-        source=IndexedString(
-            1,
-            "DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01",
+        source=raw.IndexedString(
+            idx=1,
+            txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01",
         ),
         calendar_range="05/02−06/01",
     ),

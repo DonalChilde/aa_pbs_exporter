@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.DutyPeriodRelease(
-        source=IndexedString(
-            1,
-            "                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
         ),
         release="0739/0439",
         block="4.49",
@@ -23,9 +23,9 @@ test_data = [
         calendar="−− −− −− −− −− −− −−",
     ),
     raw.DutyPeriodRelease(
-        source=IndexedString(
-            1,
-            "                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",
         ),
         release="2252/2252",
         block="0.00",

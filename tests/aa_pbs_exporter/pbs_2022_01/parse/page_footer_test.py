@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.PageFooter(
-        source=IndexedString(
-            1,
-            "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644",
+        source=raw.IndexedString(
+            idx=1,
+            txt="COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644",
         ),
         issued="08APR2022",
         effective="02MAY2022",
@@ -23,9 +23,9 @@ test_data = [
         page="644",
     ),
     raw.PageFooter(
-        source=IndexedString(
-            2,
-            "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178",
+        source=raw.IndexedString(
+            idx=2,
+            txt="COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178",
         ),
         issued="08APR2022",
         effective="02MAY2022",

@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.Hotel(
-        source=IndexedString(
-            1,
-            "                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
         ),
         layover_city="MIA",
         name="SONESTA MIAMI AIRPORT",
@@ -21,9 +21,9 @@ test_data = [
         calendar="−− −− −− −− −− −− −−",
     ),
     raw.Hotel(
-        source=IndexedString(
-            2,
-            "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
+        source=raw.IndexedString(
+            idx=2,
+            txt="                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
         ),
         layover_city="LHR",
         name="PARK PLAZA WESTMINSTER BRIDGE LONDON",

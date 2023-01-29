@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
+# from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-
+from pydantic import BaseModel
 
 # TODO make validator class to allow passing out validation messages
 # TODO split to expanded model, and expand functions? rename?
@@ -18,27 +18,23 @@ from datetime import datetime, timedelta
 #     hbt: str
 
 
-@dataclass
-class SourceReference:
+class SourceReference(BaseModel):
     source: str
     from_line: int
     to_line: int
 
 
-@dataclass
-class Transportation:
+class Transportation(BaseModel):
     name: str
     phone: str
 
 
-@dataclass
-class Hotel:
+class Hotel(BaseModel):
     name: str
     phone: str | None
 
 
-@dataclass
-class Layover:
+class Layover(BaseModel):
     odl: timedelta
     city: str
     hotel: Hotel | None
@@ -47,8 +43,7 @@ class Layover:
     transportation_additional: Transportation | None
 
 
-@dataclass
-class Flight:
+class Flight(BaseModel):
     dutyperiod_idx: int
     idx: int
     dep_arr_day: str
@@ -66,8 +61,7 @@ class Flight:
     equipment_change: bool
 
 
-@dataclass
-class DutyPeriod:
+class DutyPeriod(BaseModel):
     idx: int
     report: datetime
     report_station: str
@@ -79,11 +73,10 @@ class DutyPeriod:
     duty: timedelta
     flight_duty: timedelta
     layover: Layover | None
-    flights: list[Flight] = field(default_factory=list)
+    flights: list[Flight]
 
 
-@dataclass
-class Trip:
+class Trip(BaseModel):
     # uuid: UUID
     number: str
     # base: str
@@ -98,11 +91,10 @@ class Trip:
     total_pay: timedelta
     tafb: timedelta
     # source_ref: SourceReference | None
-    dutyperiods: list[DutyPeriod] = field(default_factory=list)
+    dutyperiods: list[DutyPeriod]
 
 
-@dataclass
-class Page:
+class Page(BaseModel):
     base: str
     satellite_base: str
     equipment: str
@@ -111,10 +103,9 @@ class Page:
     effective: datetime
     start: datetime
     end: datetime
-    trips: list[Trip] = field(default_factory=list)
+    trips: list[Trip]
 
 
-@dataclass
-class BidPackage:
+class BidPackage(BaseModel):
     source: str
-    pages: list[Page] = field(default_factory=list)
+    pages: list[Page]

@@ -9,9 +9,9 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.TripSeparator(
-        source=IndexedString(
-            1,
-            "−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−",
+        source=raw.IndexedString(
+            idx=1,
+            txt="−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−",
         ),
     ),
 ]

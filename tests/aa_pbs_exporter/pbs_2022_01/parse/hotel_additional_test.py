@@ -8,9 +8,9 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.HotelAdditional(
-        source=IndexedString(
-            1,
-            "               +PHL MARRIOTT OLD CITY                       12152386000",
+        source=raw.IndexedString(
+            idx=1,
+            txt="               +PHL MARRIOTT OLD CITY                       12152386000",
         ),
         layover_city="PHL",
         name="MARRIOTT OLD CITY",
@@ -18,9 +18,9 @@ test_data = [
         calendar="",
     ),
     raw.HotelAdditional(
-        source=IndexedString(
-            2,
-            "               +PHL CAMBRIA HOTEL AND SUITES                12157325500",
+        source=raw.IndexedString(
+            idx=2,
+            txt="               +PHL CAMBRIA HOTEL AND SUITES                12157325500",
         ),
         layover_city="PHL",
         name="CAMBRIA HOTEL AND SUITES",

@@ -10,9 +10,9 @@ from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
     raw.Flight(
-        source=IndexedString(
-            1,
-            "4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31",
+        source=raw.IndexedString(
+            idx=1,
+            txt="4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31",
         ),
         dutyperiod_idx="4",
         dep_arr_day="4/4",
@@ -31,9 +31,9 @@ test_data = [
         calendar="",
     ),
     raw.Flight(
-        source=IndexedString(
-            1,
-            "2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X",
+        source=raw.IndexedString(
+            idx=1,
+            txt="2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X",
         ),
         dutyperiod_idx="2",
         dep_arr_day="2/2",

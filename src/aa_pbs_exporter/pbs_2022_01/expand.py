@@ -20,19 +20,6 @@ DATE = "%d%b%Y"
 MONTH_DAY = "%m/%d"
 
 # TODO make validator class to allow passing out validation messages
-# TODO split to expanded model, and expand functions? rename?
-# TODO decide on parser version scheme, and rename packages
-#   - pbs_2022_10
-#       - parse
-#       - models
-#           - raw
-#           - expanded
-#       - validate
-#       - convert
-
-# class LocalHbt(TypedDict):
-#     local: str
-#     hbt: str
 
 
 def expand_bid_package(
@@ -80,6 +67,9 @@ def expand_trips(
 ) -> list[expanded.Trip]:
     expanded_trips: list[expanded.Trip] = []
     for trip in trips:
+        # Skip prior month trips.
+        if "prior" in trip.header.source.txt:
+            continue
         calendar_entries = get_calendar_entries(trip)
         start_dates = get_start_dates(
             from_date=from_date, to_date=to_date, calendar_entries=calendar_entries

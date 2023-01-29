@@ -9,18 +9,18 @@ from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 
 test_data = [
     raw.TransportationAdditional(
-        source=IndexedString(
-            1,
-            "                    SKY TRANSPORTATION SERVICE, LLC         8566169633",
+        source=raw.IndexedString(
+            idx=1,
+            txt="                    SKY TRANSPORTATION SERVICE, LLC         8566169633",
         ),
         name="SKY TRANSPORTATION SERVICE, LLC",
         phone="8566169633",
         calendar="",
     ),
     raw.TransportationAdditional(
-        source=IndexedString(
-            2,
-            "                    DESERT COACH                            6022866161",
+        source=raw.IndexedString(
+            idx=2,
+            txt="                    DESERT COACH                            6022866161",
         ),
         name="DESERT COACH",
         phone="6022866161",
