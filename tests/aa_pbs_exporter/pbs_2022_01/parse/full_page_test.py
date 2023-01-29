@@ -19,7 +19,9 @@ from aa_pbs_exporter.snippets.parsing.state_parser import parse_lines
 _ = lax_777_intl_fixture, three_pages_fixture
 
 
-def test_lax_777_intl(logger, lax_777_intl: ParseTestingData, test_app_data_dir: Path):
+def test_lax_777_intl(
+    logger: logging.Logger, lax_777_intl: ParseTestingData, test_app_data_dir: Path
+):
     parse_data = lax_777_intl
     output_path = test_app_data_dir / f"{parse_data.name}.txt"
     ctx = line_parser.LineParseContext(parse_data.name)
@@ -42,7 +44,9 @@ def test_lax_777_intl(logger, lax_777_intl: ParseTestingData, test_app_data_dir:
     # assert False
 
 
-def test_three_pages(logger, three_pages: ParseTestingData, test_app_data_dir: Path):
+def test_three_pages(
+    logger: logging.Logger, three_pages: ParseTestingData, test_app_data_dir: Path
+):
     parse_data = three_pages
     output_path = test_app_data_dir / f"{parse_data.name}.txt"
     ctx = line_parser.LineParseContext(parse_data.name)
@@ -54,4 +58,6 @@ def test_three_pages(logger, three_pages: ParseTestingData, test_app_data_dir: P
         )
         parse_lines(lines, scheme, dev_ctx, skipper=line_parser.make_skipper())
     bid_package: raw.BidPackage = dev_ctx.wrapped_context.results_obj  # type: ignore
+    # print(bid_package.json(indent=2))
     assert len(bid_package.pages) == 3
+    # assert False

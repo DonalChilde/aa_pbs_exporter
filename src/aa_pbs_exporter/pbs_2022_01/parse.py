@@ -12,7 +12,8 @@ from aa_pbs_exporter.snippets.messages.publisher_consumer import (
     MessagePublisherMixin,
 )
 from aa_pbs_exporter.snippets.parsing import state_parser as sp
-from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
+
+# from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.indexed_string_filter import (
     MultiTest,
     SkipBlankLines,
@@ -48,14 +49,14 @@ CALENDAR_ENTRY = pp.Or(
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 
-def data_starts(indexed_string: IndexedString) -> bool:
+def data_starts(indexed_string: raw.IndexedString) -> bool:
 
     if "DEPARTURE" in indexed_string.txt:
         return True
     return False
 
 
-def make_skipper() -> Callable[[IndexedString], bool]:
+def make_skipper() -> Callable[[raw.IndexedString], bool]:
     return MultiTest(testers=[SkipTillMatch(matcher=data_starts), SkipBlankLines()])
 
 
@@ -66,7 +67,8 @@ class LineParseContext(ParseContext, MessagePublisherMixin):
         message_consumers: Sequence[MessageConsumerProtocol] | None = None,
     ) -> None:
         super().__init__(
-            source_name=source_name, results_obj=raw.BidPackage(source=source_name)
+            source_name=source_name,
+            results_obj=raw.BidPackage(source=source_name, pages=[]),
         )
         if message_consumers is None:
             self.message_consumers = []
@@ -86,7 +88,7 @@ class LineParseContext(ParseContext, MessagePublisherMixin):
         # print(f"In Handle with {data.__class__.__qualname__}")
         match result.__class__.__qualname__:
             case "PageHeader1":
-                self.results_obj.pages.append(raw.Page(page_header_1=result))
+                self.results_obj.pages.append(raw.Page(page_header_1=result, trips=[]))
             case "PageHeader2":
                 self.results_obj.pages[-1].page_header_2 = result
             case "HeaderSeparator":
@@ -94,10 +96,12 @@ class LineParseContext(ParseContext, MessagePublisherMixin):
             case "BaseEquipment":
                 self.results_obj.pages[-1].base_equipment = result
             case "TripHeader":
-                self.results_obj.pages[-1].trips.append(raw.Trip(header=result))
+                self.results_obj.pages[-1].trips.append(
+                    raw.Trip(header=result, dutyperiods=[])
+                )
             case "DutyPeriodReport":
                 self.results_obj.pages[-1].trips[-1].dutyperiods.append(
-                    raw.DutyPeriod(report=result)
+                    raw.DutyPeriod(report=result, flights=[])
                 )
             case "Flight":
                 self.results_obj.pages[-1].trips[-1].dutyperiods[-1].flights.append(
@@ -159,7 +163,7 @@ class PageHeader1(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "page_header_1"
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         if "DEPARTURE" in indexed_string.txt:
             parsed = raw.PageHeader1(source=indexed_string)
             ctx.handle_parse_result(parsed)
@@ -171,7 +175,7 @@ class PageHeader2(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "page_header_2"
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         words = indexed_string.txt.split()
         if words[-2] == "CALENDAR":
             parsed = raw.PageHeader2(source=indexed_string, calendar_range=words[-1])
@@ -186,7 +190,7 @@ class HeaderSeparator(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "header_separator"
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.HeaderSeparator(source=indexed_string)
             ctx.handle_parse_result(parsed)
@@ -198,7 +202,7 @@ class TripSeparator(sp.Parser):
     def __init__(self) -> None:
         self.success_state = "trip_separator"
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.TripSeparator(source=indexed_string)
             ctx.handle_parse_result(parsed)
@@ -217,7 +221,7 @@ class BaseEquipment(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -260,7 +264,7 @@ class TripHeader(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -295,7 +299,7 @@ class DutyPeriodReport(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -339,7 +343,7 @@ class Flight(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -396,7 +400,7 @@ class FlightDeadhead(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -439,7 +443,7 @@ class DutyPeriodRelease(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -472,13 +476,13 @@ class Hotel(sp.Parser):
                     stop_on=PHONE_NUMBER | DURATION,
                 )
             )("hotel")
-            + pp.Opt(PHONE_NUMBER, default=[])("hotel_phone")
+            + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
             + DURATION("rest")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -511,12 +515,12 @@ class HotelAdditional(sp.Parser):
                     stop_on=PHONE_NUMBER | DURATION,
                 )
             )("hotel")
-            + pp.Opt(PHONE_NUMBER, default=[])("hotel_phone")
+            + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -541,12 +545,12 @@ class Transportation(sp.Parser):
             + pp.original_text_for(
                 pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_ENTRY, pp.StringEnd()]))
             )("transportation")
-            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default=[])("transportation_phone")
+            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default="")("transportation_phone")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -570,12 +574,12 @@ class TransportationAdditional(sp.Parser):
             + pp.original_text_for(
                 pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_ENTRY, pp.StringEnd()]))
             )("transportation")
-            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default=[])("transportation_phone")
+            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default="")("transportation_phone")
             + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -604,7 +608,7 @@ class TripFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -640,7 +644,7 @@ class PageFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: IndexedString, ctx: ParseContext) -> str:
+    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
         try:
 
             result = self._parser.parse_string(indexed_string.txt)
