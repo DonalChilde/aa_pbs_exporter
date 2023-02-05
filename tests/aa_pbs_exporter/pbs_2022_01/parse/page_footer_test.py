@@ -1,18 +1,18 @@
 from pathlib import Path
 
-from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
+from tests.aa_pbs_exporter.pbs_2022_01.parse.test_context import ParseContextTest
 from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
-from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
-    lines.PageFooter(
-        source=IndexedString(
-            1,
-            "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644",
+    raw.PageFooter(
+        source=raw.IndexedString(
+            idx=1,
+            txt="COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644",
         ),
         issued="08APR2022",
         effective="02MAY2022",
@@ -22,10 +22,10 @@ test_data = [
         division="DOM",
         page="644",
     ),
-    lines.PageFooter(
-        source=IndexedString(
-            2,
-            "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178",
+    raw.PageFooter(
+        source=raw.IndexedString(
+            idx=2,
+            txt="COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178",
         ),
         issued="08APR2022",
         effective="02MAY2022",

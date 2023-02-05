@@ -13,7 +13,8 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
-from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
+# from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
+from aa_pbs_exporter.pbs_2022_01.models.raw import IndexedString
 from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
 
 logger = logging.getLogger(__name__)

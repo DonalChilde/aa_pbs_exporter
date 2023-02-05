@@ -1,18 +1,18 @@
 from pathlib import Path
 
-from tests.aa_pbs_exporter.parsers.parser_2022_10.test_context import ParseContextTest
+from tests.aa_pbs_exporter.pbs_2022_01.parse.test_context import ParseContextTest
 from tests.aa_pbs_exporter.resources.helpers import run_line_test
 
-from aa_pbs_exporter.models.raw_2022_10 import lines
-from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 
 test_data = [
-    lines.DutyPeriodRelease(
-        source=IndexedString(
-            1,
-            "                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
+    raw.DutyPeriodRelease(
+        source=raw.IndexedString(
+            idx=1,
+            txt="                                 RLS 0739/0439   4.49   0.00   4.49   6.19        5.49 −− −− −− −− −− −− −−",
         ),
         release="0739/0439",
         block="4.49",
@@ -22,10 +22,10 @@ test_data = [
         flight_duty="5.49",
         calendar="−− −− −− −− −− −− −−",
     ),
-    lines.DutyPeriodRelease(
-        source=IndexedString(
-            1,
-            "                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",
+    raw.DutyPeriodRelease(
+        source=raw.IndexedString(
+            idx=1,
+            txt="                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00",
         ),
         release="2252/2252",
         block="0.00",

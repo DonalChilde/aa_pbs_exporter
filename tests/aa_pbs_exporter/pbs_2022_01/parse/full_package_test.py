@@ -4,7 +4,8 @@ from typing import List
 
 from tests.aa_pbs_exporter.conftest import PackageResource
 
-from aa_pbs_exporter.parsers.parser_2022_10 import line_parser
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.state_parser import parse_file
 
 SENTINEL = False
