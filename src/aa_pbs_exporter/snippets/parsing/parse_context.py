@@ -52,6 +52,9 @@ class FileParseContext(ParseContext):
         self.fp_out.flush()
 
 
+# TODO document devparse helpers, split to separate module.
+
+
 class DevParseContext(ParseContext):
     def __init__(
         self,

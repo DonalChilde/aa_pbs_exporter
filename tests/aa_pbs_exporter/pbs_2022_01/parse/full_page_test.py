@@ -33,6 +33,8 @@ def test_lax_777_intl(
         )
         parse_lines(lines, scheme, dev_ctx, skipper=line_parser.make_skipper())
     bid_package: raw.BidPackage = dev_ctx.wrapped_context.results_obj  # type: ignore
+    parsed_output_path = test_app_data_dir / f"{parse_data.name}_parsed.json"
+    parsed_output_path.write_text(bid_package.json(indent=2))
     # validate_bid_package(bid_package, ctx)
     page = bid_package.pages[-1]
     assert page.trips[-1].header.number == "683"
@@ -58,6 +60,6 @@ def test_three_pages(
         )
         parse_lines(lines, scheme, dev_ctx, skipper=line_parser.make_skipper())
     bid_package: raw.BidPackage = dev_ctx.wrapped_context.results_obj  # type: ignore
-    # print(bid_package.json(indent=2))
+    parsed_output_path = test_app_data_dir / f"{parse_data.name}_parsed.json"
+    parsed_output_path.write_text(bid_package.json(indent=2))
     assert len(bid_package.pages) == 3
-    # assert False
