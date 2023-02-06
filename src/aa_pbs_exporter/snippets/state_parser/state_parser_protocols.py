@@ -14,7 +14,7 @@ Defines the interface for a state based text parser.
 When parsing semi structured text, parsing a section often depends on
 knowing what the previous section was.
 """
-from typing import Any, Protocol, Sequence
+from typing import Any, Protocol, Sequence, runtime_checkable
 
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
@@ -22,6 +22,7 @@ from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
 )
 
 
+# @runtime_checkable
 class ParsedIndexedString(Protocol):
     """Contains data parsed from an `IndexedStringProtocol`.
 
@@ -52,7 +53,10 @@ class IndexedStringParser(Protocol):
     """Parse an IndexedString."""
 
     def parse(
-        self, indexed_string: IndexedStringProtocol, ctx: dict[str, Any], **kwargs
+        self,
+        indexed_string: IndexedStringProtocol,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
     ) -> ParseResult:
         """
         A parse function that matches an IndexedString.
@@ -101,8 +105,10 @@ class ParseManager(Protocol):
     result_handler: ResultHandler
     parse_scheme: ParseScheme
 
-    def expected_parsers(self, state: str, **kwargs) -> Sequence[IndexedStringParser]:
-        return self.expected_parsers(state=state)
+    def expected_parsers(
+        self, current_state: str, **kwargs
+    ) -> Sequence[IndexedStringParser]:
+        ...
 
     def handle_result(self, parse_result: ParseResult, **kwargs):
-        return self.result_handler.handle_result(parse_result=parse_result)
+        ...

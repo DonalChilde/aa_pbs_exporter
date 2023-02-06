@@ -9,6 +9,7 @@
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
+from io import StringIO
 from pathlib import Path
 from typing import Any, Callable, Iterable, Sequence
 
@@ -34,6 +35,15 @@ def parse_file(
         except ParseException as error:
             logger.error("%s Failed to parse %r", file_path, error)
             raise error
+
+
+def parse_string_by_line(
+    string_data: str,
+    manager: spp.ParseManager,
+    skipper: Callable[[IndexedStringProtocol], bool] | None = None,
+):
+    line_iter = StringIO(string_data)
+    parse_indexed_strings(strings=line_iter, manager=manager, skipper=skipper)
 
 
 def parse_indexed_strings(

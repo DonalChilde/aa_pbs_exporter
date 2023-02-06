@@ -229,7 +229,7 @@ class BaseEquipment(sp.Parser):
         parsed = raw.BaseEquipment(
             source=indexed_string,
             base=result["base"],  # type: ignore
-            satelite_base=result.get("satelite_base", ""),  # type: ignore
+            satellite_base=result.get("satelite_base", ""),  # type: ignore
             equipment=result["equipment"],  # type: ignore
         )
         ctx.handle_parse_result(parsed)

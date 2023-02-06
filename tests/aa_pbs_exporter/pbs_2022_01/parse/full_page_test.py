@@ -9,10 +9,10 @@ from tests.aa_pbs_exporter.resources.data_2022.three_pages.fixtures import (
 )
 from tests.aa_pbs_exporter.resources.helpers import ParseTestingData
 
+from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 
 # from aa_pbs_exporter.models.raw_2022_10.validate import validate_bid_package
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.snippets.parsing.parse_context import DevParseContext
 from aa_pbs_exporter.snippets.parsing.state_parser import parse_lines
 
