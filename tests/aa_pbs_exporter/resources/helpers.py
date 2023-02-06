@@ -1,12 +1,13 @@
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
+from typing import Any
 
-from aa_pbs_exporter.snippets.parsing.parse_context import (
-    DevParseContext,
-    NoOpParseContext,
-)
-from aa_pbs_exporter.snippets.parsing.state_parser import Parser
+from pydantic import BaseModel
+
+from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.parse import parse_string_by_line
+from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
 
 
 @dataclass
@@ -16,6 +17,12 @@ class ParseTestingData:
     raw_parse_json: Path | None
     parse_json: Path | None
     extra: dict | None = None
+
+
+class ParseTestData(BaseModel):
+    name: str
+    txt: str
+    description: str
 
 
 def parent_package_path(package: str) -> str:
@@ -47,15 +54,46 @@ def build_testing_data(
     )
 
 
-def run_line_test(
-    name: str, output_dir: Path, test_data: list, expected_state: str, parser: Parser
+def parse_lines(
+    test_data: list[ParseTestData],
+    result_data: dict[str, Any],
+    parser: spp.IndexedStringParser,
+    output_path: Path | None = None,
+    skip_test: bool = False,
 ):
-    output_path = output_dir / Path("lines") / f"{name}.txt"
+    collected_results = {}
+    for idx, data in enumerate(test_data, start=1):
+        result = parser.parse(raw.IndexedString(idx=idx, txt=data.txt), ctx={})
+        if output_path:
+            individual_outpath = output_path / f"{data.name}.py"
+            output_results_repr(individual_outpath, result)
+        if not skip_test:
+            assert result == result_data[data.name], f"{data.name}: {data.description}"
+        collected_results[data.name] = result
+    if output_path:
+        collected_outpath = output_path / "collected.py"
+        output_results_repr(collected_outpath, collected_results)
+
+
+def parse_pages(
+    test_data: ParseTestData,
+    bid_package: raw.BidPackage | None,
+    output_path: Path | None = None,
+    skip_test: bool = False,
+):
+    parsed_bid_package = parse_string_by_line(
+        source=test_data.name, string_data=test_data.txt
+    )
+    if output_path:
+        individual_outpath = output_path / f"{test_data.name}.py"
+        output_results_repr(individual_outpath, parsed_bid_package)
+    if not skip_test:
+        assert (
+            bid_package == parsed_bid_package
+        ), f"{test_data.name}: {test_data.description}"
+
+
+def output_results_repr(output_path: Path, results):
+    output_txt = f"result_data = {repr(results)}"
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    ctx = NoOpParseContext(source_name=name)
-    with open(output_path, mode="w", encoding="utf-8") as fp_out:
-        dev_ctx = DevParseContext(source_name=name, fp_out=fp_out, wrapped_context=ctx)
-        for data in test_data:
-            state = parser.parse(data.source, dev_ctx)
-            assert state == expected_state
-            assert data == dev_ctx.result
+    output_path.write_text(output_txt)

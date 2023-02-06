@@ -11,7 +11,9 @@ Assumptions:
 # from dataclasses import dataclass, field
 from pydantic import BaseModel
 
-from aa_pbs_exporter.snippets.parsing.parsed_indexed_string import ParsedIndexedString
+from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
 
 TAB = "\t"
 NL = "\n"
@@ -22,28 +24,34 @@ class IndexedString(BaseModel):
     txt: str
 
 
-class PageHeader1(BaseModel):
+class ParsedIndexedString(BaseModel):
     source: IndexedString
 
 
-class PageHeader2(BaseModel):
-    source: IndexedString
+class PageHeader1(ParsedIndexedString):
+    # source: IndexedString
+    pass
+
+
+class PageHeader2(ParsedIndexedString):
+    # source: IndexedString
     calendar_range: str
 
 
-class HeaderSeparator(BaseModel):
-    source: IndexedString
+class HeaderSeparator(ParsedIndexedString):
+    # source: IndexedString
+    pass
 
 
-class BaseEquipment(BaseModel):
-    source: IndexedString
+class BaseEquipment(ParsedIndexedString):
+    # source: IndexedString
     base: str
-    satelite_base: str
+    satellite_base: str
     equipment: str
 
 
-class TripHeader(BaseModel):
-    source: IndexedString
+class TripHeader(ParsedIndexedString):
+    # source: IndexedString
     number: str
     ops_count: str
     positions: str
@@ -52,14 +60,14 @@ class TripHeader(BaseModel):
     calendar: str
 
 
-class DutyPeriodReport(BaseModel):
-    source: IndexedString
+class DutyPeriodReport(ParsedIndexedString):
+    # source: IndexedString
     report: str
     calendar: str
 
 
-class Flight(BaseModel):
-    source: IndexedString
+class Flight(ParsedIndexedString):
+    # source: IndexedString
     dutyperiod_idx: str
     dep_arr_day: str
     eq_code: str
@@ -77,8 +85,8 @@ class Flight(BaseModel):
     calendar: str
 
 
-class DutyPeriodRelease(BaseModel):
-    source: IndexedString
+class DutyPeriodRelease(ParsedIndexedString):
+    # source: IndexedString
     release: str
     block: str
     synth: str
@@ -88,8 +96,8 @@ class DutyPeriodRelease(BaseModel):
     calendar: str
 
 
-class Hotel(BaseModel):
-    source: IndexedString
+class Hotel(ParsedIndexedString):
+    # source: IndexedString
     layover_city: str
     name: str
     phone: str
@@ -97,30 +105,30 @@ class Hotel(BaseModel):
     calendar: str
 
 
-class HotelAdditional(BaseModel):
-    source: IndexedString
+class HotelAdditional(ParsedIndexedString):
+    # source: IndexedString
     layover_city: str
     name: str
     phone: str
     calendar: str
 
 
-class Transportation(BaseModel):
-    source: IndexedString
+class Transportation(ParsedIndexedString):
+    # source: IndexedString
     name: str
     phone: str
     calendar: str
 
 
-class TransportationAdditional(BaseModel):
-    source: IndexedString
+class TransportationAdditional(ParsedIndexedString):
+    # source: IndexedString
     name: str
     phone: str
     calendar: str
 
 
-class TripFooter(BaseModel):
-    source: IndexedString
+class TripFooter(ParsedIndexedString):
+    # source: IndexedString
     block: str
     synth: str
     total_pay: str
@@ -128,12 +136,13 @@ class TripFooter(BaseModel):
     calendar: str
 
 
-class TripSeparator(BaseModel):
-    source: IndexedString
+class TripSeparator(ParsedIndexedString):
+    # source: IndexedString
+    pass
 
 
-class PageFooter(BaseModel):
-    source: IndexedString
+class PageFooter(ParsedIndexedString):
+    # source: IndexedString
     issued: str
     effective: str
     base: str
@@ -143,8 +152,8 @@ class PageFooter(BaseModel):
     page: str
 
 
-class PackageDate(BaseModel):
-    source: IndexedString
+class PackageDate(ParsedIndexedString):
+    # source: IndexedString
     month: str
     year: str
 
