@@ -1,25 +1,36 @@
+# mypy: disable-error-code=override
 import logging
+from dataclasses import dataclass
+from io import StringIO
 from pathlib import Path
-from typing import Callable, Dict, Iterable, Sequence
+from typing import Any, Callable, Dict, Iterable, Sequence
 
 import pyparsing as pp
 
 # from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 # from aa_pbs_exporter.models.raw_2022_10 import lines as raw_lines
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.messages.publisher_consumer import (
-    MessageConsumerProtocol,
-    MessagePublisherMixin,
-)
-from aa_pbs_exporter.snippets.parsing import state_parser as sp
+from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
+from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 
 # from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
-from aa_pbs_exporter.snippets.parsing.indexed_string_filter import (
+from aa_pbs_exporter.snippets.string.indexed_string_filter import (
     MultiTest,
     SkipBlankLines,
     SkipTillMatch,
 )
-from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
+from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
+
+# from aa_pbs_exporter.snippets.messages.publisher_consumer import (
+#     MessageConsumerProtocol,
+#     MessagePublisherMixin,
+# )
+# from aa_pbs_exporter.snippets.parsing import state_parser as sp
+
+
+# from aa_pbs_exporter.snippets.parsing.parse_context import ParseContext
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -49,94 +60,26 @@ CALENDAR_ENTRY = pp.Or(
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 
-def data_starts(indexed_string: raw.IndexedString) -> bool:
+def data_starts(indexed_string: IndexedStringProtocol) -> bool:
 
     if "DEPARTURE" in indexed_string.txt:
         return True
     return False
 
 
-def make_skipper() -> Callable[[raw.IndexedString], bool]:
+def make_skipper() -> Callable[[IndexedStringProtocol], bool]:
     return MultiTest(testers=[SkipTillMatch(matcher=data_starts), SkipBlankLines()])
 
 
-class LineParseContext(ParseContext, MessagePublisherMixin):
-    def __init__(
-        self,
-        source_name: str,
-        message_consumers: Sequence[MessageConsumerProtocol] | None = None,
-    ) -> None:
-        super().__init__(
-            source_name=source_name,
-            results_obj=raw.BidPackage(source=source_name, pages=[]),
-        )
-        if message_consumers is None:
-            self.message_consumers = []
-        else:
-            self.message_consumers = message_consumers
-        # self.bid_package = raw.Package(source=source_name)
-
-    @property
-    def results_obj(self) -> raw.BidPackage:
-        return self._results_obj
-
-    @results_obj.setter
-    def results_obj(self, value: raw.BidPackage):
-        self._results_obj = value
-
-    def handle_parse_result(self, result):
-        # print(f"In Handle with {data.__class__.__qualname__}")
-        match result.__class__.__qualname__:
-            case "PageHeader1":
-                self.results_obj.pages.append(raw.Page(page_header_1=result, trips=[]))
-            case "PageHeader2":
-                self.results_obj.pages[-1].page_header_2 = result
-            case "HeaderSeparator":
-                pass
-            case "BaseEquipment":
-                self.results_obj.pages[-1].base_equipment = result
-            case "TripHeader":
-                self.results_obj.pages[-1].trips.append(
-                    raw.Trip(header=result, dutyperiods=[])
-                )
-            case "DutyPeriodReport":
-                self.results_obj.pages[-1].trips[-1].dutyperiods.append(
-                    raw.DutyPeriod(report=result, flights=[])
-                )
-            case "Flight":
-                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].flights.append(
-                    result
-                )
-            case "DutyPeriodRelease":
-                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].release = result
-            case "Hotel":
-                layover = raw.Layover(hotel=result)
-                self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover = layover
-            case "HotelAdditional":
-                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
-                assert layover is not None
-                layover.hotel_additional = result
-            case "Transportation":
-                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
-                assert layover is not None
-                layover.transportation = result
-            case "TransportationAdditional":
-                layover = self.results_obj.pages[-1].trips[-1].dutyperiods[-1].layover
-                assert layover is not None
-                layover.transportation_additional = result
-            case "TripFooter":
-                self.results_obj.pages[-1].trips[-1].footer = result
-            case "TripSeparator":
-                # could validate trip here
-                pass
-            case "PageFooter":
-                # could validate page here
-                self.results_obj.pages[-1].page_footer = result
+@dataclass
+class ParseResult:
+    current_state: str
+    parsed_data: raw.ParsedIndexedString
 
 
-class ParseScheme(sp.ParseScheme):
+class ParseScheme:
     def __init__(self) -> None:
-        self.scheme: Dict[str, Sequence[sp.Parser]] = {
+        self.scheme: Dict[str, Sequence[spp.IndexedStringParser]] = {
             "start": [PageHeader1()],
             "page_header_1": [PageHeader2()],
             "page_header_2": [HeaderSeparator()],
@@ -155,62 +98,193 @@ class ParseScheme(sp.ParseScheme):
             "page_footer": [PageHeader1()],
         }
 
-    def expected(self, state: str) -> Sequence[sp.Parser]:
-        return self.scheme[state]
+    def expected_parsers(
+        self, current_state: str, **kwargs
+    ) -> Sequence[spp.IndexedStringParser]:
+        return self.scheme[current_state]
 
 
-class PageHeader1(sp.Parser):
+class ResultHandler(spp.ResultHandler):
+    def __init__(self, source: str) -> None:
+        super().__init__()
+        self.source = source
+        self.bid_package = raw.BidPackage(source=source, pages=[])
+
+    def handle_result(self, parse_result: spp.ParseResult, **kwargs):
+        match parse_result.parsed_data.__class__.__qualname__:
+            case "PageHeader1":
+                assert isinstance(parse_result.parsed_data, raw.PageHeader1)
+                self.bid_package.pages.append(
+                    raw.Page(page_header_1=parse_result.parsed_data, trips=[])
+                )
+            case "PageHeader2":
+                assert isinstance(parse_result.parsed_data, raw.PageHeader2)
+                self.bid_package.pages[-1].page_header_2 = parse_result.parsed_data
+            case "HeaderSeparator":
+                pass
+            case "BaseEquipment":
+                assert isinstance(parse_result.parsed_data, raw.BaseEquipment)
+                self.bid_package.pages[-1].base_equipment = parse_result.parsed_data
+            case "TripHeader":
+                assert isinstance(parse_result.parsed_data, raw.TripHeader)
+                self.bid_package.pages[-1].trips.append(
+                    raw.Trip(header=parse_result.parsed_data, dutyperiods=[])
+                )
+            case "DutyPeriodReport":
+                assert isinstance(parse_result.parsed_data, raw.DutyPeriodReport)
+                self.bid_package.pages[-1].trips[-1].dutyperiods.append(
+                    raw.DutyPeriod(report=parse_result.parsed_data, flights=[])
+                )
+            case "Flight":
+                assert isinstance(parse_result.parsed_data, raw.Flight)
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
+                    parse_result.parsed_data
+                )
+            case "DutyPeriodRelease":
+                assert isinstance(parse_result.parsed_data, raw.DutyPeriodRelease)
+                self.bid_package.pages[-1].trips[-1].dutyperiods[
+                    -1
+                ].release = parse_result.parsed_data
+            case "Hotel":
+                assert isinstance(parse_result.parsed_data, raw.Hotel)
+                layover = raw.Layover(hotel=parse_result.parsed_data)
+                self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
+            case "HotelAdditional":
+                assert isinstance(parse_result.parsed_data, raw.HotelAdditional)
+                assert (
+                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                    is not None
+                )
+                layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+
+                layover.hotel_additional = parse_result.parsed_data
+            case "Transportation":
+                assert isinstance(parse_result.parsed_data, raw.Transportation)
+                assert (
+                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                    is not None
+                )
+                layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                layover.transportation = parse_result.parsed_data
+            case "TransportationAdditional":
+                assert isinstance(
+                    parse_result.parsed_data, raw.TransportationAdditional
+                )
+                assert (
+                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                    is not None
+                )
+                layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                layover.transportation_additional = parse_result.parsed_data
+            case "TripFooter":
+                assert isinstance(parse_result.parsed_data, raw.TripFooter)
+                self.bid_package.pages[-1].trips[-1].footer = parse_result.parsed_data
+            case "TripSeparator":
+                # could validate trip here
+                pass
+            case "PageFooter":
+                assert isinstance(parse_result.parsed_data, raw.PageFooter)
+                # could validate page here
+                self.bid_package.pages[-1].page_footer = parse_result.parsed_data
+
+
+class ParseManager(spp.ParseManager):
+    def __init__(
+        self,
+        ctx: dict[str, Any],
+        result_handler: ResultHandler,
+        parse_scheme: ParseScheme,
+    ) -> None:
+        super().__init__()
+        self.ctx = ctx
+        self.result_handler = result_handler
+        self.parse_scheme = parse_scheme
+
+    def expected_parsers(
+        self, current_state: str, **kwargs
+    ) -> Sequence[spp.IndexedStringParser]:
+        return self.parse_scheme.expected_parsers(current_state=current_state)
+
+    def handle_result(self, parse_result: ParseResult, **kwargs):
+        self.result_handler.handle_result(parse_result=parse_result, **kwargs)
+
+
+class PageHeader1(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "page_header_1"
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         if "DEPARTURE" in indexed_string.txt:
             parsed = raw.PageHeader1(source=indexed_string)
-            ctx.handle_parse_result(parsed)
-            return self.success_state
-        raise sp.ParseException("'DEPARTURE' not found in line.")
+            # ctx.handle_parse_result(parsed)
+            return ParseResult(self.success_state, parsed)
+        raise ParseException("'DEPARTURE' not found in line.")
 
 
-class PageHeader2(sp.Parser):
+class PageHeader2(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "page_header_2"
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         words = indexed_string.txt.split()
-        if words[-2] == "CALENDAR":
-            parsed = raw.PageHeader2(source=indexed_string, calendar_range=words[-1])
-            ctx.handle_parse_result(parsed)
-            return self.success_state
-        raise sp.ParseException(
-            f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
-        )
+        try:
+            if words[-2] == "CALENDAR":
+                parsed = raw.PageHeader2(
+                    source=indexed_string, calendar_range=words[-1]
+                )
+                return ParseResult(self.success_state, parsed)
+            raise ParseException(
+                f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
+            )
+        except IndexError as error:
+            raise ParseException(
+                f"unable to index position [-2] in  {indexed_string!r}"
+            ) from error
 
 
-class HeaderSeparator(sp.Parser):
+class HeaderSeparator(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "header_separator"
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.HeaderSeparator(source=indexed_string)
-            ctx.handle_parse_result(parsed)
-            return self.success_state
-        raise sp.ParseException("'-----' not found in line.")
+            return ParseResult(self.success_state, parsed)
+        raise ParseException("'-----' not found in line.")
 
 
-class TripSeparator(sp.Parser):
+class TripSeparator(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "trip_separator"
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.TripSeparator(source=indexed_string)
-            ctx.handle_parse_result(parsed)
-            return self.success_state
-        raise sp.ParseException("'-----' not found in line.")
+            return ParseResult(self.success_state, parsed)
+        raise ParseException("'-----' not found in line.")
 
 
-class BaseEquipment(sp.Parser):
+class BaseEquipment(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "base_equipment"
         self._parser = (
@@ -221,22 +295,26 @@ class BaseEquipment(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.BaseEquipment(
             source=indexed_string,
             base=result["base"],  # type: ignore
             satellite_base=result.get("satelite_base", ""),  # type: ignore
             equipment=result["equipment"],  # type: ignore
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class TripHeader(sp.Parser):
+class TripHeader(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "trip_header"
         # FIXME build progressive match, with options,
@@ -264,11 +342,16 @@ class TripHeader(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.TripHeader(
             source=indexed_string,
             number=result["number"],  # type: ignore
@@ -278,11 +361,10 @@ class TripHeader(sp.Parser):
             special_qualification=" ".join(result["special_qualification"]),
             calendar="",
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class DutyPeriodReport(sp.Parser):
+class DutyPeriodReport(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "dutyperiod_report"
         self._parser = (
@@ -299,25 +381,29 @@ class DutyPeriodReport(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.DutyPeriodReport(
             source=indexed_string,
             report=result["report"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
 
 
-class Flight(sp.Parser):
+class Flight(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "flight"
         self._parser = (
@@ -343,11 +429,16 @@ class Flight(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.Flight(
             source=indexed_string,
             dutyperiod_idx=result["dutyperiod"],  # type: ignore
@@ -366,13 +457,12 @@ class Flight(sp.Parser):
             equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
-class FlightDeadhead(sp.Parser):
+class FlightDeadhead(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "flight"
         self._parser = (
@@ -400,11 +490,16 @@ class FlightDeadhead(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.Flight(
             source=indexed_string,
             dutyperiod_idx=result["dutyperiod"],  # type: ignore
@@ -423,11 +518,10 @@ class FlightDeadhead(sp.Parser):
             equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class DutyPeriodRelease(sp.Parser):
+class DutyPeriodRelease(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "dutyperiod_release"
         self._parser = (
@@ -443,11 +537,16 @@ class DutyPeriodRelease(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.DutyPeriodRelease(
             source=indexed_string,
             release=result["release_time"],  # type: ignore
@@ -458,11 +557,10 @@ class DutyPeriodRelease(sp.Parser):
             flight_duty=result["flight_duty"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class Hotel(sp.Parser):
+class Hotel(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "hotel"
         self._parser = (
@@ -482,11 +580,16 @@ class Hotel(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.Hotel(
             source=indexed_string,
             layover_city=result["layover_city"],  # type: ignore
@@ -495,11 +598,10 @@ class Hotel(sp.Parser):
             rest=result["rest"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class HotelAdditional(sp.Parser):
+class HotelAdditional(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "hotel_additional"
         self._parser = (
@@ -520,11 +622,16 @@ class HotelAdditional(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.HotelAdditional(
             source=indexed_string,
             layover_city=result["layover_city"],  # type: ignore
@@ -532,11 +639,10 @@ class HotelAdditional(sp.Parser):
             phone=result["hotel_phone"],  # type: ignore
             calendar="".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class Transportation(sp.Parser):
+class Transportation(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "transportation"
         self._parser = (
@@ -550,22 +656,26 @@ class Transportation(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.Transportation(
             source=indexed_string,
             name=result.get("transportation", ""),  # type: ignore
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class TransportationAdditional(sp.Parser):
+class TransportationAdditional(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "transportation_additional"
         self._parser = (
@@ -579,22 +689,31 @@ class TransportationAdditional(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
-        parsed = raw.TransportationAdditional(
-            source=indexed_string,
-            name=result["transportation"],  # type: ignore
-            phone=" ".join(result["transportation_phone"]),
-            calendar=" ".join(result["calendar_entries"]),
-        )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+            raise ParseException(f"{error}") from error
+        try:
+            parsed = raw.TransportationAdditional(
+                source=indexed_string,
+                name=result["transportation"],  # type: ignore
+                phone=" ".join(result["transportation_phone"]),
+                calendar=" ".join(result["calendar_entries"]),
+            )
+        except KeyError as error:
+            raise ParseException(
+                f"Key missing in parsed {indexed_string!r}. Is there no transportation name? {str(error)}"
+            ) from error
+        return ParseResult(self.success_state, parsed)
 
 
-class TripFooter(sp.Parser):
+class TripFooter(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "trip_footer"
         self._parser = (
@@ -608,11 +727,16 @@ class TripFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.TripFooter(
             source=indexed_string,
             block=result["block"],  # type: ignore
@@ -621,11 +745,10 @@ class TripFooter(sp.Parser):
             tafb=result["tafb"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-class PageFooter(sp.Parser):
+class PageFooter(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "page_footer"
         self._parser = (
@@ -644,12 +767,17 @@ class PageFooter(sp.Parser):
             + pp.StringEnd()
         )
 
-    def parse(self, indexed_string: raw.IndexedString, ctx: ParseContext) -> str:
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None = None,
+        **kwargs,
+    ) -> ParseResult:
         try:
 
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
-            raise sp.ParseException(f"{error}") from error
+            raise ParseException(f"{error}") from error
         parsed = raw.PageFooter(
             source=indexed_string,
             issued=result["issued"],  # type: ignore
@@ -660,19 +788,96 @@ class PageFooter(sp.Parser):
             division=result["division"],  # type: ignore
             page=result["internal_page"],  # type: ignore
         )
-        ctx.handle_parse_result(parsed)
-        return self.success_state
+        return ParseResult(self.success_state, parsed)
 
 
-def parse_file(file_path: Path, ctx: LineParseContext) -> raw.BidPackage:
+def parse_file(file_path: Path) -> raw.BidPackage:
     scheme = ParseScheme()
+    result_handler = ResultHandler(source=str(file_path))
     skipper = make_skipper()
-    sp.parse_file(file_path=file_path, scheme=scheme, ctx=ctx, skipper=skipper)
-    return ctx.results_obj
+    manager = ParseManager(ctx={}, result_handler=result_handler, parse_scheme=scheme)
+    with open(file_path, encoding="utf-8") as file:
+        try:
+            parse_indexed_strings(file, manager=manager, skipper=skipper)
+        except ParseException as error:
+            logger.error("%s Failed to parse %r", file_path, error)
+            raise error
+    return result_handler.bid_package
 
 
-def parse_lines(lines: Iterable[str], ctx: LineParseContext) -> raw.BidPackage:
+def parse_string_by_line(source: str, string_data: str) -> raw.BidPackage:
     scheme = ParseScheme()
+    result_handler = ResultHandler(source=str(source))
     skipper = make_skipper()
-    sp.parse_lines(lines=lines, scheme=scheme, ctx=ctx, skipper=skipper)
-    return ctx.results_obj
+    manager = ParseManager(ctx={}, result_handler=result_handler, parse_scheme=scheme)
+    line_iter = StringIO(string_data)
+    parse_indexed_strings(strings=line_iter, manager=manager, skipper=skipper)
+    return result_handler.bid_package
+
+
+def parse_indexed_strings(
+    strings: Iterable[str],
+    manager: spp.ParseManager,
+    skipper: Callable[[IndexedStringProtocol], bool] | None = None,
+):
+    """
+    Parse a string iterable.
+
+    Args:
+        strings: _description_
+        manager: _description_
+        skipper: _description_. Defaults to None.
+
+    Raises:
+        error: _description_
+    """
+    current_state = "start"
+    for idx, txt in enumerate(strings):
+        indexed_string = raw.IndexedString(idx=idx, txt=txt)
+        if skipper is not None and not skipper(indexed_string):
+            continue
+        try:
+            parse_result = parse_indexed_string(
+                indexed_string=indexed_string,
+                parsers=manager.expected_parsers(current_state),
+                ctx=manager.ctx,
+            )
+            manager.handle_result(parse_result=parse_result)
+            current_state = parse_result.current_state
+        except ParseException as error:
+            logger.error("%s", error)
+            raise error
+
+
+def parse_indexed_string(
+    indexed_string: IndexedStringProtocol,
+    parsers: Sequence[spp.IndexedStringParser],
+    ctx: dict[str, Any],
+) -> spp.ParseResult:
+    for parser in parsers:
+        try:
+            parse_result = parser.parse(indexed_string=indexed_string, ctx=ctx)
+            logger.info("\n\tPARSED %r->%r", parser.__class__.__name__, indexed_string)
+            return parse_result
+        except ParseException as error:
+            logger.info(
+                "\n\tFAILED %r->%r\n\t%r",
+                parser.__class__.__name__,
+                indexed_string,
+                error,
+            )
+    raise ParseException(f"No parser found for {indexed_string!r}\nTried {parsers!r}")
+
+
+# def parse_file(file_path: Path, ctx: LineParseContext) -> raw.BidPackage:
+#     scheme = ParseScheme()
+#     skipper = make_skipper()
+#     sp.parse_file(file_path=file_path, scheme=scheme, ctx=ctx, skipper=skipper)
+#     return ctx.results_obj
+
+
+# def parse_lines(lines: Iterable[str], ctx: LineParseContext) -> raw.BidPackage:
+#     scheme = ParseScheme()
+#     skipper = make_skipper()
+#     sp.parse_lines(lines=lines, scheme=scheme, ctx=ctx, skipper=skipper)
+#     return ctx.results_obj

@@ -6,12 +6,7 @@ from typing import Any
 from pydantic import BaseModel
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse_v2 import parse_string_by_line
-from aa_pbs_exporter.snippets.parsing.parse_context import (
-    DevParseContext,
-    NoOpParseContext,
-)
-from aa_pbs_exporter.snippets.parsing.state_parser import Parser
+from aa_pbs_exporter.pbs_2022_01.parse import parse_string_by_line
 from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
 
 
@@ -102,17 +97,3 @@ def output_results_repr(output_path: Path, results):
     output_txt = f"result_data = {repr(results)}"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(output_txt)
-
-
-def run_line_test(
-    name: str, output_dir: Path, test_data: list, expected_state: str, parser: Parser
-):
-    output_path = output_dir / Path("lines") / f"{name}.txt"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    ctx = NoOpParseContext(source_name=name)
-    with open(output_path, mode="w", encoding="utf-8") as fp_out:
-        dev_ctx = DevParseContext(source_name=name, fp_out=fp_out, wrapped_context=ctx)
-        for data in test_data:
-            state = parser.parse(data.source, dev_ctx)
-            assert state == expected_state
-            assert data == dev_ctx.result
