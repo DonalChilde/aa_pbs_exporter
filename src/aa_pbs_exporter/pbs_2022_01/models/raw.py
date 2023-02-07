@@ -35,7 +35,8 @@ class PageHeader1(ParsedIndexedString):
 
 class PageHeader2(ParsedIndexedString):
     # source: IndexedString
-    calendar_range: str
+    from_date: str
+    to_date: str
 
 
 class HeaderSeparator(ParsedIndexedString):

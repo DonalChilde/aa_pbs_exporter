@@ -25,7 +25,8 @@ result_data = {
                 idx=1,
                 txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01",
             ),
-            calendar_range="05/02−06/01",
+            from_date="05/02",
+            to_date="06/01",
         ),
     )
 }
