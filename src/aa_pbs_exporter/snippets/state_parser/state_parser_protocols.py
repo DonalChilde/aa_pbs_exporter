@@ -14,7 +14,7 @@ Defines the interface for a state based text parser.
 When parsing semi structured text, parsing a section often depends on
 knowing what the previous section was.
 """
-from typing import Any, Protocol, Sequence, runtime_checkable
+from typing import Any, Protocol, Sequence
 
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 from aa_pbs_exporter.snippets.string.indexed_string_protocol import (

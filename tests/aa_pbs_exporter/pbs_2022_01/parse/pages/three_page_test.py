@@ -276,7 +276,8 @@ result_data = BidPackage(
                     idx=1,
                     txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01\n",
                 ),
-                calendar_range="05/02−06/01",
+                from_date="05/02",
+                to_date="06/01",
             ),
             base_equipment=BaseEquipment(
                 source=IndexedString(idx=3, txt="MIA 777\n"),
@@ -1306,7 +1307,8 @@ result_data = BidPackage(
                     idx=82,
                     txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01\n",
                 ),
-                calendar_range="05/02−06/01",
+                from_date="05/02",
+                to_date="06/01",
             ),
             base_equipment=None,
             page_footer=PageFooter(
@@ -2280,7 +2282,8 @@ result_data = BidPackage(
                     idx=159,
                     txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01\n",
                 ),
-                calendar_range="05/02−06/01",
+                from_date="05/02",
+                to_date="06/01",
             ),
             base_equipment=None,
             page_footer=PageFooter(

@@ -37,8 +37,10 @@ logger.addHandler(logging.NullHandler())
 
 CALENDAR_HEADER = pp.Literal("MO") + "TU" + "WE" + "TH" + "FR" + "SA" + "SU"
 MONTH_NUMERAL = pp.Word(pp.nums, exact=2)
+DAY_NUMERAL = pp.Word(pp.nums, exact=2)
 SHORT_MONTH = pp.Word(pp.alphas, exact=3)
 DATE_DDMMM = MONTH_NUMERAL + SHORT_MONTH
+DATE_MMSLASHDD = MONTH_NUMERAL + "/" + DAY_NUMERAL
 MINUS_SIGN = "\u2212"
 HYPHEN_MINUS = "\u002d"
 DASH_UNICODE = "\u002d\u2212"
@@ -229,6 +231,14 @@ class PageHeader1(spp.IndexedStringParser):
 class PageHeader2(spp.IndexedStringParser):
     def __init__(self) -> None:
         self.success_state = "page_header_2"
+        self._parser = (
+            pp.StringStart()
+            + pp.SkipTo("CALENDAR",include=True)
+            + DATE_MMSLASHDD("from_date")
+            + pp.Word(DASH_UNICODE)
+            + DATE_MMSLASHDD("to_date")
+            + pp.StringEnd()
+        )
 
     def parse(
         self,
@@ -236,20 +246,30 @@ class PageHeader2(spp.IndexedStringParser):
         ctx: dict[str, Any] | None = None,
         **kwargs,
     ) -> ParseResult:
-        words = indexed_string.txt.split()
         try:
-            if words[-2] == "CALENDAR":
-                parsed = raw.PageHeader2(
-                    source=indexed_string, calendar_range=words[-1]
-                )
-                return ParseResult(self.success_state, parsed)
-            raise ParseException(
-                f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
-            )
-        except IndexError as error:
-            raise ParseException(
-                f"unable to index position [-2] in  {indexed_string!r}"
-            ) from error
+            result = self._parser.parse_string(indexed_string.txt)
+        except pp.ParseException as error:
+            raise ParseException(f"{error}") from error
+        print(result.as_dict())
+        parsed = raw.PageHeader2(
+            source=indexed_string,
+            from_date="".join(result["from_date"]),  # type: ignore
+            to_date="".join(result["to_date"]),  # type: ignore
+        )
+        return ParseResult(self.success_state, parsed)
+        # try:
+        #     if words[-2] == "CALENDAR":
+        #         parsed = raw.PageHeader2(
+        #             source=indexed_string, calendar_range=words[-1]
+        #         )
+        #         return ParseResult(self.success_state, parsed)
+        #     raise ParseException(
+        #         f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
+        #     )
+        # except KeyError as error:
+        #     raise ParseException(
+        #         f"unable to index position [-2] in  {indexed_string!r}"
+        #     ) from error
 
 
 class HeaderSeparator(spp.IndexedStringParser):

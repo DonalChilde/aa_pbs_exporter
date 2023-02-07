@@ -23,6 +23,8 @@ from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
+# TODO this should be a full reference implementation of the state parser.
+
 
 def parse_file(
     file_path: Path,

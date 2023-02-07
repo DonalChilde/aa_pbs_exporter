@@ -110,7 +110,8 @@ result_data = BidPackage(
                     idx=1,
                     txt="DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02−06/01\n",
                 ),
-                calendar_range="05/02−06/01",
+                from_date="05/02",
+                to_date="06/01",
             ),
             base_equipment=None,
             page_footer=PageFooter(
