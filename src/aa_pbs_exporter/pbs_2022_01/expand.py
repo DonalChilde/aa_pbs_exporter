@@ -232,10 +232,10 @@ def expand_hotel(
 
 
 def expand_transportation(
-    trans: raw.Transportation | raw.TransportationAdditional | None,
-) -> expanded.Transportation | None:
+    trans: raw.Transportation | raw.TransportationAdditional|None,
+) -> expanded.Transportation|None:
     if trans is None:
-        return None
+        return trans
     return expanded.Transportation(name=trans.name, phone=trans.phone)
 
 
