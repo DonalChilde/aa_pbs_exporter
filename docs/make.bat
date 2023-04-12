@@ -1,36 +1,36 @@
-@ECHO OFF
+@REM @ECHO OFF
 
-pushd %~dp0
+@REM pushd %~dp0
 
-REM Command file for Sphinx documentation
+@REM REM Command file for Sphinx documentation
 
-if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=python -msphinx
-)
-set SOURCEDIR=.
-set BUILDDIR=_build
-set SPHINXPROJ=aa_pbs_exporter
+@REM if "%SPHINXBUILD%" == "" (
+@REM 	set SPHINXBUILD=python -msphinx
+@REM )
+@REM set SOURCEDIR=.
+@REM set BUILDDIR=_build
+@REM set SPHINXPROJ=aa_pbs_exporter
 
-if "%1" == "" goto help
+@REM if "%1" == "" goto help
 
-%SPHINXBUILD% >NUL 2>NUL
-if errorlevel 9009 (
-	echo.
-	echo.The Sphinx module was not found. Make sure you have Sphinx installed,
-	echo.then set the SPHINXBUILD environment variable to point to the full
-	echo.path of the 'sphinx-build' executable. Alternatively you may add the
-	echo.Sphinx directory to PATH.
-	echo.
-	echo.If you don't have Sphinx installed, grab it from
-	echo.http://sphinx-doc.org/
-	exit /b 1
-)
+@REM %SPHINXBUILD% >NUL 2>NUL
+@REM if errorlevel 9009 (
+@REM 	echo.
+@REM 	echo.The Sphinx module was not found. Make sure you have Sphinx installed,
+@REM 	echo.then set the SPHINXBUILD environment variable to point to the full
+@REM 	echo.path of the 'sphinx-build' executable. Alternatively you may add the
+@REM 	echo.Sphinx directory to PATH.
+@REM 	echo.
+@REM 	echo.If you don't have Sphinx installed, grab it from
+@REM 	echo.http://sphinx-doc.org/
+@REM 	exit /b 1
+@REM )
 
-%SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
-goto end
+@REM %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+@REM goto end
 
-:help
-%SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
+@REM :help
+@REM %SPHINXBUILD% -M help %SOURCEDIR% %BUILDDIR% %SPHINXOPTS%
 
-:end
-popd
+@REM :end
+@REM popd
