@@ -8,7 +8,7 @@ from aa_pbs_exporter.pbs_2022_01.models.raw import (
     IndexedString,
     TransportationAdditional,
 )
-from aa_pbs_exporter.pbs_2022_01.parse import ParseResultProtocol
+from aa_pbs_exporter.pbs_2022_01.parse import ParseResult
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 
 test_data = [
@@ -25,7 +25,7 @@ test_data = [
 ]
 
 result_data = {
-    "transportation_additional_1": ParseResultProtocol(
+    "transportation_additional_1": ParseResult(
         current_state="transportation_additional",
         parsed_data=TransportationAdditional(
             source=IndexedString(
@@ -37,7 +37,7 @@ result_data = {
             calendar="",
         ),
     ),
-    "transportation_additional_2": ParseResultProtocol(
+    "transportation_additional_2": ParseResult(
         current_state="transportation_additional",
         parsed_data=TransportationAdditional(
             source=IndexedString(

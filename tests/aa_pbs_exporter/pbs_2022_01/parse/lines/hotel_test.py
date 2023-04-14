@@ -5,7 +5,7 @@ from tests.aa_pbs_exporter.resources.helpers import ParseTestData, parse_lines
 
 from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.pbs_2022_01.models.raw import Hotel, IndexedString
-from aa_pbs_exporter.pbs_2022_01.parse import ParseResultProtocol
+from aa_pbs_exporter.pbs_2022_01.parse import ParseResult
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 
 test_data = [
@@ -22,7 +22,7 @@ test_data = [
 ]
 
 result_data = {
-    "hotel_1": ParseResultProtocol(
+    "hotel_1": ParseResult(
         current_state="hotel",
         parsed_data=Hotel(
             source=IndexedString(
@@ -36,7 +36,7 @@ result_data = {
             calendar="−− −− −− −− −− −− −−",
         ),
     ),
-    "hotel_2": ParseResultProtocol(
+    "hotel_2": ParseResult(
         current_state="hotel",
         parsed_data=Hotel(
             source=IndexedString(

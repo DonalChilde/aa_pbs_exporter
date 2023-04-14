@@ -5,7 +5,7 @@ from tests.aa_pbs_exporter.resources.helpers import ParseTestData, parse_lines
 
 from aa_pbs_exporter.pbs_2022_01 import parse as line_parser
 from aa_pbs_exporter.pbs_2022_01.models.raw import IndexedString, PageHeader2
-from aa_pbs_exporter.pbs_2022_01.parse import ParseResultProtocol
+from aa_pbs_exporter.pbs_2022_01.parse import ParseResult
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
 
 test_data = [
@@ -18,7 +18,7 @@ test_data = [
 
 
 result_data = {
-    "page_header2_1": ParseResultProtocol(
+    "page_header2_1": ParseResult(
         current_state="page_header_2",
         parsed_data=PageHeader2(
             source=IndexedString(
