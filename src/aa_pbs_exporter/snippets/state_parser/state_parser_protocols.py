@@ -50,7 +50,7 @@ class ParseResultProtocol(Protocol):
     """
 
     current_state: str
-    parsed_data: ParsedIndexedStringProtocol
+    parsed_data: Any
 
 
 class IndexedStringParserProtocol(Protocol):
