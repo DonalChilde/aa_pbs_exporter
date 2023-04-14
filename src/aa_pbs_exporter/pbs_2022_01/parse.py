@@ -3,15 +3,27 @@ import logging
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, Sequence
+from typing import Any, Callable, Dict, Iterable, Iterator, Sequence
 
 import pyparsing as pp
+
+# TODO rename module to `parsers`, limit to parsers
+# TODO split scheme and result handler to separate files
+# TODO make file for actions, eg. parse_file, parse_strings, save_to_csv, etc.
+# TODO use code from snippets
+# TODO update snippets home
+
+
 
 # from aa_pbs_exporter.models.raw_2022_10 import bid_package as raw
 # from aa_pbs_exporter.models.raw_2022_10 import lines as raw_lines
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.snippets.file.line_reader import line_reader
 from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
 from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
+from aa_pbs_exporter.snippets.string.filtered_indexed_strings import (
+    filtered_indexed_strings,
+)
 
 # from aa_pbs_exporter.snippets.parsing.indexed_string import IndexedString
 from aa_pbs_exporter.snippets.string.indexed_string_filter import (
@@ -74,14 +86,14 @@ def make_skipper() -> Callable[[IndexedStringProtocol], bool]:
 
 
 @dataclass
-class ParseResult:
+class ParseResultProtocol:
     current_state: str
     parsed_data: raw.ParsedIndexedString
 
 
-class ParseScheme:
+class ParseSchemeProtocol:
     def __init__(self) -> None:
-        self.scheme: Dict[str, Sequence[spp.IndexedStringParser]] = {
+        self.scheme: Dict[str, Sequence[spp.IndexedStringParserProtocol]] = {
             "start": [PageHeader1()],
             "page_header_1": [PageHeader2()],
             "page_header_2": [HeaderSeparator()],
@@ -102,17 +114,18 @@ class ParseScheme:
 
     def expected_parsers(
         self, current_state: str, **kwargs
-    ) -> Sequence[spp.IndexedStringParser]:
+    ) -> Sequence[spp.IndexedStringParserProtocol]:
+        _ = kwargs
         return self.scheme[current_state]
 
 
-class ResultHandler(spp.ResultHandler):
+class ResultHandler:
     def __init__(self, source: str) -> None:
         super().__init__()
         self.source = source
         self.bid_package = raw.BidPackage(source=source, pages=[])
 
-    def handle_result(self, parse_result: spp.ParseResult, **kwargs):
+    def handle_result(self, parse_result: spp.ParseResultProtocol, **kwargs):
         match parse_result.parsed_data.__class__.__qualname__:
             case "PageHeader1":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader1)
@@ -190,12 +203,12 @@ class ResultHandler(spp.ResultHandler):
                 self.bid_package.pages[-1].page_footer = parse_result.parsed_data
 
 
-class ParseManager(spp.ParseManager):
+class ParseManager(spp.ParseManagerProtocol):
     def __init__(
         self,
         ctx: dict[str, Any],
         result_handler: ResultHandler,
-        parse_scheme: ParseScheme,
+        parse_scheme: ParseSchemeProtocol,
     ) -> None:
         super().__init__()
         self.ctx = ctx
@@ -204,14 +217,14 @@ class ParseManager(spp.ParseManager):
 
     def expected_parsers(
         self, current_state: str, **kwargs
-    ) -> Sequence[spp.IndexedStringParser]:
+    ) -> Sequence[spp.IndexedStringParserProtocol]:
         return self.parse_scheme.expected_parsers(current_state=current_state)
 
-    def handle_result(self, parse_result: ParseResult, **kwargs):
+    def handle_result(self, parse_result: spp.ParseResultProtocol, **kwargs):
         self.result_handler.handle_result(parse_result=parse_result, **kwargs)
 
 
-class PageHeader1(spp.IndexedStringParser):
+class PageHeader1(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "page_header_1"
 
@@ -220,20 +233,20 @@ class PageHeader1(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         if "DEPARTURE" in indexed_string.txt:
             parsed = raw.PageHeader1(source=indexed_string)
             # ctx.handle_parse_result(parsed)
-            return ParseResult(self.success_state, parsed)
+            return ParseResultProtocol(self.success_state, parsed)
         raise ParseException("'DEPARTURE' not found in line.")
 
 
-class PageHeader2(spp.IndexedStringParser):
+class PageHeader2(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "page_header_2"
         self._parser = (
             pp.StringStart()
-            + pp.SkipTo("CALENDAR",include=True)
+            + pp.SkipTo("CALENDAR", include=True)
             + DATE_MMSLASHDD("from_date")
             + pp.Word(DASH_UNICODE)
             + DATE_MMSLASHDD("to_date")
@@ -245,7 +258,7 @@ class PageHeader2(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -256,7 +269,7 @@ class PageHeader2(spp.IndexedStringParser):
             from_date="".join(result["from_date"]),  # type: ignore
             to_date="".join(result["to_date"]),  # type: ignore
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
         # try:
         #     if words[-2] == "CALENDAR":
         #         parsed = raw.PageHeader2(
@@ -272,7 +285,7 @@ class PageHeader2(spp.IndexedStringParser):
         #     ) from error
 
 
-class HeaderSeparator(spp.IndexedStringParser):
+class HeaderSeparator(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "header_separator"
 
@@ -281,14 +294,14 @@ class HeaderSeparator(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.HeaderSeparator(source=indexed_string)
-            return ParseResult(self.success_state, parsed)
+            return ParseResultProtocol(self.success_state, parsed)
         raise ParseException("'-----' not found in line.")
 
 
-class TripSeparator(spp.IndexedStringParser):
+class TripSeparator(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "trip_separator"
 
@@ -297,14 +310,14 @@ class TripSeparator(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.TripSeparator(source=indexed_string)
-            return ParseResult(self.success_state, parsed)
+            return ParseResultProtocol(self.success_state, parsed)
         raise ParseException("'-----' not found in line.")
 
 
-class BaseEquipment(spp.IndexedStringParser):
+class BaseEquipment(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "base_equipment"
         self._parser = (
@@ -320,7 +333,7 @@ class BaseEquipment(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -331,10 +344,10 @@ class BaseEquipment(spp.IndexedStringParser):
             satellite_base=result.get("satelite_base", ""),  # type: ignore
             equipment=result["equipment"],  # type: ignore
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class TripHeader(spp.IndexedStringParser):
+class TripHeader(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "trip_header"
         # FIXME build progressive match, with options,
@@ -367,7 +380,7 @@ class TripHeader(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -381,10 +394,10 @@ class TripHeader(spp.IndexedStringParser):
             special_qualification=" ".join(result["special_qualification"]),
             calendar="",
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class DutyPeriodReport(spp.IndexedStringParser):
+class DutyPeriodReport(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "dutyperiod_report"
         self._parser = (
@@ -406,7 +419,7 @@ class DutyPeriodReport(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -416,14 +429,14 @@ class DutyPeriodReport(spp.IndexedStringParser):
             report=result["report"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
 
 
-class Flight(spp.IndexedStringParser):
+class Flight(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "flight"
         self._parser = (
@@ -454,7 +467,7 @@ class Flight(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -477,12 +490,12 @@ class Flight(spp.IndexedStringParser):
             equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
-class FlightDeadhead(spp.IndexedStringParser):
+class FlightDeadhead(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "flight"
         self._parser = (
@@ -515,7 +528,7 @@ class FlightDeadhead(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -538,10 +551,10 @@ class FlightDeadhead(spp.IndexedStringParser):
             equipment_change=result["equipment_change"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class DutyPeriodRelease(spp.IndexedStringParser):
+class DutyPeriodRelease(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "dutyperiod_release"
         self._parser = (
@@ -562,7 +575,7 @@ class DutyPeriodRelease(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -577,10 +590,10 @@ class DutyPeriodRelease(spp.IndexedStringParser):
             flight_duty=result["flight_duty"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class Hotel(spp.IndexedStringParser):
+class Hotel(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "hotel"
         self._parser = (
@@ -605,7 +618,7 @@ class Hotel(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -618,10 +631,10 @@ class Hotel(spp.IndexedStringParser):
             rest=result["rest"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class HotelAdditional(spp.IndexedStringParser):
+class HotelAdditional(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "hotel_additional"
         self._parser = (
@@ -647,7 +660,7 @@ class HotelAdditional(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -659,10 +672,10 @@ class HotelAdditional(spp.IndexedStringParser):
             phone=result["hotel_phone"],  # type: ignore
             calendar="".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class Transportation(spp.IndexedStringParser):
+class Transportation(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "transportation"
         self._parser = (
@@ -681,7 +694,7 @@ class Transportation(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -692,10 +705,10 @@ class Transportation(spp.IndexedStringParser):
             phone=" ".join(result["transportation_phone"]),
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class TransportationAdditional(spp.IndexedStringParser):
+class TransportationAdditional(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "transportation_additional"
         self._parser = (
@@ -714,7 +727,7 @@ class TransportationAdditional(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -730,10 +743,10 @@ class TransportationAdditional(spp.IndexedStringParser):
             raise ParseException(
                 f"Key missing in parsed {indexed_string!r}. Is there no transportation name? {str(error)}"
             ) from error
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class TripFooter(spp.IndexedStringParser):
+class TripFooter(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "trip_footer"
         self._parser = (
@@ -752,7 +765,7 @@ class TripFooter(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
         except pp.ParseException as error:
@@ -765,10 +778,10 @@ class TripFooter(spp.IndexedStringParser):
             tafb=result["tafb"],  # type: ignore
             calendar=" ".join(result["calendar_entries"]),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
-class PageFooter(spp.IndexedStringParser):
+class PageFooter(spp.IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "page_footer"
         self._parser = (
@@ -792,7 +805,7 @@ class PageFooter(spp.IndexedStringParser):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResult:
+    ) -> ParseResultProtocol:
         try:
 
             result = self._parser.parse_string(indexed_string.txt)
@@ -808,11 +821,11 @@ class PageFooter(spp.IndexedStringParser):
             division=result["division"],  # type: ignore
             page=result["internal_page"],  # type: ignore
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResultProtocol(self.success_state, parsed)
 
 
 def parse_file(file_path: Path) -> raw.BidPackage:
-    scheme = ParseScheme()
+    scheme = ParseSchemeProtocol()
     result_handler = ResultHandler(source=str(file_path))
     skipper = make_skipper()
     manager = ParseManager(ctx={}, result_handler=result_handler, parse_scheme=scheme)
@@ -826,7 +839,7 @@ def parse_file(file_path: Path) -> raw.BidPackage:
 
 
 def parse_string_by_line(source: str, string_data: str) -> raw.BidPackage:
-    scheme = ParseScheme()
+    scheme = ParseSchemeProtocol()
     result_handler = ResultHandler(source=str(source))
     skipper = make_skipper()
     manager = ParseManager(ctx={}, result_handler=result_handler, parse_scheme=scheme)
@@ -837,7 +850,7 @@ def parse_string_by_line(source: str, string_data: str) -> raw.BidPackage:
 
 def parse_indexed_strings(
     strings: Iterable[str],
-    manager: spp.ParseManager,
+    manager: spp.ParseManagerProtocol,
     skipper: Callable[[IndexedStringProtocol], bool] | None = None,
 ):
     """
@@ -871,9 +884,9 @@ def parse_indexed_strings(
 
 def parse_indexed_string(
     indexed_string: IndexedStringProtocol,
-    parsers: Sequence[spp.IndexedStringParser],
+    parsers: Sequence[spp.IndexedStringParserProtocol],
     ctx: dict[str, Any],
-) -> spp.ParseResult:
+) -> spp.ParseResultProtocol:
     for parser in parsers:
         try:
             parse_result = parser.parse(indexed_string=indexed_string, ctx=ctx)
@@ -887,6 +900,66 @@ def parse_indexed_string(
                 error,
             )
     raise ParseException(f"No parser found for {indexed_string!r}\nTried {parsers!r}")
+
+
+
+
+
+def parsed_index_string_reader(
+    indexed_strings: Iterable[IndexedStringProtocol],
+    manager: spp.ParseManagerProtocol,
+) -> Iterator[spp.ParseResultProtocol]:
+    current_state = "start"
+    for indexed_string in indexed_strings:
+        try:
+            parse_result = parse_indexed_string(
+                indexed_string=indexed_string,
+                parsers=manager.expected_parsers(current_state),
+                ctx=manager.ctx,
+            )
+            # manager.handle_result(parse_result=parse_result)
+            current_state = parse_result.current_state
+            yield parse_result
+        except ParseException as error:
+            logger.error("%s", error)
+            raise error
+
+
+def indexed_string_factory(idx: int, txt: str) -> IndexedStringProtocol:
+    return raw.IndexedString(idx=idx, txt=txt)
+
+
+def parse_file_2(file_path: Path, debug_path: Path) -> raw.BidPackage:
+    scheme = ParseSchemeProtocol()
+    result_handler = ResultHandler(source=str(file_path))
+    skipper = make_skipper()
+    manager = ParseManager(ctx={}, result_handler=result_handler, parse_scheme=scheme)
+    input_file = line_reader(file_path)
+    indexed_strings = filtered_indexed_strings(
+        input_file, string_filter=skipper, factory=indexed_string_factory
+    )
+    for parse_result in parsed_index_string_reader(
+        indexed_strings=indexed_strings, manager=manager
+    ):
+        # debug out to csv here
+        manager.handle_result(parse_result=parse_result)
+    return result_handler.bid_package
+
+
+def parse_file_3(
+    file_path: Path,
+    manager: spp.ParseManagerProtocol,
+    string_filter: Callable[[IndexedStringProtocol], bool],
+    factory: Callable[[int, str], IndexedStringProtocol],
+) -> Iterable[spp.ParseResultProtocol]:
+    input_file = line_reader(file_path)
+    indexed_strings = filtered_indexed_strings(
+        input_file, string_filter=string_filter, factory=factory
+    )
+    for parse_result in parsed_index_string_reader(
+        indexed_strings=indexed_strings, manager=manager
+    ):
+        yield parse_result
 
 
 # def parse_file(file_path: Path, ctx: LineParseContext) -> raw.BidPackage:

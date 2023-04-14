@@ -28,7 +28,7 @@ logger.addHandler(logging.NullHandler())
 
 def parse_file(
     file_path: Path,
-    manager: spp.ParseManager,
+    manager: spp.ParseManagerProtocol,
     skipper: Callable[[IndexedStringProtocol], bool] | None = None,
 ):
     with open(file_path, encoding="utf-8") as file:
@@ -41,7 +41,7 @@ def parse_file(
 
 def parse_string_by_line(
     string_data: str,
-    manager: spp.ParseManager,
+    manager: spp.ParseManagerProtocol,
     skipper: Callable[[IndexedStringProtocol], bool] | None = None,
 ):
     line_iter = StringIO(string_data)
@@ -50,7 +50,7 @@ def parse_string_by_line(
 
 def parse_indexed_strings(
     strings: Iterable[str],
-    manager: spp.ParseManager,
+    manager: spp.ParseManagerProtocol,
     skipper: Callable[[IndexedStringProtocol], bool] | None = None,
 ):
     """
@@ -84,9 +84,9 @@ def parse_indexed_strings(
 
 def parse_indexed_string(
     indexed_string: IndexedStringProtocol,
-    parsers: Sequence[spp.IndexedStringParser],
+    parsers: Sequence[spp.IndexedStringParserProtocol],
     ctx: dict[str, Any],
-) -> spp.ParseResult:
+) -> spp.ParseResultProtocol:
     for parser in parsers:
         try:
             parse_result = parser.parse(indexed_string=indexed_string, ctx=ctx)

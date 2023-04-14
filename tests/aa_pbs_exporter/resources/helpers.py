@@ -57,7 +57,7 @@ def build_testing_data(
 def parse_lines(
     test_data: list[ParseTestData],
     result_data: dict[str, Any],
-    parser: spp.IndexedStringParser,
+    parser: spp.IndexedStringParserProtocol,
     output_path: Path | None = None,
     skip_test: bool = False,
 ):
