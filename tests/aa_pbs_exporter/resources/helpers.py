@@ -5,8 +5,8 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from aa_pbs_exporter.pbs_2022_01.helpers import parse_string_by_line
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse import parse_string_by_line
 from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
 
 
