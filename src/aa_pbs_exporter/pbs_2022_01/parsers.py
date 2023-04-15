@@ -1,4 +1,4 @@
-# mypy: disable-error-code=override
+### mypy: disable-error-code=override
 import logging
 from typing import Any
 
@@ -82,13 +82,14 @@ class PageHeader2(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         print(result.as_dict())
         parsed = raw.PageHeader2(
             source=indexed_string,
-            from_date="".join(result["from_date"]),  # type: ignore
-            to_date="".join(result["to_date"]),  # type: ignore
+            from_date="".join(result_dict.get("from_date", "")),
+            to_date="".join(result_dict.get("to_date", "")),
         )
         return ParseResult(self.success_state, parsed)
         # try:
@@ -157,13 +158,14 @@ class BaseEquipment(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.BaseEquipment(
             source=indexed_string,
-            base=result["base"],  # type: ignore
-            satellite_base=result.get("satelite_base", ""),  # type: ignore
-            equipment=result["equipment"],  # type: ignore
+            base=result_dict.get("base", ""),
+            satellite_base=result_dict.get("satelite_base", ""),
+            equipment=result_dict.get("equipment", ""),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -204,15 +206,18 @@ class TripHeader(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.TripHeader(
             source=indexed_string,
-            number=result["number"],  # type: ignore
-            ops_count=result["ops_count"],  # type: ignore
-            positions=" ".join(result["positions"]),
-            operations=" ".join(result["operations"]),
-            special_qualification=" ".join(result["special_qualification"]),
+            number=result_dict.get("number", ""),
+            ops_count=result_dict.get("ops_count", ""),
+            positions=" ".join(result_dict.get("positions", "")),
+            operations=" ".join(result_dict.get("operations", "")),
+            special_qualification=" ".join(
+                result_dict.get("special_qualification", "")
+            ),
             calendar="",
         )
         return ParseResult(self.success_state, parsed)
@@ -243,12 +248,13 @@ class DutyPeriodReport(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.DutyPeriodReport(
             source=indexed_string,
-            report=result["report"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            report=result_dict.get("report", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -291,25 +297,26 @@ class Flight(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.Flight(
             source=indexed_string,
-            dutyperiod_idx=result["dutyperiod"],  # type: ignore
-            dep_arr_day=result["day_of_sequence"],  # type: ignore
-            eq_code=result["equipment_code"],  # type: ignore
-            flight_number=result["flight_number"],  # type: ignore
+            dutyperiod_idx=result_dict.get("dutyperiod", ""),
+            dep_arr_day=result_dict.get("day_of_sequence", ""),
+            eq_code=result_dict.get("equipment_code", ""),
+            flight_number=result_dict.get("flight_number", ""),
             deadhead="",
-            departure_station=result["departure_station"],  # type: ignore
-            departure_time=result["departure_time"],  # type: ignore
-            meal=result["crew_meal"],  # type: ignore
-            arrival_station=result["arrival_station"],  # type: ignore
-            arrival_time=result["arrival_time"],  # type: ignore
-            block=result["block"],  # type: ignore
+            departure_station=result_dict.get("departure_station", ""),
+            departure_time=result_dict.get("departure_time", ""),
+            meal=result_dict.get("crew_meal", ""),
+            arrival_station=result_dict.get("arrival_station", ""),
+            arrival_time=result_dict.get("arrival_time", ""),
+            block=result_dict.get("block", ""),
             synth="0.00",
-            ground=result["ground"],  # type: ignore
-            equipment_change=result["equipment_change"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            ground=result_dict.get("ground", ""),
+            equipment_change=result_dict.get("equipment_change", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -352,25 +359,26 @@ class FlightDeadhead(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.Flight(
             source=indexed_string,
-            dutyperiod_idx=result["dutyperiod"],  # type: ignore
-            dep_arr_day=result["day_of_sequence"],  # type: ignore
-            eq_code=result["equipment_code"],  # type: ignore
-            flight_number=result["flight_number"],  # type: ignore
-            deadhead=result["deadhead"],  # type: ignore
-            departure_station=result["departure_station"],  # type: ignore
-            departure_time=result["departure_time"],  # type: ignore
-            meal=result["crew_meal"],  # type: ignore
-            arrival_station=result["arrival_station"],  # type: ignore
-            arrival_time=result["arrival_time"],  # type: ignore
+            dutyperiod_idx=result_dict.get("dutyperiod", ""),
+            dep_arr_day=result_dict.get("day_of_sequence", ""),
+            eq_code=result_dict.get("equipment_code", ""),
+            flight_number=result_dict.get("flight_number", ""),
+            deadhead=result_dict.get("deadhead", ""),
+            departure_station=result_dict.get("departure_station", ""),
+            departure_time=result_dict.get("departure_time", ""),
+            meal=result_dict.get("crew_meal", ""),
+            arrival_station=result_dict.get("arrival_station", ""),
+            arrival_time=result_dict.get("arrival_time", ""),
             block="0.00",
-            synth=result["synth"],  # type: ignore
-            ground=result["ground"],  # type: ignore
-            equipment_change=result["equipment_change"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            synth=result_dict.get("synth", ""),
+            ground=result_dict.get("ground", ""),
+            equipment_change=result_dict.get("equipment_change", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -399,17 +407,18 @@ class DutyPeriodRelease(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.DutyPeriodRelease(
             source=indexed_string,
-            release=result["release_time"],  # type: ignore
-            block=result["block"],  # type: ignore
-            synth=result["synth"],  # type: ignore
-            total_pay=result["total_pay"],  # type: ignore
-            duty=result["duty"],  # type: ignore
-            flight_duty=result["flight_duty"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            release=result_dict.get("release_time", ""),
+            block=result_dict.get("block", ""),
+            synth=result_dict.get("synth", ""),
+            total_pay=result_dict.get("total_pay", ""),
+            duty=result_dict.get("duty", ""),
+            flight_duty=result_dict.get("flight_duty", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -442,15 +451,16 @@ class Hotel(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.Hotel(
             source=indexed_string,
-            layover_city=result["layover_city"],  # type: ignore
-            name=result["hotel"],  # type: ignore
-            phone=result["hotel_phone"],  # type: ignore
-            rest=result["rest"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            layover_city=result_dict.get("layover_city", ""),
+            name=result_dict.get("hotel", ""),
+            phone=result_dict.get("hotel_phone", ""),
+            rest=result_dict.get("rest", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -484,14 +494,15 @@ class HotelAdditional(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.HotelAdditional(
             source=indexed_string,
-            layover_city=result["layover_city"],  # type: ignore
-            name=result["hotel"],  # type: ignore
-            phone=result["hotel_phone"],  # type: ignore
-            calendar="".join(result["calendar_entries"]),
+            layover_city=result_dict.get("layover_city", ""),
+            name=result_dict.get("hotel", ""),
+            phone=result_dict.get("hotel_phone", ""),
+            calendar="".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -518,13 +529,14 @@ class Transportation(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.Transportation(
             source=indexed_string,
-            name=result.get("transportation", ""),  # type: ignore
-            phone=" ".join(result["transportation_phone"]),
-            calendar=" ".join(result["calendar_entries"]),
+            name=result_dict.get("transportation", ""),
+            phone=" ".join(result_dict.get("transportation_phone", "")),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -551,14 +563,15 @@ class TransportationAdditional(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         try:
             parsed = raw.TransportationAdditional(
                 source=indexed_string,
-                name=result["transportation"],  # type: ignore
-                phone=" ".join(result["transportation_phone"]),
-                calendar=" ".join(result["calendar_entries"]),
+                name=result_dict.get("transportation", ""),
+                phone=" ".join(result_dict.get("transportation_phone", "")),
+                calendar=" ".join(result_dict.get("calendar_entries", "")),
             )
         except KeyError as error:
             raise ParseException(
@@ -589,15 +602,16 @@ class TripFooter(IndexedStringParserProtocol):
     ) -> ParseResultProtocol:
         try:
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.TripFooter(
             source=indexed_string,
-            block=result["block"],  # type: ignore
-            synth=result["synth"],  # type: ignore
-            total_pay=result["total_pay"],  # type: ignore
-            tafb=result["tafb"],  # type: ignore
-            calendar=" ".join(result["calendar_entries"]),
+            block=result_dict.get("block", ""),
+            synth=result_dict.get("synth", ""),
+            total_pay=result_dict.get("total_pay", ""),
+            tafb=result_dict.get("tafb", ""),
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
         return ParseResult(self.success_state, parsed)
 
@@ -630,30 +644,17 @@ class PageFooter(IndexedStringParserProtocol):
         try:
 
             result = self._parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
         parsed = raw.PageFooter(
             source=indexed_string,
-            issued=result["issued"],  # type: ignore
-            effective=result["effective"],  # type: ignore
-            base=result["base"],  # type: ignore
-            satelite_base=result["satelite_base"],  # type: ignore
-            equipment=result["equipment"],  # type: ignore
-            division=result["division"],  # type: ignore
-            page=result["internal_page"],  # type: ignore
+            issued=result_dict.get("issued", ""),
+            effective=result_dict.get("effective", ""),
+            base=result_dict.get("base", ""),
+            satelite_base=result_dict.get("satelite_base", ""),
+            equipment=result_dict.get("equipment", ""),
+            division=result_dict.get("division", ""),
+            page=result_dict.get("internal_page", ""),
         )
         return ParseResult(self.success_state, parsed)
-
-
-# def parse_file(file_path: Path, ctx: LineParseContext) -> raw.BidPackage:
-#     scheme = ParseScheme()
-#     skipper = make_skipper()
-#     sp.parse_file(file_path=file_path, scheme=scheme, ctx=ctx, skipper=skipper)
-#     return ctx.results_obj
-
-
-# def parse_lines(lines: Iterable[str], ctx: LineParseContext) -> raw.BidPackage:
-#     scheme = ParseScheme()
-#     skipper = make_skipper()
-#     sp.parse_lines(lines=lines, scheme=scheme, ctx=ctx, skipper=skipper)
-#     return ctx.results_obj

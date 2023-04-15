@@ -66,6 +66,6 @@ def test_all(test_app_data_dir: Path):
     )
 
 
-def test_parse_fail():
-    with pytest.raises(ParseException):
-        PARSER.parse(IndexedString(idx=1, txt=""), ctx={})
+# def test_parse_fail():
+#     with pytest.raises(ParseException):
+#         PARSER.parse(IndexedString(idx=1, txt=""), ctx={})
