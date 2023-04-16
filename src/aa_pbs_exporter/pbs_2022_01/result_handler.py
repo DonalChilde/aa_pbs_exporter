@@ -1,17 +1,20 @@
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.state_parser.state_parser_protocols import (
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
 )
 
 
-class ResultHandler:
+class AssembleRawBidPackage:
     def __init__(self, source: str) -> None:
         super().__init__()
         self.source = source
         self.bid_package = raw.BidPackage(source=source, pages=[])
 
     def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
-        match parse_result.parsed_data.__class__.__qualname__:
+        _ = kwargs
+        match_value = parse_result.parsed_data.__class__.__qualname__
+        print(match_value)
+        match match_value:
             case "PageHeader1":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader1)
                 self.bid_package.pages.append(

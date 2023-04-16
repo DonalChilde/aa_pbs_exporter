@@ -11,7 +11,9 @@
 from typing import Callable, Iterable, Iterator
 
 from aa_pbs_exporter.snippets.indexed_string.indexed_string_dc import IndexedStringDC
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import IndexedStringProtocol
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
 
 
 def index_and_filter_strings(

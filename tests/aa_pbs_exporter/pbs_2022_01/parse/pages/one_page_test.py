@@ -1,6 +1,9 @@
+from io import StringIO
 from pathlib import Path
 
-from tests.aa_pbs_exporter.resources.helpers import ParseTestData, parse_pages
+from tests.aa_pbs_exporter.resources.helpers import ParseTestData
+from aa_pbs_exporter.pbs_2022_01.helpers import parse_raw_bidpackage
+from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
 
 from aa_pbs_exporter.pbs_2022_01.models.raw import (
     BidPackage,
@@ -984,9 +987,15 @@ result_data = BidPackage(
 
 def test_page(test_app_data_dir: Path):
     output_path = test_app_data_dir / "pages"
-    parse_pages(
-        test_data=test_data,
-        bid_package=result_data,
-        output_path=output_path,
-        # skip_test=True,
+    manager = ParseManager(ctx={})
+    bid_package = parse_raw_bidpackage(
+        strings=StringIO(test_data.txt), manager=manager, source=test_data.name
     )
+    print("bidpackage",repr(bid_package))
+    assert bid_package == result_data
+    # parse_pages(
+    #     test_data=test_data,
+    #     bid_package=result_data,
+    #     output_path=output_path,
+    #     # skip_test=True,
+    # )

@@ -2,14 +2,14 @@ from pathlib import Path
 from typing import Any, Callable, Protocol, Sequence
 
 
-class TestDataProtocol(Protocol):
+class DataForTestingProtocol(Protocol):
     name: str
     description: str
     data: Any
 
 
 def compare_expected_and_result(
-    test_data: Sequence[TestDataProtocol],
+    test_data: Sequence[DataForTestingProtocol],
     expected_results: dict[str, Any],
     results: dict[str, Any],
 ):
@@ -31,8 +31,8 @@ def compare_expected_and_result(
 
 
 def get_results(
-    test_data: Sequence[TestDataProtocol],
-    result_func: Callable[[TestDataProtocol], Any],
+    test_data: Sequence[DataForTestingProtocol],
+    result_func: Callable[[DataForTestingProtocol], Any],
     output_path: Path,
 ) -> dict[str, Any]:
     """

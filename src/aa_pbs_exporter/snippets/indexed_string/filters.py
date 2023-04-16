@@ -10,7 +10,9 @@
 ####################################################
 from typing import Callable, Sequence
 
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import IndexedStringProtocol
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
 
 
 class SkipTillFirstMatch:
@@ -51,12 +53,14 @@ def is_numeric(indexed_string: IndexedStringProtocol) -> bool:
 
 def is_whitespace(indexed_string: IndexedStringProtocol) -> bool:
     """String contains only white space"""
-    return bool(indexed_string.txt.strip())
+    return indexed_string.txt.isspace()
 
 
 def not_white_space(indexed_string: IndexedStringProtocol) -> bool:
     """String does not contain only white space."""
     return not is_whitespace(indexed_string)
+
+
 
 
 def pass_through(indexed_string: IndexedStringProtocol) -> bool:

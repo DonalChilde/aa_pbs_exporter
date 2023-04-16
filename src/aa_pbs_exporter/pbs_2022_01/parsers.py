@@ -1,4 +1,3 @@
-### mypy: disable-error-code=override
 import logging
 from typing import Any
 
@@ -6,14 +5,13 @@ import pyparsing as pp
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
-from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
-from aa_pbs_exporter.snippets.state_parser.state_parser_protocols import (
+from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
+    ParseException,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
     ParseResultProtocol,
 )
-
-# TODO use code from snippets
-# TODO update snippets home
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -55,11 +53,12 @@ class PageHeader1(IndexedStringParserProtocol):
         ctx: dict[str, Any] | None = None,
         **kwargs,
     ) -> ParseResultProtocol:
+        _ = ctx
         if "DEPARTURE" in indexed_string.txt:
             parsed = raw.PageHeader1(source=indexed_string)
             # ctx.handle_parse_result(parsed)
             return ParseResult(self.success_state, parsed)
-        raise ParseException("'DEPARTURE' not found in line.")
+        raise ParseException(f"'DEPARTURE' not found in {indexed_string!r}.")
 
 
 class PageHeader2(IndexedStringParserProtocol):

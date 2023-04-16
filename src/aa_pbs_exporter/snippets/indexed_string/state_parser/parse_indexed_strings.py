@@ -11,8 +11,12 @@
 import logging
 from typing import Iterable, Iterator
 
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import IndexedStringProtocol
-from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import ParseException
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
+    ParseException,
+)
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_indexed_string import (
     parse_indexed_string,
 )

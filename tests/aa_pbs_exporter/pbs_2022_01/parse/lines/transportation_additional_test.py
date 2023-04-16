@@ -9,7 +9,9 @@ from aa_pbs_exporter.pbs_2022_01.models.raw import (
     TransportationAdditional,
 )
 from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
-from aa_pbs_exporter.snippets.state_parser.parse_exception import ParseException
+from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
+    ParseException,
+)
 
 test_data = [
     ParseTestData(

@@ -12,7 +12,10 @@ from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration as regex_parse_duration,
 )
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import pattern_HHHMM
-from aa_pbs_exporter.snippets.string.index_numeric_strings import index_numeric_strings
+from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
+from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
+    index_and_filter_strings,
+)
 
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 TIME = "%H%M"
@@ -297,7 +300,9 @@ def get_start_dates(
     #         f"{days} days in range, but {len(calendar_entries)} entries "
     #         f"in calendar for trip {self!r}."
     #     )
-    indexed_days = list(index_numeric_strings(calendar_entries))
+    indexed_days = list(
+        index_and_filter_strings(strings=calendar_entries, string_filter=is_numeric)
+    )
     # if len(indexed_days) != int(self.header.ops_count):
     #     raise ValueError(
     #         f"Expected {self.header.ops_count} dates, but found {indexed_days} in calendar {calendar_entries}"

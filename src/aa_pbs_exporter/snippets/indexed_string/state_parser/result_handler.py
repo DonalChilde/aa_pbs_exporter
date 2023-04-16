@@ -29,7 +29,7 @@ class MultipleResultHandler:
         Args:
             result_handlers: The result handlers.
         """
-        self.handlers = result_handlers
+        self.handlers = list(result_handlers)
 
     def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
         """Passes the parse result to multiple handlers in sequence."""
