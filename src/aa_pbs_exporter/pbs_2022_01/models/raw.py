@@ -4,16 +4,12 @@
 Assumptions:
     - Structures are complete after parsing.
     - Each dutyperiod has a layover with an odl unless its the last dutyperiod
-    - The release tz and station is the same as the report tz and station.
-      - not sure how often this would come up. and it may not be a problem. 
+    - The release tz and station is the same as the next report tz and station.
+      - not sure how often this would come up. and it may not be a problem.
     - The start date of a bid is the same as the effective date in the page footer.
 """
-# from dataclasses import dataclass, field
-from pydantic import BaseModel
 
-from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
-    IndexedStringProtocol,
-)
+from pydantic import BaseModel
 
 TAB = "\t"
 NL = "\n"
@@ -29,30 +25,30 @@ class ParsedIndexedString(BaseModel):
 
 
 class PageHeader1(ParsedIndexedString):
-    # source: IndexedString
+
     pass
 
 
 class PageHeader2(ParsedIndexedString):
-    # source: IndexedString
+
     from_date: str
     to_date: str
 
 
 class HeaderSeparator(ParsedIndexedString):
-    # source: IndexedString
+
     pass
 
 
 class BaseEquipment(ParsedIndexedString):
-    # source: IndexedString
+
     base: str
     satellite_base: str
     equipment: str
 
 
 class TripHeader(ParsedIndexedString):
-    # source: IndexedString
+
     number: str
     ops_count: str
     positions: str
@@ -62,13 +58,13 @@ class TripHeader(ParsedIndexedString):
 
 
 class DutyPeriodReport(ParsedIndexedString):
-    # source: IndexedString
+
     report: str
     calendar: str
 
 
 class Flight(ParsedIndexedString):
-    # source: IndexedString
+
     dutyperiod_idx: str
     dep_arr_day: str
     eq_code: str
@@ -87,7 +83,7 @@ class Flight(ParsedIndexedString):
 
 
 class DutyPeriodRelease(ParsedIndexedString):
-    # source: IndexedString
+
     release: str
     block: str
     synth: str
@@ -98,7 +94,7 @@ class DutyPeriodRelease(ParsedIndexedString):
 
 
 class Hotel(ParsedIndexedString):
-    # source: IndexedString
+
     layover_city: str
     name: str
     phone: str
@@ -107,7 +103,7 @@ class Hotel(ParsedIndexedString):
 
 
 class HotelAdditional(ParsedIndexedString):
-    # source: IndexedString
+
     layover_city: str
     name: str
     phone: str
@@ -115,21 +111,21 @@ class HotelAdditional(ParsedIndexedString):
 
 
 class Transportation(ParsedIndexedString):
-    # source: IndexedString
+
     name: str
     phone: str
     calendar: str
 
 
 class TransportationAdditional(ParsedIndexedString):
-    # source: IndexedString
+
     name: str
     phone: str
     calendar: str
 
 
 class TripFooter(ParsedIndexedString):
-    # source: IndexedString
+
     block: str
     synth: str
     total_pay: str
@@ -138,12 +134,12 @@ class TripFooter(ParsedIndexedString):
 
 
 class TripSeparator(ParsedIndexedString):
-    # source: IndexedString
+
     pass
 
 
 class PageFooter(ParsedIndexedString):
-    # source: IndexedString
+
     issued: str
     effective: str
     base: str
@@ -154,7 +150,7 @@ class PageFooter(ParsedIndexedString):
 
 
 class PackageDate(ParsedIndexedString):
-    # source: IndexedString
+
     month: str
     year: str
 
