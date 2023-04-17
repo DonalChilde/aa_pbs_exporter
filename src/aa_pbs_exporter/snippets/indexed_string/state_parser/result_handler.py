@@ -13,7 +13,7 @@
 from io import TextIOWrapper
 from typing import Sequence
 
-from snippets.indexed_string.state_parser.state_parser_protocols import (
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
     ResultHandlerProtocol,
 )
