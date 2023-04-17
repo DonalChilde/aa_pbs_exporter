@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T08:06:21-07:00            #
-# Last Modified: 2023-04-16T16:14:52.916550+00:00  #
+# Last Modified: 2023-04-17T14:38:11.478334+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
@@ -13,7 +13,7 @@
 from io import TextIOWrapper
 from typing import Sequence
 
-from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
+from snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
     ResultHandlerProtocol,
 )
