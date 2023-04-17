@@ -46,7 +46,6 @@ def _logger(test_log_path):
         log_level=TEST_LOG_LEVEL,
         formater=formatter,
     )
-    print(handler)
     test_logger = logging.getLogger(__name__)
     test_logger.setLevel(TEST_LOG_LEVEL)
     test_logger.addHandler(handler)

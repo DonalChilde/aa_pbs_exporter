@@ -84,7 +84,6 @@ class PageHeader2(IndexedStringParserProtocol):
             result_dict = result.as_dict()
         except pp.ParseException as error:
             raise ParseException(f"{error}") from error
-        print(result.as_dict())
         parsed = raw.PageHeader2(
             source=indexed_string,
             from_date="".join(result_dict.get("from_date", "")),

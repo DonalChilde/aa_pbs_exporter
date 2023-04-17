@@ -13,7 +13,6 @@ class AssembleRawBidPackage:
     def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
         _ = kwargs
         match_value = parse_result.parsed_data.__class__.__qualname__
-        print(match_value)
         match match_value:
             case "PageHeader1":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader1)
