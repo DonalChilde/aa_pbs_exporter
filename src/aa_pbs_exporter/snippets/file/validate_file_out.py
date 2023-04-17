@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 def validate_file_out(
-    file_path: Path, overwrite: bool, *, ensure_parent: bool = True
+    file_path: Path, *, overwrite: bool = False, ensure_parent: bool = True
 ) -> bool:
     """Ensure that a file path is suitable for output.
 
