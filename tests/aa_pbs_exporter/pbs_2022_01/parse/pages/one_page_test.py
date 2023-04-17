@@ -23,6 +23,10 @@ from aa_pbs_exporter.pbs_2022_01.models.raw import (
     TripHeader,
 )
 from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
+    ParsedDataSaveToTextFileHandler,
+)
 
 test_data = ParseTestData(
     name="lax_777_intl",
@@ -986,15 +990,20 @@ result_data = BidPackage(
 
 
 def test_page(test_app_data_dir: Path):
-    output_path = test_app_data_dir / "pages"
+    output_path = test_app_data_dir / "pages" / "one_page"
     manager = ParseManager(ctx={})
-    bid_package = parse_raw_bidpackage(
-        strings=StringIO(test_data.txt),
-        manager=manager,
-        source=test_data.name,
-        additional_handlers=None,
-    )
-    print("bidpackage", repr(bid_package))
+    debug_path = output_path / "one_page_debug.txt"
+    validate_file_out(debug_path)
+    with open(debug_path, "w", encoding="utf-8") as debug_file:
+        debug_handler = ParsedDataSaveToTextFileHandler(
+            debug_file, record_separator="\n"
+        )
+        bid_package = parse_raw_bidpackage(
+            strings=StringIO(test_data.txt),
+            manager=manager,
+            source=test_data.name,
+            additional_handlers=[debug_handler],
+        )
     assert bid_package == result_data
     # parse_pages(
     #     test_data=test_data,

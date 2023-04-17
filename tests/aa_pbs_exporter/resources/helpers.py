@@ -11,7 +11,6 @@ from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     MultipleResultHandler,
-    SaveToTextFileHandler,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
@@ -63,6 +62,12 @@ def build_testing_data(
     )
 
 
+# TODO refactor parse_lines, support parsed_data to file, and optional repr output.
+#   Refine line parser test data locations and methods.
+#   Can the tests be saved as json? a combination of json and text files?
+#   Fix for vscode/black flakyness with complex formatted pages
+
+
 def parse_lines(
     test_data: list[ParseTestData],
     result_data: dict[str, Any],
@@ -93,8 +98,8 @@ def parse_lines(
 #     pass
 
 
-def debug_to_file_handler(output: TextIOWrapper) -> ResultHandlerProtocol:
-    return SaveToTextFileHandler(writer=output, record_separator="\n")
+# def debug_to_file_handler(output: TextIOWrapper) -> ResultHandlerProtocol:
+#     return SaveToTextFileHandler(writer=output, record_separator="\n")
 
 
 # def debug_result_handlers(final_handler:ResultHandlerProtocol,output_path:Path)->ResultHandlerProtocol:
