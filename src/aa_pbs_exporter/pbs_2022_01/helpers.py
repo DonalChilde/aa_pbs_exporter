@@ -73,7 +73,7 @@ def parse_raw_bidpackage(
     package_handler = AssembleRawBidPackage(source=source)
     handler = MultipleResultHandler(result_handlers=additional_handlers)
     handler.handlers.append(package_handler)
-    parse_pbs_data(strings=strings, manager=manager, result_handler=package_handler)
+    parse_pbs_data(strings=strings, manager=manager, result_handler=handler)
     return package_handler.bid_package
 
 
