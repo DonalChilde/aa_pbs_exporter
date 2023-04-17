@@ -640,7 +640,6 @@ class PageFooter(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         try:
-
             result = self._parser.parse_string(indexed_string.txt)
             result_dict = result.as_dict()
         except pp.ParseException as error:

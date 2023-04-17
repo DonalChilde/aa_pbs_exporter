@@ -39,7 +39,6 @@ def expand_bid_package(
 
 
 def expand_page(page: raw.Page, airports: dict[str, Airport]) -> expanded.Page:
-
     assert page.page_footer is not None
     assert page.page_header_2 is not None
     effective = datetime.strptime(page.page_footer.effective, DATE)
@@ -115,7 +114,6 @@ def expand_dutyperiods(
     first_report: datetime,
     airports: dict[str, Airport],
 ):
-
     expanded_dutyperiods: list[expanded.DutyPeriod] = []
     current_report: datetime | None = first_report
     for dutyperiod in dutyperiods:

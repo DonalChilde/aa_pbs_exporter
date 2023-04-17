@@ -28,7 +28,6 @@ class ParseManager:
         self,
         ctx: dict[str, Any],
     ) -> None:
-
         self.ctx = ctx
         self.scheme: Dict[str, Sequence[IndexedStringParserProtocol]] = {
             "start": [PageHeader1()],

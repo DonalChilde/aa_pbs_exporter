@@ -1,32 +1,11 @@
-from datetime import date, datetime, timedelta
-from zoneinfo import ZoneInfo
+"""
+The compact model represents the pairing package in its most compact form. It contains
+all the info needed to expand trips with fully defined dates and times.
+"""
+
+from datetime import date, datetime, time, timedelta
 
 from pydantic import BaseModel
-
-# TODO make validator class to allow passing out validation messages
-# TODO split to expanded model, and expand functions? rename?
-# TODO decide on parser version scheme, and rename packages
-#   - pbs_2022_10
-#       - parse
-#       - models
-#           - raw
-#           - expanded
-#       - validate
-#       - convert
-
-
-class Instant(BaseModel):
-    utc_date: datetime
-    local_tz: str
-
-    def local(self) -> datetime:
-        return self.utc_date.astimezone(tz=ZoneInfo(self.local_tz))
-
-
-class SourceReference(BaseModel):
-    source: str
-    from_line: int
-    to_line: int
 
 
 class Transportation(BaseModel):
@@ -39,6 +18,12 @@ class Hotel(BaseModel):
     phone: str | None
 
 
+class LclHbt(BaseModel):
+    lcl: time
+    hbt: time
+    tz_str: str
+
+
 class Layover(BaseModel):
     odl: timedelta
     city: str
@@ -49,17 +34,16 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
-    dutyperiod_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
     number: str
     deadhead: bool
     departure_station: str
-    departure_time: Instant
+    departure_time: LclHbt
     meal: str
     arrival_station: str
-    arrival_time: Instant
+    arrival_time: LclHbt
     block: timedelta
     synth: timedelta
     ground: timedelta
@@ -68,9 +52,9 @@ class Flight(BaseModel):
 
 class DutyPeriod(BaseModel):
     idx: int
-    report: Instant
+    report: LclHbt
     report_station: str
-    release: Instant
+    release: LclHbt
     release_station: str
     block: timedelta
     synth: timedelta
@@ -84,7 +68,7 @@ class DutyPeriod(BaseModel):
 class Trip(BaseModel):
     # uuid: UUID
     number: str
-    positions: str
+    positions: list[str]
     operations: str
     special_qualifications: bool
     block: timedelta
@@ -92,6 +76,7 @@ class Trip(BaseModel):
     total_pay: timedelta
     tafb: timedelta
     dutyperiods: list[DutyPeriod]
+    start_dates: list[date]
 
 
 class Page(BaseModel):

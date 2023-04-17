@@ -35,30 +35,25 @@ class ParsedIndexedString(BaseModel):
 
 
 class PageHeader1(ParsedIndexedString):
-
     pass
 
 
 class PageHeader2(ParsedIndexedString):
-
     from_date: str
     to_date: str
 
 
 class HeaderSeparator(ParsedIndexedString):
-
     pass
 
 
 class BaseEquipment(ParsedIndexedString):
-
     base: str
     satellite_base: str
     equipment: str
 
 
 class TripHeader(ParsedIndexedString):
-
     number: str
     ops_count: str
     positions: str
@@ -68,13 +63,11 @@ class TripHeader(ParsedIndexedString):
 
 
 class DutyPeriodReport(ParsedIndexedString):
-
     report: str
     calendar: str
 
 
 class Flight(ParsedIndexedString):
-
     dutyperiod_idx: str
     dep_arr_day: str
     eq_code: str
@@ -93,7 +86,6 @@ class Flight(ParsedIndexedString):
 
 
 class DutyPeriodRelease(ParsedIndexedString):
-
     release: str
     block: str
     synth: str
@@ -104,7 +96,6 @@ class DutyPeriodRelease(ParsedIndexedString):
 
 
 class Hotel(ParsedIndexedString):
-
     layover_city: str
     name: str
     phone: str
@@ -113,7 +104,6 @@ class Hotel(ParsedIndexedString):
 
 
 class HotelAdditional(ParsedIndexedString):
-
     layover_city: str
     name: str
     phone: str
@@ -121,21 +111,18 @@ class HotelAdditional(ParsedIndexedString):
 
 
 class Transportation(ParsedIndexedString):
-
     name: str
     phone: str
     calendar: str
 
 
 class TransportationAdditional(ParsedIndexedString):
-
     name: str
     phone: str
     calendar: str
 
 
 class TripFooter(ParsedIndexedString):
-
     block: str
     synth: str
     total_pay: str
@@ -144,12 +131,10 @@ class TripFooter(ParsedIndexedString):
 
 
 class TripSeparator(ParsedIndexedString):
-
     pass
 
 
 class PageFooter(ParsedIndexedString):
-
     issued: str
     effective: str
     base: str
@@ -160,7 +145,6 @@ class PageFooter(ParsedIndexedString):
 
 
 class PackageDate(ParsedIndexedString):
-
     month: str
     year: str
 
