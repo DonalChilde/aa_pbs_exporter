@@ -7,23 +7,22 @@ from aa_pbs_exporter.snippets.indexed_string.filters import (
     MultipleTests,
     SkipTillFirstMatch,
     not_white_space,
-    
-)
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
-    IndexedStringProtocol,
 )
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_indexed_strings import (
     parse_indexed_strings,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
+    MultipleResultHandler,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseManagerProtocol,
     ResultHandlerProtocol,
-)
-from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
-    MultipleResultHandler,
 )
 
 
@@ -77,8 +76,10 @@ def parse_raw_bidpackage(
     parse_pbs_data(strings=strings, manager=manager, result_handler=package_handler)
     return package_handler.bid_package
 
-def lines_from_text(string:str)->StringIO:
+
+def lines_from_text(string: str) -> StringIO:
     return StringIO(string)
+
 
 # def parse_indexed_string(
 #     indexed_string: IndexedStringProtocol,

@@ -61,8 +61,6 @@ def not_white_space(indexed_string: IndexedStringProtocol) -> bool:
     return not is_whitespace(indexed_string)
 
 
-
-
 def pass_through(indexed_string: IndexedStringProtocol) -> bool:
     """True for all strings."""
     _ = indexed_string

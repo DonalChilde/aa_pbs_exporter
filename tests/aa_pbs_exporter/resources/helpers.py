@@ -1,22 +1,22 @@
 from dataclasses import dataclass
 from importlib import resources
+from io import TextIOWrapper
 from pathlib import Path
 from typing import Any, Iterable, Sequence
-from io import TextIOWrapper
 
 from pydantic import BaseModel
 
 # from aa_pbs_exporter.pbs_2022_01.helpers import parse_string_by_line
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
-    IndexedStringParserProtocol,
-    ResultHandlerProtocol,
-)
+from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     MultipleResultHandler,
     SaveToTextFileHandler,
 )
-from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
+    IndexedStringParserProtocol,
+    ResultHandlerProtocol,
+)
 
 
 @dataclass
