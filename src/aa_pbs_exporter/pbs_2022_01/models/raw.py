@@ -9,9 +9,11 @@ Assumptions:
     - The start date of a bid is the same as the effective date in the page footer.
 """
 
+import json
+
 from pydantic import BaseModel
 
-TAB = "\t"
+# TAB = "\t"
 NL = "\n"
 
 
@@ -19,9 +21,17 @@ class IndexedString(BaseModel):
     idx: int
     txt: str
 
+    def __str__(self) -> str:
+        return f"{self.idx}: {self.txt!r}"
+
 
 class ParsedIndexedString(BaseModel):
     source: IndexedString
+
+    def __str__(self) -> str:
+        data = self.dict()
+        data.pop("source", None)
+        return f"{self.source}\n\t{self.__class__.__name__}: {json.dumps(data)}"
 
 
 class PageHeader1(ParsedIndexedString):
