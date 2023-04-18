@@ -84,6 +84,8 @@ class DutyPeriod(BaseModel):
 class Trip(BaseModel):
     # uuid: UUID
     number: str
+    start:datetime
+    end:datetime
     positions: str
     operations: str
     special_qualifications: bool

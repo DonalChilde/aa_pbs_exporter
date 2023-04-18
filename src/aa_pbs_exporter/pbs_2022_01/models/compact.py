@@ -3,7 +3,7 @@ The compact model represents the pairing package in its most compact form. It co
 all the info needed to expand trips with fully defined dates and times.
 """
 
-from datetime import date, datetime, time, timedelta
+from datetime import date, time, timedelta
 
 from pydantic import BaseModel
 
