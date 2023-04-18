@@ -53,9 +53,10 @@ class Translator:
             end=end,
             trips=trips,
         )
-        for raw_trip in (
-            x for x in raw_page.trips if not "prior" in x.header.source.txt
-        ):
+        for raw_trip in  raw_page.trips:
+            if "prior" in raw_trip.header.source.txt:
+                # skip prior month trips
+                continue
             compact_page.trips.append(
                 self.translate_trip(raw_trip=raw_trip, from_date=start, to_date=end)
             )
