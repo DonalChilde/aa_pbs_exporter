@@ -17,10 +17,31 @@ from pydantic import BaseModel
 
 class Instant(BaseModel):
     utc_date: datetime
-    local_tz: str
+    tz_name: str
 
-    def local(self) -> datetime:
-        return self.utc_date.astimezone(tz=ZoneInfo(self.local_tz))
+    def local(self, tz_name: str | None = None) -> datetime:
+        if tz_name is None:
+            return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
+        return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
+
+    def __copy__(self) -> "Instant":
+        return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
+
+    def __add__(self, other:timedelta) -> "Instant":
+        if not isinstance(other, timedelta):
+            return NotImplemented
+        new_instant = Instant(
+            utc_date=self.utc_date + other, tz_name=self.tz_name
+        )
+        return new_instant
+
+    def __sub__(self, other:timedelta) -> "Instant":
+        if not isinstance(other, timedelta):
+            return NotImplemented
+        new_instant = Instant(
+            utc_date=self.utc_date - other, tz_name=self.tz_name
+        )
+        return new_instant
 
 
 class SourceReference(BaseModel):
@@ -49,17 +70,16 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
-    dutyperiod_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
     number: str
     deadhead: bool
     departure_station: str
-    departure_time: Instant
+    departure: Instant
     meal: str
     arrival_station: str
-    arrival_time: Instant
+    arrival: Instant
     block: timedelta
     synth: timedelta
     ground: timedelta
@@ -84,9 +104,9 @@ class DutyPeriod(BaseModel):
 class Trip(BaseModel):
     # uuid: UUID
     number: str
-    start:datetime
-    end:datetime
-    positions: str
+    start: Instant
+    end: Instant
+    positions: list[str]
     operations: str
     special_qualifications: bool
     block: timedelta
