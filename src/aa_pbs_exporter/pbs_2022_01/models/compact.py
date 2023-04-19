@@ -21,7 +21,7 @@ class Hotel(BaseModel):
 class LclHbt(BaseModel):
     lcl: time
     hbt: time
-    tz_str: str
+    tz_name: str
 
 
 class Layover(BaseModel):
@@ -40,10 +40,10 @@ class Flight(BaseModel):
     number: str
     deadhead: bool
     departure_station: str
-    departure_time: LclHbt
+    departure: LclHbt
     meal: str
     arrival_station: str
-    arrival_time: LclHbt
+    arrival: LclHbt
     block: timedelta
     synth: timedelta
     ground: timedelta

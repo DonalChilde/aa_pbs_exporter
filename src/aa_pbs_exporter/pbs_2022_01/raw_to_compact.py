@@ -148,10 +148,10 @@ class Translator:
             number=raw_flight.flight_number,
             deadhead=bool(raw_flight.deadhead),
             departure_station=departure_station,
-            departure_time=departure,
+            departure=departure,
             meal=raw_flight.meal,
             arrival_station=arrival_station,
-            arrival_time=arrival,
+            arrival=arrival,
             block=parse_duration(DURATION_PATTERN, raw_flight.block).to_timedelta(),
             synth=parse_duration(DURATION_PATTERN, raw_flight.synth).to_timedelta(),
             ground=parse_duration(DURATION_PATTERN, raw_flight.ground).to_timedelta(),
@@ -195,7 +195,7 @@ class Translator:
         tz_str = self.tz_lookup(iata)
         local_time = datetime.strptime(lcl_str, TIME).time()
         hbt_time = datetime.strptime(hbt_str, TIME).time()
-        return compact.LclHbt(lcl=local_time, hbt=hbt_time, tz_str=tz_str)
+        return compact.LclHbt(lcl=local_time, hbt=hbt_time, tz_name=tz_str)
 
 
 def complete_future_date(ref_date: date, future: str, strf: str) -> date:
