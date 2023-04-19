@@ -4,7 +4,7 @@ import logging
 from dataclasses import dataclass
 from importlib import resources
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Union
 
 import pytest
 
@@ -18,6 +18,10 @@ from aa_pbs_exporter.snippets.logging.tz_aware_formatter import TZAwareFormatter
 
 APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
+
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 @dataclass
@@ -163,10 +167,36 @@ def load_file_resources(
     return file_resources
 
 
+def load_resource_text_file(resource_package: str, resource_name: str) -> str:
+    # TODO Move to snippets
+    try:
+        with resources.path(resource_package, resource_name) as data_path:
+            data = data_path.read_text(encoding="utf-8")
+            logger.debug(
+                "Loaded resource file %s from %s", resource_name, resource_package
+            )
+            return data
+    # TODO refine the exception handling for files, and resource loading.
+    except Exception as ex:
+        logger.exception(
+            "Unable to load resource file %s from %s Error msg %s",
+            resource_name,
+            resource_package,
+            ex,
+        )
+        raise ex
+
+def resource_line_reader(resource_package:str,resource_name:str)->Iterable[str]:
+    # TODO Move to snippets
+    with resources.path(resource_package, resource_name) as data_path:
+        with open(data_path,mode="rt",encoding="utf-8") as txt_file:
+            for txt in txt_file:
+                yield txt
+
 def load_file_resource(
     resource_path: str,
     resource_name: str,
-    logger: logging.Logger,
+    logger_: logging.Logger,
     path_only: bool = False,
     read_text: bool = True,
 ) -> FileResource:
@@ -195,20 +225,20 @@ def load_file_resource(
             if read_text:
                 if not path_only:
                     data = data_path.read_text()
-                    logger.debug(
+                    logger_.debug(
                         "Loaded resource file %s from %s", resource_name, resource_path
                     )
                 return FileResource(file_path=data_path, data=data)
             else:
                 if not path_only:
                     data = data_path.read_bytes()
-                    logger.debug(
+                    logger_.debug(
                         "Loaded resource file %s from %s", resource_name, resource_path
                     )
                 return FileResource(file_path=data_path, data=data)
     # TODO refine the exception handling for files, and resource loading.
     except Exception as ex:
-        logger.exception(
+        logger_.exception(
             "Unable to load resource file %s from %s Error msg %s",
             resource_name,
             resource_path,
