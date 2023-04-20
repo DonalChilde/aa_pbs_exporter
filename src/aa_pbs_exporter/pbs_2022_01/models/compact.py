@@ -94,3 +94,6 @@ class Page(BaseModel):
 class BidPackage(BaseModel):
     source: str
     pages: list[Page]
+
+    def default_file_name(self)->str:
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact"
