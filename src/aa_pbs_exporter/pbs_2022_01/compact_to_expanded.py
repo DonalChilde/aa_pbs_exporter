@@ -70,7 +70,7 @@ class Translator:
                         expanded_dutyperiod.release + expanded_dutyperiod.layover.odl
                     )
                 expanded_trip.dutyperiods.append(expanded_dutyperiod)
-
+            trips.append(expanded_trip)
         return trips
 
     def translate_dutyperiod(
@@ -78,7 +78,7 @@ class Translator:
     ) -> expanded.DutyPeriod:
         release_utc = report.utc_date + compact_dutyperiod.duty
         release = expanded.Instant(
-            utc_date=release_utc, tz_name=compact.DutyPeriod.release.tz_name
+            utc_date=release_utc, tz_name=compact_dutyperiod.release.tz_name
         )
 
         expanded_dutyperiod = expanded.DutyPeriod(
