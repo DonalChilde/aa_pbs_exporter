@@ -1,13 +1,21 @@
 from dataclasses import dataclass
 from importlib import resources
+from io import TextIOWrapper
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable, Sequence
 
 from pydantic import BaseModel
 
+# from aa_pbs_exporter.pbs_2022_01.helpers import parse_string_by_line
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse import parse_string_by_line
-from aa_pbs_exporter.snippets.state_parser import state_parser_protocols as spp
+from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
+from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
+    MultipleResultHandler,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
+    IndexedStringParserProtocol,
+    ResultHandlerProtocol,
+)
 
 
 @dataclass
@@ -54,10 +62,16 @@ def build_testing_data(
     )
 
 
+# TODO refactor parse_lines, support parsed_data to file, and optional repr output.
+#   Refine line parser test data locations and methods.
+#   Can the tests be saved as json? a combination of json and text files?
+#   Fix for vscode/black flakyness with complex formatted pages
+
+
 def parse_lines(
     test_data: list[ParseTestData],
     result_data: dict[str, Any],
-    parser: spp.IndexedStringParser,
+    parser: IndexedStringParserProtocol,
     output_path: Path | None = None,
     skip_test: bool = False,
 ):
@@ -75,22 +89,43 @@ def parse_lines(
         output_results_repr(collected_outpath, collected_results)
 
 
-def parse_pages(
-    test_data: ParseTestData,
-    bid_package: raw.BidPackage | None,
-    output_path: Path | None = None,
-    skip_test: bool = False,
-):
-    parsed_bid_package = parse_string_by_line(
-        source=test_data.name, string_data=test_data.txt
-    )
-    if output_path:
-        individual_outpath = output_path / f"{test_data.name}.py"
-        output_results_repr(individual_outpath, parsed_bid_package)
-    if not skip_test:
-        assert (
-            bid_package == parsed_bid_package
-        ), f"{test_data.name}: {test_data.description}"
+# def parse_pages(
+#     test_data: ParseTestData,
+#     bid_package: raw.BidPackage | None,
+#     output_path: Path | None = None,
+#     skip_test: bool = False,
+# ):
+#     pass
+
+
+# def debug_to_file_handler(output: TextIOWrapper) -> ResultHandlerProtocol:
+#     return SaveToTextFileHandler(writer=output, record_separator="\n")
+
+
+# def debug_result_handlers(final_handler:ResultHandlerProtocol,output_path:Path)->ResultHandlerProtocol:
+#     handlers:Sequence[ResultHandlerProtocol] = []
+
+#     handlers.append(final_handler)
+#     handler = MultipleResultHandler(result_handlers=handlers)
+#     return handler
+
+
+# def parse_pages(
+#     test_data: ParseTestData,
+#     bid_package: raw.BidPackage | None,
+#     output_path: Path | None = None,
+#     skip_test: bool = False,
+# ):
+#     parsed_bid_package = parse_string_by_line(
+#         source=test_data.name, string_data=test_data.txt
+#     )
+#     if output_path:
+#         individual_outpath = output_path / f"{test_data.name}.py"
+#         output_results_repr(individual_outpath, parsed_bid_package)
+#     if not skip_test:
+#         assert (
+#             bid_package == parsed_bid_package
+#         ), f"{test_data.name}: {test_data.description}"
 
 
 def output_results_repr(output_path: Path, results):

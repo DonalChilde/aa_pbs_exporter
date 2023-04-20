@@ -4,18 +4,16 @@
 Assumptions:
     - Structures are complete after parsing.
     - Each dutyperiod has a layover with an odl unless its the last dutyperiod
-    - The release tz and station is the same as the report tz and station.
-      - not sure how often this would come up. and it may not be a problem. 
+    - The release tz and station is the same as the next report tz and station.
+      - not sure how often this would come up. and it may not be a problem.
     - The start date of a bid is the same as the effective date in the page footer.
 """
-# from dataclasses import dataclass, field
+
+import json
+
 from pydantic import BaseModel
 
-from aa_pbs_exporter.snippets.string.indexed_string_protocol import (
-    IndexedStringProtocol,
-)
-
-TAB = "\t"
+# TAB = "\t"
 NL = "\n"
 
 
@@ -23,36 +21,39 @@ class IndexedString(BaseModel):
     idx: int
     txt: str
 
+    def __str__(self) -> str:
+        return f"{self.idx}: {self.txt!r}"
+
 
 class ParsedIndexedString(BaseModel):
     source: IndexedString
 
+    def __str__(self) -> str:
+        data = self.dict()
+        data.pop("source", None)
+        return f"{self.source}\n\t{self.__class__.__name__}: {json.dumps(data)}"
+
 
 class PageHeader1(ParsedIndexedString):
-    # source: IndexedString
     pass
 
 
 class PageHeader2(ParsedIndexedString):
-    # source: IndexedString
     from_date: str
     to_date: str
 
 
 class HeaderSeparator(ParsedIndexedString):
-    # source: IndexedString
     pass
 
 
 class BaseEquipment(ParsedIndexedString):
-    # source: IndexedString
     base: str
     satellite_base: str
     equipment: str
 
 
 class TripHeader(ParsedIndexedString):
-    # source: IndexedString
     number: str
     ops_count: str
     positions: str
@@ -62,13 +63,11 @@ class TripHeader(ParsedIndexedString):
 
 
 class DutyPeriodReport(ParsedIndexedString):
-    # source: IndexedString
     report: str
     calendar: str
 
 
 class Flight(ParsedIndexedString):
-    # source: IndexedString
     dutyperiod_idx: str
     dep_arr_day: str
     eq_code: str
@@ -87,7 +86,6 @@ class Flight(ParsedIndexedString):
 
 
 class DutyPeriodRelease(ParsedIndexedString):
-    # source: IndexedString
     release: str
     block: str
     synth: str
@@ -98,7 +96,6 @@ class DutyPeriodRelease(ParsedIndexedString):
 
 
 class Hotel(ParsedIndexedString):
-    # source: IndexedString
     layover_city: str
     name: str
     phone: str
@@ -107,7 +104,6 @@ class Hotel(ParsedIndexedString):
 
 
 class HotelAdditional(ParsedIndexedString):
-    # source: IndexedString
     layover_city: str
     name: str
     phone: str
@@ -115,21 +111,18 @@ class HotelAdditional(ParsedIndexedString):
 
 
 class Transportation(ParsedIndexedString):
-    # source: IndexedString
     name: str
     phone: str
     calendar: str
 
 
 class TransportationAdditional(ParsedIndexedString):
-    # source: IndexedString
     name: str
     phone: str
     calendar: str
 
 
 class TripFooter(ParsedIndexedString):
-    # source: IndexedString
     block: str
     synth: str
     total_pay: str
@@ -138,12 +131,10 @@ class TripFooter(ParsedIndexedString):
 
 
 class TripSeparator(ParsedIndexedString):
-    # source: IndexedString
     pass
 
 
 class PageFooter(ParsedIndexedString):
-    # source: IndexedString
     issued: str
     effective: str
     base: str
@@ -154,7 +145,6 @@ class PageFooter(ParsedIndexedString):
 
 
 class PackageDate(ParsedIndexedString):
-    # source: IndexedString
     month: str
     year: str
 
@@ -190,3 +180,7 @@ class Page(BaseModel):
 class BidPackage(BaseModel):
     source: str
     pages: list[Page]
+
+    def default_file_name(self)->str:
+        assert self.pages[0].page_footer is not None
+        return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw"

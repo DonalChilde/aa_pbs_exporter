@@ -68,7 +68,6 @@ class FactoredDuration:
         raise NotImplementedError
 
     def to_timedelta(self) -> timedelta:
-
         return timedelta(
             days=(self.years * 365) + self.days,
             hours=self.hours,
@@ -78,7 +77,6 @@ class FactoredDuration:
 
     @classmethod
     def from_timedelta(cls, delta) -> "FactoredDuration":
-
         is_negative = bool(delta.days < 0)
         abs_delta = abs(delta)
         years, rem = divmod(abs_delta, timedelta(days=365))

@@ -1,5 +1,5 @@
-# from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 
@@ -14,9 +14,34 @@ from pydantic import BaseModel
 #       - validate
 #       - convert
 
-# class LocalHbt(TypedDict):
-#     local: str
-#     hbt: str
+
+class Instant(BaseModel):
+    utc_date: datetime
+    tz_name: str
+
+    def local(self, tz_name: str | None = None) -> datetime:
+        if tz_name is None:
+            return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
+        return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
+
+    def __copy__(self) -> "Instant":
+        return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
+
+    def __add__(self, other:timedelta) -> "Instant":
+        if not isinstance(other, timedelta):
+            return NotImplemented
+        new_instant = Instant(
+            utc_date=self.utc_date + other, tz_name=self.tz_name
+        )
+        return new_instant
+
+    def __sub__(self, other:timedelta) -> "Instant":
+        if not isinstance(other, timedelta):
+            return NotImplemented
+        new_instant = Instant(
+            utc_date=self.utc_date - other, tz_name=self.tz_name
+        )
+        return new_instant
 
 
 class SourceReference(BaseModel):
@@ -45,17 +70,16 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
-    dutyperiod_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
     number: str
     deadhead: bool
     departure_station: str
-    departure_time: datetime
+    departure: Instant
     meal: str
     arrival_station: str
-    arrival_time: datetime
+    arrival: Instant
     block: timedelta
     synth: timedelta
     ground: timedelta
@@ -64,9 +88,9 @@ class Flight(BaseModel):
 
 class DutyPeriod(BaseModel):
     idx: int
-    report: datetime
+    report: Instant
     report_station: str
-    release: datetime
+    release: Instant
     release_station: str
     block: timedelta
     synth: timedelta
@@ -80,18 +104,15 @@ class DutyPeriod(BaseModel):
 class Trip(BaseModel):
     # uuid: UUID
     number: str
-    # base: str
-    # satelite_base: str
-    positions: str
+    start: Instant
+    end: Instant
+    positions: list[str]
     operations: str
-    # division: str
-    # equipment: str
     special_qualifications: bool
     block: timedelta
     synth: timedelta
     total_pay: timedelta
     tafb: timedelta
-    # source_ref: SourceReference | None
     dutyperiods: list[DutyPeriod]
 
 
@@ -100,13 +121,16 @@ class Page(BaseModel):
     satellite_base: str
     equipment: str
     division: str
-    issued: datetime
-    effective: datetime
-    start: datetime
-    end: datetime
+    issued: date
+    effective: date
+    start: date
+    end: date
     trips: list[Trip]
 
 
 class BidPackage(BaseModel):
     source: str
     pages: list[Page]
+
+    def default_file_name(self)->str:
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded"
