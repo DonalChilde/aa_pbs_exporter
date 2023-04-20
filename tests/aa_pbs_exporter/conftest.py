@@ -186,12 +186,14 @@ def load_resource_text_file(resource_package: str, resource_name: str) -> str:
         )
         raise ex
 
-def resource_line_reader(resource_package:str,resource_name:str)->Iterable[str]:
+
+def resource_line_reader(resource_package: str, resource_name: str) -> Iterable[str]:
     # TODO Move to snippets
     with resources.path(resource_package, resource_name) as data_path:
-        with open(data_path,mode="rt",encoding="utf-8") as txt_file:
+        with open(data_path, mode="rt", encoding="utf-8") as txt_file:
             for txt in txt_file:
                 yield txt
+
 
 def load_file_resource(
     resource_path: str,

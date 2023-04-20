@@ -105,6 +105,3 @@ def debug_parse_raw_bidpackage(
             debug_file.write(str(error))
             raise error
         return result
-
-
-

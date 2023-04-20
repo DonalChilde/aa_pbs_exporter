@@ -3,9 +3,7 @@ from pathlib import Path
 
 from tests.aa_pbs_exporter.resources.helpers import ParseTestData
 
-from aa_pbs_exporter.pbs_2022_01.helpers import (
-    debug_parse_raw_bidpackage,
-)
+from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models.raw import (
     BidPackage,
     DutyPeriod,

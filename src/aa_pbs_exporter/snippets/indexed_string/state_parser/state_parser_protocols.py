@@ -17,8 +17,12 @@ parsers based on the results of the previous successfully parsed string.
 """
 from typing import Any, Protocol, Sequence
 
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import IndexedStringProtocol
-from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import ParseException
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
+    ParseException,
+)
 
 
 class ParsedIndexedStringProtocol(Protocol):

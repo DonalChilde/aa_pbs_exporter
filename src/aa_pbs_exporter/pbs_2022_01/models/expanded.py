@@ -27,20 +27,16 @@ class Instant(BaseModel):
     def __copy__(self) -> "Instant":
         return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
 
-    def __add__(self, other:timedelta) -> "Instant":
+    def __add__(self, other: timedelta) -> "Instant":
         if not isinstance(other, timedelta):
             return NotImplemented
-        new_instant = Instant(
-            utc_date=self.utc_date + other, tz_name=self.tz_name
-        )
+        new_instant = Instant(utc_date=self.utc_date + other, tz_name=self.tz_name)
         return new_instant
 
-    def __sub__(self, other:timedelta) -> "Instant":
+    def __sub__(self, other: timedelta) -> "Instant":
         if not isinstance(other, timedelta):
             return NotImplemented
-        new_instant = Instant(
-            utc_date=self.utc_date - other, tz_name=self.tz_name
-        )
+        new_instant = Instant(utc_date=self.utc_date - other, tz_name=self.tz_name)
         return new_instant
 
 
@@ -132,5 +128,7 @@ class BidPackage(BaseModel):
     source: str
     pages: list[Page]
 
-    def default_file_name(self)->str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded"
+    def default_file_name(self) -> str:
+        return (
+            f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded"
+        )

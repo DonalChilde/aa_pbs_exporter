@@ -28,7 +28,8 @@ def by_iata(iata: str, effective: datetime | None = None) -> Airport:
     )
     return airport
 
-def tz_name_from_iata(iata:str)->str:
+
+def tz_name_from_iata(iata: str) -> str:
     raw_airport = airports_iata.get(iata, None)
     if raw_airport is None:
         raise ValueError(f"iata code {iata} not found in database.")

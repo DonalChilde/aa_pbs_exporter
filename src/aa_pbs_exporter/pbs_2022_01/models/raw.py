@@ -181,6 +181,6 @@ class BidPackage(BaseModel):
     source: str
     pages: list[Page]
 
-    def default_file_name(self)->str:
+    def default_file_name(self) -> str:
         assert self.pages[0].page_footer is not None
         return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw"

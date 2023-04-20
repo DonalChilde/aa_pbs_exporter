@@ -1,7 +1,8 @@
 from datetime import datetime, time, timedelta, timezone
 from typing import Sequence
-from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from zoneinfo import ZoneInfo
+
+from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 
 
 class Translator:

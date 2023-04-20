@@ -1,6 +1,6 @@
-from datetime import date, datetime,  timedelta
-from typing import Callable
 import time
+from datetime import date, datetime, timedelta
+from typing import Callable
 
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
@@ -53,7 +53,7 @@ class Translator:
             end=end,
             trips=trips,
         )
-        for raw_trip in  raw_page.trips:
+        for raw_trip in raw_page.trips:
             if "prior" in raw_trip.header.source.txt:
                 # skip prior month trips
                 continue
@@ -181,14 +181,14 @@ class Translator:
     ) -> compact.Hotel | None:
         if raw_hotel is None:
             return None
-        return compact.Hotel(name=raw_hotel.name,phone=raw_hotel.phone)
+        return compact.Hotel(name=raw_hotel.name, phone=raw_hotel.phone)
 
     def translate_transportation(
         self, raw_trans: raw.Transportation | raw.TransportationAdditional | None
     ) -> compact.Transportation | None:
         if raw_trans is None:
             return None
-        return compact.Transportation(name=raw_trans.name,phone=raw_trans.phone)
+        return compact.Transportation(name=raw_trans.name, phone=raw_trans.phone)
 
     def split_times(self, lclhbt: str, iata: str) -> compact.LclHbt:
         lcl_str, hbt_str = lclhbt.split("/")
@@ -199,12 +199,11 @@ class Translator:
 
 
 def complete_future_date(ref_date: date, future: str, strf: str) -> date:
-    struct_t = time.strptime(future,strf)
-    future_date = date(ref_date.year,struct_t.tm_mon,struct_t.tm_mday)
-    if ref_date>future_date:
-        return date(future_date.year+1,future_date.month,future_date.day)
+    struct_t = time.strptime(future, strf)
+    future_date = date(ref_date.year, struct_t.tm_mon, struct_t.tm_mday)
+    if ref_date > future_date:
+        return date(future_date.year + 1, future_date.month, future_date.day)
     return future_date
-
 
 
 def collect_calendar_entries(trip: raw.Trip) -> list[str]:
