@@ -5,14 +5,14 @@ import time
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
-    pattern_HHHMMSSFS,
+    pattern_HHHMM,
 )
 from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
 
-DURATION_PATTERN = pattern_HHHMMSSFS(hm_sep=".")
+DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 TIME = "%H%M"
 DATE = "%d%b%Y"
 MONTH_DAY = "%m/%d"
@@ -199,7 +199,7 @@ class Translator:
 
 
 def complete_future_date(ref_date: date, future: str, strf: str) -> date:
-    struct_t = time.strptime(future,format=strf)
+    struct_t = time.strptime(future,strf)
     future_date = date(ref_date.year,struct_t.tm_mon,struct_t.tm_mday)
     if ref_date>future_date:
         return date(future_date.year+1,future_date.month,future_date.day)
