@@ -10,6 +10,9 @@ class AssembleRawBidPackage:
         self.source = source
         self.bid_package = raw.BidPackage(source=source, pages=[])
 
+    def initialize(self, ctx: dict | None = None):
+        pass
+
     def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
         _ = kwargs
         match_value = parse_result.parsed_data.__class__.__qualname__
@@ -88,3 +91,6 @@ class AssembleRawBidPackage:
                 assert isinstance(parse_result.parsed_data, raw.PageFooter)
                 # could validate page here
                 self.bid_package.pages[-1].page_footer = parse_result.parsed_data
+
+    def finalize(self, ctx: dict | None = None):
+        pass

@@ -1,4 +1,3 @@
-from io import StringIO
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
@@ -58,10 +57,12 @@ def parse_pbs_data(
     result_handler: ResultHandlerProtocol,
 ):
     indexed_strings = index_pbs_data(strings)
+    result_handler.initialize(manager.ctx)
     for parse_result in parse_indexed_strings(
         indexed_strings=indexed_strings, manager=manager
     ):
         result_handler.handle_result(parse_result)
+    result_handler.finalize(manager.ctx)
 
 
 def parse_raw_bidpackage(

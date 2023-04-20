@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T08:06:21-07:00            #
-# Last Modified: 2023-04-20T21:42:18.246274+00:00  #
+# Last Modified: 2023-04-20T21:48:26.522430+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
@@ -13,7 +13,7 @@
 from io import TextIOWrapper
 from typing import Sequence
 
-from snippets.indexed_string.state_parser.state_parser_protocols import (
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
     ResultHandlerProtocol,
 )
@@ -38,10 +38,12 @@ class MultipleResultHandler:
         for handler in self.handlers:
             handler.initialize(ctx)
 
-    def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
+    def handle_result(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ):
         """Passes the parse result to multiple handlers in sequence."""
         for handler in self.handlers:
-            handler.handle_result(parse_result=parse_result, **kwargs)
+            handler.handle_result(parse_result=parse_result, ctx=ctx, **kwargs)
 
     def finalize(self, ctx: dict | None = None):
         """Called after the last chunk of data is parsed."""
@@ -69,9 +71,11 @@ class ParseResultSaveToTextFileHandler:
         """Called before the first parse attempt of a parse job."""
         pass
 
-    def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
+    def handle_result(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ):
         """Save the parse result to a text file as str(parse_result)."""
-        _ = kwargs
+        _ = kwargs, ctx
         if self.as_repr:
             self.writer.write(f"{parse_result!r}")
         else:
@@ -104,9 +108,11 @@ class ParsedDataSaveToTextFileHandler:
         """Called before the first parse attempt of a parse job."""
         pass
 
-    def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
+    def handle_result(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ):
         """Save the parse_result.parsed_data to a text file."""
-        _ = kwargs
+        _ = kwargs, ctx
         if self.as_repr:
             self.writer.write(f"{parse_result.parsed_data!r}")
         else:
