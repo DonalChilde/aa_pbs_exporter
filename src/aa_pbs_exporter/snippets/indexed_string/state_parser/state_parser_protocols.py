@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-05T05:59:13-07:00            #
-# Last Modified: 2023-04-16T16:14:52.915159+00:00  #
+# Last Modified: 2023-04-20T21:42:18.247003+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -17,12 +17,8 @@ parsers based on the results of the previous successfully parsed string.
 """
 from typing import Any, Protocol, Sequence
 
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
-    IndexedStringProtocol,
-)
-from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
-    ParseException,
-)
+from snippets.indexed_string.indexed_string_protocol import IndexedStringProtocol
+from snippets.indexed_string.state_parser.parse_exception import ParseException
 
 
 class ParsedIndexedStringProtocol(Protocol):
@@ -80,13 +76,23 @@ class IndexedStringParserProtocol(Protocol):
 class ResultHandlerProtocol(Protocol):
     """Do something with a parse result."""
 
-    def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
+    def initialize(self, ctx: dict | None = None):
+        """Called before the first parse attempt of a parse job."""
+        raise NotImplementedError
+
+    def handle_result(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ):
         """
         Handle the result of a successful parse.
 
         Args:
             parse_result: The result of a successful parse.
         """
+        raise NotImplementedError
+
+    def finalize(self, ctx: dict | None = None):
+        """Called after the last chunk of data is parsed."""
         raise NotImplementedError
 
 
