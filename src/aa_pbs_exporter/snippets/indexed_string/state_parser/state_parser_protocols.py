@@ -20,9 +20,6 @@ from typing import Any, Protocol, Sequence
 from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
     IndexedStringProtocol,
 )
-from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
-    ParseException,
-)
 
 
 class ParsedIndexedStringProtocol(Protocol):
@@ -75,7 +72,7 @@ class IndexedStringParserProtocol(Protocol):
         Returns:
             The `ParseResult` of a successful parse.
         """
-        raise ParseException
+        raise NotImplementedError
 
 
 class ResultHandlerProtocol(Protocol):
