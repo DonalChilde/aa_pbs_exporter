@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-05T05:59:13-07:00            #
-# Last Modified: 2023-04-20T21:42:18.247003+00:00  #
+# Last Modified: 2023-04-22T15:59:58.364514+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -60,7 +60,7 @@ class IndexedStringParserProtocol(Protocol):
         """
         A parse function that matches an IndexedString.
 
-        Raise ParseException on a parse error. Pass any additional information
+        Raise ParseFail on a parse error. Pass any additional information
         required in the ctx. A successful parse also determines the new state of the
         parse job.
 
@@ -69,7 +69,8 @@ class IndexedStringParserProtocol(Protocol):
             ctx: A dictionary that holds any additional information needed for parsing.
 
         Raises:
-            ParseException: Raises a ParseException for a failed parse.
+            ParseFail: Raises a ParseFail exception for a failed parse.
+            ParseAllFail: Raised to kill a parse job from inside an indiviual parser.
 
         Returns:
             The `ParseResult` of a successful parse.
