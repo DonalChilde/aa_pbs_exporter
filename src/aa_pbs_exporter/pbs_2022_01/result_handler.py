@@ -13,8 +13,8 @@ class AssembleRawBidPackage:
     def initialize(self, ctx: dict | None = None):
         pass
 
-    def handle_result(self, parse_result: ParseResultProtocol, **kwargs):
-        _ = kwargs
+    def handle_result(self, parse_result: ParseResultProtocol,ctx:dict|None=None, **kwargs):
+        _ = kwargs,ctx
         match_value = parse_result.parsed_data.__class__.__qualname__
         match match_value:
             case "PageHeader1":
@@ -94,3 +94,4 @@ class AssembleRawBidPackage:
 
     def finalize(self, ctx: dict | None = None):
         pass
+        # TODO Ensure final validation pass here.
