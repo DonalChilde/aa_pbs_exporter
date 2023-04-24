@@ -1,17 +1,21 @@
+from uuid import uuid5
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
+    ResultHandlerProtocol,
+)
+from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
+    ParseResultHandler,
+    ParseResultToFile,
 )
 
 
-class AssembleRawBidPackage:
+class AssembleRawBidPackage(ParseResultHandler):
     def __init__(self, source: str) -> None:
         super().__init__()
         self.source = source
-        self.bid_package = raw.BidPackage(source=source, pages=[])
-
-    def initialize(self, ctx: dict | None = None):
-        pass
+        uuid = uuid5(raw.BIDPACKAGE_DNS, source)
+        self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
 
     def handle_result(
         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
@@ -21,8 +25,9 @@ class AssembleRawBidPackage:
         match match_value:
             case "PageHeader1":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader1)
+                data = parse_result.parsed_data
                 self.bid_package.pages.append(
-                    raw.Page(page_header_1=parse_result.parsed_data, trips=[])
+                    raw.Page(uuid=data.uuid5(), page_header_1=data, trips=[])
                 )
             case "PageHeader2":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader2)
@@ -34,13 +39,15 @@ class AssembleRawBidPackage:
                 self.bid_package.pages[-1].base_equipment = parse_result.parsed_data
             case "TripHeader":
                 assert isinstance(parse_result.parsed_data, raw.TripHeader)
+                data = parse_result.parsed_data
                 self.bid_package.pages[-1].trips.append(
-                    raw.Trip(header=parse_result.parsed_data, dutyperiods=[])
+                    raw.Trip(uuid=data.uuid5(), header=data, dutyperiods=[])
                 )
             case "DutyPeriodReport":
                 assert isinstance(parse_result.parsed_data, raw.DutyPeriodReport)
+                data = parse_result.parsed_data
                 self.bid_package.pages[-1].trips[-1].dutyperiods.append(
-                    raw.DutyPeriod(report=parse_result.parsed_data, flights=[])
+                    raw.DutyPeriod(uuid=data.uuid5(), report=data, flights=[])
                 )
             case "Flight":
                 assert isinstance(parse_result.parsed_data, raw.Flight)
@@ -54,7 +61,8 @@ class AssembleRawBidPackage:
                 ].release = parse_result.parsed_data
             case "Hotel":
                 assert isinstance(parse_result.parsed_data, raw.Hotel)
-                layover = raw.Layover(hotel=parse_result.parsed_data)
+                data = parse_result.parsed_data
+                layover = raw.Layover(uuid=data.uuid5(), hotel=data)
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
             case "HotelAdditional":
                 assert isinstance(parse_result.parsed_data, raw.HotelAdditional)
@@ -95,5 +103,14 @@ class AssembleRawBidPackage:
                 self.bid_package.pages[-1].page_footer = parse_result.parsed_data
 
     def finalize(self, ctx: dict | None = None):
-        pass
-        # TODO Ensure final validation pass here.
+        return super().finalize(ctx)
+        # TODO ensure final validation here?
+
+
+class DebugToFile(ParseResultToFile):
+    # TODO print the parse result to file, include the uuid
+
+    def result_to_txt(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ) -> str:
+        return super().result_to_txt(parse_result, ctx, **kwargs)

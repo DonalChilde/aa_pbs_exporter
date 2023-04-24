@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T08:06:21-07:00            #
-# Last Modified: 2023-04-20T21:48:26.522430+00:00  #
+# Last Modified: 2023-04-23T17:57:50.057400+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
@@ -18,10 +18,27 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
     ResultHandlerProtocol,
 )
 
+
 # TODO make example function that saves all odd numbered input lines to a file.
+class ParseResultHandler(ResultHandlerProtocol):
+    def __init__(self) -> None:
+        pass
+
+    def initialize(self, ctx: dict | None = None):
+        """Called before the first parse attempt of a parse job."""
+        _ = ctx
+
+    def handle_result(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ):
+        raise NotImplementedError
+
+    def finalize(self, ctx: dict | None = None):
+        """Called after the last chunk of data is parsed."""
+        _ = ctx
 
 
-class MultipleResultHandler:
+class MultipleResultHandler(ParseResultHandler):
     def __init__(self, result_handlers: Sequence[ResultHandlerProtocol]) -> None:
         """
         Contain multiple result handlers.
@@ -51,75 +68,126 @@ class MultipleResultHandler:
             handler.finalize(ctx)
 
 
-class ParseResultSaveToTextFileHandler:
-    def __init__(
-        self, writer: TextIOWrapper, record_separator: str = "", as_repr: bool = False
-    ) -> None:
+class ParseResultToFile(ParseResultHandler):
+    def __init__(self, writer: TextIOWrapper, record_separator: str = "") -> None:
         """
-        Save the parse result to an opened text file.
+        Save the parse_result to an opened text file.
 
         Args:
             writer: An opened text file.
             record_separator: A string written between records, eg. `\n`. Defaults to to ''.
-            as_repr: Output as repr(value)
         """
         self.writer = writer
         self.record_separator = record_separator
-        self.as_repr = as_repr
-
-    def initialize(self, ctx: dict | None = None):
-        """Called before the first parse attempt of a parse job."""
-        pass
 
     def handle_result(
         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
     ):
-        """Save the parse result to a text file as str(parse_result)."""
-        _ = kwargs, ctx
-        if self.as_repr:
-            self.writer.write(f"{parse_result!r}")
-        else:
-            self.writer.write(f"{parse_result}")
+        self.writer.write(
+            self.result_to_txt(parse_result=parse_result, ctx=ctx, **kwargs)
+        )
         if self.record_separator:
             self.writer.write(self.record_separator)
 
-    def finalize(self, ctx: dict | None = None):
-        """Called after the last chunk of data is parsed."""
-        pass
-
-
-class ParsedDataSaveToTextFileHandler:
-    def __init__(
-        self, writer: TextIOWrapper, record_separator: str = "", as_repr: bool = False
-    ) -> None:
-        """
-        Save the parse_result.parsed_data to an opened text file.
-
-        Args:
-            writer: An opened text file.
-            record_separator: A string written between records, eg. `\n`. Defaults to to ''.
-            as_repr: Output as repr(value)
-        """
-        self.writer = writer
-        self.record_separator = record_separator
-        self.as_repr = as_repr
-
-    def initialize(self, ctx: dict | None = None):
-        """Called before the first parse attempt of a parse job."""
-        pass
-
-    def handle_result(
+    def result_to_txt(
         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
-    ):
-        """Save the parse_result.parsed_data to a text file."""
+    ) -> str:
+        """Return the string representation of a ParseResult."""
         _ = kwargs, ctx
-        if self.as_repr:
-            self.writer.write(f"{parse_result.parsed_data!r}")
-        else:
-            self.writer.write(f"{parse_result.parsed_data}")
-        if self.record_separator:
-            self.writer.write(self.record_separator)
+        return f"{parse_result!s}"
 
-    def finalize(self, ctx: dict | None = None):
-        """Called after the last chunk of data is parsed."""
-        pass
+
+class ParseResultReprToFile(ParseResultToFile):
+    def result_to_txt(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ) -> str:
+        _ = kwargs, ctx
+        return f"{parse_result!r}"
+
+
+class ParsedDataToFile(ParseResultToFile):
+    def result_to_txt(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ) -> str:
+        return f"{parse_result.parsed_data!s}"
+
+
+class ParsedDataReprToFile(ParseResultToFile):
+    def result_to_txt(
+        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+    ) -> str:
+        return f"{parse_result.parsed_data!r}"
+
+
+# class ParseResultSaveToTextFileHandler:
+#     def __init__(
+#         self, writer: TextIOWrapper, record_separator: str = "", as_repr: bool = False
+#     ) -> None:
+#         """
+#         Save the parse result to an opened text file.
+
+#         Args:
+#             writer: An opened text file.
+#             record_separator: A string written between records, eg. `\n`. Defaults to to ''.
+#             as_repr: Output as repr(value)
+#         """
+#         self.writer = writer
+#         self.record_separator = record_separator
+#         self.as_repr = as_repr
+
+#     def initialize(self, ctx: dict | None = None):
+#         """Called before the first parse attempt of a parse job."""
+#         pass
+
+#     def handle_result(
+#         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+#     ):
+#         """Save the parse result to a text file as str(parse_result)."""
+#         _ = kwargs, ctx
+#         if self.as_repr:
+#             self.writer.write(f"{parse_result!r}")
+#         else:
+#             self.writer.write(f"{parse_result}")
+#         if self.record_separator:
+#             self.writer.write(self.record_separator)
+
+#     def finalize(self, ctx: dict | None = None):
+#         """Called after the last chunk of data is parsed."""
+#         pass
+
+
+# class ParsedDataSaveToTextFileHandler:
+#     def __init__(
+#         self, writer: TextIOWrapper, record_separator: str = "", as_repr: bool = False
+#     ) -> None:
+#         """
+#         Save the parse_result.parsed_data to an opened text file.
+
+#         Args:
+#             writer: An opened text file.
+#             record_separator: A string written between records, eg. `\n`. Defaults to to ''.
+#             as_repr: Output as repr(value)
+#         """
+#         self.writer = writer
+#         self.record_separator = record_separator
+#         self.as_repr = as_repr
+
+#     def initialize(self, ctx: dict | None = None):
+#         """Called before the first parse attempt of a parse job."""
+#         pass
+
+#     def handle_result(
+#         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+#     ):
+#         """Save the parse_result.parsed_data to a text file."""
+#         _ = kwargs, ctx
+#         if self.as_repr:
+#             self.writer.write(f"{parse_result.parsed_data!r}")
+#         else:
+#             self.writer.write(f"{parse_result.parsed_data}")
+#         if self.record_separator:
+#             self.writer.write(self.record_separator)
+
+#     def finalize(self, ctx: dict | None = None):
+#         """Called after the last chunk of data is parsed."""
+#         pass

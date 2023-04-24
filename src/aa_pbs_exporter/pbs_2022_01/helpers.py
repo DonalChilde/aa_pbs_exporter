@@ -1,8 +1,12 @@
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
+import traceback
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
+from aa_pbs_exporter.pbs_2022_01.result_handler import (
+    AssembleRawBidPackage,
+    DebugToFile,
+)
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.indexed_string.filters import (
     MultipleTests,
@@ -20,7 +24,6 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_indexed_strings 
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     MultipleResultHandler,
-    ParsedDataSaveToTextFileHandler,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseManagerProtocol,
@@ -90,7 +93,7 @@ def debug_parse_raw_bidpackage(
     validate_file_out(debug_file_path)
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
         debug_file.write(f"source: {source}\n")
-        debug_handler = ParsedDataSaveToTextFileHandler(debug_file, "\n")
+        debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
         handlers: list[ResultHandlerProtocol] = [debug_handler]
         if additional_handlers is not None:
             handlers.extend(additional_handlers)
@@ -103,5 +106,6 @@ def debug_parse_raw_bidpackage(
             )
         except Exception as error:
             debug_file.write(str(error))
+            traceback.print_exc(file=debug_file)
             raise error
         return result
