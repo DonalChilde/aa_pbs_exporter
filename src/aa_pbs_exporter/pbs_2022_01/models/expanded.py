@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+from uuid import UUID, uuid5
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
@@ -39,24 +40,33 @@ class Instant(BaseModel):
         new_instant = Instant(utc_date=self.utc_date - other, tz_name=self.tz_name)
         return new_instant
 
+    def uuid5(self, uuid: UUID) -> UUID:
+        return uuid5(uuid, self.utc_date.isoformat())
 
-class SourceReference(BaseModel):
-    source: str
-    from_line: int
-    to_line: int
+
+# class SourceReference(BaseModel):
+#     source: str
+#     from_line: int
+#     to_line: int
 
 
 class Transportation(BaseModel):
+    uuid: UUID
+    # compact_uuid:UUID
     name: str
     phone: str
 
 
 class Hotel(BaseModel):
+    uuid: UUID
+    # compact_uuid:UUID
     name: str
     phone: str | None
 
 
 class Layover(BaseModel):
+    uuid: UUID
+    # compact_uuid:UUID
     odl: timedelta
     city: str
     hotel: Hotel | None
@@ -66,6 +76,8 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
+    uuid: UUID
+    compact_uuid: UUID
     idx: int
     dep_arr_day: str
     eq_code: str
@@ -83,6 +95,8 @@ class Flight(BaseModel):
 
 
 class DutyPeriod(BaseModel):
+    uuid: UUID
+    compact_uuid: UUID
     idx: int
     report: Instant
     report_station: str
@@ -98,7 +112,8 @@ class DutyPeriod(BaseModel):
 
 
 class Trip(BaseModel):
-    # uuid: UUID
+    uuid: UUID
+    compact_uuid: UUID
     number: str
     start: Instant
     end: Instant
@@ -113,6 +128,8 @@ class Trip(BaseModel):
 
 
 class Page(BaseModel):
+    uuid: UUID
+    compact_uuid: UUID
     base: str
     satellite_base: str
     equipment: str
@@ -125,6 +142,7 @@ class Page(BaseModel):
 
 
 class BidPackage(BaseModel):
+    uuid: UUID
     source: str
     pages: list[Page]
 
