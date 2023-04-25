@@ -25,7 +25,7 @@ class Translator:
 
     def translate(self, raw_bid_package: raw.BidPackage) -> compact.BidPackage:
         self.compact_bid_package = compact.BidPackage(
-            source=raw_bid_package.source, pages=[]
+            uuid=raw_bid_package.uuid, source=raw_bid_package.source, pages=[]
         )
         for raw_page in raw_bid_package.pages:
             self.compact_bid_package.pages.append(self.translate_page(raw_page))
@@ -43,6 +43,7 @@ class Translator:
         )
         trips = []
         compact_page = compact.Page(
+            uuid=raw_page.uuid,
             base=raw_page.page_footer.base,
             satellite_base=raw_page.page_footer.satelite_base,
             equipment=raw_page.page_footer.equipment,
@@ -69,6 +70,7 @@ class Translator:
         start_dates = []
         assert raw_trip.footer is not None
         compact_trip = compact.Trip(
+            uuid=raw_trip.uuid,
             number=raw_trip.header.number,
             positions=raw_trip.header.positions.split(),
             operations=raw_trip.header.operations,
@@ -107,6 +109,7 @@ class Translator:
         release = self.split_times(raw_dutyperiod.release.release, release_station)
         flights = []
         compact_dutyperiod = compact.DutyPeriod(
+            uuid=raw_dutyperiod.uuid,
             idx=idx,
             report=report,
             report_station=report_station,
@@ -142,6 +145,7 @@ class Translator:
         departure = self.split_times(raw_flight.departure_time, departure_station)
         arrival = self.split_times(raw_flight.arrival_time, arrival_station)
         compact_flight = compact.Flight(
+            uuid=raw_flight.uuid5(),
             idx=idx,
             dep_arr_day=raw_flight.dep_arr_day,
             eq_code=raw_flight.eq_code,
@@ -165,6 +169,7 @@ class Translator:
         if raw_layover is None:
             return None
         compact_layover = compact.Layover(
+            uuid=raw_layover.uuid,
             odl=parse_duration(DURATION_PATTERN, raw_layover.hotel.rest).to_timedelta(),
             city=raw_layover.hotel.layover_city,
             hotel=self.translate_hotel(raw_layover.hotel),
@@ -181,14 +186,18 @@ class Translator:
     ) -> compact.Hotel | None:
         if raw_hotel is None:
             return None
-        return compact.Hotel(name=raw_hotel.name, phone=raw_hotel.phone)
+        return compact.Hotel(
+            uuid=raw_hotel.uuid5(), name=raw_hotel.name, phone=raw_hotel.phone
+        )
 
     def translate_transportation(
         self, raw_trans: raw.Transportation | raw.TransportationAdditional | None
     ) -> compact.Transportation | None:
         if raw_trans is None:
             return None
-        return compact.Transportation(name=raw_trans.name, phone=raw_trans.phone)
+        return compact.Transportation(
+            uuid=raw_trans.uuid5(), name=raw_trans.name, phone=raw_trans.phone
+        )
 
     def split_times(self, lclhbt: str, iata: str) -> compact.LclHbt:
         lcl_str, hbt_str = lclhbt.split("/")

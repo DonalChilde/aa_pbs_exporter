@@ -1,13 +1,15 @@
 from uuid import uuid5
+
+from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
-    ParseResultProtocol,
-)
+from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     ParseResultHandler,
     ParseResultToFile,
 )
-from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
+from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
+    ParseResultProtocol,
+)
 
 
 class AssembleRawBidPackage(ParseResultHandler):
@@ -26,9 +28,9 @@ class AssembleRawBidPackage(ParseResultHandler):
             case "PageHeader1":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader1)
                 data = parse_result.parsed_data
-                self.bid_package.pages.append(
-                    raw.Page(uuid=data.uuid5(), page_header_1=data, trips=[])
-                )
+                page = raw.Page(uuid=PARSER_DNS, page_header_1=data, trips=[])
+                page.uuid = page.uuid5()
+                self.bid_package.pages.append(page)
             case "PageHeader2":
                 assert isinstance(parse_result.parsed_data, raw.PageHeader2)
                 self.bid_package.pages[-1].page_header_2 = parse_result.parsed_data
@@ -40,15 +42,15 @@ class AssembleRawBidPackage(ParseResultHandler):
             case "TripHeader":
                 assert isinstance(parse_result.parsed_data, raw.TripHeader)
                 data = parse_result.parsed_data
-                self.bid_package.pages[-1].trips.append(
-                    raw.Trip(uuid=data.uuid5(), header=data, dutyperiods=[])
-                )
+                trip = raw.Trip(uuid=PARSER_DNS, header=data, dutyperiods=[])
+                trip.uuid = trip.uuid5()
+                self.bid_package.pages[-1].trips.append(trip)
             case "DutyPeriodReport":
                 assert isinstance(parse_result.parsed_data, raw.DutyPeriodReport)
                 data = parse_result.parsed_data
-                self.bid_package.pages[-1].trips[-1].dutyperiods.append(
-                    raw.DutyPeriod(uuid=data.uuid5(), report=data, flights=[])
-                )
+                dutyperiod = raw.DutyPeriod(uuid=PARSER_DNS, report=data, flights=[])
+                dutyperiod.uuid = dutyperiod.uuid5()
+                self.bid_package.pages[-1].trips[-1].dutyperiods.append(dutyperiod)
             case "Flight":
                 assert isinstance(parse_result.parsed_data, raw.Flight)
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].flights.append(
@@ -62,34 +64,25 @@ class AssembleRawBidPackage(ParseResultHandler):
             case "Hotel":
                 assert isinstance(parse_result.parsed_data, raw.Hotel)
                 data = parse_result.parsed_data
-                layover = raw.Layover(uuid=data.uuid5(), hotel=data)
+                layover = raw.Layover(uuid=PARSER_DNS, hotel=data)
+                layover.uuid = layover.uuid5()
                 self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
             case "HotelAdditional":
                 assert isinstance(parse_result.parsed_data, raw.HotelAdditional)
-                assert (
-                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
-                    is not None
-                )
                 layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
-
+                assert layover is not None
                 layover.hotel_additional = parse_result.parsed_data
             case "Transportation":
                 assert isinstance(parse_result.parsed_data, raw.Transportation)
-                assert (
-                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
-                    is not None
-                )
                 layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                assert layover is not None
                 layover.transportation = parse_result.parsed_data
             case "TransportationAdditional":
                 assert isinstance(
                     parse_result.parsed_data, raw.TransportationAdditional
                 )
-                assert (
-                    self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
-                    is not None
-                )
                 layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
+                assert layover is not None
                 layover.transportation_additional = parse_result.parsed_data
             case "TripFooter":
                 assert isinstance(parse_result.parsed_data, raw.TripFooter)
@@ -108,7 +101,6 @@ class AssembleRawBidPackage(ParseResultHandler):
 
 
 class DebugToFile(ParseResultToFile):
-
     def result_to_txt(
         self, parse_result: ParseResult, ctx: dict | None = None, **kwargs
     ) -> str:
