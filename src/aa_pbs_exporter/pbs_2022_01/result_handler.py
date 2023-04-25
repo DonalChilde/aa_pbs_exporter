@@ -2,12 +2,12 @@ from uuid import uuid5
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
-    ResultHandlerProtocol,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     ParseResultHandler,
     ParseResultToFile,
 )
+from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
 
 
 class AssembleRawBidPackage(ParseResultHandler):
@@ -108,9 +108,8 @@ class AssembleRawBidPackage(ParseResultHandler):
 
 
 class DebugToFile(ParseResultToFile):
-    # TODO print the parse result to file, include the uuid
 
     def result_to_txt(
-        self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
+        self, parse_result: ParseResult, ctx: dict | None = None, **kwargs
     ) -> str:
-        return super().result_to_txt(parse_result, ctx, **kwargs)
+        return f"{parse_result}"
