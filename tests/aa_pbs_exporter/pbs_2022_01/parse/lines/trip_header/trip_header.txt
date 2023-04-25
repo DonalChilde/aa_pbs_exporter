@@ -1,0 +1,3 @@
+SEQ 25064   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU
+SEQ 6292    1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU
+SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU

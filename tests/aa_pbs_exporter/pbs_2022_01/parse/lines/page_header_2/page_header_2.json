@@ -1,0 +1,13 @@
+[
+  {
+    "current_state": "page_header_2",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02\u221206/01"
+      },
+      "from_date": "05/02",
+      "to_date": "06/01"
+    }
+  }
+]

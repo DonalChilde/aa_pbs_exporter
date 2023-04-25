@@ -1,0 +1,13 @@
+[
+  {
+    "current_state": "dutyperiod_report",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "                RPT 1237/1237                                                           2 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+      },
+      "report": "1237/1237",
+      "calendar": "2 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+    }
+  }
+]

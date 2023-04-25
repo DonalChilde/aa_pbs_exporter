@@ -43,6 +43,10 @@ class IndexedString(BaseModel):
         return uuid5(uuid, f"{self.idx}: {self.txt!r}")
 
 
+def indexed_string_factory(idx: int, txt: str) -> IndexedString:
+    return IndexedString(idx=idx, txt=txt)
+
+
 class ParsedIndexedString(BaseModel):
     source: IndexedString
 

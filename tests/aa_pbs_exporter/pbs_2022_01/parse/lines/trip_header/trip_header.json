@@ -1,0 +1,47 @@
+[
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "SEQ 25064   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
+      },
+      "number": "25064",
+      "ops_count": "1",
+      "positions": "CA FO",
+      "operations": "",
+      "special_qualification": "",
+      "calendar": ""
+    }
+  },
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 1,
+        "txt": "SEQ 6292    1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU\n"
+      },
+      "number": "6292",
+      "ops_count": "1",
+      "positions": "CA FO",
+      "operations": "SPANISH",
+      "special_qualification": "",
+      "calendar": ""
+    }
+  },
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 2,
+        "txt": "SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU"
+      },
+      "number": "16945",
+      "ops_count": "1",
+      "positions": "CA FO",
+      "operations": "",
+      "special_qualification": "SPECIAL QUALIFICATION",
+      "calendar": ""
+    }
+  }
+]
