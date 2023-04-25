@@ -1,8 +1,10 @@
 from datetime import datetime, time, timedelta, timezone
 from typing import Sequence
+from uuid import uuid5
 from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
+from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 
 
 class Translator:
@@ -10,8 +12,9 @@ class Translator:
         pass
 
     def translate(self, compact_bid_package: compact.BidPackage) -> expanded.BidPackage:
+
         expanded_bid_package = expanded.BidPackage(
-            source=compact_bid_package.source, pages=[]
+            uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
         for compact_page in compact_bid_package.pages:
             expanded_bid_package.pages.append(self.translate_page(compact_page))
@@ -19,6 +22,7 @@ class Translator:
 
     def translate_page(self, compact_page: compact.Page) -> expanded.Page:
         expanded_page = expanded.Page(
+            uuid=compact_page.uuid,
             base=compact_page.base,
             satellite_base=compact_page.satellite_base,
             equipment=compact_page.equipment,
@@ -49,6 +53,8 @@ class Translator:
             )
             end = start + compact_trip.tafb
             expanded_trip = expanded.Trip(
+                uuid=uuid5(compact_trip.uuid, start.utc_date.isoformat()),
+                compact_uuid=compact_trip.uuid,
                 number=compact_trip.number,
                 start=start,
                 end=end,
@@ -83,6 +89,8 @@ class Translator:
         )
 
         expanded_dutyperiod = expanded.DutyPeriod(
+            uuid=uuid5(compact_dutyperiod.uuid, report.utc_date.isoformat()),
+            compact_uuid=compact_dutyperiod.uuid,
             idx=compact_dutyperiod.idx,
             report=report,
             report_station=compact_dutyperiod.report_station,
@@ -126,6 +134,8 @@ class Translator:
         )
         arrival = self.calculate_arrival(departure, compact_flight)
         expanded_flight = expanded.Flight(
+            uuid=uuid5(compact_flight.uuid, departure.utc_date.isoformat()),
+            compact_uuid=compact_flight.uuid,
             idx=compact_flight.idx,
             dep_arr_day=compact_flight.dep_arr_day,
             eq_code=compact_flight.eq_code,
@@ -171,6 +181,7 @@ class Translator:
         if compact_layover is None:
             return None
         expanded_layover = expanded.Layover(
+            uuid=compact_layover.uuid,
             odl=compact_layover.odl,
             city=compact_layover.city,
             hotel=self.translate_hotel(compact_layover.hotel),
@@ -188,7 +199,7 @@ class Translator:
         if compact_hotel is None:
             return None
         expanded_hotel = expanded.Hotel(
-            name=compact_hotel.name, phone=compact_hotel.phone
+            uuid=compact_hotel.uuid, name=compact_hotel.name, phone=compact_hotel.phone
         )
         return expanded_hotel
 
@@ -198,7 +209,9 @@ class Translator:
         if compact_transportation is None:
             return None
         expanded_transportation = expanded.Transportation(
-            name=compact_transportation.name, phone=compact_transportation.phone
+            uuid=compact_transportation.uuid,
+            name=compact_transportation.name,
+            phone=compact_transportation.phone,
         )
         return expanded_transportation
 

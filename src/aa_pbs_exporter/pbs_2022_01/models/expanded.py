@@ -129,7 +129,6 @@ class Trip(BaseModel):
 
 class Page(BaseModel):
     uuid: UUID
-    compact_uuid: UUID
     base: str
     satellite_base: str
     equipment: str
