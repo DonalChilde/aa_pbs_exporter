@@ -12,6 +12,9 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
     IndexedStringParserProtocol,
     ParseResultProtocol,
 )
+from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
+    IndexedStringProtocol,
+)
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -43,6 +46,18 @@ CALENDAR_ENTRY = pp.Or(
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 
+class IndexedStringParser(IndexedStringParserProtocol):
+    success_state: str
+
+    def __init__(self) -> None:
+        super().__init__()
+
+    def parse(
+        self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
+    ) -> ParseResult:
+        raise NotImplementedError
+
+
 class PageHeader1(IndexedStringParserProtocol):
     def __init__(self) -> None:
         self.success_state = "page_header_1"
@@ -57,7 +72,7 @@ class PageHeader1(IndexedStringParserProtocol):
         if "DEPARTURE" in indexed_string.txt:
             parsed = raw.PageHeader1(source=indexed_string)
             # ctx.handle_parse_result(parsed)
-            return ParseResult(self.success_state, parsed)
+            return ParseResult(current_state=self.success_state, parsed_data=parsed)
         raise SingleParserFail(
             f"'DEPARTURE' not found in {indexed_string!r}.",
             parser=self,
@@ -98,7 +113,7 @@ class PageHeader2(IndexedStringParserProtocol):
             from_date="".join(result_dict.get("from_date", "")),
             to_date="".join(result_dict.get("to_date", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
         # try:
         #     if words[-2] == "CALENDAR":
         #         parsed = raw.PageHeader2(
@@ -127,7 +142,7 @@ class HeaderSeparator(IndexedStringParserProtocol):
         _ = ctx, kwargs
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.HeaderSeparator(source=indexed_string)
-            return ParseResult(self.success_state, parsed)
+            return ParseResult(current_state=self.success_state, parsed_data=parsed)
         raise SingleParserFail(
             "'-----' not found in line.",
             parser=self,
@@ -144,11 +159,11 @@ class TripSeparator(IndexedStringParserProtocol):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResultProtocol:
+    ) -> ParseResult:
         _ = ctx, kwargs
         if "-" * 5 in indexed_string.txt or "\u2212" * 5 in indexed_string.txt:
             parsed = raw.TripSeparator(source=indexed_string)
-            return ParseResult(self.success_state, parsed)
+            return ParseResult(current_state=self.success_state, parsed_data=parsed)
         raise SingleParserFail(
             "'-----' not found in line.",
             parser=self,
@@ -156,8 +171,9 @@ class TripSeparator(IndexedStringParserProtocol):
         )
 
 
-class BaseEquipment(IndexedStringParserProtocol):
+class BaseEquipment(IndexedStringParser):
     def __init__(self) -> None:
+        super().__init__()
         self.success_state = "base_equipment"
         self._parser = (
             pp.StringStart()
@@ -172,7 +188,7 @@ class BaseEquipment(IndexedStringParserProtocol):
         indexed_string: raw.IndexedString,
         ctx: dict[str, Any] | None = None,
         **kwargs,
-    ) -> ParseResultProtocol:
+    ) -> ParseResult:
         _ = ctx, kwargs
         try:
             result = self._parser.parse_string(indexed_string.txt)
@@ -189,7 +205,7 @@ class BaseEquipment(IndexedStringParserProtocol):
             satellite_base=result_dict.get("satelite_base", ""),
             equipment=result_dict.get("equipment", ""),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class TripHeader(IndexedStringParserProtocol):
@@ -247,7 +263,7 @@ class TripHeader(IndexedStringParserProtocol):
             ),
             calendar="",
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class DutyPeriodReport(IndexedStringParserProtocol):
@@ -288,7 +304,7 @@ class DutyPeriodReport(IndexedStringParserProtocol):
             report=result_dict.get("report", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
@@ -355,7 +371,7 @@ class Flight(IndexedStringParserProtocol):
             equipment_change=result_dict.get("equipment_change", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
@@ -422,7 +438,7 @@ class FlightDeadhead(IndexedStringParserProtocol):
             equipment_change=result_dict.get("equipment_change", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class DutyPeriodRelease(IndexedStringParserProtocol):
@@ -467,7 +483,7 @@ class DutyPeriodRelease(IndexedStringParserProtocol):
             flight_duty=result_dict.get("flight_duty", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class Hotel(IndexedStringParserProtocol):
@@ -514,7 +530,7 @@ class Hotel(IndexedStringParserProtocol):
             rest=result_dict.get("rest", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class HotelAdditional(IndexedStringParserProtocol):
@@ -561,7 +577,7 @@ class HotelAdditional(IndexedStringParserProtocol):
             phone=result_dict.get("hotel_phone", ""),
             calendar="".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class Transportation(IndexedStringParserProtocol):
@@ -600,7 +616,7 @@ class Transportation(IndexedStringParserProtocol):
             phone=" ".join(result_dict.get("transportation_phone", "")),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class TransportationAdditional(IndexedStringParserProtocol):
@@ -646,7 +662,7 @@ class TransportationAdditional(IndexedStringParserProtocol):
                 parser=self,
                 indexed_string=indexed_string,
             ) from error
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class TripFooter(IndexedStringParserProtocol):
@@ -687,7 +703,7 @@ class TripFooter(IndexedStringParserProtocol):
             tafb=result_dict.get("tafb", ""),
             calendar=" ".join(result_dict.get("calendar_entries", "")),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
 class PageFooter(IndexedStringParserProtocol):
@@ -735,4 +751,4 @@ class PageFooter(IndexedStringParserProtocol):
             division=result_dict.get("division", ""),
             page=result_dict.get("internal_page", ""),
         )
-        return ParseResult(self.success_state, parsed)
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
