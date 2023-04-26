@@ -1,15 +1,12 @@
 import time
-from datetime import date, datetime, timedelta
-from typing import Callable
+from datetime import date, datetime
+from typing import Callable, Sequence, Tuple
 
+from aa_pbs_exporter.pbs_2022_01.compact_helpers import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
-)
-from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
-from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
-    index_and_filter_strings,
 )
 
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
@@ -67,7 +64,7 @@ class Translator:
         self, raw_trip: raw.Trip, from_date: date, to_date: date
     ) -> compact.Trip:
         dutyperiods = []
-        start_dates = []
+
         assert raw_trip.footer is not None
         compact_trip = compact.Trip(
             uuid=raw_trip.uuid,
@@ -86,13 +83,11 @@ class Translator:
             ).to_timedelta(),
             tafb=parse_duration(DURATION_PATTERN, raw_trip.footer.tafb).to_timedelta(),
             dutyperiods=dutyperiods,
-            start_dates=start_dates,
+            start_dates=[],
         )
-        calendar_entries = collect_calendar_entries(raw_trip)
-        starts = get_start_dates(
-            from_date=from_date, to_date=to_date, calendar_entries=calendar_entries
+        compact_trip.start_dates = get_start_dates(
+            from_date=from_date, to_date=to_date, days=raw_trip.start_days
         )
-        compact_trip.start_dates.extend(starts)
         for idx, raw_dutyperiod in enumerate(raw_trip.dutyperiods, start=1):
             compact_trip.dutyperiods.append(
                 self.translate_dutyperiod(idx, raw_dutyperiod)
@@ -215,47 +210,31 @@ def complete_future_date(ref_date: date, future: str, strf: str) -> date:
     return future_date
 
 
-def collect_calendar_entries(trip: raw.Trip) -> list[str]:
-    """Make a list of the calendar entries for this trip."""
-    calendar_strings: list[str] = []
-    for dutyperiod in trip.dutyperiods:
-        calendar_strings.append(dutyperiod.report.calendar)
-        for flight in dutyperiod.flights:
-            calendar_strings.append(flight.calendar)
-        assert dutyperiod.release is not None
-        calendar_strings.append(dutyperiod.release.calendar)
-        if dutyperiod.layover:
-            if dutyperiod.layover.hotel:
-                calendar_strings.append(dutyperiod.layover.hotel.calendar)
-            if dutyperiod.layover.transportation:
-                calendar_strings.append(dutyperiod.layover.transportation.calendar)
-            if dutyperiod.layover.hotel_additional:
-                calendar_strings.append(dutyperiod.layover.hotel_additional.calendar)
-            if dutyperiod.layover.transportation_additional:
-                calendar_strings.append(
-                    dutyperiod.layover.transportation_additional.calendar
-                )
-    assert trip.footer is not None
-    calendar_strings.append(trip.footer.calendar)
-    calendar_entries: list[str] = []
-    for entry in calendar_strings:
-        calendar_entries.extend(entry.split())
-    return calendar_entries
-
-
 def get_start_dates(
-    from_date: date, to_date: date, calendar_entries: list[str]
+    from_date: date, to_date: date, days: Sequence[Tuple[int, int]]
 ) -> list[date]:
-    """Builds a list of dates representing start dates for trips."""
-    days = int((to_date - from_date) / timedelta(days=1)) + 1
-    assert len(calendar_entries) == days
-    indexed_days = list(
-        index_and_filter_strings(strings=calendar_entries, string_filter=is_numeric)
-    )
     start_dates: list[date] = []
-    for indexed in indexed_days:
-        start_date = from_date + timedelta(days=indexed.idx)
+    valid_dates = list(date_range(from_date, to_date))
+    for day in days:
+        start_date = valid_dates[day[0]]
+        assert start_date.day == day[1]  # TODO replace with validator func
         start_dates.append(start_date)
-    assert start_dates[0] >= from_date
-    assert start_dates[-1] <= to_date
     return start_dates
+
+
+# def get_start_dates_2(
+#     from_date: date, to_date: date, calendar_entries: list[str]
+# ) -> list[date]:
+#     """Builds a list of dates representing start dates for trips."""
+#     days = int((to_date - from_date) / timedelta(days=1)) + 1
+#     assert len(calendar_entries) == days
+#     indexed_days = list(
+#         index_and_filter_strings(strings=calendar_entries, string_filter=is_numeric)
+#     )
+#     start_dates: list[date] = []
+#     for indexed in indexed_days:
+#         start_date = from_date + timedelta(days=indexed.idx)
+#         start_dates.append(start_date)
+#     assert start_dates[0] >= from_date
+#     assert start_dates[-1] <= to_date
+#     return start_dates

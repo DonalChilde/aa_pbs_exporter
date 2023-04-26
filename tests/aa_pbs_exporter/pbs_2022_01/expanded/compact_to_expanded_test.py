@@ -34,3 +34,4 @@ def test_raw_to_expanded(test_app_data_dir: Path):
     expanded_json_path = outpath / f"{expanded_package.default_file_name()}.json"
     validate_file_out(expanded_json_path)
     expanded_json_path.write_text(expanded_package.json(indent=2))
+    assert False

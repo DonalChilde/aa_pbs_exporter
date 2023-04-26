@@ -1,11 +1,12 @@
 from importlib import resources
 from pathlib import Path
+
 from pydantic import parse_raw_as
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
 from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
-from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
 
 SERIALIZE_ONLY = False
 TEST_DATA = ResourceTestData("three_pages.txt", "three_pages.json")
@@ -13,7 +14,7 @@ TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
 def test_page(test_app_data_dir: Path):
-    output_path = test_app_data_dir / "pages" / __name__.rsplit(".",maxsplit=1)[-1]
+    output_path = test_app_data_dir / "pages" / __name__.rsplit(".", maxsplit=1)[-1]
     manager = ParseManager(ctx={})
     debug_path = output_path / f"{TEST_DATA.input_data}_debug.txt"
     res_dir = resources.files(__package__)

@@ -1,6 +1,6 @@
+import traceback
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
-import traceback
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.result_handler import (
@@ -29,6 +29,8 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
     ParseManagerProtocol,
     ResultHandlerProtocol,
 )
+from aa_pbs_exporter.snippets.messages.messenger import PrintMessenger
+from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 
 def data_starts(indexed_string: IndexedStringProtocol) -> bool:
@@ -74,6 +76,7 @@ def parse_raw_bidpackage(
     source: str,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
+    ensure_validation_publisher(manager)
     if additional_handlers is None:
         additional_handlers = []
     package_handler = AssembleRawBidPackage(source=source)
@@ -90,10 +93,15 @@ def debug_parse_raw_bidpackage(
     debug_file_path: Path,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
+    ensure_validation_publisher(manager)
     validate_file_out(debug_file_path)
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
         debug_file.write(f"source: {source}\n")
         debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
+        debug_validation_messenger = PrintMessenger(file=debug_file)
+        manager.ctx["validation_publisher"].messengers.append(
+            debug_validation_messenger
+        )
         handlers: list[ResultHandlerProtocol] = [debug_handler]
         if additional_handlers is not None:
             handlers.extend(additional_handlers)
@@ -109,3 +117,10 @@ def debug_parse_raw_bidpackage(
             traceback.print_exc(file=debug_file)
             raise error
         return result
+
+
+def ensure_validation_publisher(manager: ParseManagerProtocol):
+    publisher: Publisher = manager.ctx.get(
+        "validation_publisher", Publisher(messengers=[])
+    )
+    manager.ctx["validation_publisher"] = publisher

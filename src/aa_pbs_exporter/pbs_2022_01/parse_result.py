@@ -1,7 +1,9 @@
 # from dataclasses import dataclass
-from pydantic import BaseModel
-from aa_pbs_exporter.pbs_2022_01.models import raw
 import json
+
+from pydantic import BaseModel
+
+from aa_pbs_exporter.pbs_2022_01.models import raw
 
 # @dataclass
 # class ParseResult:

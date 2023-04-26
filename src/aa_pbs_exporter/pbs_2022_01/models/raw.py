@@ -19,7 +19,6 @@ from pydantic import BaseModel
 
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 
-
 LAYOVER_DNS = uuid5(PARSER_DNS, "LAYOVER_DNS")
 DUTYPERIOD_DNS = uuid5(PARSER_DNS, "DUTYPERIOD_DNS")
 TRIP_DNS = uuid5(PARSER_DNS, "TRIP_DNS")
@@ -160,6 +159,10 @@ class TripFooter(ParsedIndexedString):
     calendar: str
 
 
+class CalendarOnly(ParsedIndexedString):
+    calendar: str
+
+
 class TripSeparator(ParsedIndexedString):
     pass
 
@@ -206,6 +209,8 @@ class Trip(BaseModel):
     header: TripHeader
     dutyperiods: list[DutyPeriod]
     footer: TripFooter | None = None
+    calendar_only: CalendarOnly | None = None
+    calendar_entries: list[str] = []
 
     def uuid5(self) -> UUID:
         return self.header.source.uuid5(TRIP_DNS)

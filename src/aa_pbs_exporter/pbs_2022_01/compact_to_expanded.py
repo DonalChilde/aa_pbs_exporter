@@ -3,8 +3,8 @@ from typing import Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
 
-from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
+from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 
 
 class Translator:

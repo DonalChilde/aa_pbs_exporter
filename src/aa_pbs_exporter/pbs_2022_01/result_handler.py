@@ -3,6 +3,7 @@ from uuid import uuid5
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
+from aa_pbs_exporter.pbs_2022_01.validate_raw import validate_bid_package
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     ParseResultHandler,
     ParseResultToFile,
@@ -96,8 +97,7 @@ class AssembleRawBidPackage(ParseResultHandler):
                 self.bid_package.pages[-1].page_footer = parse_result.parsed_data
 
     def finalize(self, ctx: dict | None = None):
-        return super().finalize(ctx)
-        # TODO ensure final validation here?
+        validate_bid_package(bid_package=self.bid_package, ctx=ctx)
 
 
 class DebugToFile(ParseResultToFile):
