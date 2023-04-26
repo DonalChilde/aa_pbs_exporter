@@ -1,4 +1,5 @@
 import logging
+import re
 from typing import Any
 
 import pyparsing as pp
@@ -11,9 +12,6 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
     ParseResultProtocol,
-)
-from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
-    IndexedStringProtocol,
 )
 
 logger = logging.getLogger(__name__)
@@ -47,10 +45,9 @@ DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 
 
 class IndexedStringParser(IndexedStringParserProtocol):
-    success_state: str
-
-    def __init__(self) -> None:
+    def __init__(self, success_state: str) -> None:
         super().__init__()
+        self.success_state = success_state
 
     def parse(
         self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
@@ -58,9 +55,30 @@ class IndexedStringParser(IndexedStringParserProtocol):
         raise NotImplementedError
 
 
-class PageHeader1(IndexedStringParserProtocol):
+class PyparsingParser(IndexedStringParser):
+    p_parser: pp.ParserElement
+
+    def get_result(self, indexed_string: raw.IndexedString) -> dict:
+        try:
+            result = self.p_parser.parse_string(indexed_string.txt)
+            result_dict = result.as_dict()
+        except pp.ParseException as error:
+            raise SingleParserFail(
+                f"{error}",
+                parser=self,
+                indexed_string=indexed_string,
+            ) from error
+        return result_dict
+
+    def parse(
+        self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
+    ) -> ParseResult:
+        raise NotImplementedError
+
+
+class PageHeader1(IndexedStringParser):
     def __init__(self) -> None:
-        self.success_state = "page_header_1"
+        super().__init__("page_header_1")
 
     def parse(
         self,
@@ -80,10 +98,10 @@ class PageHeader1(IndexedStringParserProtocol):
         )
 
 
-class PageHeader2(IndexedStringParserProtocol):
+class PageHeader2(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "page_header_2"
-        self._parser = (
+        super().__init__("page_header_2")
+        self.p_parser = (
             pp.StringStart()
             + pp.SkipTo("CALENDAR", include=True)
             + DATE_MMSLASHDD("from_date")
@@ -99,15 +117,7 @@ class PageHeader2(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.PageHeader2(
             source=indexed_string,
             from_date="".join(result_dict.get("from_date", "")),
@@ -129,9 +139,9 @@ class PageHeader2(IndexedStringParserProtocol):
         #     ) from error
 
 
-class HeaderSeparator(IndexedStringParserProtocol):
+class HeaderSeparator(IndexedStringParser):
     def __init__(self) -> None:
-        self.success_state = "header_separator"
+        super().__init__("header_separator")
 
     def parse(
         self,
@@ -150,9 +160,9 @@ class HeaderSeparator(IndexedStringParserProtocol):
         )
 
 
-class TripSeparator(IndexedStringParserProtocol):
+class TripSeparator(IndexedStringParser):
     def __init__(self) -> None:
-        self.success_state = "trip_separator"
+        super().__init__("trip_separator")
 
     def parse(
         self,
@@ -171,11 +181,10 @@ class TripSeparator(IndexedStringParserProtocol):
         )
 
 
-class BaseEquipment(IndexedStringParser):
+class BaseEquipment(PyparsingParser):
     def __init__(self) -> None:
-        super().__init__()
-        self.success_state = "base_equipment"
-        self._parser = (
+        super().__init__("base_equipment")
+        self.p_parser = (
             pp.StringStart()
             + pp.Word(pp.alphas, exact=3)("base")
             + pp.Opt(pp.Word(pp.alphas, exact=3)("satelite_base"))
@@ -190,15 +199,7 @@ class BaseEquipment(IndexedStringParser):
         **kwargs,
     ) -> ParseResult:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.BaseEquipment(
             source=indexed_string,
             base=result_dict.get("base", ""),
@@ -208,12 +209,12 @@ class BaseEquipment(IndexedStringParser):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class TripHeader(IndexedStringParserProtocol):
+class TripHeader(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "trip_header"
+        super().__init__("trip_header")
         # FIXME build progressive match, with options,
         # loop over list of possibles, take first match
-        self._parser = (
+        self.p_parser = (
             pp.StringStart()
             + "SEQ"
             + pp.Word(pp.nums, min=1, as_keyword=True)("number")
@@ -243,15 +244,7 @@ class TripHeader(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.TripHeader(
             source=indexed_string,
             number=result_dict.get("number", ""),
@@ -266,10 +259,10 @@ class TripHeader(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class DutyPeriodReport(IndexedStringParserProtocol):
+class DutyPeriodReport(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "dutyperiod_report"
-        self._parser = (
+        super().__init__("dutyperiod_report")
+        self.p_parser = (
             pp.StringStart()
             + "RPT"
             + DUALTIME("report")
@@ -290,15 +283,7 @@ class DutyPeriodReport(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.DutyPeriodReport(
             source=indexed_string,
             report=result_dict.get("report", ""),
@@ -311,10 +296,10 @@ class DutyPeriodReport(IndexedStringParserProtocol):
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
 
 
-class Flight(IndexedStringParserProtocol):
+class Flight(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "flight"
-        self._parser = (
+        super().__init__("flight")
+        self.p_parser = (
             pp.StringStart()
             + pp.Word(pp.nums, exact=1, as_keyword=True)("dutyperiod")
             + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
@@ -344,15 +329,7 @@ class Flight(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.Flight(
             source=indexed_string,
             dutyperiod_idx=result_dict.get("dutyperiod", ""),
@@ -376,10 +353,10 @@ class Flight(IndexedStringParserProtocol):
 
 # 4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31
 # 2  2/2 45 1614D MCI 1607/1407    DFW 1800/1600    AA    1.53   1.27X
-class FlightDeadhead(IndexedStringParserProtocol):
+class FlightDeadhead(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "flight"
-        self._parser = (
+        super().__init__("flight")
+        self.p_parser = (
             pp.StringStart()
             + pp.Word(pp.nums, exact=1, as_keyword=True)("dutyperiod")
             + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
@@ -411,15 +388,7 @@ class FlightDeadhead(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.Flight(
             source=indexed_string,
             dutyperiod_idx=result_dict.get("dutyperiod", ""),
@@ -441,10 +410,10 @@ class FlightDeadhead(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class DutyPeriodRelease(IndexedStringParserProtocol):
+class DutyPeriodRelease(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "dutyperiod_release"
-        self._parser = (
+        super().__init__("dutyperiod_release")
+        self.p_parser = (
             pp.StringStart()
             + "RLS"
             + DUALTIME("release_time")
@@ -464,15 +433,7 @@ class DutyPeriodRelease(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.DutyPeriodRelease(
             source=indexed_string,
             release=result_dict.get("release_time", ""),
@@ -486,10 +447,10 @@ class DutyPeriodRelease(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class Hotel(IndexedStringParserProtocol):
+class Hotel(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "hotel"
-        self._parser = (
+        super().__init__("hotel")
+        self.p_parser = (
             pp.StringStart()
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("layover_city")
             + pp.original_text_for(
@@ -513,15 +474,7 @@ class Hotel(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.Hotel(
             source=indexed_string,
             layover_city=result_dict.get("layover_city", ""),
@@ -533,10 +486,10 @@ class Hotel(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class HotelAdditional(IndexedStringParserProtocol):
+class HotelAdditional(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "hotel_additional"
-        self._parser = (
+        super().__init__("hotel_additional")
+        self.p_parser = (
             pp.StringStart()
             + pp.Literal("+")
             + pp.Word(pp.alphas, exact=3)("layover_city")
@@ -561,15 +514,7 @@ class HotelAdditional(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.HotelAdditional(
             source=indexed_string,
             layover_city=result_dict.get("layover_city", ""),
@@ -580,10 +525,10 @@ class HotelAdditional(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class Transportation(IndexedStringParserProtocol):
+class Transportation(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "transportation"
-        self._parser = (
+        super().__init__("transportation")
+        self.p_parser = (
             pp.StringStart()
             + pp.NotAny("+")
             + pp.original_text_for(
@@ -601,15 +546,7 @@ class Transportation(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.Transportation(
             source=indexed_string,
             name=result_dict.get("transportation", ""),
@@ -619,10 +556,10 @@ class Transportation(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class TransportationAdditional(IndexedStringParserProtocol):
+class TransportationAdditional(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "transportation_additional"
-        self._parser = (
+        super().__init__("transportation_additional")
+        self.p_parser = (
             pp.StringStart()
             + pp.NotAny("+")
             + pp.original_text_for(
@@ -640,15 +577,8 @@ class TransportationAdditional(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+
+        result_dict = self.get_result(indexed_string=indexed_string)
         try:
             parsed = raw.TransportationAdditional(
                 source=indexed_string,
@@ -665,10 +595,10 @@ class TransportationAdditional(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class TripFooter(IndexedStringParserProtocol):
+class TripFooter(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "trip_footer"
-        self._parser = (
+        super().__init__("trip_footer")
+        self.p_parser = (
             pp.StringStart()
             + "TTL"
             + DURATION("block")
@@ -686,15 +616,7 @@ class TripFooter(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.TripFooter(
             source=indexed_string,
             block=result_dict.get("block", ""),
@@ -706,10 +628,47 @@ class TripFooter(IndexedStringParserProtocol):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
-class PageFooter(IndexedStringParserProtocol):
+class CalendarOnly(PyparsingParser):
     def __init__(self) -> None:
-        self.success_state = "page_footer"
-        self._parser = (
+        super().__init__("calendar_only")
+        self.p_parser = (
+            pp.StringStart()
+            + pp.OneOrMore(CALENDAR_ENTRY)("calendar_entries")
+            + pp.StringEnd()
+        )
+
+    def parse(
+        self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
+    ) -> ParseResult:
+        expected_len = 20
+        ws_len = len(get_leading_whitespace(indexed_string.txt))
+        if ws_len < expected_len:
+            raise SingleParserFail(
+                f"Expected at least {expected_len} leading whitespace characters, got {ws_len}",
+                parser=self,
+                indexed_string=indexed_string,
+            )
+        result_dict = self.get_result(indexed_string=indexed_string)
+        parsed = raw.CalendarOnly(
+            source=indexed_string,
+            calendar=" ".join(result_dict.get("calendar_entries", "")),
+        )
+        return ParseResult(current_state=self.success_state, parsed_data=parsed)
+
+
+def get_leading_whitespace(txt: str) -> str:
+    # TODO move to snippet
+    # https://stackoverflow.com/a/2268559/105844
+    matched = re.match(r"\s*", txt)
+    if matched is None:
+        return ""
+    return matched.group()
+
+
+class PageFooter(PyparsingParser):
+    def __init__(self) -> None:
+        super().__init__("page_footer")
+        self.p_parser = (
             pp.StringStart()
             + "COCKPIT"
             + "ISSUED"
@@ -732,15 +691,7 @@ class PageFooter(IndexedStringParserProtocol):
         **kwargs,
     ) -> ParseResultProtocol:
         _ = ctx, kwargs
-        try:
-            result = self._parser.parse_string(indexed_string.txt)
-            result_dict = result.as_dict()
-        except pp.ParseException as error:
-            raise SingleParserFail(
-                f"{error}",
-                parser=self,
-                indexed_string=indexed_string,
-            ) from error
+        result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.PageFooter(
             source=indexed_string,
             issued=result_dict.get("issued", ""),
