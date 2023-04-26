@@ -5,10 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-14T04:34:10-07:00            #
-# Last Modified: 2022-12-04T00:49:48.378209+00:00  #
+# Last Modified: 2023-04-26T18:16:35.378139+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Dict, Protocol, Sequence
+
+# NOTE Deprecated
 
 
 class MessageConsumerProtocol(Protocol):
