@@ -11,13 +11,13 @@ from pydantic import BaseModel
 
 
 class Transportation(BaseModel):
-    uuid:UUID
+    uuid: UUID
     name: str
     phone: str
 
 
 class Hotel(BaseModel):
-    uuid:UUID
+    uuid: UUID
     name: str
     phone: str | None
 
@@ -29,7 +29,7 @@ class LclHbt(BaseModel):
 
 
 class Layover(BaseModel):
-    uuid:UUID
+    uuid: UUID
     odl: timedelta
     city: str
     hotel: Hotel | None
@@ -39,7 +39,7 @@ class Layover(BaseModel):
 
 
 class Flight(BaseModel):
-    uuid:UUID
+    uuid: UUID
     idx: int
     dep_arr_day: str
     eq_code: str
@@ -57,7 +57,7 @@ class Flight(BaseModel):
 
 
 class DutyPeriod(BaseModel):
-    uuid:UUID
+    uuid: UUID
     idx: int
     report: LclHbt
     report_station: str
@@ -87,7 +87,7 @@ class Trip(BaseModel):
 
 
 class Page(BaseModel):
-    uuid:UUID
+    uuid: UUID
     base: str
     satellite_base: str
     equipment: str
@@ -100,7 +100,7 @@ class Page(BaseModel):
 
 
 class BidPackage(BaseModel):
-    uuid:UUID
+    uuid: UUID
     source: str
     pages: list[Page]
 
