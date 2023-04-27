@@ -88,12 +88,12 @@ class TripHeader(ParsedIndexedString):
     positions: str
     operations: str
     special_qualification: str
-    calendar: str
+    # calendar: str
 
 
 class DutyPeriodReport(ParsedIndexedString):
     report: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Flight(ParsedIndexedString):
@@ -111,7 +111,7 @@ class Flight(ParsedIndexedString):
     synth: str
     ground: str
     equipment_change: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class DutyPeriodRelease(ParsedIndexedString):
@@ -121,7 +121,7 @@ class DutyPeriodRelease(ParsedIndexedString):
     total_pay: str
     duty: str
     flight_duty: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Hotel(ParsedIndexedString):
@@ -129,26 +129,26 @@ class Hotel(ParsedIndexedString):
     name: str
     phone: str
     rest: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class HotelAdditional(ParsedIndexedString):
     layover_city: str
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Transportation(ParsedIndexedString):
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class TransportationAdditional(ParsedIndexedString):
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class TripFooter(ParsedIndexedString):
@@ -156,11 +156,11 @@ class TripFooter(ParsedIndexedString):
     synth: str
     total_pay: str
     tafb: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class CalendarOnly(ParsedIndexedString):
-    calendar: str
+    calendar: list[str] = []
 
 
 class TripSeparator(ParsedIndexedString):

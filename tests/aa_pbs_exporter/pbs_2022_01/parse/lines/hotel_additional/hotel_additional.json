@@ -9,7 +9,7 @@
       "layover_city": "PHL",
       "name": "MARRIOTT OLD CITY",
       "phone": "12152386000",
-      "calendar": ""
+      "calendar": []
     }
   },
   {
@@ -22,7 +22,7 @@
       "layover_city": "PHL",
       "name": "CAMBRIA HOTEL AND SUITES",
       "phone": "12157325500",
-      "calendar": ""
+      "calendar": []
     }
   }
 ]

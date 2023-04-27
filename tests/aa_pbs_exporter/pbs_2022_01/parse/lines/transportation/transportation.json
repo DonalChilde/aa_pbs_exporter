@@ -8,7 +8,7 @@
       },
       "name": "SIN FIN DE SERVICIOS",
       "phone": "3331223240",
-      "calendar": ""
+      "calendar": []
     }
   },
   {
@@ -20,7 +20,11 @@
       },
       "name": "VIP TRANSPORTATION\u2212 OGG",
       "phone": "8088712702",
-      "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+      "calendar": [
+        "\u2212\u2212",
+        "\u2212\u2212",
+        "\u2212\u2212"
+      ]
     }
   },
   {
@@ -32,7 +36,11 @@
       },
       "name": "",
       "phone": "",
-      "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+      "calendar": [
+        "\u2212\u2212",
+        "\u2212\u2212",
+        "\u2212\u2212"
+      ]
     }
   }
 ]

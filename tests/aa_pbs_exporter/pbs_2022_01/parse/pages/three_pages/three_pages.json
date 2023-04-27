@@ -52,8 +52,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -64,7 +63,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -86,7 +93,15 @@
                   "synth": "0.00",
                   "ground": "2.22",
                   "equipment_change": "X",
-                  "calendar": "9 10 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "9",
+                    "10",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -107,7 +122,15 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -121,7 +144,15 @@
                 "total_pay": "6.00",
                 "duty": "9.52",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": null
             }
@@ -135,8 +166,14 @@
             "synth": "2.52",
             "total_pay": "6.00",
             "tafb": "9.52",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "fb2ca1fe-fba1-5cf0-8448-0bfe1ab0a1b0",
@@ -149,8 +186,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -161,7 +197,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -183,7 +227,15 @@
                   "synth": "0.00",
                   "ground": "2.22",
                   "equipment_change": "X",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 12 13 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "12",
+                    "13",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -204,7 +256,15 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -218,7 +278,15 @@
                 "total_pay": "6.00",
                 "duty": "9.52",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": null
             }
@@ -232,8 +300,14 @@
             "synth": "2.52",
             "total_pay": "6.00",
             "tafb": "9.52",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "9c322de0-70b0-5452-88a7-5e7c33e87957",
@@ -246,8 +320,7 @@
             "ops_count": "3",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -258,7 +331,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -280,7 +361,15 @@
                   "synth": "0.00",
                   "ground": "2.22",
                   "equipment_change": "X",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -301,7 +390,15 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 17 18 \u2212\u2212 \u2212\u2212 21 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "17",
+                    "18",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "21",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -315,7 +412,15 @@
                 "total_pay": "6.00",
                 "duty": "9.52",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": null
             }
@@ -329,8 +434,14 @@
             "synth": "2.52",
             "total_pay": "6.00",
             "tafb": "9.52",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "560bd3a7-b5ab-52a4-8571-1bb5bc9dd7dc",
@@ -343,8 +454,7 @@
             "ops_count": "5",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -355,7 +465,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -377,7 +495,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -391,7 +517,15 @@
                 "total_pay": "3.08",
                 "duty": "4.38",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 22"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "22"
+                ]
               },
               "layover": {
                 "uuid": "e5c5a7c0-ec0a-5624-8c82-ba15d91e2a1b",
@@ -404,7 +538,15 @@
                   "name": "COURTYARD BLACKSTONE FTW",
                   "phone": "18178858700",
                   "rest": "28.52",
-                  "calendar": "23 \u2212\u2212 25 26 \u2212\u2212 28 \u2212\u2212"
+                  "calendar": [
+                    "23",
+                    "\u2212\u2212",
+                    "25",
+                    "26",
+                    "\u2212\u2212",
+                    "28",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -413,7 +555,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -427,7 +573,7 @@
                   "txt": "                RPT 1730/1830\n"
                 },
                 "report": "1730/1830",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -449,7 +595,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -463,7 +609,7 @@
                 "total_pay": "2.45",
                 "duty": "4.15",
                 "flight_duty": "3.45",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -477,8 +623,10 @@
             "synth": "4.54",
             "total_pay": "10.47",
             "tafb": "37.45",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "5410e2d5-b784-53e5-a0e6-17207d7017c5",
@@ -491,8 +639,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -503,7 +650,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -525,7 +680,15 @@
                   "synth": "0.00",
                   "ground": "2.22",
                   "equipment_change": "X",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -546,7 +709,15 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -560,7 +731,15 @@
                 "total_pay": "6.00",
                 "duty": "9.52",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 24 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 29"
+                "calendar": [
+                  "\u2212\u2212",
+                  "24",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "29"
+                ]
               },
               "layover": null
             }
@@ -574,8 +753,14 @@
             "synth": "2.52",
             "total_pay": "6.00",
             "tafb": "9.52",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "58d41ba3-1723-527d-a049-37d1953986ad",
@@ -588,8 +773,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -600,7 +784,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -622,7 +814,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -636,7 +836,15 @@
                 "total_pay": "3.08",
                 "duty": "4.38",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "27148309-4c3b-580f-bf99-b04788ab07fb",
@@ -649,7 +857,15 @@
                   "name": "COURTYARD BLACKSTONE FTW",
                   "phone": "18178858700",
                   "rest": "28.52",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -658,7 +874,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "30 \u2212\u2212 1"
+                  "calendar": [
+                    "30",
+                    "\u2212\u2212",
+                    "1"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -672,7 +892,7 @@
                   "txt": "                RPT 1730/1830\n"
                 },
                 "report": "1730/1830",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -694,7 +914,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -708,7 +928,7 @@
                 "total_pay": "2.45",
                 "duty": "4.15",
                 "flight_duty": "3.45",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -722,8 +942,10 @@
             "synth": "4.54",
             "total_pay": "10.47",
             "tafb": "37.45",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "e22fdd61-8fd1-59df-9776-617c65325c58",
@@ -736,8 +958,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -748,7 +969,15 @@
                   "txt": "                RPT 1015/1015                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1015/1015",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -770,7 +999,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -784,7 +1021,15 @@
                 "total_pay": "5.38",
                 "duty": "7.08",
                 "flight_duty": "6.38",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 21 22"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "21",
+                  "22"
+                ]
               },
               "layover": {
                 "uuid": "94ec52ed-4140-5778-8fd6-7c3fc306ec38",
@@ -797,7 +1042,15 @@
                   "name": "THE AYRES",
                   "phone": "13105360400",
                   "rest": "16.37",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -806,7 +1059,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -820,7 +1077,7 @@
                   "txt": "                RPT 0700/1000\n"
                 },
                 "report": "0700/1000",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -842,7 +1099,7 @@
                   "synth": "0.00",
                   "ground": "1.34",
                   "equipment_change": "X",
-                  "calendar": ""
+                  "calendar": []
                 },
                 {
                   "source": {
@@ -863,7 +1120,7 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -877,7 +1134,7 @@
                 "total_pay": "5.48",
                 "duty": "8.52",
                 "flight_duty": "3.56",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -891,8 +1148,10 @@
             "synth": "2.52",
             "total_pay": "11.26",
             "tafb": "32.37",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "134a7b72-0e72-5040-a532-a6a523c4f3ec",
@@ -905,8 +1164,7 @@
             "ops_count": "5",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -917,7 +1175,15 @@
                   "txt": "                RPT 1015/1015                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1015/1015",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -939,7 +1205,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -953,7 +1227,15 @@
                 "total_pay": "5.38",
                 "duty": "7.08",
                 "flight_duty": "6.38",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "390eada8-044b-5d0c-b926-6313e7d012be",
@@ -966,7 +1248,15 @@
                   "name": "THE AYRES",
                   "phone": "13105360400",
                   "rest": "16.37",
-                  "calendar": "\u2212\u2212 24 25 \u2212\u2212 27 \u2212\u2212 29"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "24",
+                    "25",
+                    "\u2212\u2212",
+                    "27",
+                    "\u2212\u2212",
+                    "29"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -975,7 +1265,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "30 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "30",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -989,7 +1283,7 @@
                   "txt": "                RPT 0700/1000\n"
                 },
                 "report": "0700/1000",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1011,7 +1305,7 @@
                   "synth": "0.00",
                   "ground": "1.34",
                   "equipment_change": "X",
-                  "calendar": ""
+                  "calendar": []
                 },
                 {
                   "source": {
@@ -1032,7 +1326,7 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1046,7 +1340,7 @@
                 "total_pay": "5.48",
                 "duty": "8.52",
                 "flight_duty": "3.56",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -1060,8 +1354,10 @@
             "synth": "2.52",
             "total_pay": "11.26",
             "tafb": "32.37",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         }
       ]
     },
@@ -1107,8 +1403,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "HEBREW",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -1119,7 +1414,7 @@
                   "txt": "                RPT 2140/2140                                                          sequence 932/01MAY\n"
                 },
                 "report": "2140/2140",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1141,7 +1436,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1155,7 +1450,7 @@
                 "total_pay": "12.20",
                 "duty": "13.50",
                 "flight_duty": "13.20",
-                "calendar": ""
+                "calendar": []
               },
               "layover": {
                 "uuid": "d682ae3b-2756-581c-89f9-c25cd0228e3e",
@@ -1168,7 +1463,7 @@
                   "name": "TEL AVIV HILTON",
                   "phone": "97235202222",
                   "rest": "29.20",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "transportation": {
                   "source": {
@@ -1177,7 +1472,7 @@
                   },
                   "name": "BON TOUR",
                   "phone": "97239754200",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1191,7 +1486,7 @@
                   "txt": "                RPT 2350/1650\n"
                 },
                 "report": "2350/1650",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1213,7 +1508,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1227,7 +1522,7 @@
                 "total_pay": "12.15",
                 "duty": "13.45",
                 "flight_duty": "13.15",
-                "calendar": ""
+                "calendar": []
               },
               "layover": {
                 "uuid": "e613338c-5b16-5628-aa31-3f63840fa0e4",
@@ -1240,7 +1535,7 @@
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773",
                   "rest": "22.55",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "transportation": {
                   "source": {
@@ -1249,7 +1544,7 @@
                   },
                   "name": "DESERT COACH",
                   "phone": "6022866161",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1263,7 +1558,7 @@
                   "txt": "                RPT 0530/0530\n"
                 },
                 "report": "0530/0530",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1285,7 +1580,7 @@
                   "synth": "3.11",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1299,7 +1594,7 @@
                 "total_pay": "3.11",
                 "duty": "4.11",
                 "flight_duty": "0.00",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -1313,8 +1608,10 @@
             "synth": "3.11",
             "total_pay": "27.46",
             "tafb": "84.01",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "8994a643-b959-538a-a776-e05a0e58c47e",
@@ -1327,8 +1624,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "FRENCH",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -1339,7 +1635,7 @@
                   "txt": "                RPT 1633/1633                                                          sequence 910/01MAY\n"
                 },
                 "report": "1633/1633",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1361,7 +1657,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1375,7 +1671,7 @@
                 "total_pay": "2.55",
                 "duty": "4.25",
                 "flight_duty": "3.55",
-                "calendar": ""
+                "calendar": []
               },
               "layover": {
                 "uuid": "be1f3ef6-3441-5f89-88ff-aa764c1d3168",
@@ -1388,7 +1684,7 @@
                   "name": "HOTEL INFO IN CCI/CREW PORTAL",
                   "phone": "",
                   "rest": "19.37",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "transportation": {
                   "source": {
@@ -1397,7 +1693,7 @@
                   },
                   "name": "TRANS INFO IN CCI/CREW PORTAL",
                   "phone": "",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1411,7 +1707,7 @@
                   "txt": "                RPT 1635/1635\n"
                 },
                 "report": "1635/1635",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1433,7 +1729,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1447,7 +1743,7 @@
                 "total_pay": "7.20",
                 "duty": "8.50",
                 "flight_duty": "8.20",
-                "calendar": ""
+                "calendar": []
               },
               "layover": {
                 "uuid": "ea5f7393-1608-505c-81dc-d6230a052545",
@@ -1460,7 +1756,7 @@
                   "name": "PULLMAN PARIS TOUR EIFFEL",
                   "phone": "33144385600",
                   "rest": "27.50",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "transportation": {
                   "source": {
@@ -1469,7 +1765,7 @@
                   },
                   "name": "LE TRANSPORT EVENEMENTIEL",
                   "phone": "33665135886",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1483,7 +1779,7 @@
                   "txt": "                RPT 1115/0515\n"
                 },
                 "report": "1115/0515",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1505,7 +1801,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1519,7 +1815,7 @@
                 "total_pay": "8.14",
                 "duty": "9.44",
                 "flight_duty": "9.14",
-                "calendar": ""
+                "calendar": []
               },
               "layover": {
                 "uuid": "d8877b43-4619-5a41-9614-f539520d3873",
@@ -1532,7 +1828,7 @@
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773",
                   "rest": "17.31",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "transportation": {
                   "source": {
@@ -1541,7 +1837,7 @@
                   },
                   "name": "DESERT COACH",
                   "phone": "6022866161",
-                  "calendar": ""
+                  "calendar": []
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1555,7 +1851,7 @@
                   "txt": "                RPT 0830/0830\n"
                 },
                 "report": "0830/0830",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1577,7 +1873,7 @@
                   "synth": "3.09",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1591,7 +1887,7 @@
                 "total_pay": "3.09",
                 "duty": "4.09",
                 "flight_duty": "0.00",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -1605,8 +1901,10 @@
             "synth": "7.49",
             "total_pay": "26.18",
             "tafb": "92.06",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "0704f579-8982-5595-a324-2d5b420d47aa",
@@ -1619,8 +1917,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -1631,7 +1928,15 @@
                   "txt": "                RPT 1600/1600                                                           2 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1600/1600",
-                "calendar": "2 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "2",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -1653,7 +1958,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -1667,7 +1980,15 @@
                 "total_pay": "5.39",
                 "duty": "7.09",
                 "flight_duty": "6.39",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "e5943f1a-d30e-5deb-89be-df26401dc070",
@@ -1680,7 +2001,15 @@
                   "name": "RENAISSANCE LONG BEACH",
                   "phone": "5624375900",
                   "rest": "23.59",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -1689,7 +2018,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1703,7 +2036,7 @@
                   "txt": "                RPT 2008/2308\n"
                 },
                 "report": "2008/2308",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1725,7 +2058,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1739,7 +2072,7 @@
                 "total_pay": "4.52",
                 "duty": "6.22",
                 "flight_duty": "5.52",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -1753,8 +2086,10 @@
             "synth": "5.14",
             "total_pay": "15.45",
             "tafb": "37.30",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "b86e5fb4-302c-5a47-aed7-60f85903430e",
@@ -1767,8 +2102,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -1779,7 +2113,15 @@
                   "txt": "                RPT 1633/1633                                                          \u2212\u2212 \u2212\u2212  4 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1633/1633",
-                "calendar": "\u2212\u2212 \u2212\u2212 4 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "4",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -1801,7 +2143,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -1815,7 +2165,15 @@
                 "total_pay": "2.55",
                 "duty": "4.25",
                 "flight_duty": "3.55",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "26736578-87f2-5c2b-8594-4a26b3a1e97b",
@@ -1828,7 +2186,15 @@
                   "name": "JFK CTD MARRIOTT",
                   "phone": "17188482121",
                   "rest": "11.02",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -1837,7 +2203,11 @@
                   },
                   "name": "SHUTTLE",
                   "phone": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1851,7 +2221,7 @@
                   "txt": "                RPT 0800/0800\n"
                 },
                 "report": "0800/0800",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -1873,7 +2243,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -1887,7 +2257,7 @@
                 "total_pay": "3.09",
                 "duty": "4.39",
                 "flight_duty": "4.09",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -1901,8 +2271,10 @@
             "synth": "4.26",
             "total_pay": "10.30",
             "tafb": "20.06",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "cf0d7b1c-cce5-5a12-8d91-8bd842fcd528",
@@ -1915,8 +2287,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -1927,7 +2298,15 @@
                   "txt": "                RPT 1020/1020                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1020/1020",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 5 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "5",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -1949,7 +2328,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -1963,7 +2350,15 @@
                 "total_pay": "2.07",
                 "duty": "3.37",
                 "flight_duty": "3.07",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "a6bb4950-dd68-5f94-bf6d-5d03cb004bde",
@@ -1976,7 +2371,15 @@
                   "name": "DOUBLETREE DOWNTOWN",
                   "phone": "17043470070",
                   "rest": "22.58",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -1985,7 +2388,11 @@
                   },
                   "name": "EXECUTIVE CAR",
                   "phone": "7045252191",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -1999,7 +2406,7 @@
                   "txt": "                RPT 1255/1255\n"
                 },
                 "report": "1255/1255",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -2021,7 +2428,7 @@
                   "synth": "2.54",
                   "ground": "3.11",
                   "equipment_change": "X",
-                  "calendar": ""
+                  "calendar": []
                 },
                 {
                   "source": {
@@ -2042,7 +2449,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -2056,7 +2463,7 @@
                 "total_pay": "5.39",
                 "duty": "9.50",
                 "flight_duty": "9.20",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -2070,8 +2477,10 @@
             "synth": "5.38",
             "total_pay": "10.30",
             "tafb": "36.25",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         }
       ]
     },
@@ -2117,8 +2526,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2129,7 +2537,15 @@
                   "txt": "                RPT 1115/1115                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1115/1115",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 5 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "5",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -2151,7 +2567,15 @@
                   "synth": "0.00",
                   "ground": "2.17",
                   "equipment_change": "X",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -2172,7 +2596,15 @@
                   "synth": "2.01",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2186,7 +2618,15 @@
                 "total_pay": "4.18",
                 "duty": "8.05",
                 "flight_duty": "3.17",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": null
             }
@@ -2200,8 +2640,14 @@
             "synth": "2.58",
             "total_pay": "5.15",
             "tafb": "8.05",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "36f52aa6-2858-58e1-a3f2-902f4be4b5af",
@@ -2214,8 +2660,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2226,7 +2671,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 6 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "6",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -2248,7 +2701,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2262,7 +2723,15 @@
                 "total_pay": "3.08",
                 "duty": "4.38",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "5f921f99-47af-5738-85ac-0083f15a201b",
@@ -2275,7 +2744,15 @@
                   "name": "COURTYARD BLACKSTONE FTW",
                   "phone": "18178858700",
                   "rest": "27.22",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -2284,7 +2761,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -2298,7 +2779,7 @@
                   "txt": "                RPT 1600/1700\n"
                 },
                 "report": "1600/1700",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -2320,7 +2801,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -2334,7 +2815,7 @@
                 "total_pay": "2.49",
                 "duty": "4.19",
                 "flight_duty": "3.49",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -2348,8 +2829,10 @@
             "synth": "4.33",
             "total_pay": "10.30",
             "tafb": "36.19",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "4d2727fd-2249-5afd-b2e1-7860001d5f2d",
@@ -2362,8 +2845,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2374,7 +2856,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  7 \u2212\u2212\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 7 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "7",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -2396,7 +2886,15 @@
                   "synth": "0.00",
                   "ground": "2.22",
                   "equipment_change": "X",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 {
                   "source": {
@@ -2417,7 +2915,15 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2431,7 +2937,15 @@
                 "total_pay": "6.00",
                 "duty": "9.52",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": null
             }
@@ -2445,8 +2959,14 @@
             "synth": "2.52",
             "total_pay": "6.00",
             "tafb": "9.52",
-            "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
-          }
+            "calendar": [
+              "\u2212\u2212",
+              "\u2212\u2212",
+              "\u2212\u2212"
+            ]
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "6edcb953-49f9-5191-9702-0a91ac683605",
@@ -2459,8 +2979,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2471,7 +2990,15 @@
                   "txt": "                RPT 1015/1015                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  7 \u2212\u2212\n"
                 },
                 "report": "1015/1015",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 7 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "7",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -2493,7 +3020,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2507,7 +3042,15 @@
                 "total_pay": "5.38",
                 "duty": "7.08",
                 "flight_duty": "6.38",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "554c6aa6-72a6-5d0b-84b6-d4b234b12e62",
@@ -2520,7 +3063,15 @@
                   "name": "THE AYRES",
                   "phone": "13105360400",
                   "rest": "16.37",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -2529,7 +3080,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -2543,7 +3098,7 @@
                   "txt": "                RPT 0700/1000\n"
                 },
                 "report": "0700/1000",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -2565,7 +3120,7 @@
                   "synth": "0.00",
                   "ground": "1.34",
                   "equipment_change": "X",
-                  "calendar": ""
+                  "calendar": []
                 },
                 {
                   "source": {
@@ -2586,7 +3141,7 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -2600,7 +3155,7 @@
                 "total_pay": "5.48",
                 "duty": "8.52",
                 "flight_duty": "3.56",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -2614,8 +3169,10 @@
             "synth": "2.52",
             "total_pay": "11.26",
             "tafb": "32.37",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "73b05fac-919d-5aa5-b4f8-e564b455fbb9",
@@ -2628,8 +3185,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2640,7 +3196,15 @@
                   "txt": "                RPT 0900/0900                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  8\n"
                 },
                 "report": "0900/0900",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 8"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "8"
+                ]
               },
               "flights": [
                 {
@@ -2662,7 +3226,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2676,7 +3248,15 @@
                 "total_pay": "3.08",
                 "duty": "4.38",
                 "flight_duty": "4.08",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "ca70657c-5773-5ab9-ad18-f5cb8a020dd5",
@@ -2689,7 +3269,15 @@
                   "name": "COURTYARD BLACKSTONE FTW",
                   "phone": "18178858700",
                   "rest": "28.52",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -2698,7 +3286,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -2712,7 +3304,7 @@
                   "txt": "                RPT 1730/1830\n"
                 },
                 "report": "1730/1830",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -2734,7 +3326,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -2748,7 +3340,7 @@
                 "total_pay": "2.45",
                 "duty": "4.15",
                 "flight_duty": "3.45",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -2762,8 +3354,10 @@
             "synth": "4.54",
             "total_pay": "10.47",
             "tafb": "37.45",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "4c5b6fa1-722d-528e-9a6d-b5f4e65838b6",
@@ -2776,8 +3370,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2788,7 +3381,15 @@
                   "txt": "                RPT 1015/1015                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  8\n"
                 },
                 "report": "1015/1015",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 8"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "8"
+                ]
               },
               "flights": [
                 {
@@ -2810,7 +3411,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2824,7 +3433,15 @@
                 "total_pay": "5.38",
                 "duty": "7.08",
                 "flight_duty": "6.38",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "1d60a53a-56cd-5674-8537-44867a005e91",
@@ -2837,7 +3454,15 @@
                   "name": "RENAISSANCE LONG BEACH",
                   "phone": "5624375900",
                   "rest": "31.57",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -2846,7 +3471,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -2860,7 +3489,7 @@
                   "txt": "                RPT 2220/0120\n"
                 },
                 "report": "2220/0120",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -2882,7 +3511,7 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -2896,7 +3525,7 @@
                 "total_pay": "4.49",
                 "duty": "6.19",
                 "flight_duty": "5.49",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -2910,8 +3539,10 @@
             "synth": "5.18",
             "total_pay": "15.45",
             "tafb": "45.24",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         },
         {
           "uuid": "2e74e22d-e48a-5d70-9dbf-5fea3a34bfd6",
@@ -2924,8 +3555,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": "",
-            "calendar": ""
+            "special_qualification": ""
           },
           "dutyperiods": [
             {
@@ -2936,7 +3566,15 @@
                   "txt": "                RPT 1015/1015                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "1015/1015",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "flights": [
                 {
@@ -2958,7 +3596,15 @@
                   "synth": "0.00",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": "\u2212\u2212 10 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "10",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 }
               ],
               "release": {
@@ -2972,7 +3618,15 @@
                 "total_pay": "5.38",
                 "duty": "7.08",
                 "flight_duty": "6.38",
-                "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                "calendar": [
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212",
+                  "\u2212\u2212"
+                ]
               },
               "layover": {
                 "uuid": "5d240597-dfd5-56e5-9088-b268cfb9f7ff",
@@ -2985,7 +3639,15 @@
                   "name": "THE AYRES",
                   "phone": "13105360400",
                   "rest": "16.37",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "transportation": {
                   "source": {
@@ -2994,7 +3656,11 @@
                   },
                   "name": "SKYHOP GLOBAL",
                   "phone": "9544000412",
-                  "calendar": "\u2212\u2212 \u2212\u2212 \u2212\u2212"
+                  "calendar": [
+                    "\u2212\u2212",
+                    "\u2212\u2212",
+                    "\u2212\u2212"
+                  ]
                 },
                 "hotel_additional": null,
                 "transportation_additional": null
@@ -3008,7 +3674,7 @@
                   "txt": "                RPT 0700/1000\n"
                 },
                 "report": "0700/1000",
-                "calendar": ""
+                "calendar": []
               },
               "flights": [
                 {
@@ -3030,7 +3696,7 @@
                   "synth": "0.00",
                   "ground": "1.34",
                   "equipment_change": "X",
-                  "calendar": ""
+                  "calendar": []
                 },
                 {
                   "source": {
@@ -3051,7 +3717,7 @@
                   "synth": "2.52",
                   "ground": "0.00",
                   "equipment_change": "",
-                  "calendar": ""
+                  "calendar": []
                 }
               ],
               "release": {
@@ -3065,7 +3731,7 @@
                 "total_pay": "5.48",
                 "duty": "8.52",
                 "flight_duty": "3.56",
-                "calendar": ""
+                "calendar": []
               },
               "layover": null
             }
@@ -3079,8 +3745,10 @@
             "synth": "2.52",
             "total_pay": "11.26",
             "tafb": "32.37",
-            "calendar": ""
-          }
+            "calendar": []
+          },
+          "calendar_only": null,
+          "calendar_entries": []
         }
       ]
     }

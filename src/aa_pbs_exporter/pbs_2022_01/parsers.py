@@ -254,7 +254,7 @@ class TripHeader(PyparsingParser):
             special_qualification=" ".join(
                 result_dict.get("special_qualification", "")
             ),
-            calendar="",
+            # calendar="",
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -287,8 +287,9 @@ class DutyPeriodReport(PyparsingParser):
         parsed = raw.DutyPeriodReport(
             source=indexed_string,
             report=result_dict.get("report", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
+        # parsed.calendar.extend(result_dict.get("calendar_entries", []))
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
@@ -346,7 +347,7 @@ class Flight(PyparsingParser):
             synth="0.00",
             ground=result_dict.get("ground", ""),
             equipment_change=result_dict.get("equipment_change", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -405,7 +406,7 @@ class FlightDeadhead(PyparsingParser):
             synth=result_dict.get("synth", ""),
             ground=result_dict.get("ground", ""),
             equipment_change=result_dict.get("equipment_change", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -442,7 +443,7 @@ class DutyPeriodRelease(PyparsingParser):
             total_pay=result_dict.get("total_pay", ""),
             duty=result_dict.get("duty", ""),
             flight_duty=result_dict.get("flight_duty", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -481,7 +482,7 @@ class Hotel(PyparsingParser):
             name=result_dict.get("hotel", ""),
             phone=result_dict.get("hotel_phone", ""),
             rest=result_dict.get("rest", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -520,7 +521,7 @@ class HotelAdditional(PyparsingParser):
             layover_city=result_dict.get("layover_city", ""),
             name=result_dict.get("hotel", ""),
             phone=result_dict.get("hotel_phone", ""),
-            calendar="".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -551,7 +552,7 @@ class Transportation(PyparsingParser):
             source=indexed_string,
             name=result_dict.get("transportation", ""),
             phone=" ".join(result_dict.get("transportation_phone", "")),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -584,7 +585,7 @@ class TransportationAdditional(PyparsingParser):
                 source=indexed_string,
                 name=result_dict.get("transportation", ""),
                 phone=" ".join(result_dict.get("transportation_phone", "")),
-                calendar=" ".join(result_dict.get("calendar_entries", "")),
+                calendar=result_dict.get("calendar_entries", []),
             )
         except KeyError as error:
             raise SingleParserFail(
@@ -623,7 +624,7 @@ class TripFooter(PyparsingParser):
             synth=result_dict.get("synth", ""),
             total_pay=result_dict.get("total_pay", ""),
             tafb=result_dict.get("tafb", ""),
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
@@ -651,7 +652,7 @@ class CalendarOnly(PyparsingParser):
         result_dict = self.get_result(indexed_string=indexed_string)
         parsed = raw.CalendarOnly(
             source=indexed_string,
-            calendar=" ".join(result_dict.get("calendar_entries", "")),
+            calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
