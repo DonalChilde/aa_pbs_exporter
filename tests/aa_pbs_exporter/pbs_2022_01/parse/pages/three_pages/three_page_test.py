@@ -1,4 +1,5 @@
 from importlib import resources
+from logging import Logger
 from pathlib import Path
 
 from pydantic import parse_raw_as
@@ -13,7 +14,7 @@ TEST_DATA = ResourceTestData("three_pages.txt", "three_pages.json")
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
-def test_page(test_app_data_dir: Path):
+def test_page(test_app_data_dir: Path, logger: Logger):
     output_path = test_app_data_dir / "pages" / __name__.rsplit(".", maxsplit=1)[-1]
     manager = ParseManager(ctx={})
     debug_path = output_path / f"{TEST_DATA.input_data}_debug.txt"

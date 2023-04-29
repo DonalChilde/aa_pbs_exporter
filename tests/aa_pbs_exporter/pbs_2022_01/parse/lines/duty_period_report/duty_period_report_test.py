@@ -1,3 +1,4 @@
+from logging import Logger
 from pathlib import Path
 
 import pytest
@@ -18,7 +19,7 @@ TEST_DATA = [
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
-def test_parse_fail(test_app_data_dir: Path):
+def test_parse_fail(test_app_data_dir: Path, logger: Logger):
     output_path = test_app_data_dir / "lines" / PARSER.__class__.__qualname__
     for fail_data in TEST_FAIL:
         with pytest.raises(ParseException):
@@ -32,7 +33,7 @@ def test_parse_fail(test_app_data_dir: Path):
             )
 
 
-def test_lines(test_app_data_dir: Path):
+def test_lines(test_app_data_dir: Path, logger: Logger):
     output_path = test_app_data_dir / "lines" / PARSER.__class__.__qualname__
     for data in TEST_DATA:
         process_lines(

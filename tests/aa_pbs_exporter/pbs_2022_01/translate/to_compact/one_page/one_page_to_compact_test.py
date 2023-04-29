@@ -1,17 +1,16 @@
 from importlib import resources
+from logging import Logger
 from pathlib import Path
 
 from pydantic import parse_raw_as
-from aa_pbs_exporter.airports.airports import tz_name_from_iata
-from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
-from aa_pbs_exporter.pbs_2022_01.raw_to_compact import CompactTranslator
+
+from aa_pbs_exporter.airports.airports import tz_name_from_iata
 from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
-from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.models import compact
-
-
+from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
+from aa_pbs_exporter.pbs_2022_01.raw_to_compact import CompactTranslator
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False
 RAW_TEST_DATA = ResourceTestData("one_page.txt", "one_page_raw.json")
@@ -19,7 +18,7 @@ COMPACT_TEST_DATA = ResourceTestData(RAW_TEST_DATA.result_data, "one_page_compac
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
-def test_page(test_app_data_dir: Path):
+def test_page(test_app_data_dir: Path, logger: Logger):
     output_path = (
         test_app_data_dir
         / "translate"

@@ -1,4 +1,5 @@
 from importlib import resources
+from logging import Logger
 from pathlib import Path
 
 from pydantic import parse_raw_as
@@ -21,7 +22,7 @@ EXPANDED_TEST_DATA = ResourceTestData(
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
-def test_page(test_app_data_dir: Path):
+def test_page(test_app_data_dir: Path, logger: Logger):
     output_path = (
         test_app_data_dir
         / "translate"
