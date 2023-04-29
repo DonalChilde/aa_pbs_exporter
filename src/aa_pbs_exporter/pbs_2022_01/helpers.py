@@ -1,7 +1,7 @@
 import traceback
+from hashlib import md5
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
-from hashlib import md5
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile

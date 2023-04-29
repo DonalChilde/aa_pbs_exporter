@@ -1,5 +1,6 @@
 from datetime import date
 from typing import Sequence
+
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.validation_helper import send_validation_message
 from aa_pbs_exporter.snippets.messages.message import Message
