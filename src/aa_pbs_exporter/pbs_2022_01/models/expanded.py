@@ -4,6 +4,8 @@ from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+
 # TODO make validator class to allow passing out validation messages
 # TODO split to expanded model, and expand functions? rename?
 # TODO decide on parser version scheme, and rename packages
@@ -20,6 +22,7 @@ class Instant(BaseModel):
     utc_date: datetime
     tz_name: str
 
+    # TODO move to common
     def local(self, tz_name: str | None = None) -> datetime:
         if tz_name is None:
             return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
@@ -142,7 +145,7 @@ class Page(BaseModel):
 
 class BidPackage(BaseModel):
     uuid: UUID
-    source: str
+    source: HashedFile
     pages: list[Page]
 
     def default_file_name(self) -> str:

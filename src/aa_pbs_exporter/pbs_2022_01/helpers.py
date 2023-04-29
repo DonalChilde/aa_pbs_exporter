@@ -1,13 +1,16 @@
 import traceback
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
+from hashlib import md5
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 from aa_pbs_exporter.pbs_2022_01.result_handler import (
     AssembleRawBidPackage,
     DebugToFile,
 )
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
 from aa_pbs_exporter.snippets.indexed_string.filters import (
     MultipleTests,
     SkipTillFirstMatch,
@@ -71,32 +74,35 @@ def parse_pbs_data(
 
 
 def parse_raw_bidpackage(
-    strings: Iterable[str],
+    source_path: Path,
     manager: ParseManagerProtocol,
-    source: str,
+    # source: HashedFile | None,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
     ensure_validation_publisher(manager)
     if additional_handlers is None:
         additional_handlers = []
+    source = make_hashed_file(
+        file_path=source_path, hasher=md5(), result_factory=HashedFile.factory
+    )
     package_handler = AssembleRawBidPackage(source=source)
     handler = MultipleResultHandler(result_handlers=additional_handlers)
     handler.handlers.append(package_handler)
-    parse_pbs_data(strings=strings, manager=manager, result_handler=handler)
+    with open(source_path, encoding="utf-8") as file_in:
+        parse_pbs_data(strings=file_in, manager=manager, result_handler=handler)
     return package_handler.bid_package
 
 
 def debug_parse_raw_bidpackage(
-    strings: Iterable[str],
+    source_path: Path,
     manager: ParseManagerProtocol,
-    source: str,
     debug_file_path: Path,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
     ensure_validation_publisher(manager)
     validate_file_out(debug_file_path)
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
-        debug_file.write(f"source: {source}\n")
+        debug_file.write(f"source: {source_path}\n")
         debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
         debug_validation_messenger = PrintMessenger(file=debug_file)
         manager.ctx["validation_publisher"].messengers.append(
@@ -107,9 +113,9 @@ def debug_parse_raw_bidpackage(
             handlers.extend(additional_handlers)
         try:
             result = parse_raw_bidpackage(
-                strings=strings,
+                source_path=source_path,
                 manager=manager,
-                source=source,
+                # source=source,
                 additional_handlers=handlers,
             )
         except Exception as error:

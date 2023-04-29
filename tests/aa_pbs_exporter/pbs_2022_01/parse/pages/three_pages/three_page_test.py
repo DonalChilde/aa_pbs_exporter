@@ -19,13 +19,11 @@ def test_page(test_app_data_dir: Path):
     debug_path = output_path / f"{TEST_DATA.input_data}_debug.txt"
     res_dir = resources.files(__package__)
     res_file = res_dir.joinpath(TEST_DATA.input_data)
-    with res_file.open() as file:
-        bid_package = debug_parse_raw_bidpackage(
-            strings=file,
-            manager=manager,
-            source=TEST_DATA.input_data,
-            debug_file_path=debug_path,
-        )
+    bid_package = debug_parse_raw_bidpackage(
+        source_path=res_file,
+        manager=manager,
+        debug_file_path=debug_path,
+    )
     bid_package_path = output_path / TEST_DATA.result_data
     bid_package_path.write_text(bid_package.json(indent=2))
     if not SERIALIZE_ONLY:

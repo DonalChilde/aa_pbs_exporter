@@ -13,11 +13,13 @@ Assumptions:
 """
 
 import json
+from typing import Iterable
 from uuid import UUID, uuid5
 
 from pydantic import BaseModel
 
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 
 LAYOVER_DNS = uuid5(PARSER_DNS, "LAYOVER_DNS")
 DUTYPERIOD_DNS = uuid5(PARSER_DNS, "DUTYPERIOD_DNS")
@@ -31,7 +33,7 @@ NL = "\n"
 class IndexedString(BaseModel):
     idx: int
     txt: str
-
+    # TODO move to common, try classmethod factory?
     def __str__(self) -> str:
         return f"{self.idx}: {self.txt!r}"
 
@@ -230,7 +232,7 @@ class Page(BaseModel):
 
 class BidPackage(BaseModel):
     uuid: UUID
-    source: str
+    source: HashedFile | None
     pages: list[Page]
 
     def default_file_name(self) -> str:
@@ -238,4 +240,13 @@ class BidPackage(BaseModel):
         return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw"
 
     def uuid5(self) -> UUID:
-        return uuid5(BIDPACKAGE_DNS, self.source)
+        if self.source:
+            uuid_seed = self.source.file_hash
+        else:
+            uuid_seed = "None"
+        return uuid5(BIDPACKAGE_DNS, uuid_seed)
+
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip

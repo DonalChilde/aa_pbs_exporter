@@ -9,6 +9,8 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+
 
 class Transportation(BaseModel):
     uuid: UUID
@@ -101,7 +103,7 @@ class Page(BaseModel):
 
 class BidPackage(BaseModel):
     uuid: UUID
-    source: str
+    source: HashedFile
     pages: list[Page]
 
     def default_file_name(self) -> str:

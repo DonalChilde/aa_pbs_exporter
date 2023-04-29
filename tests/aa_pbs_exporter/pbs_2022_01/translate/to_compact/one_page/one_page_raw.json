@@ -1,7 +1,7 @@
 {
   "uuid": "d0a0a1c3-43f3-58c6-85dc-6e8ae6282f21",
   "source": {
-    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/parse/pages/one_page/one_page.txt",
+    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_compact/one_page/one_page.txt",
     "file_hash": "9d459053648baa5c428f093316ecd04f",
     "hash_method": "md5"
   },

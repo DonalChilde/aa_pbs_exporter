@@ -2,7 +2,9 @@ from uuid import uuid5
 
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
+from aa_pbs_exporter.pbs_2022_01.raw_helpers import collect_calendar_entries
 from aa_pbs_exporter.pbs_2022_01.validate_raw import validate_bid_package
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     ParseResultHandler,
@@ -14,10 +16,14 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
 
 
 class AssembleRawBidPackage(ParseResultHandler):
-    def __init__(self, source: str) -> None:
+    def __init__(self, source: HashedFile | None) -> None:
         super().__init__()
         self.source = source
-        uuid = uuid5(raw.BIDPACKAGE_DNS, source)
+        if source:
+            uuid_seed = source.file_hash
+        else:
+            uuid_seed = "None"
+        uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
 
     def handle_result(
@@ -97,6 +103,8 @@ class AssembleRawBidPackage(ParseResultHandler):
                 self.bid_package.pages[-1].page_footer = parse_result.parsed_data
 
     def finalize(self, ctx: dict | None = None):
+        for trip in self.bid_package.walk_trips():
+            trip.calendar_entries = collect_calendar_entries(trip)
         validate_bid_package(bid_package=self.bid_package, ctx=ctx)
 
 
