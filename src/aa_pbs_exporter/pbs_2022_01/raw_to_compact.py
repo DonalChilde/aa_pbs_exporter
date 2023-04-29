@@ -1,9 +1,15 @@
 import time
 from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
+from uuid import UUID
 
 from aa_pbs_exporter.pbs_2022_01.compact_helpers import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
+from aa_pbs_exporter.pbs_2022_01.raw_helpers import collect_start_days
+from aa_pbs_exporter.pbs_2022_01.validate_compact import (
+    validate_calendar_entry_count,
+    validate_start_date,
+)
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
@@ -20,15 +26,21 @@ class Translator:
         self.tz_lookup = tz_lookup
         self.compact_bid_package = None
 
-    def translate(self, raw_bid_package: raw.BidPackage) -> compact.BidPackage:
+    def translate(
+        self, raw_bid_package: raw.BidPackage, ctx: dict | None = None
+    ) -> compact.BidPackage:
         self.compact_bid_package = compact.BidPackage(
             uuid=raw_bid_package.uuid, source=raw_bid_package.source, pages=[]
         )
         for raw_page in raw_bid_package.pages:
-            self.compact_bid_package.pages.append(self.translate_page(raw_page))
+            self.compact_bid_package.pages.append(
+                self.translate_page(raw_page, ctx=ctx)
+            )
         return self.compact_bid_package
 
-    def translate_page(self, raw_page: raw.Page) -> compact.Page:
+    def translate_page(
+        self, raw_page: raw.Page, ctx: dict | None = None
+    ) -> compact.Page:
         assert raw_page.page_footer is not None
         assert raw_page.page_header_2 is not None
         effective = datetime.strptime(raw_page.page_footer.effective, DATE).date()
@@ -51,17 +63,21 @@ class Translator:
             end=end,
             trips=trips,
         )
+        valid_dates = list(date_range(start, end))
         for raw_trip in raw_page.trips:
             if "prior" in raw_trip.header.source.txt:
                 # skip prior month trips
                 continue
             compact_page.trips.append(
-                self.translate_trip(raw_trip=raw_trip, from_date=start, to_date=end)
+                self.translate_trip(raw_trip=raw_trip, valid_dates=valid_dates, ctx=ctx)
             )
         return compact_page
 
     def translate_trip(
-        self, raw_trip: raw.Trip, from_date: date, to_date: date
+        self,
+        raw_trip: raw.Trip,
+        valid_dates: Sequence[date],
+        ctx: dict | None = None,
     ) -> compact.Trip:
         dutyperiods = []
 
@@ -85,17 +101,20 @@ class Translator:
             dutyperiods=dutyperiods,
             start_dates=[],
         )
+
         compact_trip.start_dates = get_start_dates(
-            from_date=from_date, to_date=to_date, days=raw_trip.start_days
+            valid_dates=valid_dates,
+            calendar_entries=raw_trip.calendar_entries,
+            uuid=raw_trip.uuid,
         )
         for idx, raw_dutyperiod in enumerate(raw_trip.dutyperiods, start=1):
             compact_trip.dutyperiods.append(
-                self.translate_dutyperiod(idx, raw_dutyperiod)
+                self.translate_dutyperiod(idx, raw_dutyperiod, ctx=ctx)
             )
         return compact_trip
 
     def translate_dutyperiod(
-        self, idx: int, raw_dutyperiod: raw.DutyPeriod
+        self, idx: int, raw_dutyperiod: raw.DutyPeriod, ctx: dict | None = None
     ) -> compact.DutyPeriod:
         assert raw_dutyperiod.release is not None
         report_station = raw_dutyperiod.flights[0].departure_station
@@ -125,16 +144,18 @@ class Translator:
             flight_duty=parse_duration(
                 DURATION_PATTERN, raw_dutyperiod.release.flight_duty
             ).to_timedelta(),
-            layover=self.translate_layover(raw_dutyperiod.layover),
+            layover=self.translate_layover(raw_dutyperiod.layover, ctx=ctx),
             flights=flights,
         )
         for flt_idx, raw_flight in enumerate(raw_dutyperiod.flights, start=1):
             compact_dutyperiod.flights.append(
-                self.translate_flight(flt_idx, raw_flight)
+                self.translate_flight(flt_idx, raw_flight, ctx=ctx)
             )
         return compact_dutyperiod
 
-    def translate_flight(self, idx: int, raw_flight: raw.Flight) -> compact.Flight:
+    def translate_flight(
+        self, idx: int, raw_flight: raw.Flight, ctx: dict | None = None
+    ) -> compact.Flight:
         departure_station = raw_flight.departure_station
         arrival_station = raw_flight.arrival_station
         departure = self.split_times(raw_flight.departure_time, departure_station)
@@ -159,7 +180,7 @@ class Translator:
         return compact_flight
 
     def translate_layover(
-        self, raw_layover: raw.Layover | None
+        self, raw_layover: raw.Layover | None, ctx: dict | None = None
     ) -> compact.Layover | None:
         if raw_layover is None:
             return None
@@ -167,17 +188,21 @@ class Translator:
             uuid=raw_layover.uuid,
             odl=parse_duration(DURATION_PATTERN, raw_layover.hotel.rest).to_timedelta(),
             city=raw_layover.hotel.layover_city,
-            hotel=self.translate_hotel(raw_layover.hotel),
-            transportation=self.translate_transportation(raw_layover.transportation),
-            hotel_additional=self.translate_hotel(raw_layover.hotel_additional),
+            hotel=self.translate_hotel(raw_layover.hotel, ctx=ctx),
+            transportation=self.translate_transportation(
+                raw_layover.transportation, ctx=ctx
+            ),
+            hotel_additional=self.translate_hotel(
+                raw_layover.hotel_additional, ctx=ctx
+            ),
             transportation_additional=self.translate_transportation(
-                raw_layover.transportation_additional
+                raw_layover.transportation_additional, ctx=ctx
             ),
         )
         return compact_layover
 
     def translate_hotel(
-        self, raw_hotel: raw.Hotel | raw.HotelAdditional | None
+        self, raw_hotel: raw.Hotel | raw.HotelAdditional | None, ctx: dict | None = None
     ) -> compact.Hotel | None:
         if raw_hotel is None:
             return None
@@ -186,7 +211,9 @@ class Translator:
         )
 
     def translate_transportation(
-        self, raw_trans: raw.Transportation | raw.TransportationAdditional | None
+        self,
+        raw_trans: raw.Transportation | raw.TransportationAdditional | None,
+        ctx: dict | None = None,
     ) -> compact.Transportation | None:
         if raw_trans is None:
             return None
@@ -211,14 +238,20 @@ def complete_future_date(ref_date: date, future: str, strf: str) -> date:
 
 
 def get_start_dates(
-    from_date: date, to_date: date, days: Sequence[Tuple[int, int]]
+    valid_dates: Sequence[date], calendar_entries: Sequence[str], uuid: UUID
 ) -> list[date]:
+
+    validate_calendar_entry_count(
+        calendar_entries=calendar_entries, valid_dates=valid_dates, uuid=uuid
+    )
     start_dates: list[date] = []
-    valid_dates = list(date_range(from_date, to_date))
+    days = collect_start_days(calendar_entries)
+
     for day in days:
         start_date = valid_dates[day[0]]
-        assert start_date.day == day[1]  # TODO replace with validator func
+        validate_start_date(day=day, start_date=start_date, uuid=uuid)
         start_dates.append(start_date)
+
     return start_dates
 
 
