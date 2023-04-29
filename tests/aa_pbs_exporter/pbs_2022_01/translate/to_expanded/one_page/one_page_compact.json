@@ -1,0 +1,852 @@
+{
+  "uuid": "d0a0a1c3-43f3-58c6-85dc-6e8ae6282f21",
+  "source": {
+    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_expanded/one_page/one_page.txt",
+    "file_hash": "9d459053648baa5c428f093316ecd04f",
+    "hash_method": "md5"
+  },
+  "pages": [
+    {
+      "uuid": "b92ad057-434a-5eae-8d34-672a14394999",
+      "base": "LAX",
+      "satellite_base": "",
+      "equipment": "777",
+      "division": "INTL",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "74e17dc6-bb00-524b-ba01-61394dbf4e5a",
+          "number": "680",
+          "positions": [
+            "FB"
+          ],
+          "operations": "",
+          "special_qualifications": false,
+          "block": 78300.0,
+          "synth": 0.0,
+          "total_pay": 78300.0,
+          "tafb": 177300.0,
+          "dutyperiods": [
+            {
+              "uuid": "93ebbefc-5eea-5084-8811-6d928b7f91ec",
+              "idx": 1,
+              "report": {
+                "lcl": "14:50:00",
+                "hbt": "14:50:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "10:50:00",
+                "hbt": "02:50:00",
+                "tz_name": "Europe/London"
+              },
+              "release_station": "LHR",
+              "block": 37800.0,
+              "synth": 0.0,
+              "total_pay": 37800.0,
+              "duty": 43200.0,
+              "flight_duty": 41400.0,
+              "layover": {
+                "uuid": "2ec30fd4-3a17-5c3e-a9e5-30288d2c50bf",
+                "odl": 88200.0,
+                "city": "LHR",
+                "hotel": {
+                  "uuid": "0e52b9a7-881b-5a6f-8cd5-65d80d0f4946",
+                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                  "phone": "443334006112"
+                },
+                "transportation": {
+                  "uuid": "c7cc90f8-eebb-5002-b04d-0d558f96f684",
+                  "name": "COMET CAR HIRE (CCH) LTD",
+                  "phone": "442088979984"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "c7883d03-db7c-57f2-aa3d-a56661488833",
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "82",
+                  "number": "136",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "15:50:00",
+                    "hbt": "15:50:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LHR",
+                  "arrival": {
+                    "lcl": "10:20:00",
+                    "hbt": "02:20:00",
+                    "tz_name": "Europe/London"
+                  },
+                  "block": 37800.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "2bb7896e-d989-50cc-9a92-d9ba8b0ac0dd",
+              "idx": 2,
+              "report": {
+                "lcl": "11:20:00",
+                "hbt": "03:20:00",
+                "tz_name": "Europe/London"
+              },
+              "report_station": "LHR",
+              "release": {
+                "lcl": "16:05:00",
+                "hbt": "16:05:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 40500.0,
+              "synth": 0.0,
+              "total_pay": 40500.0,
+              "duty": 45900.0,
+              "flight_duty": 44100.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "2a4dd786-aec5-5423-9e76-cf5cd41dd487",
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "82",
+                  "number": "137",
+                  "deadhead": false,
+                  "departure_station": "LHR",
+                  "departure": {
+                    "lcl": "12:20:00",
+                    "hbt": "04:20:00",
+                    "tz_name": "Europe/London"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "15:35:00",
+                    "hbt": "15:35:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 40500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-14",
+            "2022-05-15",
+            "2022-05-16"
+          ]
+        },
+        {
+          "uuid": "3c2f1e7c-d1c4-5d9e-9f28-31f7e27994a6",
+          "number": "681",
+          "positions": [
+            "FB"
+          ],
+          "operations": "",
+          "special_qualifications": false,
+          "block": 78300.0,
+          "synth": 0.0,
+          "total_pay": 78300.0,
+          "tafb": 175500.0,
+          "dutyperiods": [
+            {
+              "uuid": "4d5c8c7c-adef-5b39-9dab-ad54b0eb11be",
+              "idx": 1,
+              "report": {
+                "lcl": "14:50:00",
+                "hbt": "14:50:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "10:50:00",
+                "hbt": "02:50:00",
+                "tz_name": "Europe/London"
+              },
+              "release_station": "LHR",
+              "block": 37800.0,
+              "synth": 0.0,
+              "total_pay": 37800.0,
+              "duty": 43200.0,
+              "flight_duty": 41400.0,
+              "layover": {
+                "uuid": "6bc5eb72-0d78-5454-87fc-f076ba8f4d30",
+                "odl": 86400.0,
+                "city": "LHR",
+                "hotel": {
+                  "uuid": "619cd0ba-9d05-50bc-ad6f-cf3e86ee785f",
+                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                  "phone": "443334006112"
+                },
+                "transportation": {
+                  "uuid": "4486e2b9-a898-5ca6-8435-cba57b596aac",
+                  "name": "COMET CAR HIRE (CCH) LTD",
+                  "phone": "442088979984"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "b29f3605-a19e-5c16-8be8-3a23d7c65c42",
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "82",
+                  "number": "136",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "15:50:00",
+                    "hbt": "15:50:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LHR",
+                  "arrival": {
+                    "lcl": "10:20:00",
+                    "hbt": "02:20:00",
+                    "tz_name": "Europe/London"
+                  },
+                  "block": 37800.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "7da8bfed-f57e-5a55-a210-68cc6dccc59a",
+              "idx": 2,
+              "report": {
+                "lcl": "10:50:00",
+                "hbt": "02:50:00",
+                "tz_name": "Europe/London"
+              },
+              "report_station": "LHR",
+              "release": {
+                "lcl": "15:35:00",
+                "hbt": "15:35:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 40500.0,
+              "synth": 0.0,
+              "total_pay": 40500.0,
+              "duty": 45900.0,
+              "flight_duty": 44100.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "2cf5bb99-d79b-516e-bae3-bbe7e9f41e3b",
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "82",
+                  "number": "137",
+                  "deadhead": false,
+                  "departure_station": "LHR",
+                  "departure": {
+                    "lcl": "11:50:00",
+                    "hbt": "03:50:00",
+                    "tz_name": "Europe/London"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "15:05:00",
+                    "hbt": "15:05:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 40500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-17",
+            "2022-05-18",
+            "2022-05-19",
+            "2022-05-20",
+            "2022-05-21",
+            "2022-05-22",
+            "2022-05-23",
+            "2022-05-24",
+            "2022-05-25",
+            "2022-05-26",
+            "2022-05-27",
+            "2022-05-28",
+            "2022-05-29",
+            "2022-05-30",
+            "2022-05-31"
+          ]
+        },
+        {
+          "uuid": "5f2714e4-070b-53c1-8541-3c70dda63723",
+          "number": "682",
+          "positions": [
+            "FB"
+          ],
+          "operations": "ITALIAN",
+          "special_qualifications": false,
+          "block": 60240.0,
+          "synth": 41760.0,
+          "total_pay": 102000.0,
+          "tafb": 340620.0,
+          "dutyperiods": [
+            {
+              "uuid": "9309e8c2-a1a3-5802-89ee-64eb293e4bfc",
+              "idx": 1,
+              "report": {
+                "lcl": "15:30:00",
+                "hbt": "15:30:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "00:59:00",
+                "hbt": "21:59:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 0.0,
+              "synth": 19740.0,
+              "total_pay": 19740.0,
+              "duty": 23340.0,
+              "flight_duty": 0.0,
+              "layover": {
+                "uuid": "9aad6f0e-ca6b-507c-8b9f-2dbb58ccb6fa",
+                "odl": 61860.0,
+                "city": "JFK",
+                "hotel": {
+                  "uuid": "c0b82f57-9700-5d46-a4f8-6cf8473c7e6a",
+                  "name": "COURTYARD CENTRAL PARK",
+                  "phone": "2123243773"
+                },
+                "transportation": {
+                  "uuid": "719b8745-69a6-5371-9361-00a158f8c8a4",
+                  "name": "DESERT COACH",
+                  "phone": "6022866161"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "285f5365-06e7-5f10-9efa-90d5e83edfc3",
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "80",
+                  "number": "2201",
+                  "deadhead": true,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "16:00:00",
+                    "hbt": "16:00:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "00:29:00",
+                    "hbt": "21:29:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 0.0,
+                  "synth": 19740.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "f5ce2b38-47f3-5a0b-b289-1055c69ff025",
+              "idx": 2,
+              "report": {
+                "lcl": "18:10:00",
+                "hbt": "15:10:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "09:35:00",
+                "hbt": "00:35:00",
+                "tz_name": "Europe/Rome"
+              },
+              "release_station": "MXP",
+              "block": 28500.0,
+              "synth": 0.0,
+              "total_pay": 28500.0,
+              "duty": 33900.0,
+              "flight_duty": 32100.0,
+              "layover": {
+                "uuid": "79b7521f-1f4d-5d14-bfbe-0506a948831d",
+                "odl": 88500.0,
+                "city": "MXP",
+                "hotel": {
+                  "uuid": "5f0b7e8b-067a-5c76-8483-2c5634aa3b36",
+                  "name": "MELIA MILANO",
+                  "phone": "3902444061"
+                },
+                "transportation": {
+                  "uuid": "1956498f-b9e6-5837-914c-ce1d5291a140",
+                  "name": "AIR PULLMAN",
+                  "phone": "01139033125844"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "0254da24-b461-5f0c-9f1d-35e28232ce7b",
+                  "idx": 1,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "83",
+                  "number": "198",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "19:10:00",
+                    "hbt": "16:10:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "MXP",
+                  "arrival": {
+                    "lcl": "09:05:00",
+                    "hbt": "00:05:00",
+                    "tz_name": "Europe/Rome"
+                  },
+                  "block": 28500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "bc23d192-858b-5b69-a3ac-8e545fd515c0",
+              "idx": 3,
+              "report": {
+                "lcl": "10:10:00",
+                "hbt": "01:10:00",
+                "tz_name": "Europe/Rome"
+              },
+              "report_station": "MXP",
+              "release": {
+                "lcl": "14:29:00",
+                "hbt": "11:29:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 31740.0,
+              "synth": 0.0,
+              "total_pay": 31740.0,
+              "duty": 37140.0,
+              "flight_duty": 35340.0,
+              "layover": {
+                "uuid": "68cba1ea-1ca7-5dbc-be31-17ef177985eb",
+                "odl": 70260.0,
+                "city": "JFK",
+                "hotel": {
+                  "uuid": "07a98f15-a0b1-5766-8a4d-1dedf3002e0a",
+                  "name": "COURTYARD CENTRAL PARK",
+                  "phone": "2123243773"
+                },
+                "transportation": {
+                  "uuid": "5e5591c1-cce4-5b10-9684-7b23a036317e",
+                  "name": "DESERT COACH",
+                  "phone": "6022866161"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "69665cc3-454f-57e7-883e-3935bc637013",
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "83",
+                  "number": "199",
+                  "deadhead": false,
+                  "departure_station": "MXP",
+                  "departure": {
+                    "lcl": "11:10:00",
+                    "hbt": "02:10:00",
+                    "tz_name": "Europe/Rome"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "13:59:00",
+                    "hbt": "10:59:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 31740.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "de843de4-b6e3-5eb2-a3ae-448df370e6da",
+              "idx": 4,
+              "report": {
+                "lcl": "10:00:00",
+                "hbt": "07:00:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "14:07:00",
+                "hbt": "14:07:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 0.0,
+              "synth": 22020.0,
+              "total_pay": 22020.0,
+              "duty": 25620.0,
+              "flight_duty": 0.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "88f52321-7c42-5c98-9441-62c8315d77c4",
+                  "idx": 1,
+                  "dep_arr_day": "5/5",
+                  "eq_code": "80",
+                  "number": "331",
+                  "deadhead": true,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "10:30:00",
+                    "hbt": "07:30:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "13:37:00",
+                    "hbt": "13:37:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 0.0,
+                  "synth": 22020.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-03",
+            "2022-05-04"
+          ]
+        },
+        {
+          "uuid": "60a14277-bdcf-5736-8e39-f25874b15999",
+          "number": "683",
+          "positions": [
+            "FB"
+          ],
+          "operations": "ITALIAN",
+          "special_qualifications": false,
+          "block": 60240.0,
+          "synth": 41880.0,
+          "total_pay": 102120.0,
+          "tafb": 340620.0,
+          "dutyperiods": [
+            {
+              "uuid": "04d274e1-e916-5981-944b-f4c95b5c4c4c",
+              "idx": 1,
+              "report": {
+                "lcl": "15:30:00",
+                "hbt": "15:30:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "01:01:00",
+                "hbt": "22:01:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 0.0,
+              "synth": 19860.0,
+              "total_pay": 19860.0,
+              "duty": 23460.0,
+              "flight_duty": 0.0,
+              "layover": {
+                "uuid": "a18a584f-29a2-5b4b-addb-e095a19aef37",
+                "odl": 61740.0,
+                "city": "JFK",
+                "hotel": {
+                  "uuid": "30478e6b-1461-5717-8cf0-805a0caebf0d",
+                  "name": "COURTYARD CENTRAL PARK",
+                  "phone": "2123243773"
+                },
+                "transportation": {
+                  "uuid": "e6bf1c8d-74b5-5845-ae9b-3f85341a69e2",
+                  "name": "DESERT COACH",
+                  "phone": "6022866161"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "8b3abb92-ff49-5c70-9c61-f719150463cb",
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "80",
+                  "number": "184",
+                  "deadhead": true,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "16:00:00",
+                    "hbt": "16:00:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "00:31:00",
+                    "hbt": "21:31:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 0.0,
+                  "synth": 19860.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "b2358942-684f-5537-9f51-37c63e6904d5",
+              "idx": 2,
+              "report": {
+                "lcl": "18:10:00",
+                "hbt": "15:10:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "09:35:00",
+                "hbt": "00:35:00",
+                "tz_name": "Europe/Rome"
+              },
+              "release_station": "MXP",
+              "block": 28500.0,
+              "synth": 0.0,
+              "total_pay": 28500.0,
+              "duty": 33900.0,
+              "flight_duty": 32100.0,
+              "layover": {
+                "uuid": "765b0b91-9d39-550e-9097-fdf8a3ba4f12",
+                "odl": 88500.0,
+                "city": "MXP",
+                "hotel": {
+                  "uuid": "134bb555-0869-5748-886d-eadd9c6bca98",
+                  "name": "MELIA MILANO",
+                  "phone": "3902444061"
+                },
+                "transportation": {
+                  "uuid": "a3a029a2-5080-52d3-9077-d44818c62de8",
+                  "name": "AIR PULLMAN",
+                  "phone": "01139033125844"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "d3d09f2b-fd6c-5e80-8db7-5cee607f8bab",
+                  "idx": 1,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "83",
+                  "number": "198",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "19:10:00",
+                    "hbt": "16:10:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "MXP",
+                  "arrival": {
+                    "lcl": "09:05:00",
+                    "hbt": "00:05:00",
+                    "tz_name": "Europe/Rome"
+                  },
+                  "block": 28500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "4e31f8b9-3741-5712-9acd-6cabf01e9bd7",
+              "idx": 3,
+              "report": {
+                "lcl": "10:10:00",
+                "hbt": "01:10:00",
+                "tz_name": "Europe/Rome"
+              },
+              "report_station": "MXP",
+              "release": {
+                "lcl": "14:29:00",
+                "hbt": "11:29:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 31740.0,
+              "synth": 0.0,
+              "total_pay": 31740.0,
+              "duty": 37140.0,
+              "flight_duty": 35340.0,
+              "layover": {
+                "uuid": "9f80f3c0-028a-55d5-8166-d032fa8556ce",
+                "odl": 70260.0,
+                "city": "JFK",
+                "hotel": {
+                  "uuid": "debcead0-5952-5ff4-a339-12f99aaf162b",
+                  "name": "COURTYARD CENTRAL PARK",
+                  "phone": "2123243773"
+                },
+                "transportation": {
+                  "uuid": "3050e6a2-eec7-52d8-a3ce-43a223eba7c9",
+                  "name": "DESERT COACH",
+                  "phone": "6022866161"
+                },
+                "hotel_additional": null,
+                "transportation_additional": null
+              },
+              "flights": [
+                {
+                  "uuid": "339139d7-d9b4-59cd-8c90-d741c88e41a6",
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "83",
+                  "number": "199",
+                  "deadhead": false,
+                  "departure_station": "MXP",
+                  "departure": {
+                    "lcl": "11:10:00",
+                    "hbt": "02:10:00",
+                    "tz_name": "Europe/Rome"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "13:59:00",
+                    "hbt": "10:59:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 31740.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "077cb010-d36f-50d2-8e77-9dda9a9e56ca",
+              "idx": 4,
+              "report": {
+                "lcl": "10:00:00",
+                "hbt": "07:00:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "14:07:00",
+                "hbt": "14:07:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 0.0,
+              "synth": 22020.0,
+              "total_pay": 22020.0,
+              "duty": 25620.0,
+              "flight_duty": 0.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "b1ae2b7b-2695-534b-b9aa-0e04875c48f1",
+                  "idx": 1,
+                  "dep_arr_day": "5/5",
+                  "eq_code": "80",
+                  "number": "331",
+                  "deadhead": true,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "10:30:00",
+                    "hbt": "07:30:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "13:37:00",
+                    "hbt": "13:37:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 0.0,
+                  "synth": 22020.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-05",
+            "2022-05-06",
+            "2022-05-07",
+            "2022-05-08",
+            "2022-05-09",
+            "2022-05-10",
+            "2022-05-11",
+            "2022-05-12",
+            "2022-05-13",
+            "2022-05-14",
+            "2022-05-15",
+            "2022-05-16",
+            "2022-05-17",
+            "2022-05-18",
+            "2022-05-19",
+            "2022-05-20",
+            "2022-05-21",
+            "2022-05-22",
+            "2022-05-23",
+            "2022-05-24",
+            "2022-05-25",
+            "2022-05-26",
+            "2022-05-27",
+            "2022-05-28",
+            "2022-05-29"
+          ]
+        }
+      ]
+    }
+  ]
+}

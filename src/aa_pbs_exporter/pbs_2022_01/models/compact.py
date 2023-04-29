@@ -103,7 +103,7 @@ class Page(BaseModel):
 
 class BidPackage(BaseModel):
     uuid: UUID
-    source: HashedFile
+    source: HashedFile | None
     pages: list[Page]
 
     def default_file_name(self) -> str:

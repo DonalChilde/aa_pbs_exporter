@@ -21,7 +21,7 @@ DATE = "%d%b%Y"
 MONTH_DAY = "%m/%d"
 
 
-class Translator:
+class CompactTranslator:
     def __init__(self, tz_lookup: Callable[[str], str]) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package = None
