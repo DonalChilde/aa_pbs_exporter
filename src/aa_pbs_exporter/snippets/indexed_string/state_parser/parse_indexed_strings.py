@@ -15,7 +15,6 @@ from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
     IndexedStringProtocol,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
-    ParseAllFail,
     ParseException,
     ParseJobFail,
 )
