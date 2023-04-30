@@ -1,56 +1,9 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from uuid import UUID, uuid5
-from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 
-from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-
-# TODO make validator class to allow passing out validation messages
-# TODO split to expanded model, and expand functions? rename?
-# TODO decide on parser version scheme, and rename packages
-#   - pbs_2022_10
-#       - parse
-#       - models
-#           - raw
-#           - expanded
-#       - validate
-#       - convert
-
-
-class Instant(BaseModel):
-    utc_date: datetime
-    tz_name: str
-
-    # TODO move to common
-    def local(self, tz_name: str | None = None) -> datetime:
-        if tz_name is None:
-            return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
-        return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
-
-    def __copy__(self) -> "Instant":
-        return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
-
-    def __add__(self, other: timedelta) -> "Instant":
-        if not isinstance(other, timedelta):
-            return NotImplemented
-        new_instant = Instant(utc_date=self.utc_date + other, tz_name=self.tz_name)
-        return new_instant
-
-    def __sub__(self, other: timedelta) -> "Instant":
-        if not isinstance(other, timedelta):
-            return NotImplemented
-        new_instant = Instant(utc_date=self.utc_date - other, tz_name=self.tz_name)
-        return new_instant
-
-    def uuid5(self, uuid: UUID) -> UUID:
-        return uuid5(uuid, self.utc_date.isoformat())
-
-
-# class SourceReference(BaseModel):
-#     source: str
-#     from_line: int
-#     to_line: int
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
 
 
 class Transportation(BaseModel):

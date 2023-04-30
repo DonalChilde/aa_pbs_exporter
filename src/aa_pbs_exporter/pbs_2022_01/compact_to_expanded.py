@@ -5,6 +5,9 @@ from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 
+# import aa_pbs_exporter.pbs_2022_01.models.common
+from aa_pbs_exporter.pbs_2022_01.models.common import Instant
+
 
 class ExpandedTranslator:
     def __init__(self) -> None:
@@ -45,7 +48,7 @@ class ExpandedTranslator:
                 compact_trip.dutyperiods[0].report.lcl,
                 ZoneInfo(compact_trip.dutyperiods[0].report.tz_name),
             ).astimezone(timezone.utc)
-            start = expanded.Instant(
+            start = Instant(
                 utc_date=start_utc,
                 tz_name=compact_trip.dutyperiods[0].report.tz_name,
             )
@@ -79,10 +82,12 @@ class ExpandedTranslator:
         return trips
 
     def translate_dutyperiod(
-        self, report: expanded.Instant, compact_dutyperiod: compact.DutyPeriod
+        self,
+        report: Instant,
+        compact_dutyperiod: compact.DutyPeriod,
     ) -> expanded.DutyPeriod:
         release_utc = report.utc_date + compact_dutyperiod.duty
-        release = expanded.Instant(
+        release = Instant(
             utc_date=release_utc, tz_name=compact_dutyperiod.release.tz_name
         )
 
@@ -123,7 +128,7 @@ class ExpandedTranslator:
         )
 
     def translate_flight(
-        self, ref_instant: expanded.Instant, compact_flight: compact.Flight
+        self, ref_instant: Instant, compact_flight: compact.Flight
     ) -> expanded.Flight:
         departure = complete_time_instant(
             ref_instant=ref_instant,
@@ -163,15 +168,16 @@ class ExpandedTranslator:
         )
 
     def calculate_arrival(
-        self, departure: expanded.Instant, compact_flight: compact.Flight
-    ) -> expanded.Instant:
+        self,
+        departure: Instant,
+        compact_flight: compact.Flight,
+    ) -> Instant:
         if not compact_flight.deadhead:
-            arrival = departure + compact_flight.block
+            arrival_time = departure + compact_flight.block
         else:
             # NOTE not sure if this is true in all cases
-            arrival = departure + compact_flight.synth
-        arrival.tz_name = compact_flight.arrival.tz_name
-        return arrival
+            arrival_time = departure + compact_flight.synth
+        return arrival_time.new_tz(compact_flight.arrival.tz_name)
 
     def translate_layover(
         self, compact_layover: compact.Layover | None
@@ -247,11 +253,11 @@ def add_timedelta(
 
 
 def complete_time_instant(
-    ref_instant: expanded.Instant,
+    ref_instant: Instant,
     new_time: time,
     new_tz_name: str,
     is_future: bool = True,
-) -> expanded.Instant:
+) -> Instant:
     # TODO make snippet
     new_datetime = complete_time(
         ref_datetime=ref_instant.utc_date,
@@ -259,9 +265,7 @@ def complete_time_instant(
         new_tz_name=new_tz_name,
         is_future=is_future,
     )
-    return expanded.Instant(
-        utc_date=new_datetime.astimezone(timezone.utc), tz_name=new_tz_name
-    )
+    return Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=new_tz_name)
 
 
 def replace_time(
