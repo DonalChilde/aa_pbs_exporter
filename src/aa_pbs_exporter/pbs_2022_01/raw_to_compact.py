@@ -240,7 +240,6 @@ def complete_future_date(ref_date: date, future: str, strf: str) -> date:
 def get_start_dates(
     valid_dates: Sequence[date], calendar_entries: Sequence[str], uuid: UUID
 ) -> list[date]:
-
     validate_calendar_entry_count(
         calendar_entries=calendar_entries, valid_dates=valid_dates, uuid=uuid
     )

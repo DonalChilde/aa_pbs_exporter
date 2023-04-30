@@ -11,7 +11,6 @@ class ExpandedTranslator:
         pass
 
     def translate(self, compact_bid_package: compact.BidPackage) -> expanded.BidPackage:
-
         expanded_bid_package = expanded.BidPackage(
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )

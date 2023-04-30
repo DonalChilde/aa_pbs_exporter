@@ -33,6 +33,7 @@ NL = "\n"
 class IndexedString(BaseModel):
     idx: int
     txt: str
+
     # TODO move to common, try classmethod factory?
     def __str__(self) -> str:
         return f"{self.idx}: {self.txt!r}"
