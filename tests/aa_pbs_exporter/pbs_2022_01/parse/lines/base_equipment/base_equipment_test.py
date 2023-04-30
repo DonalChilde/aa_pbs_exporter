@@ -17,6 +17,8 @@ TEST_DATA = [
     ResourceTestData("satellite_base.txt", "satellite_base.json"),
     ResourceTestData("no_satellite_base.txt", "no_satellite_base.json"),
 ]
+
+
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 
