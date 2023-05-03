@@ -16,9 +16,12 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
 
 
 class AssembleRawBidPackage(ParseResultHandler):
-    def __init__(self, source: HashedFile | None) -> None:
+    def __init__(
+        self, source: HashedFile | None, validator: RawValidator | None
+    ) -> None:
         super().__init__()
         self.source = source
+        self.validator = validator
         if source:
             uuid_seed = source.file_hash
         else:
@@ -105,8 +108,8 @@ class AssembleRawBidPackage(ParseResultHandler):
     def finalize(self, ctx: dict | None = None):
         for trip in self.bid_package.walk_trips():
             trip.calendar_entries = collect_calendar_entries(trip)
-        validator = RawValidator()
-        validator.validate_bid_package(bid_package=self.bid_package, ctx=ctx)
+        if self.validator is not None:
+            self.validator.validate_bid_package(bid_package=self.bid_package, ctx=ctx)
 
 
 class DebugToFile(ParseResultToFile):

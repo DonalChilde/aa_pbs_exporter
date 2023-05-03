@@ -9,6 +9,7 @@ from aa_pbs_exporter.pbs_2022_01.result_handler import (
     AssembleRawBidPackage,
     DebugToFile,
 )
+from aa_pbs_exporter.pbs_2022_01.validate_raw import RawValidator
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
 from aa_pbs_exporter.snippets.indexed_string.filters import (
@@ -77,14 +78,16 @@ def parse_raw_bidpackage(
     strings: Iterable[str],
     source: HashedFile,
     manager: ParseManagerProtocol,
-    # source: HashedFile | None,
+    validation_publisher: Publisher,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
-    ensure_validation_publisher(manager)
+    # ensure_validation_publisher(manager)
     if additional_handlers is None:
         additional_handlers = []
 
-    package_handler = AssembleRawBidPackage(source=source)
+    package_handler = AssembleRawBidPackage(
+        source=source, validator=RawValidator(publisher=validation_publisher)
+    )
     handler = MultipleResultHandler(result_handlers=additional_handlers)
     handler.handlers.append(package_handler)
 
@@ -98,7 +101,7 @@ def debug_parse_raw_bidpackage(
     debug_file_path: Path,
     additional_handlers: Sequence[ResultHandlerProtocol] | None = None,
 ) -> raw.BidPackage:
-    ensure_validation_publisher(manager)
+    # ensure_validation_publisher(manager)
     source = make_hashed_file(
         file_path=source_path, hasher=md5(), result_factory=HashedFile.factory
     )
@@ -106,10 +109,9 @@ def debug_parse_raw_bidpackage(
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
         debug_file.write(f"source: {source}\n")
         debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
+        validation_publisher = Publisher(messengers=[])
         debug_validation_messenger = PrintMessenger(file=debug_file)
-        manager.ctx["validation_publisher"].messengers.append(
-            debug_validation_messenger
-        )
+        validation_publisher.messengers.append(debug_validation_messenger)
         handlers: list[ResultHandlerProtocol] = [debug_handler]
         if additional_handlers is not None:
             handlers.extend(additional_handlers)
@@ -120,6 +122,7 @@ def debug_parse_raw_bidpackage(
                     source=source,
                     manager=manager,
                     additional_handlers=handlers,
+                    validation_publisher=validation_publisher,
                 )
         except Exception as error:
             debug_file.write(str(error))
