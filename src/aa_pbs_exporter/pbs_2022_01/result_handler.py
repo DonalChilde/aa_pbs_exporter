@@ -5,7 +5,7 @@ from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
 from aa_pbs_exporter.pbs_2022_01.raw_helpers import collect_calendar_entries
-from aa_pbs_exporter.pbs_2022_01.validate_raw import validate_bid_package
+from aa_pbs_exporter.pbs_2022_01.validate_raw import RawValidator
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     ParseResultHandler,
     ParseResultToFile,
@@ -105,7 +105,8 @@ class AssembleRawBidPackage(ParseResultHandler):
     def finalize(self, ctx: dict | None = None):
         for trip in self.bid_package.walk_trips():
             trip.calendar_entries = collect_calendar_entries(trip)
-        validate_bid_package(bid_package=self.bid_package, ctx=ctx)
+        validator = RawValidator()
+        validator.validate_bid_package(bid_package=self.bid_package, ctx=ctx)
 
 
 class DebugToFile(ParseResultToFile):

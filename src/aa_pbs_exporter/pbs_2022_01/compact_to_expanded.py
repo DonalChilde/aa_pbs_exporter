@@ -139,6 +139,7 @@ class ExpandedTranslator:
         expanded_flight = expanded.Flight(
             uuid=uuid5(compact_flight.uuid, departure.utc_date.isoformat()),
             compact_uuid=compact_flight.uuid,
+            dp_idx=compact_flight.dp_idx,
             idx=compact_flight.idx,
             dep_arr_day=compact_flight.dep_arr_day,
             eq_code=compact_flight.eq_code,

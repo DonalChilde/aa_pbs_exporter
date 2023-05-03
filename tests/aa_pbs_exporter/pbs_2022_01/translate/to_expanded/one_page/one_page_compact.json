@@ -70,6 +70,7 @@
               "flights": [
                 {
                   "uuid": "c7883d03-db7c-57f2-aa3d-a56661488833",
+                  "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
                   "eq_code": "82",
@@ -119,6 +120,7 @@
               "flights": [
                 {
                   "uuid": "2a4dd786-aec5-5423-9e76-cf5cd41dd487",
+                  "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "3/3",
                   "eq_code": "82",
@@ -204,6 +206,7 @@
               "flights": [
                 {
                   "uuid": "b29f3605-a19e-5c16-8be8-3a23d7c65c42",
+                  "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
                   "eq_code": "82",
@@ -253,6 +256,7 @@
               "flights": [
                 {
                   "uuid": "2cf5bb99-d79b-516e-bae3-bbe7e9f41e3b",
+                  "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "3/3",
                   "eq_code": "82",
@@ -350,6 +354,7 @@
               "flights": [
                 {
                   "uuid": "285f5365-06e7-5f10-9efa-90d5e83edfc3",
+                  "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
                   "eq_code": "80",
@@ -415,6 +420,7 @@
               "flights": [
                 {
                   "uuid": "0254da24-b461-5f0c-9f1d-35e28232ce7b",
+                  "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/3",
                   "eq_code": "83",
@@ -480,6 +486,7 @@
               "flights": [
                 {
                   "uuid": "69665cc3-454f-57e7-883e-3935bc637013",
+                  "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "4/4",
                   "eq_code": "83",
@@ -529,6 +536,7 @@
               "flights": [
                 {
                   "uuid": "88f52321-7c42-5c98-9441-62c8315d77c4",
+                  "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "5/5",
                   "eq_code": "80",
@@ -613,6 +621,7 @@
               "flights": [
                 {
                   "uuid": "8b3abb92-ff49-5c70-9c61-f719150463cb",
+                  "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
                   "eq_code": "80",
@@ -678,6 +687,7 @@
               "flights": [
                 {
                   "uuid": "d3d09f2b-fd6c-5e80-8db7-5cee607f8bab",
+                  "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/3",
                   "eq_code": "83",
@@ -743,6 +753,7 @@
               "flights": [
                 {
                   "uuid": "339139d7-d9b4-59cd-8c90-d741c88e41a6",
+                  "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "4/4",
                   "eq_code": "83",
@@ -792,6 +803,7 @@
               "flights": [
                 {
                   "uuid": "b1ae2b7b-2695-534b-b9aa-0e04875c48f1",
+                  "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "5/5",
                   "eq_code": "80",

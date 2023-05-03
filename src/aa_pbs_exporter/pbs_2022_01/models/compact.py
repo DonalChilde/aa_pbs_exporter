@@ -5,6 +5,7 @@ uuids match the source raw model uuids.
 """
 
 from datetime import date, time, timedelta
+from typing import Iterable
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -42,6 +43,7 @@ class Layover(BaseModel):
 
 class Flight(BaseModel):
     uuid: UUID
+    dp_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
@@ -73,6 +75,18 @@ class DutyPeriod(BaseModel):
     layover: Layover | None
     flights: list[Flight]
 
+    def sum_block(self) -> timedelta:
+        total = timedelta()
+        for flight in self.flights:
+            total += flight.block
+        return total
+
+    def sum_synth(self) -> timedelta:
+        total = timedelta()
+        for flight in self.flights:
+            total += flight.synth
+        return total
+
 
 class Trip(BaseModel):
     uuid: UUID
@@ -86,6 +100,24 @@ class Trip(BaseModel):
     tafb: timedelta
     dutyperiods: list[DutyPeriod]
     start_dates: list[date]
+
+    def sum_block(self) -> timedelta:
+        total = timedelta()
+        for dutyperiod in self.dutyperiods:
+            total += dutyperiod.block
+        return total
+
+    def sum_synth(self) -> timedelta:
+        total = timedelta()
+        for dutyperiod in self.dutyperiods:
+            total += dutyperiod.synth
+        return total
+
+    def sum_total_pay(self) -> timedelta:
+        total = timedelta()
+        for dutyperiod in self.dutyperiods:
+            total += dutyperiod.total_pay
+        return total
 
 
 class Page(BaseModel):
@@ -105,6 +137,11 @@ class BidPackage(BaseModel):
     uuid: UUID
     source: HashedFile | None
     pages: list[Page]
+
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip
 
     def default_file_name(self) -> str:
         return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact"

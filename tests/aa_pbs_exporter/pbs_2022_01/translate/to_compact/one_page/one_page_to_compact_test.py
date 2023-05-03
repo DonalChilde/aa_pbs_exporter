@@ -10,6 +10,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
 from aa_pbs_exporter.pbs_2022_01.raw_to_compact import CompactTranslator
+from aa_pbs_exporter.pbs_2022_01.validate_compact import CompactValidator
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False
@@ -37,8 +38,9 @@ def test_page(test_app_data_dir: Path, logger: Logger):
     bid_package_path = output_path / RAW_TEST_DATA.result_data
     bid_package_path.write_text(raw_bid_package.json(indent=2))
 
-    translator = CompactTranslator(tz_name_from_iata)
-    compact_package = translator.translate(raw_bid_package)
+    translator = CompactTranslator(tz_name_from_iata, validator=CompactValidator())
+
+    compact_package = translator.translate_bid_package(raw_bid_package)
     compact_json_path = output_path / COMPACT_TEST_DATA.result_data
     validate_file_out(compact_json_path)
     compact_json_path.write_text(compact_package.json(indent=2))

@@ -42,7 +42,7 @@ def test_page(test_app_data_dir: Path, logger: Logger):
     bid_package_path.write_text(raw_bid_package.json(indent=2))
 
     compact_translator = CompactTranslator(tz_name_from_iata)
-    compact_bid = compact_translator.translate(raw_bid_package)
+    compact_bid = compact_translator.translate_bid_package(raw_bid_package)
     compact_json_path = output_path / COMPACT_TEST_DATA.result_data
     validate_file_out(compact_json_path)
     compact_json_path.write_text(compact_bid.json(indent=2))

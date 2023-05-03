@@ -34,6 +34,7 @@ class Layover(BaseModel):
 class Flight(BaseModel):
     uuid: UUID
     compact_uuid: UUID
+    dp_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str

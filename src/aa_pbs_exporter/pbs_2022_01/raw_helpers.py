@@ -6,12 +6,11 @@ from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
 
-
-def collect_start_days(calendar_entries: Sequence[str]) -> list[Tuple[int, int]]:
-    indexed_days = list(
-        index_and_filter_strings(strings=calendar_entries, string_filter=is_numeric)
-    )
-    return [(x.idx, int(x.txt)) for x in indexed_days]
+# def collect_start_days(calendar_entries: Sequence[str]) -> list[Tuple[int, int]]:
+#     indexed_days = list(
+#         index_and_filter_strings(strings=calendar_entries, string_filter=is_numeric)
+#     )
+#     return [(x.idx, int(x.txt)) for x in indexed_days]
 
 
 # def collect_calendar_entries(trip: raw.Trip) -> list[str]:
