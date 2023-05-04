@@ -4,8 +4,6 @@ from uuid import uuid5
 from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
-
-# import aa_pbs_exporter.pbs_2022_01.models.common
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
 
 

@@ -6,11 +6,11 @@ from pydantic import parse_raw_as
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
 from aa_pbs_exporter.airports.airports import tz_name_from_iata
-from aa_pbs_exporter.pbs_2022_01.compact_to_expanded import CompactToExpanded
 from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, raw
 from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
-from aa_pbs_exporter.pbs_2022_01.raw_to_compact import RawToCompact
+from aa_pbs_exporter.pbs_2022_01.translate.compact_to_expanded import CompactToExpanded
+from aa_pbs_exporter.pbs_2022_01.translate.raw_to_compact import RawToCompact
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False
