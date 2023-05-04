@@ -109,9 +109,9 @@ def debug_parse_raw_bidpackage(
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
         debug_file.write(f"source: {source}\n")
         debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
-        validation_publisher = Publisher(messengers=[])
+        validation_publisher = Publisher(consumers=[])
         debug_validation_messenger = PrintMessenger(file=debug_file)
-        validation_publisher.messengers.append(debug_validation_messenger)
+        validation_publisher.consumers.append(debug_validation_messenger)
         handlers: list[ResultHandlerProtocol] = [debug_handler]
         if additional_handlers is not None:
             handlers.extend(additional_handlers)
@@ -131,8 +131,8 @@ def debug_parse_raw_bidpackage(
         return result
 
 
-def ensure_validation_publisher(manager: ParseManagerProtocol):
-    publisher: Publisher = manager.ctx.get(
-        "validation_publisher", Publisher(messengers=[])
-    )
-    manager.ctx["validation_publisher"] = publisher
+# def ensure_validation_publisher(manager: ParseManagerProtocol):
+#     publisher: Publisher = manager.ctx.get(
+#         "validation_publisher", Publisher(messengers=[])
+#     )
+#     manager.ctx["validation_publisher"] = publisher
