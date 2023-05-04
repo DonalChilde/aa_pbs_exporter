@@ -5,10 +5,7 @@ from typing import Callable, Iterable, Sequence
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-from aa_pbs_exporter.pbs_2022_01.result_handler import (
-    AssembleRawBidPackage,
-    DebugToFile,
-)
+from aa_pbs_exporter.pbs_2022_01.result_handler import DebugToFile, ParsedToRaw
 from aa_pbs_exporter.pbs_2022_01.validate_raw import RawValidator
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
@@ -85,7 +82,7 @@ def parse_raw_bidpackage(
     if additional_handlers is None:
         additional_handlers = []
 
-    package_handler = AssembleRawBidPackage(
+    package_handler = ParsedToRaw(
         source=source, validator=RawValidator(publisher=validation_publisher)
     )
     handler = MultipleResultHandler(result_handlers=additional_handlers)

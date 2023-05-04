@@ -9,7 +9,7 @@ from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
 
 
-class ExpandedTranslator:
+class CompactToExpanded:
     def __init__(self) -> None:
         pass
 

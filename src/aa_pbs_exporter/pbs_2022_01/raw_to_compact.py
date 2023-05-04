@@ -20,7 +20,7 @@ DATE = "%d%b%Y"
 MONTH_DAY = "%m/%d"
 
 
-class CompactTranslator:
+class RawToCompact:
     def __init__(
         self, tz_lookup: Callable[[str], str], validator: CompactValidator | None = None
     ) -> None:

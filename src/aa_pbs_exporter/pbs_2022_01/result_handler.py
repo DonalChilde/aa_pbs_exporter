@@ -15,7 +15,7 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
 )
 
 
-class AssembleRawBidPackage(ParseResultHandler):
+class ParsedToRaw(ParseResultHandler):
     def __init__(
         self, source: HashedFile | None, validator: RawValidator | None
     ) -> None:
