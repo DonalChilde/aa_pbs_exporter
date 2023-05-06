@@ -3,9 +3,10 @@ from hashlib import md5
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
-from aa_pbs_exporter.pbs_2022_01 import result_handlers, translate, validate
+from aa_pbs_exporter.pbs_2022_01 import translate, validate
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+from aa_pbs_exporter.pbs_2022_01.parser import result_handlers
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
 from aa_pbs_exporter.snippets.indexed_string.filters import (
