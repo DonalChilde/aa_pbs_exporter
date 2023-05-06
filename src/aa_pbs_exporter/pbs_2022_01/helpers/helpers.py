@@ -32,6 +32,8 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols
 from aa_pbs_exporter.snippets.messages.messenger import PrintMessenger
 from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
+# TODO refactor helpers concept
+
 
 def data_starts(indexed_string: IndexedStringProtocol) -> bool:
     if "DEPARTURE" in indexed_string.txt:

@@ -3,7 +3,7 @@ from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
 
 from aa_pbs_exporter.pbs_2022_01 import validate
-from aa_pbs_exporter.pbs_2022_01.compact_helpers import date_range
+from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,

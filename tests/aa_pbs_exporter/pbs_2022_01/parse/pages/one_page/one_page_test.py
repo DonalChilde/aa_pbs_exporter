@@ -5,9 +5,9 @@ from pathlib import Path
 from pydantic import parse_raw_as
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
-from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
+from aa_pbs_exporter.pbs_2022_01.helpers.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
+from aa_pbs_exporter.pbs_2022_01.parser.parse_manager import ParseManager
 
 SERIALIZE_ONLY = False
 TEST_DATA = ResourceTestData("one_page.txt", "one_page.json")

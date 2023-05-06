@@ -1,6 +1,6 @@
 from typing import Any, Dict, Sequence
 
-from aa_pbs_exporter.pbs_2022_01.parsers import (
+from aa_pbs_exporter.pbs_2022_01.parser.parsers import (
     BaseEquipment,
     DutyPeriodRelease,
     DutyPeriodReport,

@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData, process_lines
 
-from aa_pbs_exporter.pbs_2022_01 import parsers
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.parser import parsers
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
     ParseException,
 )

@@ -3,8 +3,8 @@ from pathlib import Path
 
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData, process_lines
 
-from aa_pbs_exporter.pbs_2022_01 import parsers
 from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.parser import parsers
 
 PARSER = parsers.TransportationAdditional()
 MODEL = raw.TransportationAdditional

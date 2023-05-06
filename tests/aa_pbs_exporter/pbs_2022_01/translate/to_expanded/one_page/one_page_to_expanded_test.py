@@ -7,9 +7,9 @@ from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
 from aa_pbs_exporter.airports.airports import tz_name_from_iata
 from aa_pbs_exporter.pbs_2022_01 import translate
-from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
+from aa_pbs_exporter.pbs_2022_01.helpers.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, raw
-from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
+from aa_pbs_exporter.pbs_2022_01.parser.parse_manager import ParseManager
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False
