@@ -3,13 +3,17 @@ from typing import Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
 
+from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
 
 
 class CompactToExpanded:
-    def __init__(self) -> None:
-        pass
+    def __init__(
+        self,
+        validator: validate.ExpandedValidator | None = None,
+    ) -> None:
+        self.validator = validator
 
     def translate(self, compact_bid_package: compact.BidPackage) -> expanded.BidPackage:
         expanded_bid_package = expanded.BidPackage(

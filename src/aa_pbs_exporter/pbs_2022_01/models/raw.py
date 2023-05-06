@@ -180,9 +180,9 @@ class PageFooter(ParsedIndexedString):
     page: str
 
 
-class PackageDate(ParsedIndexedString):
-    month: str
-    year: str
+# class PackageDate(ParsedIndexedString):
+#     month: str
+#     year: str
 
 
 class Layover(BaseModel):

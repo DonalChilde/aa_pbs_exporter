@@ -10,9 +10,6 @@ from aa_pbs_exporter.pbs_2022_01 import translate
 from aa_pbs_exporter.pbs_2022_01.helpers import debug_parse_raw_bidpackage
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, raw
 from aa_pbs_exporter.pbs_2022_01.parse_manager import ParseManager
-
-# from aa_pbs_exporter.pbs_2022_01.translate.compact_to_expanded import CompactToExpanded
-# from aa_pbs_exporter.pbs_2022_01.translate.raw_to_compact import RawToCompact
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False

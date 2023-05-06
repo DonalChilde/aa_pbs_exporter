@@ -2,9 +2,9 @@ import time
 from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
 
+from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.compact_helpers import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
-from aa_pbs_exporter.pbs_2022_01.validate_compact import CompactValidator
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
@@ -22,7 +22,9 @@ MONTH_DAY = "%m/%d"
 
 class RawToCompact:
     def __init__(
-        self, tz_lookup: Callable[[str], str], validator: CompactValidator | None = None
+        self,
+        tz_lookup: Callable[[str], str],
+        validator: validate.CompactValidator | None = None,
     ) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package = None

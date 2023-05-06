@@ -3,13 +3,9 @@ from hashlib import md5
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 
+from aa_pbs_exporter.pbs_2022_01 import result_handlers, translate, validate
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-from aa_pbs_exporter.pbs_2022_01.translate.result_handler import (
-    DebugToFile,
-    ParsedToRaw,
-)
-from aa_pbs_exporter.pbs_2022_01.validate_raw import RawValidator
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
 from aa_pbs_exporter.snippets.indexed_string.filters import (
@@ -43,7 +39,7 @@ def data_starts(indexed_string: IndexedStringProtocol) -> bool:
     return False
 
 
-def pbs_data() -> Callable[[IndexedStringProtocol], bool]:
+def pbs_data_filter() -> Callable[[IndexedStringProtocol], bool]:
     return MultipleTests(
         testers=[SkipTillFirstMatch(match_test=data_starts), not_white_space]
     )
@@ -55,7 +51,7 @@ def indexed_string_factory(idx: int, txt: str) -> IndexedStringProtocol:
 
 def index_pbs_data(strings: Iterable[str]) -> Iterable[IndexedStringProtocol]:
     indexed_strings = index_and_filter_strings(
-        strings=strings, string_filter=pbs_data(), factory=indexed_string_factory
+        strings=strings, string_filter=pbs_data_filter(), factory=indexed_string_factory
     )
     return indexed_strings
 
@@ -84,15 +80,14 @@ def parse_raw_bidpackage(
     # ensure_validation_publisher(manager)
     if additional_handlers is None:
         additional_handlers = []
-
-    package_handler = ParsedToRaw(
-        source=source, validator=RawValidator(publisher=validation_publisher)
-    )
+    validator = validate.RawValidator(publisher=validation_publisher)
+    translator = translate.ParsedToRaw(source=source, validator=validator)
+    package_handler = result_handlers.RawResultHandler(translator=translator)
     handler = MultipleResultHandler(result_handlers=additional_handlers)
     handler.handlers.append(package_handler)
 
     parse_pbs_data(strings=strings, manager=manager, result_handler=handler)
-    return package_handler.bid_package
+    return package_handler.translator.bid_package
 
 
 def debug_parse_raw_bidpackage(
@@ -108,7 +103,9 @@ def debug_parse_raw_bidpackage(
     validate_file_out(debug_file_path)
     with open(debug_file_path, "w", encoding="utf-8") as debug_file:
         debug_file.write(f"source: {source}\n")
-        debug_handler = DebugToFile(writer=debug_file, record_separator="\n")
+        debug_handler = result_handlers.DebugToFile(
+            writer=debug_file, record_separator="\n"
+        )
         validation_publisher = Publisher(consumers=[])
         debug_validation_messenger = PrintMessenger(file=debug_file)
         validation_publisher.consumers.append(debug_validation_messenger)

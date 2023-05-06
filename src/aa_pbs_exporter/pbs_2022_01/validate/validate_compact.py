@@ -184,6 +184,7 @@ class CompactValidator:
 
 
 def length(data: Iterable | Sized) -> int:
+    # TODO move to a snippets
     try:
         return len(data)
     except:
