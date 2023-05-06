@@ -7,8 +7,8 @@ from typing import Iterable, Type, TypeVar
 from pydantic import parse_obj_as
 from pydantic.json import pydantic_encoder
 
+from aa_pbs_exporter.pbs_2022_01.models.parse_result import ParseResult
 from aa_pbs_exporter.pbs_2022_01.models.raw import IndexedString, ParsedIndexedString
-from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
 from aa_pbs_exporter.pbs_2022_01.parsers import IndexedStringParser
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 

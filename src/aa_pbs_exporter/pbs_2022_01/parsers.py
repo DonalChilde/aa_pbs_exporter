@@ -5,7 +5,7 @@ from typing import Any
 import pyparsing as pp
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse_result import ParseResult
+from aa_pbs_exporter.pbs_2022_01.models.parse_result import ParseResult
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
     SingleParserFail,
 )
