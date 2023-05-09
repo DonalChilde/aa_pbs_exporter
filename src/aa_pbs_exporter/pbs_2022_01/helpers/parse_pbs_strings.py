@@ -13,9 +13,6 @@ from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
 from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
     IndexedStringProtocol,
 )
-from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_indexed_strings import (
-    parse_indexed_strings,
-)
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_job import parse_job
 
 
@@ -35,16 +32,16 @@ def indexed_string_factory(idx: int, txt: str) -> IndexedStringProtocol:
     return raw.IndexedString(idx=idx, txt=txt)
 
 
-def index_pbs_data(strings: Iterable[str]) -> Iterable[IndexedStringProtocol]:
+def index_pbs_strings(strings: Iterable[str]) -> Iterable[IndexedStringProtocol]:
     indexed_strings = index_and_filter_strings(
         strings=strings, string_filter=pbs_data_filter(), factory=indexed_string_factory
     )
     return indexed_strings
 
 
-def parse_pbs_data(
+def parse_pbs_strings(
     strings: Iterable[str],
     manager: ParseManager[raw.BidPackage],
 ) -> raw.BidPackage | None:
-    indexed_strings = index_pbs_data(strings)
+    indexed_strings = index_pbs_strings(strings)
     return parse_job(indexed_strings=indexed_strings, manager=manager)

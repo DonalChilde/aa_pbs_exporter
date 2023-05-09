@@ -144,4 +144,4 @@ class BidPackage(BaseModel):
                 yield trip
 
     def default_file_name(self) -> str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact"
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact.json"

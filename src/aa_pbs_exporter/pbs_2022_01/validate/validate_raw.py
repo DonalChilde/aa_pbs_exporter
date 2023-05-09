@@ -1,7 +1,8 @@
 import logging
 
+from aa_pbs_exporter.pbs_2022_01 import messages
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.messages.message import Message
+from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
 from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 logger = logging.getLogger(__name__)
@@ -12,10 +13,9 @@ class RawValidator:
     def __init__(self, msg_bus: Publisher | None = None) -> None:
         self.msg_bus = msg_bus
 
-    def send_message(self, msg: Message, ctx: dict | None):
+    def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
         logger.warning(msg=f"{msg}")
-        print(msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
@@ -27,7 +27,7 @@ class RawValidator:
     ):
         if not bid_package.pages:
             self.send_message(
-                Message(
+                messages.ValidationMessage(
                     f"Bid package has no pages. uuid: {bid_package.uuid} "
                     f"source: {bid_package.source}"
                 ),
@@ -38,14 +38,23 @@ class RawValidator:
 
     def check_page_for_empty_properies(self, page: raw.Page, ctx: dict | None):
         if not page.trips:
-            self.send_message(Message(f"Page has no trips. uuid: {page.uuid}"), ctx=ctx)
+            self.send_message(
+                messages.ValidationMessage(f"Page has no trips. uuid: {page.uuid}"),
+                ctx=ctx,
+            )
         if page.page_header_2 is None:
             self.send_message(
-                Message(f"Page has no page_header_2. uuid: {page.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Page has no page_header_2. uuid: {page.uuid}"
+                ),
+                ctx=ctx,
             )
         if page.page_footer is None:
             self.send_message(
-                Message(f"Page has no page_footer. uuid: {page.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Page has no page_footer. uuid: {page.uuid}"
+                ),
+                ctx=ctx,
             )
         for trip in page.trips:
             self.check_trip_for_empty_properies(trip=trip, ctx=ctx)
@@ -54,11 +63,15 @@ class RawValidator:
         _ = ctx
         if not trip.dutyperiods:
             self.send_message(
-                Message(f"Trip has no dutyperiods. uuid: {trip.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Trip has no dutyperiods. uuid: {trip.uuid}"
+                ),
+                ctx=ctx,
             )
         if trip.footer is None:
             self.send_message(
-                Message(f"Trip has no footer. uuid: {trip.uuid}"), ctx=ctx
+                messages.ValidationMessage(f"Trip has no footer. uuid: {trip.uuid}"),
+                ctx=ctx,
             )
         for dutyperiod in trip.dutyperiods:
             self.check_dutyperiod_for_empty_properies(dutyperiod=dutyperiod, ctx=ctx)
@@ -69,11 +82,17 @@ class RawValidator:
         _ = ctx
         if not dutyperiod.flights:
             self.send_message(
-                Message(f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}"
+                ),
+                ctx=ctx,
             )
         if dutyperiod.release is None:
             self.send_message(
-                Message(f"Dutyperiod has no release. uuid: {dutyperiod.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Dutyperiod has no release. uuid: {dutyperiod.uuid}"
+                ),
+                ctx=ctx,
             )
         if dutyperiod.layover is not None:
             self.check_layover_for_empty_properies(layover=dutyperiod.layover, ctx=ctx)
@@ -83,5 +102,8 @@ class RawValidator:
         assert layover is not None
         if layover.hotel is None:
             self.send_message(
-                Message(f"Layover has no hotel. uuid: {layover.uuid}"), ctx=ctx
+                messages.ValidationMessage(
+                    f"Layover has no hotel. uuid: {layover.uuid}"
+                ),
+                ctx=ctx,
             )
