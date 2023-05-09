@@ -9,10 +9,12 @@ from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, raw
 from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt import parse_pbs_txt_file
 
 SERIALIZE_ONLY = False
-RAW_TEST_DATA = ResourceTestData("one_page.txt", "one_page_raw.json")
-COMPACT_TEST_DATA = ResourceTestData(RAW_TEST_DATA.result_data, "one_page_compact.json")
+RAW_TEST_DATA = ResourceTestData("one_page.txt", "02MAY2022_LAX_raw.json")
+COMPACT_TEST_DATA = ResourceTestData(
+    RAW_TEST_DATA.result_data, "2022-05-02_2022-06-01_LAX_compact.json"
+)
 EXPANDED_TEST_DATA = ResourceTestData(
-    COMPACT_TEST_DATA.result_data, "one_page_expanded.json"
+    COMPACT_TEST_DATA.result_data, "2022-05-02_2022-06-01_LAX_expanded.json"
 )
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 

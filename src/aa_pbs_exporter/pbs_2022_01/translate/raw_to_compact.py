@@ -94,6 +94,9 @@ class RawToCompact:
         ctx: dict | None = None,
     ) -> compact.Trip:
         dutyperiods = []
+        print("rtc", raw_trip.header.str_with_uuid())
+        print("rtc", raw_trip.header.uuid5())
+        print("rtc", raw_trip.uuid)
 
         assert raw_trip.footer is not None
         compact_trip = compact.Trip(

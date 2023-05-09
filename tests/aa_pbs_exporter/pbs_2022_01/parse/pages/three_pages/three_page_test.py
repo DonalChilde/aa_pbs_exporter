@@ -9,7 +9,7 @@ from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt import parse_pbs_txt_file
 
 SERIALIZE_ONLY = False
-TEST_DATA = ResourceTestData("three_pages.txt", "three_pages.json")
+TEST_DATA = ResourceTestData("three_pages.txt", "02MAY2022_MIA_raw.json")
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 

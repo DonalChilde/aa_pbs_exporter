@@ -15,6 +15,6 @@ class ParseResult(BaseModel):
         source = self.parsed_data.source
 
         return (
-            f"{source.idx}:{self.current_state}:{source.uuid5(raw.PARSER_DNS)}:{source.txt!r}"
+            f"{source.idx}:{self.current_state}:{source.uuid5()}:{source.txt!r}"
             f"\n\t{self.parsed_data.__class__.__name__}: {json.dumps(data)}"
         )

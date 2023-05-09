@@ -5,14 +5,11 @@ from pathlib import Path
 from pydantic import parse_raw_as
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
-from aa_pbs_exporter.pbs_2022_01.helpers.init_msg_bus import init_msg_bus
-from aa_pbs_exporter.pbs_2022_01.helpers.init_parse_manager import init_parse_manager
-from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_file import parse_pbs_file
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt import parse_pbs_txt_file
 
 SERIALIZE_ONLY = False
-TEST_DATA = ResourceTestData("one_page.txt", "one_page.json")
+TEST_DATA = ResourceTestData("one_page.txt", "02MAY2022_LAX_raw.json")
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 

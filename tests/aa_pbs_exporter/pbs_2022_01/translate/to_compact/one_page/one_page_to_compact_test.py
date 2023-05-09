@@ -3,21 +3,16 @@ from logging import Logger
 from pathlib import Path
 
 from pydantic import parse_raw_as
-
-# from aa_pbs_exporter.pbs_2022_01.helpers.raw_to_compact import raw_to_compact
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
-from aa_pbs_exporter.pbs_2022_01 import translate
-from aa_pbs_exporter.pbs_2022_01.helpers.init_msg_bus import init_msg_bus
-from aa_pbs_exporter.pbs_2022_01.helpers.init_parse_manager import init_parse_manager
-from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_file import parse_pbs_file
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt import parse_pbs_txt_file
-from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 SERIALIZE_ONLY = False
-RAW_TEST_DATA = ResourceTestData("one_page.txt", "one_page_raw.json")
-COMPACT_TEST_DATA = ResourceTestData(RAW_TEST_DATA.result_data, "one_page_compact.json")
+RAW_TEST_DATA = ResourceTestData("one_page.txt", "02MAY2022_LAX_raw.json")
+COMPACT_TEST_DATA = ResourceTestData(
+    RAW_TEST_DATA.result_data, "2022-05-02_2022-06-01_LAX_compact.json"
+)
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
 

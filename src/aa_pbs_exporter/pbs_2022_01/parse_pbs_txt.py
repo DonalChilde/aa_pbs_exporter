@@ -16,6 +16,7 @@ def parse_pbs_txt_file(
     expanded_out: bool = True,
 ) -> tuple[raw.BidPackage, compact.BidPackage | None, expanded.BidPackage | None]:
     output_dir.mkdir(parents=True, exist_ok=True)
+    validate_file_out(debug_path)
     with open(debug_path, "w", encoding="utf-8") as debug_fp:
         msg_bus = init_msg_bus(debug_fp=debug_fp, click_out=True)
         manager = init_parse_manager(source_path=txt_file, msg_bus=msg_bus)

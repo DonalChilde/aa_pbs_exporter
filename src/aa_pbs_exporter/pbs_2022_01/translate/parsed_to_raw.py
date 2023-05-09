@@ -1,6 +1,6 @@
 from uuid import uuid5
 
-from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS, validate
+from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.helpers.collect_calendar_entries import (
     collect_calendar_entries,
 )
@@ -22,8 +22,7 @@ class ParsedToRaw:
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
 
     def page_header1(self, parsed: raw.PageHeader1):
-        page = raw.Page(uuid=PARSER_DNS, page_header_1=parsed, trips=[])
-        page.uuid = page.uuid5()
+        page = raw.Page(uuid=parsed.uuid5(), page_header_1=parsed, trips=[])
         self.bid_package.pages.append(page)
 
     def page_header2(self, parsed: raw.PageHeader2):
@@ -36,13 +35,13 @@ class ParsedToRaw:
         self.bid_package.pages[-1].base_equipment = parsed
 
     def trip_header(self, parsed: raw.TripHeader):
-        trip = raw.Trip(uuid=PARSER_DNS, header=parsed, dutyperiods=[])
-        trip.uuid = trip.uuid5()
+        print("ptr", parsed.str_with_uuid())
+        print("ptr", parsed.uuid5())
+        trip = raw.Trip(uuid=parsed.uuid5(), header=parsed, dutyperiods=[])
         self.bid_package.pages[-1].trips.append(trip)
 
     def duty_period_report(self, parsed: raw.DutyPeriodReport):
-        dutyperiod = raw.DutyPeriod(uuid=PARSER_DNS, report=parsed, flights=[])
-        dutyperiod.uuid = dutyperiod.uuid5()
+        dutyperiod = raw.DutyPeriod(uuid=parsed.uuid5(), report=parsed, flights=[])
         self.bid_package.pages[-1].trips[-1].dutyperiods.append(dutyperiod)
 
     def flight(self, parsed: raw.Flight):
@@ -52,7 +51,7 @@ class ParsedToRaw:
         self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = parsed
 
     def hotel(self, parsed: raw.Hotel):
-        layover = raw.Layover(uuid=PARSER_DNS, hotel=parsed)
+        layover = raw.Layover(uuid=parsed.uuid5(), hotel=parsed)
         layover.uuid = layover.uuid5()
         self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
 

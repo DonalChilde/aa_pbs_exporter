@@ -15,7 +15,7 @@ def parse_pbs_pdf(
 ) -> tuple[raw.BidPackage, compact.BidPackage | None, expanded.BidPackage | None]:
     output_path = output_dir / pdf_file.name
     output_path = output_path.with_suffix(".txt")
-    debug_path = output_path.with_suffix("_debug.txt")
+    debug_path = output_dir / f"{pdf_file.name}_debug.txt"
     extract_text_from_pdf_to_file(file_in=pdf_file, file_out=output_path)
     return parse_pbs_txt_file(
         txt_file=output_path,

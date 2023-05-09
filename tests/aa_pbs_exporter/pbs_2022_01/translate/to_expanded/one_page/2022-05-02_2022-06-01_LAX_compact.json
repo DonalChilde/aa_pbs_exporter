@@ -1,13 +1,13 @@
 {
   "uuid": "d0a0a1c3-43f3-58c6-85dc-6e8ae6282f21",
   "source": {
-    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_compact/one_page/one_page.txt",
+    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_expanded/one_page/one_page.txt",
     "file_hash": "9d459053648baa5c428f093316ecd04f",
     "hash_method": "md5"
   },
   "pages": [
     {
-      "uuid": "b92ad057-434a-5eae-8d34-672a14394999",
+      "uuid": "dca3313d-c703-5012-a9e1-21bbd63e4a4a",
       "base": "LAX",
       "satellite_base": "",
       "equipment": "777",
@@ -18,7 +18,7 @@
       "end": "2022-06-01",
       "trips": [
         {
-          "uuid": "74e17dc6-bb00-524b-ba01-61394dbf4e5a",
+          "uuid": "991b8444-9766-5207-8f19-22896286c973",
           "number": "680",
           "positions": [
             "FB"
@@ -31,7 +31,7 @@
           "tafb": 177300.0,
           "dutyperiods": [
             {
-              "uuid": "93ebbefc-5eea-5084-8811-6d928b7f91ec",
+              "uuid": "6876df54-171e-510f-80a8-ce1993abe95a",
               "idx": 1,
               "report": {
                 "lcl": "14:50:00",
@@ -51,16 +51,16 @@
               "duty": 43200.0,
               "flight_duty": 41400.0,
               "layover": {
-                "uuid": "2ec30fd4-3a17-5c3e-a9e5-30288d2c50bf",
+                "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
                 "odl": 88200.0,
                 "city": "LHR",
                 "hotel": {
-                  "uuid": "0e52b9a7-881b-5a6f-8cd5-65d80d0f4946",
+                  "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
                   "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
                   "phone": "443334006112"
                 },
                 "transportation": {
-                  "uuid": "c7cc90f8-eebb-5002-b04d-0d558f96f684",
+                  "uuid": "ed9093ff-f888-5170-8efd-1c57b6dc039a",
                   "name": "COMET CAR HIRE (CCH) LTD",
                   "phone": "442088979984"
                 },
@@ -69,7 +69,7 @@
               },
               "flights": [
                 {
-                  "uuid": "c7883d03-db7c-57f2-aa3d-a56661488833",
+                  "uuid": "a731c0e5-755e-5c30-8b37-8344103b7c38",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -97,7 +97,7 @@
               ]
             },
             {
-              "uuid": "2bb7896e-d989-50cc-9a92-d9ba8b0ac0dd",
+              "uuid": "59454610-9dd1-5813-9d23-2d9b77a5a2d9",
               "idx": 2,
               "report": {
                 "lcl": "11:20:00",
@@ -119,7 +119,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "2a4dd786-aec5-5423-9e76-cf5cd41dd487",
+                  "uuid": "892a159d-44f3-5474-8e64-0942d622e26f",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -154,7 +154,7 @@
           ]
         },
         {
-          "uuid": "3c2f1e7c-d1c4-5d9e-9f28-31f7e27994a6",
+          "uuid": "ab038fa8-09f7-5016-befa-e9ef62af3d0c",
           "number": "681",
           "positions": [
             "FB"
@@ -167,7 +167,7 @@
           "tafb": 175500.0,
           "dutyperiods": [
             {
-              "uuid": "4d5c8c7c-adef-5b39-9dab-ad54b0eb11be",
+              "uuid": "7f62f95b-51fb-58c7-8983-698f6b5e2a97",
               "idx": 1,
               "report": {
                 "lcl": "14:50:00",
@@ -187,16 +187,16 @@
               "duty": 43200.0,
               "flight_duty": 41400.0,
               "layover": {
-                "uuid": "6bc5eb72-0d78-5454-87fc-f076ba8f4d30",
+                "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
                 "odl": 86400.0,
                 "city": "LHR",
                 "hotel": {
-                  "uuid": "619cd0ba-9d05-50bc-ad6f-cf3e86ee785f",
+                  "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
                   "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
                   "phone": "443334006112"
                 },
                 "transportation": {
-                  "uuid": "4486e2b9-a898-5ca6-8435-cba57b596aac",
+                  "uuid": "4f0cf051-2e72-51ba-b416-d20a698ae94a",
                   "name": "COMET CAR HIRE (CCH) LTD",
                   "phone": "442088979984"
                 },
@@ -205,7 +205,7 @@
               },
               "flights": [
                 {
-                  "uuid": "b29f3605-a19e-5c16-8be8-3a23d7c65c42",
+                  "uuid": "a2852df6-d318-542e-bfef-38b782adb4c8",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -233,7 +233,7 @@
               ]
             },
             {
-              "uuid": "7da8bfed-f57e-5a55-a210-68cc6dccc59a",
+              "uuid": "84ebbdb0-83b7-56cc-9017-33242c6ebd04",
               "idx": 2,
               "report": {
                 "lcl": "10:50:00",
@@ -255,7 +255,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "2cf5bb99-d79b-516e-bae3-bbe7e9f41e3b",
+                  "uuid": "7239f291-3e17-51f3-b436-95ad7d8be412",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -302,7 +302,7 @@
           ]
         },
         {
-          "uuid": "5f2714e4-070b-53c1-8541-3c70dda63723",
+          "uuid": "1db0e84d-842c-5f8d-87c5-b6da93264350",
           "number": "682",
           "positions": [
             "FB"
@@ -315,7 +315,7 @@
           "tafb": 340620.0,
           "dutyperiods": [
             {
-              "uuid": "9309e8c2-a1a3-5802-89ee-64eb293e4bfc",
+              "uuid": "ea3ab6d9-cb43-55cb-bb63-7a979a94fac2",
               "idx": 1,
               "report": {
                 "lcl": "15:30:00",
@@ -335,16 +335,16 @@
               "duty": 23340.0,
               "flight_duty": 0.0,
               "layover": {
-                "uuid": "9aad6f0e-ca6b-507c-8b9f-2dbb58ccb6fa",
+                "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
                 "odl": 61860.0,
                 "city": "JFK",
                 "hotel": {
-                  "uuid": "c0b82f57-9700-5d46-a4f8-6cf8473c7e6a",
+                  "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773"
                 },
                 "transportation": {
-                  "uuid": "719b8745-69a6-5371-9361-00a158f8c8a4",
+                  "uuid": "56c96102-291b-5d93-8ff7-7f2e3ad585c4",
                   "name": "DESERT COACH",
                   "phone": "6022866161"
                 },
@@ -353,7 +353,7 @@
               },
               "flights": [
                 {
-                  "uuid": "285f5365-06e7-5f10-9efa-90d5e83edfc3",
+                  "uuid": "f893eb32-f61a-5046-b812-12c73fb69693",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -381,7 +381,7 @@
               ]
             },
             {
-              "uuid": "f5ce2b38-47f3-5a0b-b289-1055c69ff025",
+              "uuid": "7f5e46d9-8cc7-56bd-8f19-d0a94ce3e537",
               "idx": 2,
               "report": {
                 "lcl": "18:10:00",
@@ -401,16 +401,16 @@
               "duty": 33900.0,
               "flight_duty": 32100.0,
               "layover": {
-                "uuid": "79b7521f-1f4d-5d14-bfbe-0506a948831d",
+                "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
                 "odl": 88500.0,
                 "city": "MXP",
                 "hotel": {
-                  "uuid": "5f0b7e8b-067a-5c76-8483-2c5634aa3b36",
+                  "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
                   "name": "MELIA MILANO",
                   "phone": "3902444061"
                 },
                 "transportation": {
-                  "uuid": "1956498f-b9e6-5837-914c-ce1d5291a140",
+                  "uuid": "7f1cd916-0c7a-5566-9ca6-7aaa13df8d18",
                   "name": "AIR PULLMAN",
                   "phone": "01139033125844"
                 },
@@ -419,7 +419,7 @@
               },
               "flights": [
                 {
-                  "uuid": "0254da24-b461-5f0c-9f1d-35e28232ce7b",
+                  "uuid": "a44056c4-bd57-5c0a-8895-f8e9864151d4",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/3",
@@ -447,7 +447,7 @@
               ]
             },
             {
-              "uuid": "bc23d192-858b-5b69-a3ac-8e545fd515c0",
+              "uuid": "0e9107b7-ab04-5623-915a-1bc177cbce9f",
               "idx": 3,
               "report": {
                 "lcl": "10:10:00",
@@ -467,16 +467,16 @@
               "duty": 37140.0,
               "flight_duty": 35340.0,
               "layover": {
-                "uuid": "68cba1ea-1ca7-5dbc-be31-17ef177985eb",
+                "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
                 "odl": 70260.0,
                 "city": "JFK",
                 "hotel": {
-                  "uuid": "07a98f15-a0b1-5766-8a4d-1dedf3002e0a",
+                  "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773"
                 },
                 "transportation": {
-                  "uuid": "5e5591c1-cce4-5b10-9684-7b23a036317e",
+                  "uuid": "dec47b38-3191-559c-a567-46283444d555",
                   "name": "DESERT COACH",
                   "phone": "6022866161"
                 },
@@ -485,7 +485,7 @@
               },
               "flights": [
                 {
-                  "uuid": "69665cc3-454f-57e7-883e-3935bc637013",
+                  "uuid": "17269033-486d-5e04-9422-6af9697157c3",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "4/4",
@@ -513,7 +513,7 @@
               ]
             },
             {
-              "uuid": "de843de4-b6e3-5eb2-a3ae-448df370e6da",
+              "uuid": "8577d439-b006-5138-a83a-3d6839a6e96a",
               "idx": 4,
               "report": {
                 "lcl": "10:00:00",
@@ -535,7 +535,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "88f52321-7c42-5c98-9441-62c8315d77c4",
+                  "uuid": "48de3fff-1b33-505d-aaf7-2c10af8687ba",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "5/5",
@@ -569,7 +569,7 @@
           ]
         },
         {
-          "uuid": "60a14277-bdcf-5736-8e39-f25874b15999",
+          "uuid": "a9e90949-56ea-57eb-8a97-5bd27e7cb085",
           "number": "683",
           "positions": [
             "FB"
@@ -582,7 +582,7 @@
           "tafb": 340620.0,
           "dutyperiods": [
             {
-              "uuid": "04d274e1-e916-5981-944b-f4c95b5c4c4c",
+              "uuid": "1d191bcd-2efa-5aa2-a4e3-087599847603",
               "idx": 1,
               "report": {
                 "lcl": "15:30:00",
@@ -602,16 +602,16 @@
               "duty": 23460.0,
               "flight_duty": 0.0,
               "layover": {
-                "uuid": "a18a584f-29a2-5b4b-addb-e095a19aef37",
+                "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
                 "odl": 61740.0,
                 "city": "JFK",
                 "hotel": {
-                  "uuid": "30478e6b-1461-5717-8cf0-805a0caebf0d",
+                  "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773"
                 },
                 "transportation": {
-                  "uuid": "e6bf1c8d-74b5-5845-ae9b-3f85341a69e2",
+                  "uuid": "d6aaf83a-f42c-5ee6-8681-e42be197d35f",
                   "name": "DESERT COACH",
                   "phone": "6022866161"
                 },
@@ -620,7 +620,7 @@
               },
               "flights": [
                 {
-                  "uuid": "8b3abb92-ff49-5c70-9c61-f719150463cb",
+                  "uuid": "c84030c1-c263-59cc-9a7e-15d06e6acbf5",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -648,7 +648,7 @@
               ]
             },
             {
-              "uuid": "b2358942-684f-5537-9f51-37c63e6904d5",
+              "uuid": "24700344-b7f6-5dac-aea6-cc54c6c70276",
               "idx": 2,
               "report": {
                 "lcl": "18:10:00",
@@ -668,16 +668,16 @@
               "duty": 33900.0,
               "flight_duty": 32100.0,
               "layover": {
-                "uuid": "765b0b91-9d39-550e-9097-fdf8a3ba4f12",
+                "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
                 "odl": 88500.0,
                 "city": "MXP",
                 "hotel": {
-                  "uuid": "134bb555-0869-5748-886d-eadd9c6bca98",
+                  "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
                   "name": "MELIA MILANO",
                   "phone": "3902444061"
                 },
                 "transportation": {
-                  "uuid": "a3a029a2-5080-52d3-9077-d44818c62de8",
+                  "uuid": "2ecc10a5-16e5-5f43-93c4-f4bbedc1ede9",
                   "name": "AIR PULLMAN",
                   "phone": "01139033125844"
                 },
@@ -686,7 +686,7 @@
               },
               "flights": [
                 {
-                  "uuid": "d3d09f2b-fd6c-5e80-8db7-5cee607f8bab",
+                  "uuid": "7b73ae0a-df07-571b-a3dc-ba3ee579b0ad",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/3",
@@ -714,7 +714,7 @@
               ]
             },
             {
-              "uuid": "4e31f8b9-3741-5712-9acd-6cabf01e9bd7",
+              "uuid": "8450c043-0100-5f49-af3f-319a478c674a",
               "idx": 3,
               "report": {
                 "lcl": "10:10:00",
@@ -734,16 +734,16 @@
               "duty": 37140.0,
               "flight_duty": 35340.0,
               "layover": {
-                "uuid": "9f80f3c0-028a-55d5-8166-d032fa8556ce",
+                "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
                 "odl": 70260.0,
                 "city": "JFK",
                 "hotel": {
-                  "uuid": "debcead0-5952-5ff4-a339-12f99aaf162b",
+                  "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
                   "name": "COURTYARD CENTRAL PARK",
                   "phone": "2123243773"
                 },
                 "transportation": {
-                  "uuid": "3050e6a2-eec7-52d8-a3ce-43a223eba7c9",
+                  "uuid": "78eeeef0-981f-5ccc-a2c5-65f04f9bde6b",
                   "name": "DESERT COACH",
                   "phone": "6022866161"
                 },
@@ -752,7 +752,7 @@
               },
               "flights": [
                 {
-                  "uuid": "339139d7-d9b4-59cd-8c90-d741c88e41a6",
+                  "uuid": "8550c44f-26d7-5c77-a655-73ca6d748f74",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "4/4",
@@ -780,7 +780,7 @@
               ]
             },
             {
-              "uuid": "077cb010-d36f-50d2-8e77-9dda9a9e56ca",
+              "uuid": "76b3d49b-5b49-5f0a-8554-7edb8b6e9ae9",
               "idx": 4,
               "report": {
                 "lcl": "10:00:00",
@@ -802,7 +802,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "b1ae2b7b-2695-534b-b9aa-0e04875c48f1",
+                  "uuid": "9c804052-759f-5c49-8841-092d97935641",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "5/5",

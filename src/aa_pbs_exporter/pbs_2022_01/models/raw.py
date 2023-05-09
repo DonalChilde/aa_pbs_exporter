@@ -14,7 +14,7 @@ Assumptions:
 
 import json
 from typing import Iterable
-from uuid import UUID, uuid5
+from uuid import NAMESPACE_DNS, UUID, uuid5
 
 from pydantic import BaseModel
 
@@ -38,11 +38,11 @@ class IndexedString(BaseModel):
     def __str__(self) -> str:
         return f"{self.idx}: {self.txt!r}"
 
-    def str_with_uuid(self, uuid: UUID) -> str:
-        return f"{self.idx}:{self.uuid5(uuid)}:{self.txt!r}"
+    def str_with_uuid(self, ns_uuid: UUID = NAMESPACE_DNS) -> str:
+        return f"{self.idx}:{self.uuid5()}:{self.txt!r}"
 
-    def uuid5(self, uuid: UUID) -> UUID:
-        return uuid5(uuid, f"{self.idx}: {self.txt!r}")
+    def uuid5(self, ns_uuid: UUID = NAMESPACE_DNS) -> UUID:
+        return uuid5(ns_uuid, f"{self.idx}: {self.txt!r}")
 
 
 def indexed_string_factory(idx: int, txt: str) -> IndexedString:
@@ -60,10 +60,10 @@ class ParsedIndexedString(BaseModel):
     def str_with_uuid(self) -> str:
         data = self.dict()
         data.pop("source", None)
-        return f"{self.source.str_with_uuid(PARSER_DNS)}\n\t{self.__class__.__name__}: {json.dumps(data)}"
+        return f"{self.source.str_with_uuid()}\n\t{self.__class__.__name__}: {json.dumps(data)}"
 
     def uuid5(self) -> UUID:
-        return self.source.uuid5(PARSER_DNS)
+        return self.source.uuid5()
 
 
 class PageHeader1(ParsedIndexedString):
@@ -193,7 +193,7 @@ class Layover(BaseModel):
     transportation_additional: TransportationAdditional | None = None
 
     def uuid5(self) -> UUID:
-        return self.hotel.source.uuid5(LAYOVER_DNS)
+        return self.hotel.source.uuid5()
 
 
 class DutyPeriod(BaseModel):
@@ -204,7 +204,7 @@ class DutyPeriod(BaseModel):
     layover: Layover | None = None
 
     def uuid5(self) -> UUID:
-        return self.report.source.uuid5(DUTYPERIOD_DNS)
+        return self.report.source.uuid5()
 
 
 class Trip(BaseModel):
@@ -215,8 +215,8 @@ class Trip(BaseModel):
     calendar_only: CalendarOnly | None = None
     calendar_entries: list[str] = []
 
-    def uuid5(self) -> UUID:
-        return self.header.source.uuid5(TRIP_DNS)
+    # def uuid5(self) -> UUID:
+    #     return self.header.uuid5()
 
 
 class Page(BaseModel):
@@ -228,7 +228,7 @@ class Page(BaseModel):
     trips: list[Trip]
 
     def uuid5(self) -> UUID:
-        return self.page_header_1.source.uuid5(PAGE_DNS)
+        return self.page_header_1.source.uuid5()
 
 
 class BidPackage(BaseModel):
