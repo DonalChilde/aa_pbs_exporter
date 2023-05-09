@@ -11,14 +11,15 @@ logger.addHandler(logging.NullHandler())
 
 
 class CompactValidator:
-    def __init__(self, publisher: Publisher | None) -> None:
-        self.publisher = publisher
+    def __init__(self, msg_bus: Publisher | None = None) -> None:
+        self.msg_bus = msg_bus
 
     def send_message(self, msg: Message, ctx: dict | None):
+        _ = ctx
         logger.warning(msg=f"{msg}")
         print(msg)
-        if self.publisher is not None:
-            self.publisher.publish_message(msg=msg)
+        if self.msg_bus is not None:
+            self.msg_bus.publish_message(msg=msg)
 
     def validate_bid_package(
         self, raw_bid: raw.BidPackage, compact_bid: compact.BidPackage, ctx: dict | None
@@ -38,7 +39,7 @@ class CompactValidator:
                 f"No trips found in compact bid package. uuid: {compact_bid.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
-        # self.send_message(msg=Message("HA! here we gooooo."), ctx=ctx)
+        self.send_message(msg=Message("HA! here we gooooo."), ctx=ctx)
 
     def validate_page(
         self, raw_page: raw.Page, compact_page: compact.Page, ctx: dict | None

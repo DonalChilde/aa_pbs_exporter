@@ -16,7 +16,6 @@ from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
     ParseAllFail,
-    ParseException,
     ParseJobFail,
     SingleParserFail,
 )
@@ -32,7 +31,7 @@ logger.addHandler(logging.NullHandler())
 def parse_indexed_string(
     indexed_string: IndexedStringProtocol,
     parsers: Sequence[IndexedStringParserProtocol],
-    ctx: dict[str, Any],
+    ctx: dict[str, Any] | None,
 ) -> ParseResultProtocol:
     """
     Parse an indexed string based on a list of possible parsers.

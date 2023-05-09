@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-05T05:59:13-07:00            #
-# Last Modified: 2023-04-22T15:59:58.364514+00:00  #
+# Last Modified: 2023-05-07T17:15:47.093886+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -15,11 +15,13 @@ When parsing semi structured text, parsing a section often depends on
 knowing what the previous section was. This parser allows the selection of possible
 parsers based on the results of the previous successfully parsed string.
 """
-from typing import Any, Protocol, Sequence
+from typing import Any, Protocol, Sequence, TypeVar
 
 from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
     IndexedStringProtocol,
 )
+
+T = TypeVar("T")
 
 
 class ParsedIndexedStringProtocol(Protocol):
@@ -52,7 +54,10 @@ class IndexedStringParserProtocol(Protocol):
     """Parse an IndexedString."""
 
     def parse(
-        self, indexed_string: IndexedStringProtocol, ctx: dict[str, Any], **kwargs
+        self,
+        indexed_string: IndexedStringProtocol,
+        ctx: dict[str, Any] | None,
+        **kwargs,
     ) -> ParseResultProtocol:
         """
         A parse function that matches an IndexedString.
@@ -75,8 +80,10 @@ class IndexedStringParserProtocol(Protocol):
         raise NotImplementedError
 
 
-class ResultHandlerProtocol(Protocol):
+class ResultHandlerProtocol(Protocol[T]):
     """Do something with a parse result."""
+
+    data: T | None
 
     def initialize(self, ctx: dict | None = None):
         """Called before the first parse attempt of a parse job."""
@@ -96,6 +103,14 @@ class ResultHandlerProtocol(Protocol):
     def finalize(self, ctx: dict | None = None):
         """Called after the last chunk of data is parsed."""
         raise NotImplementedError
+
+    def result_data(self) -> T | None:
+        """Return accumulated data, if any.
+
+        Normally this will only be called after the self.finalize() method
+        has been called.
+        """
+        return self.data
 
 
 # class ExpectedParsersProtocol(Protocol):
@@ -120,7 +135,7 @@ class ResultHandlerProtocol(Protocol):
 #         raise NotImplementedError
 
 
-class ParseManagerProtocol(Protocol):
+class ParseManagerProtocol(Protocol[T]):
     """
     Contains the information needed to parse indexed strings.
 
@@ -133,7 +148,7 @@ class ParseManagerProtocol(Protocol):
             between parsers.
     """
 
-    ctx: dict[str, Any]
+    ctx: dict[str, Any] | None
 
     def expected_parsers(
         self, state: str, **kwargs
@@ -150,3 +165,6 @@ class ParseManagerProtocol(Protocol):
             A sequence of parsers expected to match the next indexed string.
         """
         raise NotImplementedError
+
+    def result_handler(self) -> ResultHandlerProtocol[T]:
+        ...

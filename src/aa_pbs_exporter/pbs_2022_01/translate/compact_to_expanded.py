@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
+from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 
 class CompactToExpanded:
@@ -221,6 +222,13 @@ class CompactToExpanded:
             phone=compact_transportation.phone,
         )
         return expanded_transportation
+
+
+def compact_to_expanded(compact_package: compact.BidPackage, msg_bus: Publisher):
+    validator = validate.ExpandedValidator(msg_bus=msg_bus)
+    translator = CompactToExpanded(validator=validator)
+    expanded_package = translator.translate(compact_package)
+    return expanded_package
 
 
 def add_timedelta(

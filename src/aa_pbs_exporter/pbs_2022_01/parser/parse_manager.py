@@ -1,55 +1,34 @@
-from typing import Any, Dict, Sequence
+from typing import Any, Dict, Generic, Sequence, TypeVar
 
-from aa_pbs_exporter.pbs_2022_01.parser.parsers import (
-    BaseEquipment,
-    DutyPeriodRelease,
-    DutyPeriodReport,
-    Flight,
-    FlightDeadhead,
-    HeaderSeparator,
-    Hotel,
-    HotelAdditional,
-    PageFooter,
-    PageHeader1,
-    PageHeader2,
-    Transportation,
-    TransportationAdditional,
-    TripFooter,
-    TripHeader,
-    TripSeparator,
-)
+from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme import parse_scheme as scheme
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
+    ResultHandlerProtocol,
 )
 
+T = TypeVar("T")
 
-class ParseManager:
+
+class ParseManager(Generic[T]):
     def __init__(
         self,
-        ctx: dict[str, Any],
+        result_handler: ResultHandlerProtocol[T],
+        parse_scheme: Dict[str, Sequence[IndexedStringParserProtocol]] | None = None,
+        ctx: dict[str, Any] | None = None,
     ) -> None:
         self.ctx = ctx
-        self.scheme: Dict[str, Sequence[IndexedStringParserProtocol]] = {
-            "start": [PageHeader1()],
-            "page_header_1": [PageHeader2()],
-            "page_header_2": [HeaderSeparator()],
-            "header_separator": [TripHeader(), BaseEquipment()],
-            "base_equipment": [TripHeader()],
-            "trip_header": [DutyPeriodReport()],
-            "dutyperiod_report": [Flight(), FlightDeadhead()],
-            "flight": [Flight(), FlightDeadhead(), DutyPeriodRelease()],
-            "dutyperiod_release": [Hotel(), TripFooter()],
-            "hotel": [Transportation(), DutyPeriodReport(), HotelAdditional()],
-            "transportation": [DutyPeriodReport(), HotelAdditional()],
-            "hotel_additional": [TransportationAdditional()],
-            "transportation_additional": [DutyPeriodReport()],
-            "trip_footer": [TripSeparator()],
-            "trip_separator": [TripHeader(), PageFooter()],
-            "page_footer": [PageHeader1()],
-        }
+        if parse_scheme is None:
+            self.parse_scheme = scheme()
+        else:
+            self.parse_scheme = parse_scheme
+
+        self._result_handler = result_handler
 
     def expected_parsers(
         self, state: str, **kwargs
     ) -> Sequence[IndexedStringParserProtocol]:
         _ = kwargs
-        return self.scheme[state]
+        return self.parse_scheme[state]
+
+    def result_handler(self) -> ResultHandlerProtocol[T]:
+        return self._result_handler

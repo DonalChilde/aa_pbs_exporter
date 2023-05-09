@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:26-07:00            #
-# Last Modified: 2023-05-04T13:50:18.031673+00:00  #
+# Last Modified: 2023-05-08T23:53:09.225267+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from io import TextIOWrapper
@@ -31,12 +31,14 @@ class PrintMessenger(Messenger):
         self.flush = flush
 
     def consume_message(self, msg: MessageProtocol):
-        print(
-            self._format_message(msg=msg),
-            end=self.end,
-            file=self.file,
-            flush=self.flush,
-        )
+        msg_txt = self._format_message(msg)
+        if msg_txt is not None:
+            print(
+                msg_txt,
+                end=self.end,
+                file=self.file,
+                flush=self.flush,
+            )
 
-    def _format_message(self, msg: MessageProtocol) -> str:
+    def _format_message(self, msg: MessageProtocol) -> str | None:
         return msg.produce_message()

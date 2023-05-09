@@ -2,6 +2,7 @@ import time
 from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
 
+from aa_pbs_exporter.airports.airports import tz_name_from_iata
 from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
@@ -13,6 +14,7 @@ from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
+from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 TIME = "%H%M"
@@ -295,6 +297,13 @@ class RawToCompact:
             )
         )
         return [(x.idx, int(x.txt)) for x in indexed_days]
+
+
+def raw_to_compact(raw_package: raw.BidPackage, msg_bus: Publisher):
+    validator = validate.CompactValidator(msg_bus=msg_bus)
+    translator = RawToCompact(tz_name_from_iata, validator=validator)
+    compact_package = translator.translate_bid_package(raw_package)
+    return compact_package
 
 
 def complete_future_date_md(ref_date: date, future: str, strf: str) -> date:

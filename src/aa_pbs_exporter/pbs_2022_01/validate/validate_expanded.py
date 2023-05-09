@@ -8,14 +8,15 @@ logger.addHandler(logging.NullHandler())
 
 
 class ExpandedValidator:
-    def __init__(self, publisher: Publisher | None) -> None:
-        self.publisher = publisher
+    def __init__(self, msg_bus: Publisher | None = None) -> None:
+        self.msg_bus = msg_bus
 
     def send_message(self, msg: Message, ctx: dict | None):
+        _ = ctx
         logger.warning(msg=f"{msg}")
         print(msg)
-        if self.publisher is not None:
-            self.publisher.publish_message(msg=msg)
+        if self.msg_bus is not None:
+            self.msg_bus.publish_message(msg=msg)
 
     def validate_bid_package(self):
         pass

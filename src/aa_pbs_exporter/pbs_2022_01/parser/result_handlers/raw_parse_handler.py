@@ -1,21 +1,36 @@
+# type: ignore
+from aa_pbs_exporter.pbs_2022_01.messages.parse_result_message import ParseResultMessage
+from aa_pbs_exporter.pbs_2022_01.messages.status_message import StatusMessage
+from aa_pbs_exporter.pbs_2022_01.models.raw import BidPackage
 from aa_pbs_exporter.pbs_2022_01.translate.parsed_to_raw import ParsedToRaw
-from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
-    ParseResultHandler,
-)
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
 )
+from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 
-class RawResultHandler(ParseResultHandler):
-    def __init__(self, translator: ParsedToRaw) -> None:
+class RawResultHandler:
+    def __init__(
+        self, translator: ParsedToRaw, msg_bus: Publisher | None = None
+    ) -> None:
         super().__init__()
         self.translator = translator
+        self.msg_bus = msg_bus
+        self.data: BidPackage | None = None
+
+    def initialize(self, ctx: dict | None = None):
+        _ = ctx
+        if self.msg_bus is not None:
+            msg = StatusMessage(msg="Result handler initialized.")
+            self.msg_bus.publish_message(msg)
 
     def handle_result(
         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
     ):
         _ = kwargs, ctx
+        if self.msg_bus is not None:
+            msg = ParseResultMessage(parse_result=parse_result)
+            self.msg_bus.publish_message(msg)
         data = parse_result.parsed_data
         match_value = data.__class__.__qualname__
         match match_value:
@@ -54,3 +69,10 @@ class RawResultHandler(ParseResultHandler):
 
     def finalize(self, ctx: dict | None = None):
         self.translator.parse_complete(ctx=ctx)
+        self.data = self.translator.bid_package
+        if self.msg_bus is not None:
+            msg = StatusMessage(msg="Result handler finalized.")
+            self.msg_bus.publish_message(msg)
+
+    def result_data(self) -> BidPackage | None:
+        return self.data
