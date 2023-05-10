@@ -3,6 +3,9 @@ import logging
 from pathlib import Path
 
 import pytest
+from _pytest.config import Config
+from _pytest.config.argparsing import Parser
+from _pytest.nodes import Item
 
 from aa_pbs_exporter.snippets.logging.logging import (
     add_handlers_to_target_logger,
@@ -15,6 +18,28 @@ TEST_LOG_LEVEL = logging.DEBUG
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
+
+
+def pytest_addoption(parser: Parser):
+    # https://docs.pytest.org/en/stable/example/simple.html#control-skipping-of-tests-according-to-command-line-option
+    # conftest.py must be in the root test package.
+    parser.addoption(
+        "--run-slow", action="store_true", default=False, help="run slow tests"
+    )
+
+
+def pytest_configure(config: Config):
+    config.addinivalue_line("markers", "slow: mark test as slow to run")
+
+
+def pytest_collection_modifyitems(config: Config, items: list[Item]):
+    if config.getoption("--run-slow"):
+        # --run-slow given in cli: do not skip slow tests
+        return
+    skip_slow = pytest.mark.skip(reason="need --run-slow option to run")
+    for item in items:
+        if "slow" in item.keywords:
+            item.add_marker(skip_slow)
 
 
 @pytest.fixture(scope="session", name="logger")
