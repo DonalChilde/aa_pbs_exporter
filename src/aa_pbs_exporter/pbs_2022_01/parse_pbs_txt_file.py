@@ -11,11 +11,13 @@ from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 def parse_pbs_txt_file(
     txt_file: Path,
     output_dir: Path,
-    debug_path: Path,
+    debug_path: Path | None = None,
     compact_out: bool = True,
     expanded_out: bool = True,
 ) -> tuple[raw.BidPackage, compact.BidPackage | None, expanded.BidPackage | None]:
     output_dir.mkdir(parents=True, exist_ok=True)
+    if debug_path is None:
+        debug_path = output_dir / f"{txt_file.name}_debug.txt"
     validate_file_out(debug_path)
     with open(debug_path, "w", encoding="utf-8") as debug_fp:
         msg_bus = init_msg_bus(debug_fp=debug_fp, click_out=True)

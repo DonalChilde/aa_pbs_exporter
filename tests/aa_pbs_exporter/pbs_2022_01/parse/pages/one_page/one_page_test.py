@@ -6,7 +6,7 @@ from pydantic import parse_raw_as
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt import parse_pbs_txt_file
+from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt_file import parse_pbs_txt_file
 
 SERIALIZE_ONLY = False
 TEST_DATA = ResourceTestData("one_page.txt", "02MAY2022_LAX_raw.json")
