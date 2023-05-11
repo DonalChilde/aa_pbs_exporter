@@ -3,7 +3,7 @@ from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
 
 from aa_pbs_exporter.airports.airports import tz_name_from_iata
-from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01 import messages, validate
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
@@ -77,6 +77,12 @@ class RawToCompact:
         for raw_trip in raw_page.trips:
             if "prior" in raw_trip.header.source.txt:
                 # skip prior month trips
+                if self.validator:
+                    msg = messages.StatusMessage(
+                        msg=f"Skipping prior month trip {raw_trip.header.number}. "
+                        f"uuid: {raw_trip.uuid}"
+                    )
+                    self.validator.send_message(msg=msg, ctx=ctx)
                 continue
             compact_page.trips.append(
                 self.translate_trip(raw_trip=raw_trip, valid_dates=valid_dates, ctx=ctx)
