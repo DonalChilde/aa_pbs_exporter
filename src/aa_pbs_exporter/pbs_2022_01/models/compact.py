@@ -107,17 +107,17 @@ class Trip(BaseModel):
             total += dutyperiod.block
         return total
 
-    def sum_synth(self) -> timedelta:
-        total = timedelta()
-        for dutyperiod in self.dutyperiods:
-            total += dutyperiod.synth
-        return total
+    # def sum_synth(self) -> timedelta:
+    #     total = timedelta()
+    #     for dutyperiod in self.dutyperiods:
+    #         total += dutyperiod.synth
+    #     return total
 
-    def sum_total_pay(self) -> timedelta:
-        total = timedelta()
-        for dutyperiod in self.dutyperiods:
-            total += dutyperiod.total_pay
-        return total
+    # def sum_total_pay(self) -> timedelta:
+    #     total = timedelta()
+    #     for dutyperiod in self.dutyperiods:
+    #         total += dutyperiod.total_pay
+    #     return total
 
 
 class Page(BaseModel):

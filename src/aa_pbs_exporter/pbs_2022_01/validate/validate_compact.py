@@ -40,7 +40,9 @@ class CompactValidator:
         raw_trip_count = length(raw_bid.walk_trips())
         if compact_trip_count != raw_trip_count:
             msg = messages.ValidationMessage(
-                f"Compact trip count: {compact_trip_count} does not make raw trip count: {raw_trip_count}. uuid: {compact_bid.uuid}"
+                f"Compact trip count: {compact_trip_count} does not match raw trip "
+                f"count: {raw_trip_count}. Check skipped prior month trips. "
+                f"uuid: {compact_bid.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         if compact_trip_count < 1:
@@ -74,16 +76,18 @@ class CompactValidator:
                 f"{compact_trip.block} for compact trip. uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
-        if compact_trip.sum_synth() != compact_trip.synth:
+        # if compact_trip.sum_synth() != compact_trip.synth:
+        #     msg = messages.ValidationMessage(
+        #         f"Sum of synth {compact_trip.sum_synth()} does not match parsed synth "
+        #         f"{compact_trip.synth} for compact trip. uuid: {compact_trip.uuid}"
+        #     )
+        #     self.send_message(msg=msg, ctx=ctx)
+        sum_total_pay = compact_trip.synth + compact_trip.block
+        if sum_total_pay != compact_trip.total_pay:
             msg = messages.ValidationMessage(
-                f"Sum of synth {compact_trip.sum_synth()} does not match parsed synth "
-                f"{compact_trip.synth} for compact trip. uuid: {compact_trip.uuid}"
-            )
-            self.send_message(msg=msg, ctx=ctx)
-        if compact_trip.sum_total_pay() != compact_trip.total_pay:
-            msg = messages.ValidationMessage(
-                f"Sum of total pay {compact_trip.sum_total_pay()} does not match parsed "
-                f"total pay {compact_trip.total_pay} for compact trip. "
+                f"Sum of synth {compact_trip.synth} and block {compact_trip.block} "
+                f"does not match parsed total pay {compact_trip.total_pay} "
+                f"for compact trip. "
                 f"uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
@@ -108,10 +112,12 @@ class CompactValidator:
                 f"uuid: {compact_dutyperiod.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
-        if compact_dutyperiod.sum_synth() != compact_dutyperiod.synth:
+        sum_total_pay = compact_dutyperiod.synth + compact_dutyperiod.block
+        if sum_total_pay != compact_dutyperiod.total_pay:
             msg = messages.ValidationMessage(
-                f"Sum of synth {compact_dutyperiod.sum_synth()} does not match parsed "
-                f"synth {compact_dutyperiod.synth} for compact dutyperiod. "
+                f"Sum of synth {compact_dutyperiod.synth} and block "
+                f"{compact_dutyperiod.block} Does not match parsed "
+                f"total {compact_dutyperiod.total_pay} "
                 f"uuid: {compact_dutyperiod.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
