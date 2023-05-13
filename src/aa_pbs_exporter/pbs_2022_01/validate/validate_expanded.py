@@ -16,7 +16,6 @@ class ExpandedValidator:
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
         logger.warning(msg=f"{msg}")
-        print(msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 

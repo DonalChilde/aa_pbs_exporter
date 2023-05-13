@@ -35,8 +35,6 @@ class ParsedToRaw:
         self.bid_package.pages[-1].base_equipment = parsed
 
     def trip_header(self, parsed: raw.TripHeader):
-        print("ptr", parsed.str_with_uuid())
-        print("ptr", parsed.uuid5())
         trip = raw.Trip(uuid=parsed.uuid5(), header=parsed, dutyperiods=[])
         self.bid_package.pages[-1].trips.append(trip)
 

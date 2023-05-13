@@ -41,5 +41,4 @@ def test_page(test_app_data_dir: Path, logger: Logger):
         input_bytes = res_dir.joinpath(COMPACT_TEST_DATA.result_data).read_bytes()
         compact_expected = parse_raw_as(compact.BidPackage, input_bytes)
         assert compact_expected == compact_package
-    # print(repr(compact_package))
     # assert False
