@@ -23,7 +23,9 @@ def init_parse_manager(
             file_path=source_path, hasher=md5(), result_factory=HashedFile.factory
         )
     validator = validate.RawValidator(msg_bus=msg_bus)
-    translator = translate.ParsedToRaw(source=source, validator=validator)
+    translator = translate.ParsedToRaw(
+        source=source, validator=validator, msg_bus=msg_bus
+    )
     result_handler: RawResultHandler = RawResultHandler(
         translator=translator, msg_bus=msg_bus
     )

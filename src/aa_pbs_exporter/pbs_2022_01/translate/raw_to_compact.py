@@ -1,3 +1,4 @@
+import logging
 import time
 from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
@@ -14,8 +15,11 @@ from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
+from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
 from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 DURATION_PATTERN = pattern_HHHMM(hm_sep=".")
 TIME = "%H%M"
 DATE = "%d%b%Y"
@@ -26,11 +30,19 @@ class RawToCompact:
     def __init__(
         self,
         tz_lookup: Callable[[str], str],
-        validator: validate.CompactValidator | None = None,
+        validator: validate.CompactValidator | None,
+        msg_bus: Publisher | None,
     ) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package = None
         self.validator = validator
+        self.msg_bus = msg_bus
+
+    def send_message(self, msg: MessageProtocol, ctx: dict | None):
+        _ = ctx
+        logger.info(msg=f"{msg}")
+        if self.msg_bus is not None:
+            self.msg_bus.publish_message(msg=msg)
 
     def translate_bid_package(
         self, raw_bid_package: raw.BidPackage, ctx: dict | None = None
@@ -307,7 +319,7 @@ class RawToCompact:
 
 def raw_to_compact(raw_package: raw.BidPackage, msg_bus: Publisher):
     validator = validate.CompactValidator(msg_bus=msg_bus)
-    translator = RawToCompact(tz_name_from_iata, validator=validator)
+    translator = RawToCompact(tz_name_from_iata, validator=validator, msg_bus=msg_bus)
     compact_package = translator.translate_bid_package(raw_package)
     return compact_package
 

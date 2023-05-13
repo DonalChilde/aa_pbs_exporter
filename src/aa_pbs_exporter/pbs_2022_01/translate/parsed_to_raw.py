@@ -1,3 +1,4 @@
+import logging
 from uuid import uuid5
 
 from aa_pbs_exporter.pbs_2022_01 import validate
@@ -6,11 +7,19 @@ from aa_pbs_exporter.pbs_2022_01.helpers.collect_calendar_entries import (
 )
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
+from aa_pbs_exporter.snippets.messages.publisher import Publisher
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 class ParsedToRaw:
     def __init__(
-        self, source: HashedFile | None, validator: validate.RawValidator | None
+        self,
+        source: HashedFile | None,
+        validator: validate.RawValidator | None,
+        msg_bus: Publisher | None,
     ) -> None:
         self.source = source
         self.validator = validator
@@ -20,6 +29,13 @@ class ParsedToRaw:
             uuid_seed = "None"
         uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
+        self.msg_bus = msg_bus
+
+    def send_message(self, msg: MessageProtocol, ctx: dict | None):
+        _ = ctx
+        logger.info(msg=f"{msg}")
+        if self.msg_bus is not None:
+            self.msg_bus.publish_message(msg=msg)
 
     def page_header1(self, parsed: raw.PageHeader1):
         page = raw.Page(uuid=parsed.uuid5(), page_header_1=parsed, trips=[])

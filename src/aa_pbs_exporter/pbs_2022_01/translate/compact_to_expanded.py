@@ -1,30 +1,57 @@
+import logging
 from datetime import datetime, time, timedelta, timezone
 from typing import Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01.helpers.add_timedelta import add_timedelta
+from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
+from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
 from aa_pbs_exporter.snippets.messages.publisher import Publisher
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 class CompactToExpanded:
     def __init__(
         self,
-        validator: validate.ExpandedValidator | None = None,
+        validator: validate.ExpandedValidator | None,
+        msg_bus: Publisher | None,
     ) -> None:
         self.validator = validator
+        self.msg_bus = msg_bus
 
-    def translate(self, compact_bid_package: compact.BidPackage) -> expanded.BidPackage:
+    def send_message(self, msg: MessageProtocol, ctx: dict | None):
+        _ = ctx
+        logger.info(msg=f"{msg}")
+        if self.msg_bus is not None:
+            self.msg_bus.publish_message(msg=msg)
+
+    def translate(
+        self,
+        compact_bid_package: compact.BidPackage,
+        ctx: dict | None = None,
+    ) -> expanded.BidPackage:
         expanded_bid_package = expanded.BidPackage(
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
         for compact_page in compact_bid_package.pages:
             expanded_bid_package.pages.append(self.translate_page(compact_page))
+        if self.validator is not None:
+            self.validator.validate_bid_package(
+                compact_bid_package, expanded_bid_package, ctx
+            )
         return expanded_bid_package
 
-    def translate_page(self, compact_page: compact.Page) -> expanded.Page:
+    def translate_page(
+        self,
+        compact_page: compact.Page,
+        ctx: dict | None = None,
+    ) -> expanded.Page:
         expanded_page = expanded.Page(
             uuid=compact_page.uuid,
             base=compact_page.base,
@@ -37,12 +64,18 @@ class CompactToExpanded:
             end=compact_page.end,
             trips=[],
         )
+
         for compact_trip in compact_page.trips:
             expanded_page.trips.extend(self.translate_trip(compact_trip))
-
+        if self.validator is not None:
+            self.validator.validate_page(compact_page, expanded_page, ctx)
         return expanded_page
 
-    def translate_trip(self, compact_trip: compact.Trip) -> Sequence[expanded.Trip]:
+    def translate_trip(
+        self,
+        compact_trip: compact.Trip,
+        ctx: dict | None = None,
+    ) -> Sequence[expanded.Trip]:
         trips = []
         for start_date in compact_trip.start_dates:
             # NOTE Does not account for times in the fold
@@ -82,12 +115,15 @@ class CompactToExpanded:
                     )
                 expanded_trip.dutyperiods.append(expanded_dutyperiod)
             trips.append(expanded_trip)
+            if self.validator is not None:
+                self.validator.validate_trip(compact_trip, expanded_trip, ctx)
         return trips
 
     def translate_dutyperiod(
         self,
         report: Instant,
         compact_dutyperiod: compact.DutyPeriod,
+        ctx: dict | None = None,
     ) -> expanded.DutyPeriod:
         release_utc = report.utc_date + compact_dutyperiod.duty
         release = Instant(
@@ -115,30 +151,34 @@ class CompactToExpanded:
             expanded_flight = self.translate_flight(flight_ref_instant, flight)
             expanded_dutyperiod.flights.append(expanded_flight)
             flight_ref_instant = expanded_flight.arrival + expanded_flight.ground
-        self.validate_dutyperiod(compact_dutyperiod, expanded_dutyperiod)
+        if self.validator is not None:
+            self.validator.validate_dutyperiod(
+                compact_dutyperiod, expanded_dutyperiod, ctx
+            )
         return expanded_dutyperiod
 
-    def validate_dutyperiod(
-        self,
-        compact_dutyperiod: compact.DutyPeriod,
-        expanded_dutyperiod: expanded.DutyPeriod,
-    ):
-        # TODO make validation exception, raise on error
-        assert compare_time(
-            expanded_dutyperiod.release.local().time(),
-            compact_dutyperiod.release.lcl,
-            ignore_tz=True,
-        )
-
     def translate_flight(
-        self, ref_instant: Instant, compact_flight: compact.Flight
+        self,
+        ref_instant: Instant,
+        compact_flight: compact.Flight,
+        ctx: dict | None = None,
     ) -> expanded.Flight:
+        departure_time = compact_flight.departure.lcl.replace(
+            tzinfo=ZoneInfo(compact_flight.departure.tz_name)
+        )
         departure = complete_time_instant(
             ref_instant=ref_instant,
-            new_time=compact_flight.departure.lcl,
+            new_time=departure_time,
             new_tz_name=compact_flight.departure.tz_name,
         )
-        arrival = self.calculate_arrival(departure, compact_flight)
+        arrival_time = compact_flight.arrival.lcl.replace(
+            tzinfo=ZoneInfo(compact_flight.arrival.tz_name)
+        )
+        arrival = complete_time_instant(
+            ref_instant=departure,
+            new_time=arrival_time,
+            new_tz_name=compact_flight.arrival.tz_name,
+        )
         expanded_flight = expanded.Flight(
             uuid=uuid5(compact_flight.uuid, departure.utc_date.isoformat()),
             compact_uuid=compact_flight.uuid,
@@ -158,33 +198,26 @@ class CompactToExpanded:
             ground=compact_flight.ground,
             equipment_change=compact_flight.equipment_change,
         )
-
-        self.validate_flight(compact_flight, expanded_flight)
+        if self.validator is not None:
+            self.validator.validate_flight(compact_flight, expanded_flight, ctx)
         return expanded_flight
 
-    def validate_flight(
-        self, compact_flight: compact.Flight, expanded_flight: expanded.Flight
-    ):
-        assert compare_time(
-            expanded_flight.arrival.local().time(),
-            compact_flight.arrival.lcl,
-            ignore_tz=True,
-        )
-
-    def calculate_arrival(
-        self,
-        departure: Instant,
-        compact_flight: compact.Flight,
-    ) -> Instant:
-        if not compact_flight.deadhead:
-            arrival_time = departure + compact_flight.block
-        else:
-            # NOTE not sure if this is true in all cases
-            arrival_time = departure + compact_flight.synth
-        return arrival_time.new_tz(compact_flight.arrival.tz_name)
+    # def calculate_arrival(
+    #     self,
+    #     departure: Instant,
+    #     compact_flight: compact.Flight,
+    # ) -> Instant:
+    #     if not compact_flight.deadhead:
+    #         arrival_time = departure + compact_flight.block
+    #     else:
+    #         # NOTE not sure if this is true in all cases
+    #         arrival_time = departure + compact_flight.synth
+    #     return arrival_time.new_tz(compact_flight.arrival.tz_name)
 
     def translate_layover(
-        self, compact_layover: compact.Layover | None
+        self,
+        compact_layover: compact.Layover | None,
+        ctx: dict | None = None,
     ) -> expanded.Layover | None:
         if compact_layover is None:
             return None
@@ -199,20 +232,28 @@ class CompactToExpanded:
                 compact_layover.transportation_additional
             ),
         )
+        if self.validator is not None:
+            self.validator.validate_layover(compact_layover, expanded_layover, ctx)
         return expanded_layover
 
     def translate_hotel(
-        self, compact_hotel: compact.Hotel | None
+        self,
+        compact_hotel: compact.Hotel | None,
+        ctx: dict | None = None,
     ) -> expanded.Hotel | None:
         if compact_hotel is None:
             return None
         expanded_hotel = expanded.Hotel(
             uuid=compact_hotel.uuid, name=compact_hotel.name, phone=compact_hotel.phone
         )
+        if self.validator is not None:
+            self.validator.validate_hotel(compact_hotel, expanded_hotel, ctx)
         return expanded_hotel
 
     def translate_tranportation(
-        self, compact_transportation: compact.Transportation | None
+        self,
+        compact_transportation: compact.Transportation | None,
+        ctx: dict | None = None,
     ) -> expanded.Transportation | None:
         if compact_transportation is None:
             return None
@@ -221,46 +262,18 @@ class CompactToExpanded:
             name=compact_transportation.name,
             phone=compact_transportation.phone,
         )
+        if self.validator is not None:
+            self.validator.validate_transportation(
+                compact_transportation, expanded_transportation, ctx
+            )
         return expanded_transportation
 
 
 def compact_to_expanded(compact_package: compact.BidPackage, msg_bus: Publisher):
     validator = validate.ExpandedValidator(msg_bus=msg_bus)
-    translator = CompactToExpanded(validator=validator)
+    translator = CompactToExpanded(validator=validator, msg_bus=msg_bus)
     expanded_package = translator.translate(compact_package)
     return expanded_package
-
-
-def add_timedelta(
-    ref_datetime: datetime, t_delta: timedelta, *, utc_out: bool = False
-) -> datetime:
-    # TODO make snippet
-    """
-    Combine an aware datetime with a timedelta. Enforce utc manipulation.
-
-    _extended_summary_
-
-    Args:
-        ref_datetime: _description_
-        t_delta: _description_
-        utc_out: _description_. Defaults to False.
-
-    Raises:
-        ValueError: _description_
-
-    Returns:
-        _description_
-    """
-    if ref_datetime.tzinfo is None:
-        raise ValueError(
-            f"ref_datetime: {ref_datetime!r} must be tz aware. No tzinfo found"
-        )
-    ref_tz = ref_datetime.tzinfo
-    utc_ref = ref_datetime.astimezone(timezone.utc)
-    utc_delta = utc_ref + t_delta
-    if utc_out:
-        return utc_delta
-    return utc_delta.astimezone(ref_tz)
 
 
 def complete_time_instant(
@@ -270,86 +283,10 @@ def complete_time_instant(
     is_future: bool = True,
 ) -> Instant:
     # TODO make snippet
+
     new_datetime = complete_time(
         ref_datetime=ref_instant.utc_date,
         new_time=new_time,
-        new_tz_name=new_tz_name,
         is_future=is_future,
     )
     return Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=new_tz_name)
-
-
-def replace_time(
-    ref_datetime: datetime, new_time: time, use_time_tz: bool = False
-) -> datetime:
-    # TODO make snippet
-    if use_time_tz:
-        tzinfo = new_time.tzinfo
-    else:
-        tzinfo = ref_datetime.tzinfo
-    new_datetime = ref_datetime.replace(
-        hour=new_time.hour,
-        minute=new_time.minute,
-        second=new_time.second,
-        microsecond=new_time.microsecond,
-        tzinfo=tzinfo,
-    )
-    return new_datetime
-
-
-def compare_time(alpha: time, beta: time, ignore_tz: bool = False) -> bool:
-    # TODO make snippet
-    if ignore_tz:
-        alpha_n = alpha.replace(tzinfo=None)
-        beta_n = beta.replace(tzinfo=None)
-        return alpha_n == beta_n
-    return alpha == beta
-
-
-# def complete_future_time(
-#     ref_datetime: datetime, future_time: time, future_tz_str: str
-# ) -> datetime:
-#     """
-#     _summary_
-
-#     Does not handle fold - timezone overlaps
-
-
-#     Args:
-#         ref_datetime: _description_
-#         future_time: _description_
-#         future_tz_str: _description_
-
-#     Returns:
-#         _description_
-#     """
-#     if ref_datetime.tzinfo is None:
-#         raise ValueError(
-#             f"ref_datetime: {ref_datetime!r} must be tz aware. No tzinfo found"
-#         )
-#     future_tz = ZoneInfo(future_tz_str)
-#     future_ref = ref_datetime.astimezone(future_tz)
-#     future_datetime = replace_time(future_ref, future_time)
-#     if future_datetime < future_ref:
-#         return future_datetime + timedelta(days=1)
-#     return future_datetime
-
-
-def complete_time(
-    ref_datetime: datetime, new_time: time, new_tz_name: str, is_future: bool = True
-) -> datetime:
-    # TODO make snippet
-    if ref_datetime.tzinfo is None:
-        raise ValueError(
-            f"ref_datetime: {ref_datetime!r} must be tz aware. No tzinfo found"
-        )
-    new_tzinfo = ZoneInfo(new_tz_name)
-    localized_ref = ref_datetime.astimezone(new_tzinfo)
-    new_datetime = replace_time(localized_ref, new_time)
-    if is_future:
-        if new_datetime < localized_ref:
-            return new_datetime + timedelta(days=1)
-        return new_datetime
-    if new_datetime > localized_ref:
-        return new_datetime - timedelta(days=1)
-    return new_datetime
