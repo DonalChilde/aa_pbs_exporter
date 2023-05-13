@@ -21,12 +21,7 @@ from pydantic import BaseModel
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 
-LAYOVER_DNS = uuid5(PARSER_DNS, "LAYOVER_DNS")
-DUTYPERIOD_DNS = uuid5(PARSER_DNS, "DUTYPERIOD_DNS")
-TRIP_DNS = uuid5(PARSER_DNS, "TRIP_DNS")
-PAGE_DNS = uuid5(PARSER_DNS, "PAGE_DNS")
 BIDPACKAGE_DNS = uuid5(PARSER_DNS, "BIDPACKAGE_DNS")
-# TAB = "\t"
 NL = "\n"
 
 
