@@ -50,7 +50,7 @@ class IndexedStringParser(IndexedStringParserProtocol):
         self.success_state = success_state
 
     def parse(
-        self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
+        self, indexed_string: raw.IndexedString, ctx: dict[str, Any] | None, **kwargs
     ) -> ParseResult:
         raise NotImplementedError
 
@@ -71,7 +71,7 @@ class PyparsingParser(IndexedStringParser):
         return result_dict
 
     def parse(
-        self, indexed_string: raw.IndexedString, ctx: dict[str, Any], **kwargs
+        self, indexed_string: raw.IndexedString, ctx: dict[str, Any] | None, **kwargs
     ) -> ParseResult:
         raise NotImplementedError
 
@@ -221,19 +221,28 @@ class TripHeader(PyparsingParser):
             + pp.Word(pp.nums, min=1, as_keyword=True)("ops_count")
             + "OPS"
             + "POSN"
-            + pp.OneOrMore(pp.Word(pp.alphas, exact=2, as_keyword=True), stop_on="MO")(
-                "positions"
-            )
+            + pp.OneOrMore(
+                pp.Word(pp.alphas, min=1, max=2, as_keyword=True), stop_on="MO"
+            )("positions")
             + pp.Opt("ONLY")
             + pp.Opt(
                 pp.ZeroOrMore(pp.Word(pp.alphas, as_keyword=True), stop_on="OPERATION")
                 + pp.Suppress("OPERATION"),
                 default=list(),
             )("operations")
-            + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"), default="")(
-                "special_qualification"
+            + pp.Opt(
+                pp.ZeroOrMore(
+                    pp.Word(pp.alphas, as_keyword=True), stop_on="QUALIFICATION"
+                )
+                + pp.Suppress("QUALIFICATION"),
+                default=list(),
+            )("qualifications")
+            # + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"), default="")(
+            #     "special_qualification"
+            # )
+            + pp.Or(
+                [CALENDAR_HEADER, (pp.one_of(["Replaces", "New"]) + "prior" + "month")]
             )
-            + pp.Or([CALENDAR_HEADER, (pp.Literal("Replaces") + "prior" + "month")])
             + pp.StringEnd()
         )
 
@@ -251,9 +260,7 @@ class TripHeader(PyparsingParser):
             ops_count=result_dict.get("ops_count", ""),
             positions=" ".join(result_dict.get("positions", "")),
             operations=" ".join(result_dict.get("operations", "")),
-            special_qualification=" ".join(
-                result_dict.get("special_qualification", "")
-            ),
+            qualifications=" ".join(result_dict.get("qualifications", "")),
             # calendar="",
         )
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
@@ -273,6 +280,7 @@ class DutyPeriodReport(PyparsingParser):
                 + "/"
                 + DATE_DDMMM("date")
             )
+            + pp.Opt(pp.Literal("sequence") + DATE_DDMMM("date"))
             + pp.StringEnd()
         )
 

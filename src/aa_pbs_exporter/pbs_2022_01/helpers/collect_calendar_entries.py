@@ -11,16 +11,12 @@ def collect_calendar_entries(trip: raw.Trip) -> list[str]:
         assert dutyperiod.release is not None
         calendar_entries.extend(dutyperiod.release.calendar)
         if dutyperiod.layover:
-            if dutyperiod.layover.hotel:
-                calendar_entries.extend(dutyperiod.layover.hotel.calendar)
-            if dutyperiod.layover.transportation:
-                calendar_entries.extend(dutyperiod.layover.transportation.calendar)
-            if dutyperiod.layover.hotel_additional:
-                calendar_entries.extend(dutyperiod.layover.hotel_additional.calendar)
-            if dutyperiod.layover.transportation_additional:
-                calendar_entries.extend(
-                    dutyperiod.layover.transportation_additional.calendar
-                )
+            for info in dutyperiod.layover.hotel_info:
+                if info.hotel is not None:
+                    calendar_entries.extend(info.hotel.calendar)
+                if info.transportation is not None:
+                    calendar_entries.extend(info.transportation.calendar)
+
     assert trip.footer is not None
     calendar_entries.extend(trip.footer.calendar)
     if trip.calendar_only:

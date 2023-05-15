@@ -85,8 +85,7 @@ class TripHeader(ParsedIndexedString):
     ops_count: str
     positions: str
     operations: str
-    special_qualification: str
-    # calendar: str
+    qualifications: str
 
 
 class DutyPeriodReport(ParsedIndexedString):
@@ -180,15 +179,19 @@ class PageFooter(ParsedIndexedString):
 #     year: str
 
 
+class HotelInfo(BaseModel):
+    hotel: Hotel | HotelAdditional | None
+    transportation: Transportation | TransportationAdditional | None
+
+
 class Layover(BaseModel):
     uuid: UUID
-    hotel: Hotel
-    transportation: Transportation | None = None
-    hotel_additional: HotelAdditional | None = None
-    transportation_additional: TransportationAdditional | None = None
+    layover_city: str
+    rest: str
+    hotel_info: list[HotelInfo]
 
-    def uuid5(self) -> UUID:
-        return self.hotel.source.uuid5()
+    # def uuid5(self) -> UUID:
+    #     return self.hotel_info[0].hotel.source.uuid5()
 
 
 class DutyPeriod(BaseModel):
@@ -198,8 +201,8 @@ class DutyPeriod(BaseModel):
     release: DutyPeriodRelease | None = None
     layover: Layover | None = None
 
-    def uuid5(self) -> UUID:
-        return self.report.source.uuid5()
+    # def uuid5(self) -> UUID:
+    #     return self.report.source.uuid5()
 
 
 class Trip(BaseModel):

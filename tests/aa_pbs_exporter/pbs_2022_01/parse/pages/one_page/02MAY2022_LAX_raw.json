@@ -48,7 +48,7 @@
             "ops_count": "3",
             "positions": "FB",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -123,40 +123,44 @@
               },
               "layover": {
                 "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
-                "hotel": {
-                  "source": {
-                    "idx": 7,
-                    "txt": "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.30       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LHR",
-                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
-                  "phone": "443334006112",
-                  "rest": "24.30",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 8,
-                    "txt": "                    COMET CAR HIRE (CCH) LTD                442088979984               \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "COMET CAR HIRE (CCH) LTD",
-                  "phone": "442088979984",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LHR",
+                "rest": "24.30",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 7,
+                        "txt": "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.30       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LHR",
+                      "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                      "phone": "443334006112",
+                      "rest": "24.30",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 8,
+                        "txt": "                    COMET CAR HIRE (CCH) LTD                442088979984               \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "COMET CAR HIRE (CCH) LTD",
+                      "phone": "442088979984",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -265,7 +269,7 @@
             "ops_count": "15",
             "positions": "FB",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -340,40 +344,44 @@
               },
               "layover": {
                 "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
-                "hotel": {
-                  "source": {
-                    "idx": 18,
-                    "txt": "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       23 24 25 26 27 28 29\n"
-                  },
-                  "layover_city": "LHR",
-                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
-                  "phone": "443334006112",
-                  "rest": "24.00",
-                  "calendar": [
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 19,
-                    "txt": "                    COMET CAR HIRE (CCH) LTD                442088979984               30 31 \u2212\u2212\n"
-                  },
-                  "name": "COMET CAR HIRE (CCH) LTD",
-                  "phone": "442088979984",
-                  "calendar": [
-                    "30",
-                    "31",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LHR",
+                "rest": "24.00",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 18,
+                        "txt": "                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       23 24 25 26 27 28 29\n"
+                      },
+                      "layover_city": "LHR",
+                      "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                      "phone": "443334006112",
+                      "rest": "24.00",
+                      "calendar": [
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 19,
+                        "txt": "                    COMET CAR HIRE (CCH) LTD                442088979984               30 31 \u2212\u2212\n"
+                      },
+                      "name": "COMET CAR HIRE (CCH) LTD",
+                      "phone": "442088979984",
+                      "calendar": [
+                        "30",
+                        "31",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -482,7 +490,7 @@
             "ops_count": "2",
             "positions": "FB",
             "operations": "ITALIAN",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -557,40 +565,44 @@
               },
               "layover": {
                 "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
-                "hotel": {
-                  "source": {
-                    "idx": 29,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.11       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "17.11",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 30,
-                    "txt": "                    DESERT COACH                            6022866161                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "17.11",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 29,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.11       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "17.11",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 30,
+                        "txt": "                    DESERT COACH                            6022866161                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -641,28 +653,32 @@
               },
               "layover": {
                 "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
-                "hotel": {
-                  "source": {
-                    "idx": 34,
-                    "txt": "                MXP MELIA MILANO                            3902444061     24.35\n"
-                  },
-                  "layover_city": "MXP",
-                  "name": "MELIA MILANO",
-                  "phone": "3902444061",
-                  "rest": "24.35",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 35,
-                    "txt": "                    AIR PULLMAN                             01139033125844\n"
-                  },
-                  "name": "AIR PULLMAN",
-                  "phone": "01139033125844",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "MXP",
+                "rest": "24.35",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 34,
+                        "txt": "                MXP MELIA MILANO                            3902444061     24.35\n"
+                      },
+                      "layover_city": "MXP",
+                      "name": "MELIA MILANO",
+                      "phone": "3902444061",
+                      "rest": "24.35",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 35,
+                        "txt": "                    AIR PULLMAN                             01139033125844\n"
+                      },
+                      "name": "AIR PULLMAN",
+                      "phone": "01139033125844",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -713,28 +729,32 @@
               },
               "layover": {
                 "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
-                "hotel": {
-                  "source": {
-                    "idx": 39,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     19.31\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "19.31",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 40,
-                    "txt": "                    DESERT COACH                            6022866161\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "19.31",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 39,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     19.31\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "19.31",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 40,
+                        "txt": "                    DESERT COACH                            6022866161\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -843,7 +863,7 @@
             "ops_count": "25",
             "positions": "FB",
             "operations": "ITALIAN",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -918,40 +938,44 @@
               },
               "layover": {
                 "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
-                "hotel": {
-                  "source": {
-                    "idx": 50,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.09       23 24 25 26 27 28 29\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "17.09",
-                  "calendar": [
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 51,
-                    "txt": "                    DESERT COACH                            6022866161                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "17.09",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 50,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.09       23 24 25 26 27 28 29\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "17.09",
+                      "calendar": [
+                        "23",
+                        "24",
+                        "25",
+                        "26",
+                        "27",
+                        "28",
+                        "29"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 51,
+                        "txt": "                    DESERT COACH                            6022866161                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1002,28 +1026,32 @@
               },
               "layover": {
                 "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
-                "hotel": {
-                  "source": {
-                    "idx": 55,
-                    "txt": "                MXP MELIA MILANO                            3902444061     24.35\n"
-                  },
-                  "layover_city": "MXP",
-                  "name": "MELIA MILANO",
-                  "phone": "3902444061",
-                  "rest": "24.35",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 56,
-                    "txt": "                    AIR PULLMAN                             01139033125844\n"
-                  },
-                  "name": "AIR PULLMAN",
-                  "phone": "01139033125844",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "MXP",
+                "rest": "24.35",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 55,
+                        "txt": "                MXP MELIA MILANO                            3902444061     24.35\n"
+                      },
+                      "layover_city": "MXP",
+                      "name": "MELIA MILANO",
+                      "phone": "3902444061",
+                      "rest": "24.35",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 56,
+                        "txt": "                    AIR PULLMAN                             01139033125844\n"
+                      },
+                      "name": "AIR PULLMAN",
+                      "phone": "01139033125844",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1074,28 +1102,32 @@
               },
               "layover": {
                 "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
-                "hotel": {
-                  "source": {
-                    "idx": 60,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     19.31\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "19.31",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 61,
-                    "txt": "                    DESERT COACH                            6022866161\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "19.31",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 60,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     19.31\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "19.31",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 61,
+                        "txt": "                    DESERT COACH                            6022866161\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {

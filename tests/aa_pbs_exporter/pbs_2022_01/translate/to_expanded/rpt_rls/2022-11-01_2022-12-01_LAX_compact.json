@@ -1,0 +1,2872 @@
+{
+  "uuid": "e9e93992-a793-5c5e-8839-88773787d334",
+  "source": {
+    "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_expanded/rpt_rls/rpt_rls.txt",
+    "file_hash": "ea08d5253a9954f5f673f6f2cff10a78",
+    "hash_method": "md5"
+  },
+  "pages": [
+    {
+      "uuid": "dca3313d-c703-5012-a9e1-21bbd63e4a4a",
+      "base": "LAX",
+      "satellite_base": "",
+      "equipment": "320",
+      "division": "INTL",
+      "issued": "2022-10-07",
+      "effective": "2022-11-01",
+      "start": "2022-11-01",
+      "end": "2022-12-01",
+      "trips": [
+        {
+          "uuid": "d6b76aa7-28f0-5308-bcd8-cb4db607175f",
+          "number": "6538",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 86160.0,
+          "synth": 9840.0,
+          "total_pay": 96000.0,
+          "tafb": 336180.0,
+          "dutyperiods": [
+            {
+              "uuid": "5e625eaf-9600-587a-8d4e-166670360287",
+              "idx": 1,
+              "report": {
+                "lcl": "22:59:00",
+                "hbt": "22:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "08:52:00",
+                "hbt": "05:52:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 19380.0,
+              "synth": 0.0,
+              "total_pay": 19380.0,
+              "duty": 24780.0,
+              "flight_duty": 22980.0,
+              "layover": {
+                "uuid": "197dbc24-f1ee-547f-819d-e7062f937703",
+                "odl": 40080.0,
+                "city": "JFK",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "197dbc24-f1ee-547f-819d-e7062f937703",
+                      "name": "JFK CTD MARRIOTT",
+                      "phone": "17188482121"
+                    },
+                    "transportation": {
+                      "uuid": "16a27a36-1396-5773-9168-5f7b60b77459",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "53325aeb-f050-5c32-915a-3ccdecd0ab5d",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "80",
+                  "number": "28",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "23:59:00",
+                    "hbt": "23:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "D",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "08:22:00",
+                    "hbt": "05:22:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 19380.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "15a6c4f2-ef8b-5a23-bc41-48646bf96f11",
+              "idx": 2,
+              "report": {
+                "lcl": "20:00:00",
+                "hbt": "17:00:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "01:08:00",
+                "hbt": "01:08:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SFO",
+              "block": 23880.0,
+              "synth": 0.0,
+              "total_pay": 23880.0,
+              "duty": 29280.0,
+              "flight_duty": 27480.0,
+              "layover": {
+                "uuid": "d208a279-7c06-503d-991a-ed0047273c54",
+                "odl": 130920.0,
+                "city": "SFO",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "d208a279-7c06-503d-991a-ed0047273c54",
+                      "name": "HYATT REGENCY SAN FRANCISCO",
+                      "phone": "4157881234"
+                    },
+                    "transportation": {
+                      "uuid": "c089a148-a514-5c81-8110-45409a4d659a",
+                      "name": "AIRLINE COACH SERVICES, INC",
+                      "phone": "16506977733"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "6c327937-9c76-538e-b64f-5db49d069632",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "80",
+                  "number": "177",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "21:00:00",
+                    "hbt": "18:00:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "SFO",
+                  "arrival": {
+                    "lcl": "00:38:00",
+                    "hbt": "00:38:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 23880.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "189ebb9e-42ac-5d9f-bd9f-a73431cfaa21",
+              "idx": 3,
+              "report": {
+                "lcl": "12:30:00",
+                "hbt": "12:30:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SFO",
+              "release": {
+                "lcl": "22:33:00",
+                "hbt": "19:33:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 19980.0,
+              "synth": 0.0,
+              "total_pay": 19980.0,
+              "duty": 25380.0,
+              "flight_duty": 23580.0,
+              "layover": {
+                "uuid": "efe6a9a3-79f8-5a7e-a786-1065360c250f",
+                "odl": 57420.0,
+                "city": "JFK",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "efe6a9a3-79f8-5a7e-a786-1065360c250f",
+                      "name": "TWA HOTEL",
+                      "phone": "2128069000"
+                    },
+                    "transportation": {
+                      "uuid": "ce746d98-6cd6-5430-9ccf-a0a198147bd2",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "1a6f343a-6c04-50fe-9085-bfe35c181d5e",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "80",
+                  "number": "16",
+                  "deadhead": false,
+                  "departure_station": "SFO",
+                  "departure": {
+                    "lcl": "13:30:00",
+                    "hbt": "13:30:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "22:03:00",
+                    "hbt": "19:03:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 19980.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "fc2ccd2c-2f5f-533c-9e16-f93cf210981d",
+              "idx": 4,
+              "report": {
+                "lcl": "14:30:00",
+                "hbt": "11:30:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "19:22:00",
+                "hbt": "19:22:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 22920.0,
+              "synth": 0.0,
+              "total_pay": 22920.0,
+              "duty": 28320.0,
+              "flight_duty": 26520.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "80b18960-800c-5a5e-bb3c-0e5b3f08d81c",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "5/5",
+                  "eq_code": "80",
+                  "number": "341",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "15:30:00",
+                    "hbt": "12:30:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "18:52:00",
+                    "hbt": "18:52:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 22920.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-03"
+          ]
+        },
+        {
+          "uuid": "33fea328-bf71-5afc-8d52-2cc2f4d5162f",
+          "number": "6539",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 75060.0,
+          "synth": 540.0,
+          "total_pay": 75600.0,
+          "tafb": 259680.0,
+          "dutyperiods": [
+            {
+              "uuid": "ba90036f-f28e-5720-9ed5-0a033e483ac3",
+              "idx": 1,
+              "report": {
+                "lcl": "22:59:00",
+                "hbt": "22:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "08:07:00",
+                "hbt": "05:07:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "CLT",
+              "block": 16680.0,
+              "synth": 0.0,
+              "total_pay": 16680.0,
+              "duty": 22080.0,
+              "flight_duty": 20280.0,
+              "layover": {
+                "uuid": "86e7abcc-5f95-505f-b4f9-7c5a4a449d73",
+                "odl": 40740.0,
+                "city": "CLT",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "86e7abcc-5f95-505f-b4f9-7c5a4a449d73",
+                      "name": "DOUBLETREE CLT AIRPORT",
+                      "phone": "17043579100"
+                    },
+                    "transportation": {
+                      "uuid": "8fa5660d-0088-5aaf-ad88-886cf49aa99f",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "ba8d6318-bcc0-5a29-aec0-73a1172c5066",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "63",
+                  "number": "2725",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "23:59:00",
+                    "hbt": "23:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "07:37:00",
+                    "hbt": "04:37:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 16680.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "10b6337e-3756-5713-a324-ef0042b8cf1c",
+              "idx": 2,
+              "report": {
+                "lcl": "19:26:00",
+                "hbt": "16:26:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "CLT",
+              "release": {
+                "lcl": "23:45:00",
+                "hbt": "23:45:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SEA",
+              "block": 20940.0,
+              "synth": 0.0,
+              "total_pay": 20940.0,
+              "duty": 26340.0,
+              "flight_duty": 24540.0,
+              "layover": {
+                "uuid": "051ee9a7-121a-5337-82c4-bbb60b2d3f33",
+                "odl": 44760.0,
+                "city": "SEA",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "051ee9a7-121a-5337-82c4-bbb60b2d3f33",
+                      "name": "CROWNE PLAZA AP",
+                      "phone": "12062481000"
+                    },
+                    "transportation": {
+                      "uuid": "6d27ca4b-a814-5a89-893b-50f066659a4a",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "6c3b740d-aec5-5fb3-8770-57611c8fe71d",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "2984",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "20:26:00",
+                    "hbt": "17:26:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "SEA",
+                  "arrival": {
+                    "lcl": "23:15:00",
+                    "hbt": "23:15:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 20940.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "92310f47-bb48-524d-987a-07c6c2e6a2f2",
+              "idx": 3,
+              "report": {
+                "lcl": "12:11:00",
+                "hbt": "12:11:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SEA",
+              "release": {
+                "lcl": "00:23:00",
+                "hbt": "22:23:00",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "STL",
+              "block": 22560.0,
+              "synth": 0.0,
+              "total_pay": 22560.0,
+              "duty": 36720.0,
+              "flight_duty": 34920.0,
+              "layover": {
+                "uuid": "168a150c-7224-5b9d-ab31-1a5ae5d0c946",
+                "odl": 68760.0,
+                "city": "STL",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "168a150c-7224-5b9d-ab31-1a5ae5d0c946",
+                      "name": "MARRIOTT GRAND ST. LOUIS",
+                      "phone": "13146219600"
+                    },
+                    "transportation": {
+                      "uuid": "23a5dcc7-03af-520a-8151-2366efb2c26e",
+                      "name": "JED TRANSPORTATION",
+                      "phone": "3144292200"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "891d01d3-ce70-51cd-bf9b-b1eb3ea64401",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "92",
+                  "number": "2778",
+                  "deadhead": false,
+                  "departure_station": "SEA",
+                  "departure": {
+                    "lcl": "13:11:00",
+                    "hbt": "13:11:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "15:58:00",
+                    "hbt": "15:58:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 10020.0,
+                  "synth": 0.0,
+                  "ground": 8760.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "53086272-316b-5aa3-8177-65cd15a92eb4",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "92",
+                  "number": "803",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "18:24:00",
+                    "hbt": "18:24:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "D",
+                  "arrival_station": "STL",
+                  "arrival": {
+                    "lcl": "23:53:00",
+                    "hbt": "21:53:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": 12540.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "7a196d4d-3cec-5d01-9f94-14977cb87c8b",
+              "idx": 4,
+              "report": {
+                "lcl": "18:29:00",
+                "hbt": "16:29:00",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "STL",
+              "release": {
+                "lcl": "22:07:00",
+                "hbt": "22:07:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 14880.0,
+              "synth": 0.0,
+              "total_pay": 14880.0,
+              "duty": 20280.0,
+              "flight_duty": 18480.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "26d9aea6-989c-52c2-9822-25027b6e0791",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "92",
+                  "number": "453",
+                  "deadhead": false,
+                  "departure_station": "STL",
+                  "departure": {
+                    "lcl": "19:29:00",
+                    "hbt": "17:29:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "21:37:00",
+                    "hbt": "21:37:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 14880.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-03"
+          ]
+        },
+        {
+          "uuid": "90be199d-9f49-5e3e-b2f1-c8aa78ceb3f5",
+          "number": "6540",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 75300.0,
+          "synth": 300.0,
+          "total_pay": 75600.0,
+          "tafb": 240720.0,
+          "dutyperiods": [
+            {
+              "uuid": "519bf090-f2d2-54a4-93b3-d6096ae2a272",
+              "idx": 1,
+              "report": {
+                "lcl": "23:59:00",
+                "hbt": "23:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "06:28:00",
+                "hbt": "04:28:00",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": 10740.0,
+              "synth": 0.0,
+              "total_pay": 10740.0,
+              "duty": 16140.0,
+              "flight_duty": 14340.0,
+              "layover": {
+                "uuid": "b33ad4dc-739e-5365-ad9d-225dcb1ecbe7",
+                "odl": 42060.0,
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "b33ad4dc-739e-5365-ad9d-225dcb1ecbe7",
+                      "name": "HYATT REGENCY DFW",
+                      "phone": "19724531234"
+                    },
+                    "transportation": {
+                      "uuid": "578df40b-0868-5bf8-bb7e-2cfd9e573a2f",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "376fc31d-e5ab-5176-9149-1ad83dfd13f6",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "2625",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "00:59:00",
+                    "hbt": "00:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": "05:58:00",
+                    "hbt": "03:58:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": 10740.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "38ab0dc6-fcb3-5be9-8318-cd9240fc056d",
+              "idx": 2,
+              "report": {
+                "lcl": "18:09:00",
+                "hbt": "16:09:00",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": "23:47:00",
+                "hbt": "20:47:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "PHL",
+              "block": 11280.0,
+              "synth": 0.0,
+              "total_pay": 11280.0,
+              "duty": 16680.0,
+              "flight_duty": 14880.0,
+              "layover": {
+                "uuid": "b8169ed5-95f8-52ca-9745-43015d02c21d",
+                "odl": 41760.0,
+                "city": "PHL",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "b8169ed5-95f8-52ca-9745-43015d02c21d",
+                      "name": "MARRIOTT PHL AIRPORT",
+                      "phone": "12154929000"
+                    },
+                    "transportation": {
+                      "uuid": "8ade6ec8-9c5b-5821-a7fd-f8eadac5a23a",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "3ab92092-fdd8-520a-8dad-5f8c3b2cde44",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1814",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": "19:09:00",
+                    "hbt": "17:09:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "PHL",
+                  "arrival": {
+                    "lcl": "23:17:00",
+                    "hbt": "20:17:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 11280.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "8ae8dd43-f8f3-53a8-87b3-8c62b2da0f2c",
+              "idx": 3,
+              "report": {
+                "lcl": "11:23:00",
+                "hbt": "08:23:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "PHL",
+              "release": {
+                "lcl": "21:31:00",
+                "hbt": "18:31:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "PHL",
+              "block": 27480.0,
+              "synth": 0.0,
+              "total_pay": 27480.0,
+              "duty": 36480.0,
+              "flight_duty": 34680.0,
+              "layover": {
+                "uuid": "e6966207-bc00-5c97-8b5a-c0086fd46b2c",
+                "odl": 46980.0,
+                "city": "PHL",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "e6966207-bc00-5c97-8b5a-c0086fd46b2c",
+                      "name": "MARRIOTT PHL AIRPORT",
+                      "phone": "12154929000"
+                    },
+                    "transportation": {
+                      "uuid": "670ee8de-b99e-5002-9e95-6326d25c3518",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "e6ef16a8-b88a-540d-8baa-c0d096690ecd",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "64",
+                  "number": "1752",
+                  "deadhead": false,
+                  "departure_station": "PHL",
+                  "departure": {
+                    "lcl": "12:23:00",
+                    "hbt": "09:23:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUN",
+                  "arrival": {
+                    "lcl": "15:20:00",
+                    "hbt": "13:20:00",
+                    "tz_name": "America/Cancun"
+                  },
+                  "block": 14220.0,
+                  "synth": 0.0,
+                  "ground": 3600.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "bf927e7e-0b83-58ec-b24d-ae3f8628ef51",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "64",
+                  "number": "1971",
+                  "deadhead": false,
+                  "departure_station": "CUN",
+                  "departure": {
+                    "lcl": "16:20:00",
+                    "hbt": "14:20:00",
+                    "tz_name": "America/Cancun"
+                  },
+                  "meal": "D",
+                  "arrival_station": "PHL",
+                  "arrival": {
+                    "lcl": "21:01:00",
+                    "hbt": "18:01:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 13260.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "54f7a187-ace4-5901-ad42-0b4090e7fa3a",
+              "idx": 4,
+              "report": {
+                "lcl": "09:34:00",
+                "hbt": "06:34:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "PHL",
+              "release": {
+                "lcl": "17:51:00",
+                "hbt": "17:51:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 25800.0,
+              "synth": 0.0,
+              "total_pay": 25800.0,
+              "duty": 40620.0,
+              "flight_duty": 38820.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "8e00a867-1b4f-58c6-b578-f0fc4321d9ea",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "847",
+                  "deadhead": false,
+                  "departure_station": "PHL",
+                  "departure": {
+                    "lcl": "10:34:00",
+                    "hbt": "07:34:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "12:23:00",
+                    "hbt": "09:23:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 6540.0,
+                  "synth": 0.0,
+                  "ground": 9420.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "0c94b90b-7de2-5fa7-9c5e-fdab70c897ae",
+                  "dp_idx": 4,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "1117",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "15:00:00",
+                    "hbt": "12:00:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "17:21:00",
+                    "hbt": "17:21:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 19260.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-04"
+          ]
+        }
+      ]
+    },
+    {
+      "uuid": "2157ed92-8ec0-5bf5-9b6f-da51e614306f",
+      "base": "LAX",
+      "satellite_base": "",
+      "equipment": "320",
+      "division": "INTL",
+      "issued": "2022-10-07",
+      "effective": "2022-11-01",
+      "start": "2022-11-01",
+      "end": "2022-12-01",
+      "trips": [
+        {
+          "uuid": "7edac261-dd9d-5440-a096-a2555b25ab14",
+          "number": "6567",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 80340.0,
+          "synth": 300.0,
+          "total_pay": 80640.0,
+          "tafb": 263820.0,
+          "dutyperiods": [
+            {
+              "uuid": "cb661809-cf02-5009-a26e-9c221b65084c",
+              "idx": 1,
+              "report": {
+                "lcl": "22:59:00",
+                "hbt": "22:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "08:07:00",
+                "hbt": "05:07:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "CLT",
+              "block": 16680.0,
+              "synth": 0.0,
+              "total_pay": 16680.0,
+              "duty": 22080.0,
+              "flight_duty": 20280.0,
+              "layover": {
+                "uuid": "9638d9e9-64b6-5ec2-bf26-039ed3f83541",
+                "odl": 41580.0,
+                "city": "CLT",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "9638d9e9-64b6-5ec2-bf26-039ed3f83541",
+                      "name": "DOUBLETREE CLT AIRPORT",
+                      "phone": "17043579100"
+                    },
+                    "transportation": {
+                      "uuid": "c84d0d3d-abaf-599e-86fb-f6b9b39e14b2",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "ddcc8ed7-c166-59ec-b56d-9394a89d8714",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/2",
+                  "eq_code": "63",
+                  "number": "2725",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "23:59:00",
+                    "hbt": "23:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "07:37:00",
+                    "hbt": "04:37:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 16680.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "54cdb2e9-4437-5b5d-aa65-ba910d39f6b3",
+              "idx": 2,
+              "report": {
+                "lcl": "19:40:00",
+                "hbt": "16:40:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "CLT",
+              "release": {
+                "lcl": "22:58:00",
+                "hbt": "22:58:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAS",
+              "block": 17280.0,
+              "synth": 0.0,
+              "total_pay": 17280.0,
+              "duty": 22680.0,
+              "flight_duty": 20880.0,
+              "layover": {
+                "uuid": "7d5cd754-2e3f-5b6a-90e9-249a71f8aa81",
+                "odl": 66780.0,
+                "city": "LAS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "7d5cd754-2e3f-5b6a-90e9-249a71f8aa81",
+                      "name": "MARRIOTT LAS VEGAS",
+                      "phone": "17026502000"
+                    },
+                    "transportation": {
+                      "uuid": "f1b44970-0abf-5489-879c-7e31ff9511e2",
+                      "name": "WORLDWIDE FLIGHT SERVICES",
+                      "phone": "7025912180"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "9a569113-9df1-5e1e-940e-3647c227bddb",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "1533",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "20:40:00",
+                    "hbt": "17:40:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "lcl": "22:28:00",
+                    "hbt": "22:28:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 17280.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "42febd89-c89d-5940-87fa-700e53005e62",
+              "idx": 3,
+              "report": {
+                "lcl": "16:31:00",
+                "hbt": "16:31:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAS",
+              "release": {
+                "lcl": "05:31:00",
+                "hbt": "02:31:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "TPA",
+              "block": 20940.0,
+              "synth": 300.0,
+              "total_pay": 21240.0,
+              "duty": 36000.0,
+              "flight_duty": 34200.0,
+              "layover": {
+                "uuid": "c0075cd1-4af5-5e4c-a498-2d88ba0a8911",
+                "odl": 39480.0,
+                "city": "TPA",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "c0075cd1-4af5-5e4c-a498-2d88ba0a8911",
+                      "name": "HILTON GARDEN INN WESTSHORE",
+                      "phone": "18132892700"
+                    },
+                    "transportation": {
+                      "uuid": "0da66fcb-d65a-5640-8d96-9b0583a49728",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "1da8c812-f9f9-52db-981a-05e5fa6e70d8",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "26",
+                  "number": "2388",
+                  "deadhead": false,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "lcl": "17:31:00",
+                    "hbt": "17:31:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "18:46:00",
+                    "hbt": "18:46:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 4500.0,
+                  "synth": 0.0,
+                  "ground": 9660.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "5a6c1b46-5779-51a5-8a2f-8dd25668dbbf",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/4",
+                  "eq_code": "63",
+                  "number": "2920",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "21:27:00",
+                    "hbt": "21:27:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "TPA",
+                  "arrival": {
+                    "lcl": "05:01:00",
+                    "hbt": "02:01:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 16440.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "39667516-95b8-5cf0-8943-fe0e33b411a1",
+              "idx": 4,
+              "report": {
+                "lcl": "16:29:00",
+                "hbt": "13:29:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "TPA",
+              "release": {
+                "lcl": "23:16:00",
+                "hbt": "23:16:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 25440.0,
+              "synth": 0.0,
+              "total_pay": 25440.0,
+              "duty": 35220.0,
+              "flight_duty": 33420.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "bf126178-4186-5127-b32f-d44d421e35cc",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "63",
+                  "number": "2905",
+                  "deadhead": false,
+                  "departure_station": "TPA",
+                  "departure": {
+                    "lcl": "17:29:00",
+                    "hbt": "14:29:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "19:16:00",
+                    "hbt": "16:16:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 6420.0,
+                  "synth": 0.0,
+                  "ground": 4380.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "11b03c40-9a4b-5dcb-ac9d-b50578b73d09",
+                  "dp_idx": 4,
+                  "idx": 2,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "63",
+                  "number": "2725",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "20:29:00",
+                    "hbt": "17:29:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "22:46:00",
+                    "hbt": "22:46:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 19020.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-04"
+          ]
+        },
+        {
+          "uuid": "f3a0f489-9459-533c-bbc6-0095514c535b",
+          "number": "6568",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 73740.0,
+          "synth": 1860.0,
+          "total_pay": 75600.0,
+          "tafb": 255720.0,
+          "dutyperiods": [
+            {
+              "uuid": "383a2ba9-9520-5cbb-81ac-f723400b21d7",
+              "idx": 1,
+              "report": {
+                "lcl": "23:59:00",
+                "hbt": "23:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "06:28:00",
+                "hbt": "04:28:00",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": 10740.0,
+              "synth": 0.0,
+              "total_pay": 10740.0,
+              "duty": 16140.0,
+              "flight_duty": 14340.0,
+              "layover": {
+                "uuid": "14b08703-f3d6-5241-8297-e389a576caff",
+                "odl": 42120.0,
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "14b08703-f3d6-5241-8297-e389a576caff",
+                      "name": "HYATT REGENCY DFW",
+                      "phone": "19724531234"
+                    },
+                    "transportation": {
+                      "uuid": "2eefd652-8871-5b4f-bd3a-bd3322b34585",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "d137dbd3-cbac-5e70-b6af-b89ee64cc8e8",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "2625",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "00:59:00",
+                    "hbt": "00:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": "05:58:00",
+                    "hbt": "03:58:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": 10740.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "74d0b7cd-1178-5782-a4d9-9c753cf8f3b4",
+              "idx": 2,
+              "report": {
+                "lcl": "18:10:00",
+                "hbt": "16:10:00",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": "21:31:00",
+                "hbt": "21:31:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SFO",
+              "block": 13860.0,
+              "synth": 0.0,
+              "total_pay": 13860.0,
+              "duty": 19260.0,
+              "flight_duty": 17460.0,
+              "layover": {
+                "uuid": "6bf96b33-1b67-5513-acea-039262f73b8b",
+                "odl": 56340.0,
+                "city": "SFO",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "6bf96b33-1b67-5513-acea-039262f73b8b",
+                      "name": "MARRIOTT SAN FRANCISCO AIRPORT",
+                      "phone": "16506929100"
+                    },
+                    "transportation": {
+                      "uuid": "f8cf076a-3f89-5603-9fa3-85eb0d8b2476",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "a935dc77-6a14-5e1a-bf26-9b0df95e8776",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "1430",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": "19:10:00",
+                    "hbt": "17:10:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "SFO",
+                  "arrival": {
+                    "lcl": "21:01:00",
+                    "hbt": "21:01:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 13860.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "ceb7e692-cb4b-5273-b19e-affa3b0d7d21",
+              "idx": 3,
+              "report": {
+                "lcl": "12:10:00",
+                "hbt": "12:10:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SFO",
+              "release": {
+                "lcl": "01:13:00",
+                "hbt": "22:13:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "BOS",
+              "block": 25680.0,
+              "synth": 0.0,
+              "total_pay": 25680.0,
+              "duty": 36180.0,
+              "flight_duty": 34380.0,
+              "layover": {
+                "uuid": "253ef2cf-2b93-5e57-9b54-5df81032d95a",
+                "odl": 56820.0,
+                "city": "BOS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "253ef2cf-2b93-5e57-9b54-5df81032d95a",
+                      "name": "THE WESTIN COPLEY PLACE BOSTON",
+                      "phone": "6172629600"
+                    },
+                    "transportation": {
+                      "uuid": "9072d3a9-d6d0-59e8-acb7-4d1a3cb32b10",
+                      "name": "DESERT COACH",
+                      "phone": "6022866161"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "abda0ad8-70cd-5a50-9ffe-a079bd9efa37",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "2830",
+                  "deadhead": false,
+                  "departure_station": "SFO",
+                  "departure": {
+                    "lcl": "13:10:00",
+                    "hbt": "13:10:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "21:07:00",
+                    "hbt": "18:07:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 17820.0,
+                  "synth": 0.0,
+                  "ground": 5100.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "3e380c78-343a-54e5-a287-4c1ac06dc6a9",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "63",
+                  "number": "1937",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "22:32:00",
+                    "hbt": "19:32:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "BOS",
+                  "arrival": {
+                    "lcl": "00:43:00",
+                    "hbt": "21:43:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 7860.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "d7a34d7c-29f9-533d-a992-969f752ac14f",
+              "idx": 4,
+              "report": {
+                "lcl": "17:00:00",
+                "hbt": "14:00:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "BOS",
+              "release": {
+                "lcl": "22:01:00",
+                "hbt": "22:01:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 23460.0,
+              "synth": 0.0,
+              "total_pay": 23460.0,
+              "duty": 28860.0,
+              "flight_duty": 27060.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "a40595c7-b0f2-524d-bdf1-3e3288f0bfcb",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "80",
+                  "number": "779",
+                  "deadhead": false,
+                  "departure_station": "BOS",
+                  "departure": {
+                    "lcl": "18:00:00",
+                    "hbt": "15:00:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "21:31:00",
+                    "hbt": "21:31:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 23460.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-05"
+          ]
+        },
+        {
+          "uuid": "9b72b562-057b-5fe8-9794-06f673771ddd",
+          "number": "6569",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 61020.0,
+          "synth": 10860.0,
+          "total_pay": 71880.0,
+          "tafb": 251700.0,
+          "dutyperiods": [
+            {
+              "uuid": "845d201c-01de-5b88-8011-f62032e6cea0",
+              "idx": 1,
+              "report": {
+                "lcl": "00:12:00",
+                "hbt": "00:12:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "09:35:00",
+                "hbt": "06:35:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "MIA",
+              "block": 17580.0,
+              "synth": 0.0,
+              "total_pay": 17580.0,
+              "duty": 22980.0,
+              "flight_duty": 21180.0,
+              "layover": {
+                "uuid": "f92708ba-2feb-5358-a7b9-a1669eb9ab32",
+                "odl": 100500.0,
+                "city": "MIA",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92708ba-2feb-5358-a7b9-a1669eb9ab32",
+                      "name": "RESIDENCE INN SUNNY ISLES",
+                      "phone": "13059335224"
+                    },
+                    "transportation": {
+                      "uuid": "55c2d35e-9b52-5569-b41c-4e3f7111240e",
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "5ce2be58-a0b7-537c-b303-cc1462f924a3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1413",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "01:12:00",
+                    "hbt": "01:12:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": "09:05:00",
+                    "hbt": "06:05:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 17580.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "a84b7cb6-2235-5afb-b624-1f9b43a0a772",
+              "idx": 2,
+              "report": {
+                "lcl": "12:30:00",
+                "hbt": "09:30:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": "23:38:00",
+                "hbt": "20:38:00",
+                "tz_name": "America/Nassau"
+              },
+              "release_station": "NAS",
+              "block": 24420.0,
+              "synth": 0.0,
+              "total_pay": 24420.0,
+              "duty": 40080.0,
+              "flight_duty": 38280.0,
+              "layover": {
+                "uuid": "e0b89137-43ae-56d3-91b2-7c7e247b6ecf",
+                "odl": 51960.0,
+                "city": "NAS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "e0b89137-43ae-56d3-91b2-7c7e247b6ecf",
+                      "name": "COURTYARD NASSAU DOWNTOWN",
+                      "phone": "2423022975"
+                    },
+                    "transportation": {
+                      "uuid": "9cde6619-aa99-5e48-a0ab-2efd0c19c492",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "95eef8df-c927-5aae-9ab7-2c0d0c985baf",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "1461",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": "13:30:00",
+                    "hbt": "10:30:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "STT",
+                  "arrival": {
+                    "lcl": "17:11:00",
+                    "hbt": "13:11:00",
+                    "tz_name": "America/St_Thomas"
+                  },
+                  "block": 9660.0,
+                  "synth": 0.0,
+                  "ground": 3060.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "e73eb978-1274-5d72-bfee-af85c192925b",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "1391",
+                  "deadhead": false,
+                  "departure_station": "STT",
+                  "departure": {
+                    "lcl": "18:02:00",
+                    "hbt": "14:02:00",
+                    "tz_name": "America/St_Thomas"
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": "20:05:00",
+                    "hbt": "17:05:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 10980.0,
+                  "synth": 0.0,
+                  "ground": 7200.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "1f331800-302e-533a-a041-30093f64e131",
+                  "dp_idx": 2,
+                  "idx": 3,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2622",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": "22:05:00",
+                    "hbt": "19:05:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "NAS",
+                  "arrival": {
+                    "lcl": "23:08:00",
+                    "hbt": "20:08:00",
+                    "tz_name": "America/Nassau"
+                  },
+                  "block": 3780.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "2adfe841-307a-5f4a-b612-e49d83f0f611",
+              "idx": 3,
+              "report": {
+                "lcl": "14:04:00",
+                "hbt": "11:04:00",
+                "tz_name": "America/Nassau"
+              },
+              "report_station": "NAS",
+              "release": {
+                "lcl": "21:07:00",
+                "hbt": "21:07:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 19020.0,
+              "synth": 8640.0,
+              "total_pay": 27660.0,
+              "duty": 36180.0,
+              "flight_duty": 34380.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "ccec6664-a32f-52ad-a582-15bc2937c393",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "45",
+                  "number": "859",
+                  "deadhead": true,
+                  "departure_station": "NAS",
+                  "departure": {
+                    "lcl": "14:34:00",
+                    "hbt": "11:34:00",
+                    "tz_name": "America/Nassau"
+                  },
+                  "meal": "",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "16:58:00",
+                    "hbt": "13:58:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 0.0,
+                  "synth": 8640.0,
+                  "ground": 4920.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "c5b317b0-e86d-5cc9-87a4-ef27734717a9",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "267",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "18:20:00",
+                    "hbt": "15:20:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "20:37:00",
+                    "hbt": "20:37:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 19020.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-05"
+          ]
+        },
+        {
+          "uuid": "c3006c2b-581b-5bcd-8421-6f1106ae6b4c",
+          "number": "6572",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 42060.0,
+          "synth": 0.0,
+          "total_pay": 42060.0,
+          "tafb": 117360.0,
+          "dutyperiods": [
+            {
+              "uuid": "c1c5162f-4956-5d5f-b7d2-61e446de8e9f",
+              "idx": 1,
+              "report": {
+                "lcl": "07:41:00",
+                "hbt": "07:41:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "12:20:00",
+                "hbt": "15:20:00",
+                "tz_name": "Pacific/Honolulu"
+              },
+              "release_station": "HNL",
+              "block": 22140.0,
+              "synth": 0.0,
+              "total_pay": 22140.0,
+              "duty": 27540.0,
+              "flight_duty": 25740.0,
+              "layover": {
+                "uuid": "cc69bcbd-be7f-5077-abf4-6bcd3cc185ad",
+                "odl": 64500.0,
+                "city": "HNL",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "cc69bcbd-be7f-5077-abf4-6bcd3cc185ad",
+                      "name": "PRINCE WAIKIKI",
+                      "phone": "18089561111"
+                    },
+                    "transportation": {
+                      "uuid": "0d7ffe90-d6d3-5784-8593-9cdb671a626b",
+                      "name": "VIP TRANSPORTATION\u2212 HNL",
+                      "phone": "8088360317"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "5ba32dfd-8ac3-5745-8a08-1e4cc7bb9d0f",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "31",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "08:41:00",
+                    "hbt": "08:41:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "B",
+                  "arrival_station": "HNL",
+                  "arrival": {
+                    "lcl": "11:50:00",
+                    "hbt": "14:50:00",
+                    "tz_name": "Pacific/Honolulu"
+                  },
+                  "block": 22140.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "502154b4-8d92-53e7-853c-9023a0b675d6",
+              "idx": 2,
+              "report": {
+                "lcl": "06:15:00",
+                "hbt": "08:15:00",
+                "tz_name": "Pacific/Honolulu"
+              },
+              "report_station": "HNL",
+              "release": {
+                "lcl": "15:17:00",
+                "hbt": "15:17:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 19920.0,
+              "synth": 0.0,
+              "total_pay": 19920.0,
+              "duty": 25320.0,
+              "flight_duty": 23520.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "624b2062-03d6-57ac-83d6-dc2d579fc6d7",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "1480",
+                  "deadhead": false,
+                  "departure_station": "HNL",
+                  "departure": {
+                    "lcl": "07:15:00",
+                    "hbt": "09:15:00",
+                    "tz_name": "Pacific/Honolulu"
+                  },
+                  "meal": "B",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "14:47:00",
+                    "hbt": "14:47:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 19920.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-05"
+          ]
+        }
+      ]
+    },
+    {
+      "uuid": "7587982a-d25f-5c8f-9ebd-2bf1ed82af93",
+      "base": "LAX",
+      "satellite_base": "",
+      "equipment": "320",
+      "division": "INTL",
+      "issued": "2022-10-07",
+      "effective": "2022-11-01",
+      "start": "2022-11-01",
+      "end": "2022-12-01",
+      "trips": [
+        {
+          "uuid": "5a90ab4b-9771-5680-8d6c-7cdf1f228b5c",
+          "number": "6602",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 75420.0,
+          "synth": 180.0,
+          "total_pay": 75600.0,
+          "tafb": 264120.0,
+          "dutyperiods": [
+            {
+              "uuid": "7265b21b-751b-5448-95c1-eafd5ae7ed85",
+              "idx": 1,
+              "report": {
+                "lcl": "23:59:00",
+                "hbt": "23:59:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "05:28:00",
+                "hbt": "03:28:00",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": 10740.0,
+              "synth": 0.0,
+              "total_pay": 10740.0,
+              "duty": 16140.0,
+              "flight_duty": 14340.0,
+              "layover": {
+                "uuid": "9635597a-5b80-560c-9a16-b0ee4c15084d",
+                "odl": 52260.0,
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "9635597a-5b80-560c-9a16-b0ee4c15084d",
+                      "name": "HYATT REGENCY DFW",
+                      "phone": "19724531234"
+                    },
+                    "transportation": {
+                      "uuid": "584f1c5c-a04c-5fb1-bf1a-cb95c19c790e",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "6a4ca0f1-efff-51b5-bdf9-5a6acc0f14b6",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "2625",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "00:59:00",
+                    "hbt": "00:59:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "M",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": "04:58:00",
+                    "hbt": "02:58:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": 10740.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "aa0504aa-b0ba-5c55-9caf-33da6c4efd8d",
+              "idx": 2,
+              "report": {
+                "lcl": "19:59:00",
+                "hbt": "17:59:00",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": "23:53:00",
+                "hbt": "23:53:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SEA",
+              "block": 15840.0,
+              "synth": 0.0,
+              "total_pay": 15840.0,
+              "duty": 21240.0,
+              "flight_duty": 19440.0,
+              "layover": {
+                "uuid": "c5f406ad-d98c-5e31-b0ff-e267cf2e7024",
+                "odl": 45180.0,
+                "city": "SEA",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "c5f406ad-d98c-5e31-b0ff-e267cf2e7024",
+                      "name": "CROWNE PLAZA AP",
+                      "phone": "12062481000"
+                    },
+                    "transportation": {
+                      "uuid": "870ed135-31c7-5959-b1f5-6b793d9226b2",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "a2be121e-5d1c-5d66-a98b-cad9ebcfdb86",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "64",
+                  "number": "2394",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": "20:59:00",
+                    "hbt": "18:59:00",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "SEA",
+                  "arrival": {
+                    "lcl": "23:23:00",
+                    "hbt": "23:23:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 15840.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "86e844c0-bf16-5d37-9e7f-55796ba8f86c",
+              "idx": 3,
+              "report": {
+                "lcl": "12:26:00",
+                "hbt": "12:26:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SEA",
+              "release": {
+                "lcl": "00:25:00",
+                "hbt": "21:25:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "RDU",
+              "block": 22020.0,
+              "synth": 0.0,
+              "total_pay": 22020.0,
+              "duty": 32340.0,
+              "flight_duty": 30540.0,
+              "layover": {
+                "uuid": "71cd45cf-0caf-5710-bfd2-4599dd4d4257",
+                "odl": 59640.0,
+                "city": "RDU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "71cd45cf-0caf-5710-bfd2-4599dd4d4257",
+                      "name": "EMBASSY SUITES",
+                      "phone": "19196771840"
+                    },
+                    "transportation": {
+                      "uuid": "761135dc-af4c-5b68-b849-144d78738c36",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "90a0036b-a0cd-57d1-8b0e-768f77569ccc",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "2775",
+                  "deadhead": false,
+                  "departure_station": "SEA",
+                  "departure": {
+                    "lcl": "13:26:00",
+                    "hbt": "13:26:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": "21:24:00",
+                    "hbt": "18:24:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 17880.0,
+                  "synth": 0.0,
+                  "ground": 4920.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "431691c4-ea6b-5643-9f99-06282c6447bc",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "494",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": "22:46:00",
+                    "hbt": "19:46:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "RDU",
+                  "arrival": {
+                    "lcl": "23:55:00",
+                    "hbt": "20:55:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 4140.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "64ef784a-0f91-506c-ac2b-7b55c25598f5",
+              "idx": 4,
+              "report": {
+                "lcl": "16:59:00",
+                "hbt": "13:59:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "RDU",
+              "release": {
+                "lcl": "00:21:00",
+                "hbt": "00:21:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 26820.0,
+              "synth": 0.0,
+              "total_pay": 26820.0,
+              "duty": 37320.0,
+              "flight_duty": 35520.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "4442e27c-a97c-5388-98fc-36a649eb998d",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "64",
+                  "number": "451",
+                  "deadhead": false,
+                  "departure_station": "RDU",
+                  "departure": {
+                    "lcl": "17:59:00",
+                    "hbt": "14:59:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "PHL",
+                  "arrival": {
+                    "lcl": "19:25:00",
+                    "hbt": "16:25:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 5160.0,
+                  "synth": 0.0,
+                  "ground": 5100.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "23770ac6-438f-5221-a31b-2c8d4cab88ab",
+                  "dp_idx": 4,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "26",
+                  "number": "1799",
+                  "deadhead": false,
+                  "departure_station": "PHL",
+                  "departure": {
+                    "lcl": "20:50:00",
+                    "hbt": "17:50:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "23:51:00",
+                    "hbt": "23:51:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 21660.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-06"
+          ]
+        },
+        {
+          "uuid": "91cc0351-f9b6-5314-bc6a-bb498ec699b6",
+          "number": "6604",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 56280.0,
+          "synth": 5880.0,
+          "total_pay": 62160.0,
+          "tafb": 215160.0,
+          "dutyperiods": [
+            {
+              "uuid": "58099187-aa5d-5f1b-b001-1111b2a2a69c",
+              "idx": 1,
+              "report": {
+                "lcl": "07:30:00",
+                "hbt": "07:30:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "17:38:00",
+                "hbt": "14:38:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 20280.0,
+              "synth": 0.0,
+              "total_pay": 20280.0,
+              "duty": 25680.0,
+              "flight_duty": 23880.0,
+              "layover": {
+                "uuid": "9bbe3a24-9198-5c36-b638-58df335ceafa",
+                "odl": 56220.0,
+                "city": "JFK",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "9bbe3a24-9198-5c36-b638-58df335ceafa",
+                      "name": "TWA HOTEL",
+                      "phone": "2128069000"
+                    },
+                    "transportation": {
+                      "uuid": "594dc838-132e-5ee0-b804-82b219331f5a",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "71176d11-5595-5315-baf1-14e8b190a3b3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "80",
+                  "number": "2",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "08:30:00",
+                    "hbt": "08:30:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "B",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "17:08:00",
+                    "hbt": "14:08:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 20280.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "34419684-bcad-58bd-bf57-dc8580874885",
+              "idx": 2,
+              "report": {
+                "lcl": "09:15:00",
+                "hbt": "06:15:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "16:44:00",
+                "hbt": "16:44:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAS",
+              "block": 27180.0,
+              "synth": 0.0,
+              "total_pay": 27180.0,
+              "duty": 37740.0,
+              "flight_duty": 35940.0,
+              "layover": {
+                "uuid": "6ba8bcbb-8f1a-58bd-9b87-0201a9df87ba",
+                "odl": 66060.0,
+                "city": "LAS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "6ba8bcbb-8f1a-58bd-9b87-0201a9df87ba",
+                      "name": "MARRIOTT LAS VEGAS",
+                      "phone": "17026502000"
+                    },
+                    "transportation": {
+                      "uuid": "0d624016-0cea-5931-bbd1-53b7efe78b1d",
+                      "name": "WORLDWIDE FLIGHT SERVICES",
+                      "phone": "7025912180"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "968eaf2a-a788-56e3-ace8-ab8366188821",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "80",
+                  "number": "3",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "10:15:00",
+                    "hbt": "07:15:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "13:36:00",
+                    "hbt": "13:36:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 22860.0,
+                  "synth": 0.0,
+                  "ground": 5160.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "3037545e-6852-54b8-bb96-f8c5bf88bc7d",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "2530",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "15:02:00",
+                    "hbt": "15:02:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "lcl": "16:14:00",
+                    "hbt": "16:14:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 4320.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "a9369ea7-028b-5569-b803-bdc7cbe5e54b",
+              "idx": 3,
+              "report": {
+                "lcl": "11:05:00",
+                "hbt": "11:05:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAS",
+              "release": {
+                "lcl": "19:16:00",
+                "hbt": "19:16:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 8820.0,
+              "synth": 5880.0,
+              "total_pay": 14700.0,
+              "duty": 29460.0,
+              "flight_duty": 27660.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "e2a0fcc6-f31a-59ba-bcbd-34afb5298f41",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "26",
+                  "number": "2479",
+                  "deadhead": true,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "lcl": "11:35:00",
+                    "hbt": "11:35:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "12:52:00",
+                    "hbt": "12:52:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 0.0,
+                  "synth": 4620.0,
+                  "ground": 7800.0,
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "4172b07c-c75a-5fb8-9716-b7104ae63093",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "26",
+                  "number": "2530",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "15:02:00",
+                    "hbt": "15:02:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "lcl": "16:14:00",
+                    "hbt": "16:14:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 4320.0,
+                  "synth": 0.0,
+                  "ground": 4620.0,
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "7f34786d-f540-53f5-8698-b8756b6b030c",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "26",
+                  "number": "2388",
+                  "deadhead": false,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "lcl": "17:31:00",
+                    "hbt": "17:31:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "18:46:00",
+                    "hbt": "18:46:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 4500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-06"
+          ]
+        },
+        {
+          "uuid": "e76b485e-1b32-5b1a-9e14-2088e0d5d2f0",
+          "number": "6605",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 39720.0,
+          "synth": 0.0,
+          "total_pay": 39720.0,
+          "tafb": 137100.0,
+          "dutyperiods": [
+            {
+              "uuid": "44e0724e-efa3-5e19-8208-f89d0b534e46",
+              "idx": 1,
+              "report": {
+                "lcl": "09:15:00",
+                "hbt": "09:15:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "14:29:00",
+                "hbt": "16:29:00",
+                "tz_name": "Pacific/Honolulu"
+              },
+              "release_station": "OGG",
+              "block": 20640.0,
+              "synth": 0.0,
+              "total_pay": 20640.0,
+              "duty": 26040.0,
+              "flight_duty": 24240.0,
+              "layover": {
+                "uuid": "19bf73a0-ab56-55fe-9945-7c93c633eeb0",
+                "odl": 86580.0,
+                "city": "OGG",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "19bf73a0-ab56-55fe-9945-7c93c633eeb0",
+                      "name": "MAUI COAST HTL",
+                      "phone": "18088746284"
+                    },
+                    "transportation": {
+                      "uuid": "8cfc0cff-411a-56df-8fef-da05c5d674be",
+                      "name": "VIP TRANSPORTATION\u2212 OGG",
+                      "phone": "8088712702"
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "dde34661-4a17-557c-af6a-a6f5890bc324",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "271",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "10:15:00",
+                    "hbt": "10:15:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "OGG",
+                  "arrival": {
+                    "lcl": "13:59:00",
+                    "hbt": "15:59:00",
+                    "tz_name": "Pacific/Honolulu"
+                  },
+                  "block": 20640.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "0023efd0-fc9c-525c-acf6-881ea3d9180f",
+              "idx": 2,
+              "report": {
+                "lcl": "14:32:00",
+                "hbt": "16:32:00",
+                "tz_name": "Pacific/Honolulu"
+              },
+              "report_station": "OGG",
+              "release": {
+                "lcl": "23:20:00",
+                "hbt": "23:20:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 19080.0,
+              "synth": 0.0,
+              "total_pay": 19080.0,
+              "duty": 24480.0,
+              "flight_duty": 22680.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "3d5f1085-fdf9-53a2-bfa7-bccba429fe0a",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "212",
+                  "deadhead": false,
+                  "departure_station": "OGG",
+                  "departure": {
+                    "lcl": "15:32:00",
+                    "hbt": "17:32:00",
+                    "tz_name": "Pacific/Honolulu"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "22:50:00",
+                    "hbt": "22:50:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 19080.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-06"
+          ]
+        },
+        {
+          "uuid": "ec5e8f31-1fe0-5e46-913b-394090bd0dde",
+          "number": "6606",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": 42420.0,
+          "synth": 0.0,
+          "total_pay": 42420.0,
+          "tafb": 106320.0,
+          "dutyperiods": [
+            {
+              "uuid": "84cca662-87de-5185-8896-6d0d792ed2ce",
+              "idx": 1,
+              "report": {
+                "lcl": "09:20:00",
+                "hbt": "09:20:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": "19:15:00",
+                "hbt": "16:15:00",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "JFK",
+              "block": 19500.0,
+              "synth": 0.0,
+              "total_pay": 19500.0,
+              "duty": 24900.0,
+              "flight_duty": 23100.0,
+              "layover": {
+                "uuid": "7ae97d8c-4d43-5c2c-bb7f-a6695ee9e5af",
+                "odl": 53100.0,
+                "city": "JFK",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "7ae97d8c-4d43-5c2c-bb7f-a6695ee9e5af",
+                      "name": "TWA HOTEL",
+                      "phone": "2128069000"
+                    },
+                    "transportation": {
+                      "uuid": "8ac1c496-6714-57d8-834f-c287bb227318",
+                      "name": "SHUTTLE",
+                      "phone": ""
+                    }
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "7045c3aa-282d-5769-9b9e-d9094044c583",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "80",
+                  "number": "4",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": "10:20:00",
+                    "hbt": "10:20:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": "18:45:00",
+                    "hbt": "15:45:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": 19500.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "7abd9192-775c-5793-a6d7-6224ea855dff",
+              "idx": 2,
+              "report": {
+                "lcl": "10:00:00",
+                "hbt": "07:00:00",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": "14:52:00",
+                "hbt": "14:52:00",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAX",
+              "block": 22920.0,
+              "synth": 0.0,
+              "total_pay": 22920.0,
+              "duty": 28320.0,
+              "flight_duty": 26520.0,
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "850b2e71-c955-52a6-8ed0-988157fc7fc6",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "80",
+                  "number": "331",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": "11:00:00",
+                    "hbt": "08:00:00",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": "14:22:00",
+                    "hbt": "14:22:00",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": 22920.0,
+                  "synth": 0.0,
+                  "ground": 0.0,
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-11-06"
+          ]
+        }
+      ]
+    }
+  ]
+}

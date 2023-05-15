@@ -65,24 +65,31 @@ class ParsedToRaw:
         self.bid_package.pages[-1].trips[-1].dutyperiods[-1].release = parsed
 
     def hotel(self, parsed: raw.Hotel):
-        layover = raw.Layover(uuid=parsed.uuid5(), hotel=parsed)
-        layover.uuid = layover.uuid5()
+        layover = raw.Layover(
+            uuid=parsed.uuid5(),
+            layover_city=parsed.layover_city,
+            rest=parsed.rest,
+            hotel_info=[],
+        )
+        layover.hotel_info.append(raw.HotelInfo(hotel=parsed, transportation=None))
         self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover = layover
 
     def hotel_additional(self, parsed: raw.HotelAdditional):
         layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
         assert layover is not None
-        layover.hotel_additional = parsed
+        layover.hotel_info.append(raw.HotelInfo(hotel=parsed, transportation=None))
 
     def transportation(self, parsed: raw.Transportation):
         layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
         assert layover is not None
-        layover.transportation = parsed
+        assert layover.hotel_info[-1].transportation is None
+        layover.hotel_info[-1].transportation = parsed
 
     def transportation_additional(self, parsed: raw.TransportationAdditional):
         layover = self.bid_package.pages[-1].trips[-1].dutyperiods[-1].layover
         assert layover is not None
-        layover.transportation_additional = parsed
+        assert layover.hotel_info[-1].transportation is None
+        layover.hotel_info[-1].transportation = parsed
 
     def calendar_only(self, parsed: raw.CalendarOnly):
         self.bid_package.pages[-1].trips[-1].calendar_only = parsed

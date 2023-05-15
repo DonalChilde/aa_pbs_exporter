@@ -100,10 +100,10 @@ class RawValidator:
     def check_layover_for_empty_properies(self, layover: raw.Layover, ctx: dict | None):
         _ = ctx
         assert layover is not None
-        if layover.hotel is None:
+        if layover.hotel_info[0].hotel is None:
             self.send_message(
                 messages.ValidationMessage(
-                    f"Layover has no hotel. uuid: {layover.uuid}"
+                    f"Layover has no primary hotel. uuid: {layover.uuid}"
                 ),
                 ctx=ctx,
             )

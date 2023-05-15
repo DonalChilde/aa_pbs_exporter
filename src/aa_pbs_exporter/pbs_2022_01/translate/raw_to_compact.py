@@ -34,7 +34,7 @@ class RawToCompact:
         msg_bus: Publisher | None,
     ) -> None:
         self.tz_lookup = tz_lookup
-        self.compact_bid_package = None
+        self.compact_bid_package: compact.BidPackage | None = None
         self.validator = validator
         self.msg_bus = msg_bus
 
@@ -72,7 +72,7 @@ class RawToCompact:
         end = complete_future_date_md(
             ref_date=effective, future=raw_page.page_header_2.to_date, strf=MONTH_DAY
         )
-        trips = []
+        trips: list[compact.Trip] = []
         compact_page = compact.Page(
             uuid=raw_page.uuid,
             base=raw_page.page_footer.base,
@@ -111,7 +111,7 @@ class RawToCompact:
         valid_dates: Sequence[date],
         ctx: dict | None = None,
     ) -> compact.Trip:
-        dutyperiods = []
+        dutyperiods: list[compact.DutyPeriod] = []
 
         assert raw_trip.footer is not None
         compact_trip = compact.Trip(
@@ -119,7 +119,7 @@ class RawToCompact:
             number=raw_trip.header.number,
             positions=raw_trip.header.positions.split(),
             operations=raw_trip.header.operations,
-            special_qualifications=bool(raw_trip.header.special_qualification),
+            qualifications=raw_trip.header.qualifications,
             block=parse_duration(
                 DURATION_PATTERN, raw_trip.footer.block
             ).to_timedelta(),
@@ -154,7 +154,7 @@ class RawToCompact:
         release_station: str = raw_dutyperiod.flights[-1].arrival_station
         report = self.split_times(raw_dutyperiod.report.report, report_station)
         release = self.split_times(raw_dutyperiod.release.release, release_station)
-        flights = []
+        flights: list[compact.Flight] = []
         compact_dutyperiod = compact.DutyPeriod(
             uuid=raw_dutyperiod.uuid,
             idx=dp_idx,
@@ -232,17 +232,10 @@ class RawToCompact:
             return None
         compact_layover = compact.Layover(
             uuid=raw_layover.uuid,
-            odl=parse_duration(DURATION_PATTERN, raw_layover.hotel.rest).to_timedelta(),
-            city=raw_layover.hotel.layover_city,
-            hotel=self.translate_hotel(raw_layover.hotel, ctx=ctx),
-            transportation=self.translate_transportation(
-                raw_layover.transportation, ctx=ctx
-            ),
-            hotel_additional=self.translate_hotel(
-                raw_layover.hotel_additional, ctx=ctx
-            ),
-            transportation_additional=self.translate_transportation(
-                raw_layover.transportation_additional, ctx=ctx
+            odl=parse_duration(DURATION_PATTERN, raw_layover.rest).to_timedelta(),
+            city=raw_layover.layover_city,
+            hotel_info=self.translate_hotel_info(
+                raw_hotel_info=raw_layover.hotel_info, ctx=ctx
             ),
         )
         if self.validator is not None:
@@ -250,6 +243,19 @@ class RawToCompact:
                 raw_laypver=raw_layover, compact_layover=compact_layover, ctx=ctx
             )
         return compact_layover
+
+    def translate_hotel_info(
+        self, raw_hotel_info: Sequence[raw.HotelInfo], ctx: dict | None
+    ) -> list[compact.HotelInfo]:
+        compact_hotel_infos: list[compact.HotelInfo] = []
+        for info in raw_hotel_info:
+            compact_hotel = self.translate_hotel(info.hotel)
+            compact_transportation = self.translate_transportation(info.transportation)
+            compact_hotel_info = compact.HotelInfo(
+                hotel=compact_hotel, transportation=compact_transportation
+            )
+            compact_hotel_infos.append(compact_hotel_info)
+        return compact_hotel_infos
 
     def translate_hotel(
         self, raw_hotel: raw.Hotel | raw.HotelAdditional | None, ctx: dict | None = None

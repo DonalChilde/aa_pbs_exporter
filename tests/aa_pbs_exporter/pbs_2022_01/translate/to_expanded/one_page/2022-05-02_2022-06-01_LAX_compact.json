@@ -24,7 +24,7 @@
             "FB"
           ],
           "operations": "",
-          "special_qualifications": false,
+          "qualifications": "",
           "block": 78300.0,
           "synth": 0.0,
           "total_pay": 78300.0,
@@ -54,18 +54,20 @@
                 "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
                 "odl": 88200.0,
                 "city": "LHR",
-                "hotel": {
-                  "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
-                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
-                  "phone": "443334006112"
-                },
-                "transportation": {
-                  "uuid": "ed9093ff-f888-5170-8efd-1c57b6dc039a",
-                  "name": "COMET CAR HIRE (CCH) LTD",
-                  "phone": "442088979984"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "b98c7a3f-ff99-54bf-b9ef-a1f77599bbfe",
+                      "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                      "phone": "443334006112"
+                    },
+                    "transportation": {
+                      "uuid": "ed9093ff-f888-5170-8efd-1c57b6dc039a",
+                      "name": "COMET CAR HIRE (CCH) LTD",
+                      "phone": "442088979984"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -160,7 +162,7 @@
             "FB"
           ],
           "operations": "",
-          "special_qualifications": false,
+          "qualifications": "",
           "block": 78300.0,
           "synth": 0.0,
           "total_pay": 78300.0,
@@ -190,18 +192,20 @@
                 "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
                 "odl": 86400.0,
                 "city": "LHR",
-                "hotel": {
-                  "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
-                  "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
-                  "phone": "443334006112"
-                },
-                "transportation": {
-                  "uuid": "4f0cf051-2e72-51ba-b416-d20a698ae94a",
-                  "name": "COMET CAR HIRE (CCH) LTD",
-                  "phone": "442088979984"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "c2da4d07-13b4-5846-af6a-b7cd3f6fa2da",
+                      "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
+                      "phone": "443334006112"
+                    },
+                    "transportation": {
+                      "uuid": "4f0cf051-2e72-51ba-b416-d20a698ae94a",
+                      "name": "COMET CAR HIRE (CCH) LTD",
+                      "phone": "442088979984"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -308,7 +312,7 @@
             "FB"
           ],
           "operations": "ITALIAN",
-          "special_qualifications": false,
+          "qualifications": "",
           "block": 60240.0,
           "synth": 41760.0,
           "total_pay": 102000.0,
@@ -338,18 +342,20 @@
                 "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
                 "odl": 61860.0,
                 "city": "JFK",
-                "hotel": {
-                  "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773"
-                },
-                "transportation": {
-                  "uuid": "56c96102-291b-5d93-8ff7-7f2e3ad585c4",
-                  "name": "DESERT COACH",
-                  "phone": "6022866161"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "fcd103b8-b989-509b-995a-a39d015a37b2",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773"
+                    },
+                    "transportation": {
+                      "uuid": "56c96102-291b-5d93-8ff7-7f2e3ad585c4",
+                      "name": "DESERT COACH",
+                      "phone": "6022866161"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -404,18 +410,20 @@
                 "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
                 "odl": 88500.0,
                 "city": "MXP",
-                "hotel": {
-                  "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
-                  "name": "MELIA MILANO",
-                  "phone": "3902444061"
-                },
-                "transportation": {
-                  "uuid": "7f1cd916-0c7a-5566-9ca6-7aaa13df8d18",
-                  "name": "AIR PULLMAN",
-                  "phone": "01139033125844"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "e53215bb-2850-57ae-b7d7-aeba2453ef49",
+                      "name": "MELIA MILANO",
+                      "phone": "3902444061"
+                    },
+                    "transportation": {
+                      "uuid": "7f1cd916-0c7a-5566-9ca6-7aaa13df8d18",
+                      "name": "AIR PULLMAN",
+                      "phone": "01139033125844"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -470,18 +478,20 @@
                 "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
                 "odl": 70260.0,
                 "city": "JFK",
-                "hotel": {
-                  "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773"
-                },
-                "transportation": {
-                  "uuid": "dec47b38-3191-559c-a567-46283444d555",
-                  "name": "DESERT COACH",
-                  "phone": "6022866161"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "9f10647f-7ed9-5d2b-9542-e0033122eebe",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773"
+                    },
+                    "transportation": {
+                      "uuid": "dec47b38-3191-559c-a567-46283444d555",
+                      "name": "DESERT COACH",
+                      "phone": "6022866161"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -575,7 +585,7 @@
             "FB"
           ],
           "operations": "ITALIAN",
-          "special_qualifications": false,
+          "qualifications": "",
           "block": 60240.0,
           "synth": 41880.0,
           "total_pay": 102120.0,
@@ -605,18 +615,20 @@
                 "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
                 "odl": 61740.0,
                 "city": "JFK",
-                "hotel": {
-                  "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773"
-                },
-                "transportation": {
-                  "uuid": "d6aaf83a-f42c-5ee6-8681-e42be197d35f",
-                  "name": "DESERT COACH",
-                  "phone": "6022866161"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "9591622c-086b-5b41-9a4c-c9d5ff4925d7",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773"
+                    },
+                    "transportation": {
+                      "uuid": "d6aaf83a-f42c-5ee6-8681-e42be197d35f",
+                      "name": "DESERT COACH",
+                      "phone": "6022866161"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -671,18 +683,20 @@
                 "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
                 "odl": 88500.0,
                 "city": "MXP",
-                "hotel": {
-                  "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
-                  "name": "MELIA MILANO",
-                  "phone": "3902444061"
-                },
-                "transportation": {
-                  "uuid": "2ecc10a5-16e5-5f43-93c4-f4bbedc1ede9",
-                  "name": "AIR PULLMAN",
-                  "phone": "01139033125844"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "2dcfbc09-39d7-5071-873e-2460075e1afa",
+                      "name": "MELIA MILANO",
+                      "phone": "3902444061"
+                    },
+                    "transportation": {
+                      "uuid": "2ecc10a5-16e5-5f43-93c4-f4bbedc1ede9",
+                      "name": "AIR PULLMAN",
+                      "phone": "01139033125844"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {
@@ -737,18 +751,20 @@
                 "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
                 "odl": 70260.0,
                 "city": "JFK",
-                "hotel": {
-                  "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773"
-                },
-                "transportation": {
-                  "uuid": "78eeeef0-981f-5ccc-a2c5-65f04f9bde6b",
-                  "name": "DESERT COACH",
-                  "phone": "6022866161"
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "2ea36c9c-ab54-5963-b859-fd07e7e61e21",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773"
+                    },
+                    "transportation": {
+                      "uuid": "78eeeef0-981f-5ccc-a2c5-65f04f9bde6b",
+                      "name": "DESERT COACH",
+                      "phone": "6022866161"
+                    }
+                  }
+                ]
               },
               "flights": [
                 {

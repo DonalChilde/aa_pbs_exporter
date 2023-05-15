@@ -5,7 +5,6 @@ from uuid import uuid5
 from zoneinfo import ZoneInfo
 
 from aa_pbs_exporter.pbs_2022_01 import validate
-from aa_pbs_exporter.pbs_2022_01.helpers.add_timedelta import add_timedelta
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
@@ -40,7 +39,9 @@ class CompactToExpanded:
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
         for compact_page in compact_bid_package.pages:
-            expanded_bid_package.pages.append(self.translate_page(compact_page))
+            expanded_bid_package.pages.append(
+                self.translate_page(compact_page, ctx=ctx)
+            )
         if self.validator is not None:
             self.validator.validate_bid_package(
                 compact_bid_package, expanded_bid_package, ctx
@@ -50,7 +51,7 @@ class CompactToExpanded:
     def translate_page(
         self,
         compact_page: compact.Page,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> expanded.Page:
         expanded_page = expanded.Page(
             uuid=compact_page.uuid,
@@ -66,7 +67,7 @@ class CompactToExpanded:
         )
 
         for compact_trip in compact_page.trips:
-            expanded_page.trips.extend(self.translate_trip(compact_trip))
+            expanded_page.trips.extend(self.translate_trip(compact_trip, ctx=ctx))
         if self.validator is not None:
             self.validator.validate_page(compact_page, expanded_page, ctx)
         return expanded_page
@@ -74,7 +75,7 @@ class CompactToExpanded:
     def translate_trip(
         self,
         compact_trip: compact.Trip,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> Sequence[expanded.Trip]:
         trips = []
         for start_date in compact_trip.start_dates:
@@ -97,7 +98,7 @@ class CompactToExpanded:
                 end=end,
                 positions=list(compact_trip.positions),
                 operations=compact_trip.operations,
-                special_qualifications=compact_trip.special_qualifications,
+                qualifications=compact_trip.qualifications,
                 block=compact_trip.block,
                 synth=compact_trip.synth,
                 total_pay=compact_trip.total_pay,
@@ -107,7 +108,9 @@ class CompactToExpanded:
             dutyperiod_ref_instant = start + timedelta()
             for compact_dutyperiod in compact_trip.dutyperiods:
                 expanded_dutyperiod = self.translate_dutyperiod(
-                    report=dutyperiod_ref_instant, compact_dutyperiod=compact_dutyperiod
+                    report=dutyperiod_ref_instant,
+                    compact_dutyperiod=compact_dutyperiod,
+                    ctx=ctx,
                 )
                 if expanded_dutyperiod.layover is not None:
                     dutyperiod_ref_instant = (
@@ -123,7 +126,7 @@ class CompactToExpanded:
         self,
         report: Instant,
         compact_dutyperiod: compact.DutyPeriod,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> expanded.DutyPeriod:
         release_utc = report.utc_date + compact_dutyperiod.duty
         release = Instant(
@@ -143,12 +146,12 @@ class CompactToExpanded:
             total_pay=compact_dutyperiod.total_pay,
             duty=compact_dutyperiod.duty,
             flight_duty=compact_dutyperiod.flight_duty,
-            layover=self.translate_layover(compact_dutyperiod.layover),
+            layover=self.translate_layover(compact_dutyperiod.layover, ctx=ctx),
             flights=[],
         )
         flight_ref_instant = expanded_dutyperiod.report
         for flight in compact_dutyperiod.flights:
-            expanded_flight = self.translate_flight(flight_ref_instant, flight)
+            expanded_flight = self.translate_flight(flight_ref_instant, flight, ctx=ctx)
             expanded_dutyperiod.flights.append(expanded_flight)
             flight_ref_instant = expanded_flight.arrival + expanded_flight.ground
         if self.validator is not None:
@@ -161,7 +164,7 @@ class CompactToExpanded:
         self,
         ref_instant: Instant,
         compact_flight: compact.Flight,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> expanded.Flight:
         departure_time = compact_flight.departure.lcl.replace(
             tzinfo=ZoneInfo(compact_flight.departure.tz_name)
@@ -217,7 +220,7 @@ class CompactToExpanded:
     def translate_layover(
         self,
         compact_layover: compact.Layover | None,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> expanded.Layover | None:
         if compact_layover is None:
             return None
@@ -225,21 +228,42 @@ class CompactToExpanded:
             uuid=compact_layover.uuid,
             odl=compact_layover.odl,
             city=compact_layover.city,
-            hotel=self.translate_hotel(compact_layover.hotel),
-            transportation=self.translate_tranportation(compact_layover.transportation),
-            hotel_additional=self.translate_hotel(compact_layover.hotel_additional),
-            transportation_additional=self.translate_tranportation(
-                compact_layover.transportation_additional
-            ),
+            hotel_info=self.translate_hotel_info(compact_layover.hotel_info, ctx=ctx),
         )
         if self.validator is not None:
             self.validator.validate_layover(compact_layover, expanded_layover, ctx)
         return expanded_layover
 
+    def translate_hotel_info(
+        self, compact_hotel_info: Sequence[compact.HotelInfo], ctx: dict | None
+    ):
+        expanded_hotel_info: list[expanded.HotelInfo] = []
+        for info in compact_hotel_info:
+            if info.hotel is None:
+                expanded_hotel = None
+            else:
+                expanded_hotel = expanded.Hotel(
+                    uuid=info.hotel.uuid, name=info.hotel.name, phone=info.hotel.phone
+                )
+            if info.transportation is None:
+                expanded_transportation = None
+            else:
+                expanded_transportation = expanded.Transportation(
+                    uuid=info.transportation.uuid,
+                    name=info.transportation.name,
+                    phone=info.transportation.phone,
+                )
+            expanded_hotel_info.append(
+                expanded.HotelInfo(
+                    hotel=expanded_hotel, transportation=expanded_transportation
+                )
+            )
+        return expanded_hotel_info
+
     def translate_hotel(
         self,
         compact_hotel: compact.Hotel | None,
-        ctx: dict | None = None,
+        ctx: dict | None,
     ) -> expanded.Hotel | None:
         if compact_hotel is None:
             return None

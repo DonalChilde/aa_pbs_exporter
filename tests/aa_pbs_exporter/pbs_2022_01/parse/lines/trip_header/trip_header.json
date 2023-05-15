@@ -10,8 +10,7 @@
       "ops_count": "1",
       "positions": "CA FO",
       "operations": "",
-      "special_qualification": "",
-      "calendar": ""
+      "qualifications": ""
     }
   },
   {
@@ -25,8 +24,7 @@
       "ops_count": "1",
       "positions": "CA FO",
       "operations": "SPANISH",
-      "special_qualification": "",
-      "calendar": ""
+      "qualifications": ""
     }
   },
   {
@@ -34,14 +32,55 @@
     "parsed_data": {
       "source": {
         "idx": 2,
-        "txt": "SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU"
+        "txt": "SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION                    MO TU WE TH FR SA SU\n"
       },
       "number": "16945",
       "ops_count": "1",
       "positions": "CA FO",
       "operations": "",
-      "special_qualification": "SPECIAL QUALIFICATION",
-      "calendar": ""
+      "qualifications": "SPECIAL"
+    }
+  },
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 3,
+        "txt": "SEQ 25018   2 OPS   POSN CA FO                MEXICO QUALIFICATION                     MO TU WE TH FR SA SU \n"
+      },
+      "number": "25018",
+      "ops_count": "2",
+      "positions": "CA FO",
+      "operations": "",
+      "qualifications": "MEXICO"
+    }
+  },
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 4,
+        "txt": "SEQ 30569   1 OPS   POSN CA FO                                                         New prior month      \n"
+      },
+      "number": "30569",
+      "ops_count": "1",
+      "positions": "CA FO",
+      "operations": "",
+      "qualifications": ""
+    }
+  },
+  {
+    "current_state": "trip_header",
+    "parsed_data": {
+      "source": {
+        "idx": 5,
+        "txt": "SEQ 30890   1 OPS   POSN CA FO                                                         Replaces prior month \n"
+      },
+      "number": "30890",
+      "ops_count": "1",
+      "positions": "CA FO",
+      "operations": "",
+      "qualifications": ""
     }
   }
 ]

@@ -25,6 +25,11 @@ class Hotel(BaseModel):
     phone: str | None
 
 
+class HotelInfo(BaseModel):
+    hotel: Hotel | None
+    transportation: Transportation | None
+
+
 class LclHbt(BaseModel):
     lcl: time
     hbt: time
@@ -35,10 +40,7 @@ class Layover(BaseModel):
     uuid: UUID
     odl: timedelta
     city: str
-    hotel: Hotel | None
-    transportation: Transportation | None
-    hotel_additional: Hotel | None
-    transportation_additional: Transportation | None
+    hotel_info: list[HotelInfo]
 
 
 class Flight(BaseModel):
@@ -93,7 +95,7 @@ class Trip(BaseModel):
     number: str
     positions: list[str]
     operations: str
-    special_qualifications: bool
+    qualifications: str
     block: timedelta
     synth: timedelta
     total_pay: timedelta

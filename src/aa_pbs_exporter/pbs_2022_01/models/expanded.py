@@ -1,5 +1,5 @@
 from datetime import date, timedelta
-from uuid import UUID, uuid5
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -8,27 +8,26 @@ from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
 
 class Transportation(BaseModel):
     uuid: UUID
-    # compact_uuid:UUID
     name: str
     phone: str
 
 
 class Hotel(BaseModel):
     uuid: UUID
-    # compact_uuid:UUID
     name: str
     phone: str | None
 
 
-class Layover(BaseModel):
-    uuid: UUID
-    # compact_uuid:UUID
-    odl: timedelta
-    city: str
+class HotelInfo(BaseModel):
     hotel: Hotel | None
     transportation: Transportation | None
-    hotel_additional: Hotel | None
-    transportation_additional: Transportation | None
+
+
+class Layover(BaseModel):
+    uuid: UUID
+    odl: timedelta
+    city: str
+    hotel_info: list[HotelInfo]
 
 
 class Flight(BaseModel):
@@ -76,7 +75,7 @@ class Trip(BaseModel):
     end: Instant
     positions: list[str]
     operations: str
-    special_qualifications: bool
+    qualifications: str
     block: timedelta
     synth: timedelta
     total_pay: timedelta

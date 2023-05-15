@@ -2,6 +2,7 @@ from typing import Dict, Sequence
 
 from aa_pbs_exporter.pbs_2022_01.parser.parsers import (
     BaseEquipment,
+    CalendarOnly,
     DutyPeriodRelease,
     DutyPeriodReport,
     Flight,
@@ -37,8 +38,9 @@ def parse_scheme() -> Dict[str, Sequence[IndexedStringParserProtocol]]:
         "hotel": [Transportation(), DutyPeriodReport(), HotelAdditional()],
         "transportation": [DutyPeriodReport(), HotelAdditional()],
         "hotel_additional": [DutyPeriodReport(), TransportationAdditional()],
-        "transportation_additional": [DutyPeriodReport()],
-        "trip_footer": [TripSeparator()],
+        "transportation_additional": [DutyPeriodReport(), HotelAdditional()],
+        "trip_footer": [TripSeparator(), CalendarOnly()],
+        "calendar_only": [TripSeparator()],
         "trip_separator": [TripHeader(), PageFooter()],
         "page_footer": [PageHeader1()],
     }

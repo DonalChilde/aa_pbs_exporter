@@ -56,7 +56,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -222,7 +222,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -388,7 +388,7 @@
             "ops_count": "3",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -554,7 +554,7 @@
             "ops_count": "5",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -629,40 +629,44 @@
               },
               "layover": {
                 "uuid": "e865f4e4-e9f5-57b0-adb5-4f95b350fe52",
-                "hotel": {
-                  "source": {
-                    "idx": 30,
-                    "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       23 \u2212\u2212 25 26 \u2212\u2212 28 \u2212\u2212\n"
-                  },
-                  "layover_city": "DFW",
-                  "name": "COURTYARD BLACKSTONE FTW",
-                  "phone": "18178858700",
-                  "rest": "28.52",
-                  "calendar": [
-                    "23",
-                    "\u2212\u2212",
-                    "25",
-                    "26",
-                    "\u2212\u2212",
-                    "28",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 31,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "DFW",
+                "rest": "28.52",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 30,
+                        "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       23 \u2212\u2212 25 26 \u2212\u2212 28 \u2212\u2212\n"
+                      },
+                      "layover_city": "DFW",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700",
+                      "rest": "28.52",
+                      "calendar": [
+                        "23",
+                        "\u2212\u2212",
+                        "25",
+                        "26",
+                        "\u2212\u2212",
+                        "28",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 31,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -771,7 +775,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -937,7 +941,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -1012,40 +1016,44 @@
               },
               "layover": {
                 "uuid": "996751df-4dbb-5a5e-8503-e4a16583361c",
-                "hotel": {
-                  "source": {
-                    "idx": 48,
-                    "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "DFW",
-                  "name": "COURTYARD BLACKSTONE FTW",
-                  "phone": "18178858700",
-                  "rest": "28.52",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 49,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 30 \u2212\u2212  1\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "30",
-                    "\u2212\u2212",
-                    "1"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "DFW",
+                "rest": "28.52",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 48,
+                        "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "DFW",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700",
+                      "rest": "28.52",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 49,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 30 \u2212\u2212  1\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "30",
+                        "\u2212\u2212",
+                        "1"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1154,7 +1162,7 @@
             "ops_count": "2",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -1229,40 +1237,44 @@
               },
               "layover": {
                 "uuid": "8906ea8e-7f43-5d25-80f8-901f5e967dc7",
-                "hotel": {
-                  "source": {
-                    "idx": 59,
-                    "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "THE AYRES",
-                  "phone": "13105360400",
-                  "rest": "16.37",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 60,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "16.37",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 59,
+                        "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "THE AYRES",
+                      "phone": "13105360400",
+                      "rest": "16.37",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 60,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1392,7 +1404,7 @@
             "ops_count": "5",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -1467,40 +1479,44 @@
               },
               "layover": {
                 "uuid": "3ef6578a-16b4-5ca2-a9a7-42f023579bb9",
-                "hotel": {
-                  "source": {
-                    "idx": 71,
-                    "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 24 25 \u2212\u2212 27 \u2212\u2212 29\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "THE AYRES",
-                  "phone": "13105360400",
-                  "rest": "16.37",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "24",
-                    "25",
-                    "\u2212\u2212",
-                    "27",
-                    "\u2212\u2212",
-                    "29"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 72,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 30 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "30",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "16.37",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 71,
+                        "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 24 25 \u2212\u2212 27 \u2212\u2212 29\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "THE AYRES",
+                      "phone": "13105360400",
+                      "rest": "16.37",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "24",
+                        "25",
+                        "\u2212\u2212",
+                        "27",
+                        "\u2212\u2212",
+                        "29"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 72,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 30 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "30",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1663,7 +1679,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "HEBREW",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -1714,28 +1730,32 @@
               },
               "layover": {
                 "uuid": "226e1d12-6db5-52ad-a150-0c4ea21cc791",
-                "hotel": {
-                  "source": {
-                    "idx": 88,
-                    "txt": "                TLV TEL AVIV HILTON                         97235202222    29.20\n"
-                  },
-                  "layover_city": "TLV",
-                  "name": "TEL AVIV HILTON",
-                  "phone": "97235202222",
-                  "rest": "29.20",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 89,
-                    "txt": "                    BON TOUR                                97239754200\n"
-                  },
-                  "name": "BON TOUR",
-                  "phone": "97239754200",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "TLV",
+                "rest": "29.20",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 88,
+                        "txt": "                TLV TEL AVIV HILTON                         97235202222    29.20\n"
+                      },
+                      "layover_city": "TLV",
+                      "name": "TEL AVIV HILTON",
+                      "phone": "97235202222",
+                      "rest": "29.20",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 89,
+                        "txt": "                    BON TOUR                                97239754200\n"
+                      },
+                      "name": "BON TOUR",
+                      "phone": "97239754200",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1786,28 +1806,32 @@
               },
               "layover": {
                 "uuid": "a4445454-89fc-5109-a0e8-7ab7185fb3f3",
-                "hotel": {
-                  "source": {
-                    "idx": 93,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     22.55\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "22.55",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 94,
-                    "txt": "                    DESERT COACH                            6022866161\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "22.55",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 93,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     22.55\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "22.55",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 94,
+                        "txt": "                    DESERT COACH                            6022866161\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -1884,7 +1908,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "FRENCH",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -1935,28 +1959,32 @@
               },
               "layover": {
                 "uuid": "fd0d8d72-0e8b-564e-9f28-a707b2b8efa5",
-                "hotel": {
-                  "source": {
-                    "idx": 104,
-                    "txt": "                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "HOTEL INFO IN CCI/CREW PORTAL",
-                  "phone": "",
-                  "rest": "19.37",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 105,
-                    "txt": "                    TRANS INFO IN CCI/CREW PORTAL\n"
-                  },
-                  "name": "TRANS INFO IN CCI/CREW PORTAL",
-                  "phone": "",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "19.37",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 104,
+                        "txt": "                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": "",
+                      "rest": "19.37",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 105,
+                        "txt": "                    TRANS INFO IN CCI/CREW PORTAL\n"
+                      },
+                      "name": "TRANS INFO IN CCI/CREW PORTAL",
+                      "phone": "",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2007,28 +2035,32 @@
               },
               "layover": {
                 "uuid": "4c067c52-e2c6-5cac-abef-ba3e8abc53e6",
-                "hotel": {
-                  "source": {
-                    "idx": 109,
-                    "txt": "                CDG PULLMAN PARIS TOUR EIFFEL               33144385600    27.50\n"
-                  },
-                  "layover_city": "CDG",
-                  "name": "PULLMAN PARIS TOUR EIFFEL",
-                  "phone": "33144385600",
-                  "rest": "27.50",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 110,
-                    "txt": "                    LE TRANSPORT EVENEMENTIEL               33665135886\n"
-                  },
-                  "name": "LE TRANSPORT EVENEMENTIEL",
-                  "phone": "33665135886",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "CDG",
+                "rest": "27.50",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 109,
+                        "txt": "                CDG PULLMAN PARIS TOUR EIFFEL               33144385600    27.50\n"
+                      },
+                      "layover_city": "CDG",
+                      "name": "PULLMAN PARIS TOUR EIFFEL",
+                      "phone": "33144385600",
+                      "rest": "27.50",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 110,
+                        "txt": "                    LE TRANSPORT EVENEMENTIEL               33665135886\n"
+                      },
+                      "name": "LE TRANSPORT EVENEMENTIEL",
+                      "phone": "33665135886",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2079,28 +2111,32 @@
               },
               "layover": {
                 "uuid": "f81a2c17-27b4-5285-b5df-caead0cafd73",
-                "hotel": {
-                  "source": {
-                    "idx": 114,
-                    "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.31\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "COURTYARD CENTRAL PARK",
-                  "phone": "2123243773",
-                  "rest": "17.31",
-                  "calendar": []
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 115,
-                    "txt": "                    DESERT COACH                            6022866161\n"
-                  },
-                  "name": "DESERT COACH",
-                  "phone": "6022866161",
-                  "calendar": []
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "17.31",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 114,
+                        "txt": "                JFK COURTYARD CENTRAL PARK                  2123243773     17.31\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "COURTYARD CENTRAL PARK",
+                      "phone": "2123243773",
+                      "rest": "17.31",
+                      "calendar": []
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 115,
+                        "txt": "                    DESERT COACH                            6022866161\n"
+                      },
+                      "name": "DESERT COACH",
+                      "phone": "6022866161",
+                      "calendar": []
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2177,7 +2213,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -2252,40 +2288,44 @@
               },
               "layover": {
                 "uuid": "deae2c82-af5d-556a-9bd7-928c72aea37e",
-                "hotel": {
-                  "source": {
-                    "idx": 125,
-                    "txt": "                LAX RENAISSANCE LONG BEACH                  5624375900     23.59       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "RENAISSANCE LONG BEACH",
-                  "phone": "5624375900",
-                  "rest": "23.59",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 126,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "23.59",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 125,
+                        "txt": "                LAX RENAISSANCE LONG BEACH                  5624375900     23.59       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900",
+                      "rest": "23.59",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 126,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2394,7 +2434,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -2469,40 +2509,44 @@
               },
               "layover": {
                 "uuid": "fbdded4f-dc83-5340-9795-366548dba7ff",
-                "hotel": {
-                  "source": {
-                    "idx": 136,
-                    "txt": "                JFK JFK CTD MARRIOTT                        17188482121    11.02       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "JFK",
-                  "name": "JFK CTD MARRIOTT",
-                  "phone": "17188482121",
-                  "rest": "11.02",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 137,
-                    "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SHUTTLE",
-                  "phone": "",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "JFK",
+                "rest": "11.02",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 136,
+                        "txt": "                JFK JFK CTD MARRIOTT                        17188482121    11.02       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "JFK",
+                      "name": "JFK CTD MARRIOTT",
+                      "phone": "17188482121",
+                      "rest": "11.02",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 137,
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SHUTTLE",
+                      "phone": "",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2611,7 +2655,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -2686,40 +2730,44 @@
               },
               "layover": {
                 "uuid": "45010397-b87d-5303-988b-27c20cee9359",
-                "hotel": {
-                  "source": {
-                    "idx": 147,
-                    "txt": "                CLT DOUBLETREE DOWNTOWN                     17043470070    22.58       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "CLT",
-                  "name": "DOUBLETREE DOWNTOWN",
-                  "phone": "17043470070",
-                  "rest": "22.58",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 148,
-                    "txt": "                    EXECUTIVE CAR                           7045252191                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "EXECUTIVE CAR",
-                  "phone": "7045252191",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "CLT",
+                "rest": "22.58",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 147,
+                        "txt": "                CLT DOUBLETREE DOWNTOWN                     17043470070    22.58       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "CLT",
+                      "name": "DOUBLETREE DOWNTOWN",
+                      "phone": "17043470070",
+                      "rest": "22.58",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 148,
+                        "txt": "                    EXECUTIVE CAR                           7045252191                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "EXECUTIVE CAR",
+                      "phone": "7045252191",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -2882,7 +2930,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3048,7 +3096,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3123,40 +3171,44 @@
               },
               "layover": {
                 "uuid": "db827825-422b-5160-b27e-a3594c8c82a9",
-                "hotel": {
-                  "source": {
-                    "idx": 172,
-                    "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    27.22       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "DFW",
-                  "name": "COURTYARD BLACKSTONE FTW",
-                  "phone": "18178858700",
-                  "rest": "27.22",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 173,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "DFW",
+                "rest": "27.22",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 172,
+                        "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    27.22       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "DFW",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700",
+                      "rest": "27.22",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 173,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -3265,7 +3317,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3431,7 +3483,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3506,40 +3558,44 @@
               },
               "layover": {
                 "uuid": "968bda39-f39d-5de8-8e08-4fea3928fcd2",
-                "hotel": {
-                  "source": {
-                    "idx": 190,
-                    "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "THE AYRES",
-                  "phone": "13105360400",
-                  "rest": "16.37",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 191,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "16.37",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 190,
+                        "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "THE AYRES",
+                      "phone": "13105360400",
+                      "rest": "16.37",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 191,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -3669,7 +3725,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3744,40 +3800,44 @@
               },
               "layover": {
                 "uuid": "eac575b5-1e32-57ec-b7eb-c4cc535cb334",
-                "hotel": {
-                  "source": {
-                    "idx": 202,
-                    "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "DFW",
-                  "name": "COURTYARD BLACKSTONE FTW",
-                  "phone": "18178858700",
-                  "rest": "28.52",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 203,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "DFW",
+                "rest": "28.52",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 202,
+                        "txt": "                DFW COURTYARD BLACKSTONE FTW                18178858700    28.52       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "DFW",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700",
+                      "rest": "28.52",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 203,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -3886,7 +3946,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -3961,40 +4021,44 @@
               },
               "layover": {
                 "uuid": "44bfae02-63b8-5cec-9792-8d59d32c1476",
-                "hotel": {
-                  "source": {
-                    "idx": 213,
-                    "txt": "                LAX RENAISSANCE LONG BEACH                  5624375900     31.57       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "RENAISSANCE LONG BEACH",
-                  "phone": "5624375900",
-                  "rest": "31.57",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 214,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "31.57",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 213,
+                        "txt": "                LAX RENAISSANCE LONG BEACH                  5624375900     31.57       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900",
+                      "rest": "31.57",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 214,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {
@@ -4103,7 +4167,7 @@
             "ops_count": "1",
             "positions": "CA FO",
             "operations": "",
-            "special_qualification": ""
+            "qualifications": ""
           },
           "dutyperiods": [
             {
@@ -4178,40 +4242,44 @@
               },
               "layover": {
                 "uuid": "fc49f8de-7d4c-5723-8e7a-ad18216bb505",
-                "hotel": {
-                  "source": {
-                    "idx": 224,
-                    "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "layover_city": "LAX",
-                  "name": "THE AYRES",
-                  "phone": "13105360400",
-                  "rest": "16.37",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "transportation": {
-                  "source": {
-                    "idx": 225,
-                    "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
-                  },
-                  "name": "SKYHOP GLOBAL",
-                  "phone": "9544000412",
-                  "calendar": [
-                    "\u2212\u2212",
-                    "\u2212\u2212",
-                    "\u2212\u2212"
-                  ]
-                },
-                "hotel_additional": null,
-                "transportation_additional": null
+                "layover_city": "LAX",
+                "rest": "16.37",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "source": {
+                        "idx": 224,
+                        "txt": "                LAX THE AYRES                               13105360400    16.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "layover_city": "LAX",
+                      "name": "THE AYRES",
+                      "phone": "13105360400",
+                      "rest": "16.37",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    },
+                    "transportation": {
+                      "source": {
+                        "idx": 225,
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+                      },
+                      "name": "SKYHOP GLOBAL",
+                      "phone": "9544000412",
+                      "calendar": [
+                        "\u2212\u2212",
+                        "\u2212\u2212",
+                        "\u2212\u2212"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             {

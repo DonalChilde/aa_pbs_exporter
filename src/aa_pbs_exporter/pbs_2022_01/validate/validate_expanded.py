@@ -52,7 +52,10 @@ class ExpandedValidator:
         trip_length = expanded_trip.end.utc_date - expanded_trip.start.utc_date
         if trip_length != compact_trip.tafb:
             msg = messages.ValidationMessage(
-                msg=f"Calculated trip length {trip_length} does not match parsed trip length {compact_trip.tafb}. uuid: {expanded_trip.uuid}"
+                msg=f"Calculated trip length {trip_length} does not match "
+                f"parsed trip length {compact_trip.tafb}. "
+                f"uuid: {expanded_trip.uuid} "
+                f"compact_uuid: {expanded_trip.compact_uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -66,14 +69,22 @@ class ExpandedValidator:
         e_report = expanded_dutyperiod.report.local().strftime(TIME)
         if c_report != e_report:
             msg = messages.ValidationMessage(
-                msg=f"Report times do not match. compact: {c_report}, expanded: {e_report}. uuid: {expanded_dutyperiod.uuid}"
+                msg=f"Report times do not match. "
+                f"compact: {c_report} {compact_dutyperiod.report.tz_name}, "
+                f"expanded: {e_report} {expanded_dutyperiod.report.tz_name}. "
+                f"uuid: {expanded_dutyperiod.uuid} "
+                f"compact_uuid: {expanded_dutyperiod.compact_uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         c_release = compact_dutyperiod.release.lcl.strftime(TIME)
         e_release = expanded_dutyperiod.release.local().strftime(TIME)
         if c_release != e_release:
             msg = messages.ValidationMessage(
-                msg=f"Release times do not match. compact: {c_release}, expanded: {e_release}. uuid: {expanded_dutyperiod.uuid}"
+                msg=f"Release times do not match. "
+                f"compact: {c_release} {compact_dutyperiod.release.tz_name}, "
+                f"expanded: {e_release} {expanded_dutyperiod.release.tz_name}. "
+                f"uuid: {expanded_dutyperiod.uuid} "
+                f"compact_uuid: {expanded_dutyperiod.compact_uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         dutytime = (
@@ -81,7 +92,10 @@ class ExpandedValidator:
         )
         if dutytime != expanded_dutyperiod.duty:
             msg = messages.ValidationMessage(
-                msg=f"Calculated dutytime {dutytime} does not match parsed dutytime {expanded_dutyperiod.duty} uuid: {expanded_dutyperiod.uuid}"
+                msg=f"Calculated dutytime {dutytime} does not match "
+                f"parsed dutytime {expanded_dutyperiod.duty} "
+                f"uuid: {expanded_dutyperiod.uuid} "
+                f"compact_uuid: {expanded_dutyperiod.compact_uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
 
