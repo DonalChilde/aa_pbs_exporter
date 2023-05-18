@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import Self
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
@@ -36,8 +37,20 @@ class Instant(BaseModel):
             return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
         return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
 
-    def new_tz(self, tz_name: str) -> "Instant":
+    def replace(
+        self, utc_date: datetime | None = None, tz_name: str | None = None
+    ) -> "Instant":
+        if utc_date is None and tz_name is None:
+            raise ValueError("Must supply a value to replace to get new Instant.")
+        if utc_date is not None and tz_name is not None:
+            return Instant(utc_date=utc_date, tz_name=tz_name)
+        if utc_date is not None:
+            return Instant(utc_date=utc_date, tz_name=self.tz_name)
+        assert tz_name is not None
         return Instant(utc_date=self.utc_date, tz_name=tz_name)
+
+    # def new_tz(self, tz_name: str) -> "Instant":
+    #     return Instant(utc_date=self.utc_date, tz_name=tz_name)
 
     def __copy__(self) -> "Instant":
         return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
@@ -55,7 +68,7 @@ class Instant(BaseModel):
         return new_instant
 
     def __str__(self) -> str:
-        return f"utc_date={self.utc_date.isoformat()}, tz_name={self.tz_name}"
+        return f"utc_date={self.utc_date.isoformat()}, tz_name={self.tz_name}, local={self.local().isoformat()}"
 
     def __repr__(self) -> str:
         return (
@@ -63,3 +76,8 @@ class Instant(BaseModel):
             f"utc_date={self.utc_date!r}, tz_name={self.tz_name!r}"
             ")"
         )
+
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, Instant):
+            return (self.utc_date, self.tz_name) == (__value.utc_date, __value.tz_name)
+        return NotImplemented
