@@ -4,3 +4,9 @@ class StatusMessage:
 
     def produce_message(self) -> str:
         return self.msg
+
+    def __str__(self) -> str:
+        return self.msg
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__qualname__}(msg={self.msg})"

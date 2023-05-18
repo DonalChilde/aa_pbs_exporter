@@ -7,3 +7,9 @@ class ParseResultMessage:
 
     def produce_message(self) -> str:
         return str(self.parse_result)
+
+    def __str__(self) -> str:
+        return self.produce_message()
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__qualname__}(parse_result={self.parse_result!r})"
