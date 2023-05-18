@@ -68,8 +68,6 @@ class CompactToExpanded:
 
         for compact_trip in compact_page.trips:
             expanded_page.trips.extend(self.translate_trip(compact_trip, ctx=ctx))
-        if self.validator is not None:
-            self.validator.validate_page(compact_page, expanded_page, ctx)
         return expanded_page
 
     def translate_trip(
@@ -77,19 +75,33 @@ class CompactToExpanded:
         compact_trip: compact.Trip,
         ctx: dict | None,
     ) -> Sequence[expanded.Trip]:
+        logger.debug(
+            "Translating compact trip %s - %s.", compact_trip.number, compact_trip.uuid
+        )
         trips = []
         for start_date in compact_trip.start_dates:
             # NOTE Does not account for times in the fold
+            first_report = compact_trip.dutyperiods[0].report
             start_utc = datetime.combine(
                 start_date,
-                compact_trip.dutyperiods[0].report.lcl,
-                ZoneInfo(compact_trip.dutyperiods[0].report.tz_name),
+                first_report.lcl,
+                ZoneInfo(first_report.tz_name),
             ).astimezone(timezone.utc)
             start = Instant(
                 utc_date=start_utc,
-                tz_name=compact_trip.dutyperiods[0].report.tz_name,
+                tz_name=first_report.tz_name,
             )
-            end = start + compact_trip.tafb
+            logger.debug(
+                "Generated start of %s for trip %s using %s and %s.",
+                start,
+                compact_trip.number,
+                start_date,
+                first_report,
+            )
+            end = start + compact_trip.tafb  # TODO dont assume timezone name
+            logger.debug(
+                "Calculated trip end time %s using tafb %s", end, compact_trip.tafb
+            )
             expanded_trip = expanded.Trip(
                 uuid=uuid5(compact_trip.uuid, start.utc_date.isoformat()),
                 compact_uuid=compact_trip.uuid,
@@ -106,7 +118,13 @@ class CompactToExpanded:
                 dutyperiods=[],
             )
             dutyperiod_ref_instant = start + timedelta()
-            for compact_dutyperiod in compact_trip.dutyperiods:
+            for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods):
+                logger.debug(
+                    "Next dutyperiod report is %s. trip=%s, dp_idx=%s",
+                    dutyperiod_ref_instant,
+                    expanded_trip.number,
+                    idx,
+                )
                 expanded_dutyperiod = self.translate_dutyperiod(
                     report=dutyperiod_ref_instant,
                     compact_dutyperiod=compact_dutyperiod,
@@ -118,8 +136,6 @@ class CompactToExpanded:
                     )
                 expanded_trip.dutyperiods.append(expanded_dutyperiod)
             trips.append(expanded_trip)
-            if self.validator is not None:
-                self.validator.validate_trip(compact_trip, expanded_trip, ctx)
         return trips
 
     def translate_dutyperiod(
@@ -128,11 +144,19 @@ class CompactToExpanded:
         compact_dutyperiod: compact.DutyPeriod,
         ctx: dict | None,
     ) -> expanded.DutyPeriod:
-        release_utc = report.utc_date + compact_dutyperiod.duty
-        release = Instant(
-            utc_date=release_utc, tz_name=compact_dutyperiod.release.tz_name
+        # release_utc = report.utc_date + compact_dutyperiod.duty
+        # release_tz = compact_dutyperiod.release.tz_name
+        # release = Instant(utc_date=release_utc, tz_name=release_tz)
+        compact_release = compact_dutyperiod.release
+        release = complete_time_instant(
+            report, compact_release.lcl, compact_release.tz_name
         )
-
+        logger.debug(
+            "Completed release time %r using report %s and compact release %r",
+            release,
+            report,
+            compact_release,
+        )
         expanded_dutyperiod = expanded.DutyPeriod(
             uuid=uuid5(compact_dutyperiod.uuid, report.utc_date.isoformat()),
             compact_uuid=compact_dutyperiod.uuid,
@@ -150,14 +174,15 @@ class CompactToExpanded:
             flights=[],
         )
         flight_ref_instant = expanded_dutyperiod.report
-        for flight in compact_dutyperiod.flights:
+        for idx, flight in enumerate(compact_dutyperiod.flights):
+            logger.debug(
+                "Next flight ref instant is %s. flt_idx=%s",
+                flight_ref_instant,
+                idx,
+            )
             expanded_flight = self.translate_flight(flight_ref_instant, flight, ctx=ctx)
             expanded_dutyperiod.flights.append(expanded_flight)
             flight_ref_instant = expanded_flight.arrival + expanded_flight.ground
-        if self.validator is not None:
-            self.validator.validate_dutyperiod(
-                compact_dutyperiod, expanded_dutyperiod, ctx
-            )
         return expanded_dutyperiod
 
     def translate_flight(
@@ -166,21 +191,27 @@ class CompactToExpanded:
         compact_flight: compact.Flight,
         ctx: dict | None,
     ) -> expanded.Flight:
-        departure_time = compact_flight.departure.lcl.replace(
-            tzinfo=ZoneInfo(compact_flight.departure.tz_name)
-        )
         departure = complete_time_instant(
             ref_instant=ref_instant,
-            new_time=departure_time,
-            new_tz_name=compact_flight.departure.tz_name,
+            naive_time=compact_flight.departure.lcl,
+            tz_name=compact_flight.departure.tz_name,
         )
-        arrival_time = compact_flight.arrival.lcl.replace(
-            tzinfo=ZoneInfo(compact_flight.arrival.tz_name)
+        logger.debug(
+            "Completed departure time %r using ref_instant %s and compact departure %r",
+            departure,
+            ref_instant,
+            compact_flight.departure,
         )
         arrival = complete_time_instant(
             ref_instant=departure,
-            new_time=arrival_time,
-            new_tz_name=compact_flight.arrival.tz_name,
+            naive_time=compact_flight.arrival.lcl,
+            tz_name=compact_flight.arrival.tz_name,
+        )
+        logger.debug(
+            "Completed arrival time %r using departure %s and compact arrival %r",
+            arrival,
+            departure,
+            compact_flight.arrival,
         )
         expanded_flight = expanded.Flight(
             uuid=uuid5(compact_flight.uuid, departure.utc_date.isoformat()),
@@ -201,21 +232,7 @@ class CompactToExpanded:
             ground=compact_flight.ground,
             equipment_change=compact_flight.equipment_change,
         )
-        if self.validator is not None:
-            self.validator.validate_flight(compact_flight, expanded_flight, ctx)
         return expanded_flight
-
-    # def calculate_arrival(
-    #     self,
-    #     departure: Instant,
-    #     compact_flight: compact.Flight,
-    # ) -> Instant:
-    #     if not compact_flight.deadhead:
-    #         arrival_time = departure + compact_flight.block
-    #     else:
-    #         # NOTE not sure if this is true in all cases
-    #         arrival_time = departure + compact_flight.synth
-    #     return arrival_time.new_tz(compact_flight.arrival.tz_name)
 
     def translate_layover(
         self,
@@ -230,8 +247,6 @@ class CompactToExpanded:
             city=compact_layover.city,
             hotel_info=self.translate_hotel_info(compact_layover.hotel_info, ctx=ctx),
         )
-        if self.validator is not None:
-            self.validator.validate_layover(compact_layover, expanded_layover, ctx)
         return expanded_layover
 
     def translate_hotel_info(
@@ -270,8 +285,6 @@ class CompactToExpanded:
         expanded_hotel = expanded.Hotel(
             uuid=compact_hotel.uuid, name=compact_hotel.name, phone=compact_hotel.phone
         )
-        if self.validator is not None:
-            self.validator.validate_hotel(compact_hotel, expanded_hotel, ctx)
         return expanded_hotel
 
     def translate_tranportation(
@@ -286,10 +299,6 @@ class CompactToExpanded:
             name=compact_transportation.name,
             phone=compact_transportation.phone,
         )
-        if self.validator is not None:
-            self.validator.validate_transportation(
-                compact_transportation, expanded_transportation, ctx
-            )
         return expanded_transportation
 
 
@@ -302,15 +311,16 @@ def compact_to_expanded(compact_package: compact.BidPackage, msg_bus: Publisher)
 
 def complete_time_instant(
     ref_instant: Instant,
-    new_time: time,
-    new_tz_name: str,
+    naive_time: time,
+    tz_name: str,
     is_future: bool = True,
 ) -> Instant:
     # TODO make snippet
+    # NOTE uses tz_name to replace tzinfo on new time
 
     new_datetime = complete_time(
         ref_datetime=ref_instant.utc_date,
-        new_time=new_time,
+        new_time=naive_time.replace(tzinfo=ZoneInfo(tz_name)),
         is_future=is_future,
     )
-    return Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=new_tz_name)
+    return Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=tz_name)

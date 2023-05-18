@@ -108,6 +108,3 @@ class ParsedToRaw:
             trip.calendar_entries = collect_calendar_entries(trip)
         if self.validator is not None:
             self.validator.validate_bid_package(bid_package=self.bid_package, ctx=ctx)
-
-    # def package_date(self, parsed: raw.PackageDate):
-    #     pass

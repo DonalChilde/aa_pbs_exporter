@@ -16,7 +16,6 @@ def collect_calendar_entries(trip: raw.Trip) -> list[str]:
                     calendar_entries.extend(info.hotel.calendar)
                 if info.transportation is not None:
                     calendar_entries.extend(info.transportation.calendar)
-
     assert trip.footer is not None
     calendar_entries.extend(trip.footer.calendar)
     if trip.calendar_only:

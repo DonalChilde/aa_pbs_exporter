@@ -31,6 +31,9 @@ class HotelInfo(BaseModel):
 
 
 class LclHbt(BaseModel):
+    # TODO could factor this out to include tz_name for each, w/ function to create
+    # aware time. FactoredTime? SerializableTime? goal is to have "America/Newyork"
+    # in serialized model instead of DST-5 or whatever.
     lcl: time
     hbt: time
     tz_name: str
@@ -108,18 +111,6 @@ class Trip(BaseModel):
         for dutyperiod in self.dutyperiods:
             total += dutyperiod.block
         return total
-
-    # def sum_synth(self) -> timedelta:
-    #     total = timedelta()
-    #     for dutyperiod in self.dutyperiods:
-    #         total += dutyperiod.synth
-    #     return total
-
-    # def sum_total_pay(self) -> timedelta:
-    #     total = timedelta()
-    #     for dutyperiod in self.dutyperiods:
-    #         total += dutyperiod.total_pay
-    #     return total
 
 
 class Page(BaseModel):

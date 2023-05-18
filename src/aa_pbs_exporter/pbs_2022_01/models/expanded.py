@@ -1,3 +1,11 @@
+"""
+
+
+Assumptions:
+    Trip.end = last Dutyperiod.release
+    trip starts and ends in base
+"""
+
 from datetime import date, timedelta
 from uuid import UUID
 

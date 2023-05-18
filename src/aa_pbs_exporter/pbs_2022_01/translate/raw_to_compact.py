@@ -69,8 +69,18 @@ class RawToCompact:
         start = complete_future_date_md(
             ref_date=effective, future=raw_page.page_header_2.from_date, strf=MONTH_DAY
         )
+        logger.debug(
+            "Completed page start date using ref_date %r, and future date string %r",
+            effective,
+            raw_page.page_header_2.from_date,
+        )
         end = complete_future_date_md(
             ref_date=effective, future=raw_page.page_header_2.to_date, strf=MONTH_DAY
+        )
+        logger.debug(
+            "Completed page end date using ref_date %r, and future date string %r",
+            effective,
+            raw_page.page_header_2.to_date,
         )
         trips: list[compact.Trip] = []
         compact_page = compact.Page(
@@ -89,11 +99,12 @@ class RawToCompact:
         for raw_trip in raw_page.trips:
             if "prior" in raw_trip.header.source.txt:
                 # skip prior month trips
+                msg = messages.StatusMessage(
+                    msg=f"Skipping prior month trip {raw_trip.header.number}. "
+                    f"uuid: {raw_trip.uuid}"
+                )
+                logger.debug("%s", msg.produce_message())
                 if self.validator:
-                    msg = messages.StatusMessage(
-                        msg=f"Skipping prior month trip {raw_trip.header.number}. "
-                        f"uuid: {raw_trip.uuid}"
-                    )
                     self.validator.send_message(msg=msg, ctx=ctx)
                 continue
             compact_page.trips.append(
