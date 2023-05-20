@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Self
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
@@ -68,7 +67,10 @@ class Instant(BaseModel):
         return new_instant
 
     def __str__(self) -> str:
-        return f"utc_date={self.utc_date.isoformat()}, tz_name={self.tz_name}, local={self.local().isoformat()}"
+        return (
+            f"utc_date={self.utc_date.isoformat()}, tz_name={self.tz_name}, "
+            f"local={self.local().isoformat()}"
+        )
 
     def __repr__(self) -> str:
         return (

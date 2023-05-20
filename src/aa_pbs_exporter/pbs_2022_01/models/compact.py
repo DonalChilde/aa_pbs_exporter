@@ -124,6 +124,7 @@ class Page(BaseModel):
     start: date
     end: date
     trips: list[Trip]
+    number: str
 
 
 class BidPackage(BaseModel):
