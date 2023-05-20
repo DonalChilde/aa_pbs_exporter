@@ -5,6 +5,7 @@ from typing import Callable, Sequence, Tuple
 
 from aa_pbs_exporter.airports.airports import tz_name_from_iata
 from aa_pbs_exporter.pbs_2022_01 import messages, validate
+from aa_pbs_exporter.pbs_2022_01.helpers.complete_month_day import complete_month_day
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
@@ -40,7 +41,7 @@ class RawToCompact:
 
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
-        logger.info(msg=f"{msg}")
+        logger.info("%s", msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
@@ -50,6 +51,10 @@ class RawToCompact:
         self.compact_bid_package = compact.BidPackage(
             uuid=raw_bid_package.uuid, source=raw_bid_package.source, pages=[]
         )
+        msg = messages.StatusMessage(
+            f"Translating data from raw to compact. {raw_bid_package.source}"
+        )
+        self.send_message(msg, ctx)
         for raw_page in raw_bid_package.pages:
             self.compact_bid_package.pages.append(
                 self.translate_page(raw_page, ctx=ctx)
@@ -66,19 +71,19 @@ class RawToCompact:
         assert raw_page.page_footer is not None
         assert raw_page.page_header_2 is not None
         effective = datetime.strptime(raw_page.page_footer.effective, DATE).date()
-        start = complete_future_date_md(
-            ref_date=effective, future=raw_page.page_header_2.from_date, strf=MONTH_DAY
-        )
+        start_struct = time.strptime(raw_page.page_header_2.from_date, MONTH_DAY)
+        start = complete_month_day(effective, start_struct)
         logger.debug(
-            "Completed page start date using ref_date %r, and future date string %r",
+            "Completed page start date %r using ref_date %r, and future date string %r",
+            start,
             effective,
             raw_page.page_header_2.from_date,
         )
-        end = complete_future_date_md(
-            ref_date=effective, future=raw_page.page_header_2.to_date, strf=MONTH_DAY
-        )
+        end_struct = time.strptime(raw_page.page_header_2.to_date, MONTH_DAY)
+        end = complete_month_day(effective, end_struct)
         logger.debug(
-            "Completed page end date using ref_date %r, and future date string %r",
+            "Completed page end date %r using ref_date %r, and future date string %r",
+            end,
             effective,
             raw_page.page_header_2.to_date,
         )
@@ -94,8 +99,10 @@ class RawToCompact:
             start=start,
             end=end,
             trips=trips,
+            number=raw_page.page_footer.page,
         )
         valid_dates = list(date_range(start, end))
+        logger.debug("There are %s possible start dates.", len(valid_dates))
         for raw_trip in raw_page.trips:
             if "prior" in raw_trip.header.source.txt:
                 # skip prior month trips
@@ -103,9 +110,7 @@ class RawToCompact:
                     msg=f"Skipping prior month trip {raw_trip.header.number}. "
                     f"uuid: {raw_trip.uuid}"
                 )
-                logger.debug("%s", msg.produce_message())
-                if self.validator:
-                    self.validator.send_message(msg=msg, ctx=ctx)
+                self.send_message(msg, ctx)
                 continue
             compact_page.trips.append(
                 self.translate_trip(raw_trip=raw_trip, valid_dates=valid_dates, ctx=ctx)
@@ -146,6 +151,12 @@ class RawToCompact:
         )
         compact_trip.start_dates = self.collect_start_dates(
             valid_dates=valid_dates, raw_trip=raw_trip, ctx=ctx
+        )
+        logger.debug(
+            "Found %s start dates for trip %s. %r",
+            len(compact_trip.start_dates),
+            compact_trip.number,
+            compact_trip.start_dates,
         )
         for idx, raw_dutyperiod in enumerate(raw_trip.dutyperiods, start=1):
             compact_trip.dutyperiods.append(
@@ -258,6 +269,7 @@ class RawToCompact:
     def translate_hotel_info(
         self, raw_hotel_info: Sequence[raw.HotelInfo], ctx: dict | None
     ) -> list[compact.HotelInfo]:
+        _ = ctx
         compact_hotel_infos: list[compact.HotelInfo] = []
         for info in raw_hotel_info:
             compact_hotel = self.translate_hotel(info.hotel)
@@ -339,12 +351,3 @@ def raw_to_compact(raw_package: raw.BidPackage, msg_bus: Publisher):
     translator = RawToCompact(tz_name_from_iata, validator=validator, msg_bus=msg_bus)
     compact_package = translator.translate_bid_package(raw_package)
     return compact_package
-
-
-def complete_future_date_md(ref_date: date, future: str, strf: str) -> date:
-    # FIXME will error if first future date is invalid, eg. bad leap year 2001-02-29
-    struct_t = time.strptime(future, strf)
-    future_date = date(ref_date.year, struct_t.tm_mon, struct_t.tm_mday)
-    if ref_date > future_date:
-        return date(future_date.year + 1, future_date.month, future_date.day)
-    return future_date

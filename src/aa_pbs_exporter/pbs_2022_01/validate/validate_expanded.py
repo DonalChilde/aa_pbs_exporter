@@ -19,9 +19,24 @@ class ExpandedValidator:
 
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
-        logger.warning("%s", msg.produce_message())
+        if isinstance(msg, messages.StatusMessage):
+            logger.info("%s", msg)
+        else:
+            logger.warning("%s", msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
+
+    def validate(
+        self,
+        compact_bid: compact.BidPackage,
+        expanded_bid: expanded.BidPackage,
+        ctx: dict | None,
+    ):
+        msg = messages.StatusMessage(
+            f"Validating expanded bid package. source={expanded_bid.source} uuid={expanded_bid.uuid}"
+        )
+        self.send_message(msg, ctx)
+        # TODO make this the entry for this class, see previous for example.
 
     def validate_bid_package(
         self,

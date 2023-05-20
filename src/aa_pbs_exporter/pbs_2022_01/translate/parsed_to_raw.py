@@ -1,7 +1,7 @@
 import logging
 from uuid import uuid5
 
-from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01 import messages, validate
 from aa_pbs_exporter.pbs_2022_01.helpers.collect_calendar_entries import (
     collect_calendar_entries,
 )
@@ -30,10 +30,13 @@ class ParsedToRaw:
         uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
         self.msg_bus = msg_bus
+        msg = messages.StatusMessage(f"Parse translator initialized for {self.source}")
+        self.send_message(msg, None)
 
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
-        logger.info(msg=f"{msg}")
+        # It is expected that all messages sent here are status messages, with info level logging.
+        logger.info("%s", msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
@@ -106,5 +109,9 @@ class ParsedToRaw:
     def parse_complete(self, ctx: dict | None = None):
         for trip in self.bid_package.walk_trips():
             trip.calendar_entries = collect_calendar_entries(trip)
+        msg = messages.StatusMessage(
+            f"Completed translation of parsed data. {sum(1 for _ in self.bid_package.walk_trips())} trips found."
+        )
+        self.send_message(msg=msg, ctx=ctx)
         if self.validator is not None:
-            self.validator.validate_bid_package(bid_package=self.bid_package, ctx=ctx)
+            self.validator.validate(bid_package=self.bid_package, ctx=ctx)

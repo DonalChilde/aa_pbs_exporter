@@ -4,7 +4,7 @@ from typing import Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
 
-from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01 import messages, validate
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
@@ -26,7 +26,7 @@ class CompactToExpanded:
 
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
-        logger.info(msg=f"{msg}")
+        logger.info("%s", msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
@@ -38,6 +38,10 @@ class CompactToExpanded:
         expanded_bid_package = expanded.BidPackage(
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
+        msg = messages.StatusMessage(
+            f"Translating data from compact to expanded. {compact_bid_package.source}"
+        )
+        self.send_message(msg, ctx)
         for compact_page in compact_bid_package.pages:
             expanded_bid_package.pages.append(
                 self.translate_page(compact_page, ctx=ctx)
@@ -64,6 +68,7 @@ class CompactToExpanded:
             start=compact_page.start,
             end=compact_page.end,
             trips=[],
+            number=compact_page.number,
         )
 
         for compact_trip in compact_page.trips:
@@ -98,7 +103,8 @@ class CompactToExpanded:
                 start_date,
                 first_report,
             )
-            end = start + compact_trip.tafb  # TODO dont assume timezone name
+            # Assumes trip starts and ends in same timezone.
+            end = start + compact_trip.tafb
             logger.debug(
                 "Calculated trip end time %s using tafb %s", end, compact_trip.tafb
             )
@@ -118,12 +124,13 @@ class CompactToExpanded:
                 dutyperiods=[],
             )
             dutyperiod_ref_instant = start + timedelta()
-            for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods):
+            dutyperiods_len = len(compact_trip.dutyperiods)
+            for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
                 logger.debug(
-                    "Next dutyperiod report is %s. trip=%s, dp_idx=%s",
-                    dutyperiod_ref_instant,
+                    "Trip:%s, dutyperiod %s, report is %s.",
                     expanded_trip.number,
-                    idx,
+                    f"{idx} of {dutyperiods_len}",
+                    dutyperiod_ref_instant,
                 )
                 expanded_dutyperiod = self.translate_dutyperiod(
                     report=dutyperiod_ref_instant,
@@ -144,15 +151,12 @@ class CompactToExpanded:
         compact_dutyperiod: compact.DutyPeriod,
         ctx: dict | None,
     ) -> expanded.DutyPeriod:
-        # release_utc = report.utc_date + compact_dutyperiod.duty
-        # release_tz = compact_dutyperiod.release.tz_name
-        # release = Instant(utc_date=release_utc, tz_name=release_tz)
         compact_release = compact_dutyperiod.release
         release = complete_time_instant(
             report, compact_release.lcl, compact_release.tz_name
         )
         logger.debug(
-            "Completed release time %r using report %s and compact release %r",
+            "Completed release time %s using report %s and compact release %r",
             release,
             report,
             compact_release,
@@ -174,11 +178,12 @@ class CompactToExpanded:
             flights=[],
         )
         flight_ref_instant = expanded_dutyperiod.report
-        for idx, flight in enumerate(compact_dutyperiod.flights):
+        flights_len = len(compact_dutyperiod.flights)
+        for idx, flight in enumerate(compact_dutyperiod.flights, start=1):
             logger.debug(
-                "Next flight ref instant is %s. flt_idx=%s",
+                "Flight %s, ref_instant is %s",
+                f"{idx} of {flights_len}",
                 flight_ref_instant,
-                idx,
             )
             expanded_flight = self.translate_flight(flight_ref_instant, flight, ctx=ctx)
             expanded_dutyperiod.flights.append(expanded_flight)
@@ -191,13 +196,14 @@ class CompactToExpanded:
         compact_flight: compact.Flight,
         ctx: dict | None,
     ) -> expanded.Flight:
+        _ = ctx
         departure = complete_time_instant(
             ref_instant=ref_instant,
             naive_time=compact_flight.departure.lcl,
             tz_name=compact_flight.departure.tz_name,
         )
         logger.debug(
-            "Completed departure time %r using ref_instant %s and compact departure %r",
+            "Completed departure time %s using ref_instant %s and compact departure %r",
             departure,
             ref_instant,
             compact_flight.departure,
@@ -208,7 +214,7 @@ class CompactToExpanded:
             tz_name=compact_flight.arrival.tz_name,
         )
         logger.debug(
-            "Completed arrival time %r using departure %s and compact arrival %r",
+            "Completed arrival time %s using departure %s and compact arrival %r",
             arrival,
             departure,
             compact_flight.arrival,
@@ -252,6 +258,7 @@ class CompactToExpanded:
     def translate_hotel_info(
         self, compact_hotel_info: Sequence[compact.HotelInfo], ctx: dict | None
     ):
+        _ = ctx
         expanded_hotel_info: list[expanded.HotelInfo] = []
         for info in compact_hotel_info:
             if info.hotel is None:
@@ -280,6 +287,7 @@ class CompactToExpanded:
         compact_hotel: compact.Hotel | None,
         ctx: dict | None,
     ) -> expanded.Hotel | None:
+        _ = ctx
         if compact_hotel is None:
             return None
         expanded_hotel = expanded.Hotel(
@@ -292,6 +300,7 @@ class CompactToExpanded:
         compact_transportation: compact.Transportation | None,
         ctx: dict | None = None,
     ) -> expanded.Transportation | None:
+        _ = ctx
         if compact_transportation is None:
             return None
         expanded_transportation = expanded.Transportation(

@@ -3,6 +3,7 @@ from datetime import date
 from typing import Iterable, Sequence, Sized, Tuple
 
 from aa_pbs_exporter.pbs_2022_01 import messages
+from aa_pbs_exporter.pbs_2022_01.helpers.length import length
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
 from aa_pbs_exporter.snippets.messages.publisher import Publisher
@@ -11,25 +12,65 @@ logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
 
+# TODO split individual checks out into functions for clarity
 class CompactValidator:
     def __init__(self, msg_bus: Publisher | None = None) -> None:
         self.msg_bus = msg_bus
 
     def send_message(self, msg: MessageProtocol, ctx: dict | None):
         _ = ctx
-        logger.warning(msg=f"{msg}")
+        if isinstance(msg, messages.StatusMessage):
+            logger.info("%s", msg)
+        else:
+            logger.warning("%s", msg)
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
+
+    def validate(
+        self, raw_bid: raw.BidPackage, compact_bid: compact.BidPackage, ctx: dict | None
+    ):
+        msg = messages.StatusMessage(
+            f"Validating compact bid package. source={compact_bid.source} uuid={compact_bid.uuid}"
+        )
+        self.send_message(msg, ctx)
+        self.validate_bid_package(raw_bid, compact_bid, ctx)
+        page_lookup = {x.uuid: x for x in raw_bid.pages}
+        page_count = len(compact_bid.pages)
+        for page_idx, page in enumerate(compact_bid.pages, start=1):
+            logger.debug(
+                "Validating page %s", f"{page.number}, {page_idx} of {page_count}"
+            )
+            raw_page = page_lookup[page.uuid]
+            self.validate_page(raw_page, page, ctx)
+            trip_lookup = {x.uuid: x for x in raw_page.trips}
+            trip_count = len(page.trips)
+            for trip_idx, trip in enumerate(page.trips, start=1):
+                logger.debug(
+                    "Validating trip %s", f"{trip.number}, {trip_idx} of {trip_count}"
+                )
+                raw_trip = trip_lookup[trip.uuid]
+                self.validate_trip(raw_trip, trip, ctx)
+                dutyperiod_lookup = {x.uuid: x for x in raw_trip.dutyperiods}
+                dp_count = len(trip.dutyperiods)
+                for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
+                    logger.debug("Validating dutyperiod %s", f"{dp_idx} of {dp_count}")
+                    raw_dutyperiod = dutyperiod_lookup[dutyperiod.uuid]
+                    self.validate_dutyperiod(raw_dutyperiod, dutyperiod, ctx)
+                    flight_lookup = {
+                        x.source.uuid5(): x for x in raw_dutyperiod.flights
+                    }
+                    flight_count = len(dutyperiod.flights)
+                    for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
+                        logger.debug(
+                            "Validating flight %s",
+                            f"{flight.number}, {flt_idx} of {flight_count}",
+                        )
+                        raw_flight = flight_lookup[flight.uuid]
+                        self.validate_flight(raw_flight, flight, ctx)
 
     def validate_bid_package(
         self, raw_bid: raw.BidPackage, compact_bid: compact.BidPackage, ctx: dict | None
     ):
-        self.send_message(
-            msg=messages.StatusMessage(
-                f"Validating compact bid package. uuid: {compact_bid.uuid}"
-            ),
-            ctx=ctx,
-        )
         if not compact_bid.pages:
             msg = messages.ValidationMessage(
                 f"Compact bid has no pages. uuid: {compact_bid.uuid}"
@@ -55,44 +96,48 @@ class CompactValidator:
     ):
         if len(compact_page.trips) < 1:
             msg = messages.ValidationMessage(
-                f"No trips found on compact page. uuid: {compact_page.uuid}"
+                f"No trips found on compact page ref={compact_page.number}. Were they all prior month trips? uuid: {compact_page.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
 
     def validate_trip(
         self, raw_trip: raw.Trip, compact_trip: compact.Trip, ctx: dict | None
     ):
-        if int(raw_trip.header.ops_count) != len(compact_trip.start_dates):
+        ops = int(raw_trip.header.ops_count)
+        date_count = len(compact_trip.start_dates)
+        if ops != date_count:
             msg = messages.ValidationMessage(
-                f"Ops count for raw trip {int(raw_trip.header.ops_count)} "
-                f"does not match start date count {len(compact_trip.start_dates)}. "
+                f"Ops count for raw trip {ops} "
+                f"does not match start date count {date_count} "
+                f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
-        if compact_trip.sum_block() != compact_trip.block:
+        sum_block = compact_trip.sum_block()
+        if sum_block != compact_trip.block:
             msg = messages.ValidationMessage(
-                f"Sum of block {compact_trip.sum_block()} does not match parsed block "
-                f"{compact_trip.block} for compact trip. uuid: {compact_trip.uuid}"
+                f"Sum of block {sum_block} does not match parsed "
+                f"block {compact_trip.block} "
+                f"for compact trip {compact_trip.number}. "
+                f"uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
-        # if compact_trip.sum_synth() != compact_trip.synth:
-        #     msg = messages.ValidationMessage(
-        #         f"Sum of synth {compact_trip.sum_synth()} does not match parsed synth "
-        #         f"{compact_trip.synth} for compact trip. uuid: {compact_trip.uuid}"
-        #     )
-        #     self.send_message(msg=msg, ctx=ctx)
+
         sum_total_pay = compact_trip.synth + compact_trip.block
         if sum_total_pay != compact_trip.total_pay:
             msg = messages.ValidationMessage(
-                f"Sum of synth {compact_trip.synth} and block {compact_trip.block} "
+                f"Sum of synth and block ({compact_trip.synth} + {compact_trip.block} "
+                f"= {sum_total_pay}) "
                 f"does not match parsed total pay {compact_trip.total_pay} "
-                f"for compact trip. "
+                f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         if not compact_trip.positions:
             msg = messages.ValidationMessage(
-                f"No positions found for compact trip. uuid: {compact_trip.uuid}"
+                f"No positions found "
+                f"for compact trip {compact_trip.number}. "
+                f"uuid: {compact_trip.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         for idx, dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
@@ -104,19 +149,22 @@ class CompactValidator:
         compact_dutyperiod: compact.DutyPeriod,
         ctx: dict | None,
     ):
-        if compact_dutyperiod.sum_block() != compact_dutyperiod.block:
+        sum_block = compact_dutyperiod.sum_block()
+        if sum_block != compact_dutyperiod.block:
             msg = messages.ValidationMessage(
-                f"Sum of block {compact_dutyperiod.sum_block()} does not match parsed "
+                f"Sum of block {sum_block} does not match parsed "
                 f"block {compact_dutyperiod.block} for compact dutyperiod. "
+                f"dp_idx={compact_dutyperiod.idx} "
                 f"uuid: {compact_dutyperiod.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
         sum_total_pay = compact_dutyperiod.synth + compact_dutyperiod.block
         if sum_total_pay != compact_dutyperiod.total_pay:
             msg = messages.ValidationMessage(
-                f"Sum of synth {compact_dutyperiod.synth} and block "
-                f"{compact_dutyperiod.block} Does not match parsed "
-                f"total {compact_dutyperiod.total_pay} "
+                f"Sum of synth and block ({compact_dutyperiod.synth} + "
+                f"{compact_dutyperiod.block} = {sum_total_pay}) "
+                f"Does not match parsed total {compact_dutyperiod.total_pay} "
+                f"dp_idx={compact_dutyperiod.idx} "
                 f"uuid: {compact_dutyperiod.uuid}"
             )
             self.send_message(msg=msg, ctx=ctx)
@@ -197,11 +245,3 @@ class CompactValidator:
                 self.send_message(msg=msg, ctx=ctx)
 
     # check against flights.flight too
-
-
-def length(data: Iterable | Sized) -> int:
-    # TODO move to a snippets
-    try:
-        return len(data)
-    except:
-        return sum(1 for x in data)
