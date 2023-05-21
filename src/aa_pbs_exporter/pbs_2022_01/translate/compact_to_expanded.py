@@ -47,9 +47,7 @@ class CompactToExpanded:
                 self.translate_page(compact_page, ctx=ctx)
             )
         if self.validator is not None:
-            self.validator.validate_bid_package(
-                compact_bid_package, expanded_bid_package, ctx
-            )
+            self.validator.validate(compact_bid_package, expanded_bid_package, ctx)
         return expanded_bid_package
 
     def translate_page(

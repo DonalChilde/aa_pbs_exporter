@@ -45,7 +45,7 @@ class RawToCompact:
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
-    def translate_bid_package(
+    def translate(
         self, raw_bid_package: raw.BidPackage, ctx: dict | None = None
     ) -> compact.BidPackage:
         self.compact_bid_package = compact.BidPackage(
@@ -60,7 +60,7 @@ class RawToCompact:
                 self.translate_page(raw_page, ctx=ctx)
             )
         if self.validator is not None:
-            self.validator.validate_bid_package(
+            self.validator.validate(
                 raw_bid=raw_bid_package, compact_bid=self.compact_bid_package, ctx=ctx
             )
         return self.compact_bid_package
@@ -349,5 +349,5 @@ class RawToCompact:
 def raw_to_compact(raw_package: raw.BidPackage, msg_bus: Publisher):
     validator = validate.CompactValidator(msg_bus=msg_bus)
     translator = RawToCompact(tz_name_from_iata, validator=validator, msg_bus=msg_bus)
-    compact_package = translator.translate_bid_package(raw_package)
+    compact_package = translator.translate(raw_package)
     return compact_package
