@@ -7,6 +7,7 @@ Assumptions:
 """
 
 from datetime import date, timedelta
+from typing import Iterable
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -112,3 +113,8 @@ class BidPackage(BaseModel):
 
     def default_file_name(self) -> str:
         return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded.json"
+
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip
