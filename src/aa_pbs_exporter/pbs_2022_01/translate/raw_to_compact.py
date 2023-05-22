@@ -3,10 +3,10 @@ import time
 from datetime import date, datetime
 from typing import Callable, Sequence, Tuple
 
-from aa_pbs_exporter.airports.airports import tz_name_from_iata
 from aa_pbs_exporter.pbs_2022_01 import messages, validate
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_month_day import complete_month_day
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
+from aa_pbs_exporter.pbs_2022_01.helpers.tz_from_iata import tz_from_iata
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
@@ -348,6 +348,6 @@ class RawToCompact:
 
 def raw_to_compact(raw_package: raw.BidPackage, msg_bus: Publisher):
     validator = validate.CompactValidator(msg_bus=msg_bus)
-    translator = RawToCompact(tz_name_from_iata, validator=validator, msg_bus=msg_bus)
+    translator = RawToCompact(tz_from_iata, validator=validator, msg_bus=msg_bus)
     compact_package = translator.translate(raw_package)
     return compact_package

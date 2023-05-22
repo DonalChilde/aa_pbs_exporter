@@ -1,8 +1,8 @@
 {
-  "uuid": "e9e93992-a793-5c5e-8839-88773787d334",
+  "uuid": "38958cb2-65a0-59a1-abc5-84fdc3762b40",
   "source": {
     "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_expanded/rpt_rls/rpt_rls.txt",
-    "file_hash": "ea08d5253a9954f5f673f6f2cff10a78",
+    "file_hash": "2765e33deaebbf52115a440d24f63ed4",
     "hash_method": "md5"
   },
   "pages": [
@@ -38,11 +38,11 @@
       },
       "trips": [
         {
-          "uuid": "d6b76aa7-28f0-5308-bcd8-cb4db607175f",
+          "uuid": "8d35579f-b396-5e60-bc07-a1f6a617a9d8",
           "header": {
             "source": {
               "idx": 3,
-              "txt": "SEQ 6538    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6538    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6538",
             "ops_count": "1",
@@ -52,11 +52,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "5e625eaf-9600-587a-8d4e-166670360287",
+              "uuid": "59b82501-ef48-528f-9fc9-1c276bd99021",
               "report": {
                 "source": {
                   "idx": 4,
-                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212  3 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212  3 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "2259/2259",
                 "calendar": [
@@ -72,7 +72,7 @@
                 {
                   "source": {
                     "idx": 5,
-                    "txt": "1  1/2 80   28  LAX 2359/2359  D JFK 0822/0522   5.23                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/2 80   28  LAX 2359/2359  D JFK 0822/0522   5.23                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/2",
@@ -102,7 +102,7 @@
               "release": {
                 "source": {
                   "idx": 6,
-                  "txt": "                                 RLS 0852/0552   5.23   0.00   5.23   6.53        6.23 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0852/0552   5.23   0.00   5.23   6.53        6.23 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0852/0552",
                 "block": "5.23",
@@ -121,7 +121,7 @@
                 ]
               },
               "layover": {
-                "uuid": "197dbc24-f1ee-547f-819d-e7062f937703",
+                "uuid": "dacb63fe-07cd-5317-9941-b3865bca7e7f",
                 "layover_city": "JFK",
                 "rest": "11.08",
                 "hotel_info": [
@@ -129,7 +129,7 @@
                     "hotel": {
                       "source": {
                         "idx": 7,
-                        "txt": "                JFK JFK CTD MARRIOTT                        17188482121    11.08       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                JFK JFK CTD MARRIOTT                        17188482121    11.08       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "JFK",
                       "name": "JFK CTD MARRIOTT",
@@ -148,7 +148,7 @@
                     "transportation": {
                       "source": {
                         "idx": 8,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -164,11 +164,11 @@
               }
             },
             {
-              "uuid": "15a6c4f2-ef8b-5a23-bc41-48646bf96f11",
+              "uuid": "ecea7fa7-fd79-58d1-9bad-dd9f7d14386e",
               "report": {
                 "source": {
                   "idx": 9,
-                  "txt": "                RPT 2000/1700                                                                               \n"
+                  "txt": "                RPT 2000/1700\n"
                 },
                 "report": "2000/1700",
                 "calendar": []
@@ -177,7 +177,7 @@
                 {
                   "source": {
                     "idx": 10,
-                    "txt": "2  2/3 80  177  JFK 2100/1800  D SFO 0038/0038   6.38                                                       \n"
+                    "txt": "2  2/3 80  177  JFK 2100/1800  D SFO 0038/0038   6.38\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/3",
@@ -199,7 +199,7 @@
               "release": {
                 "source": {
                   "idx": 11,
-                  "txt": "                                 RLS 0108/0108   6.38   0.00   6.38   8.08        7.38                      \n"
+                  "txt": "                                 RLS 0108/0108   6.38   0.00   6.38   8.08        7.38\n"
                 },
                 "release": "0108/0108",
                 "block": "6.38",
@@ -210,7 +210,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "d208a279-7c06-503d-991a-ed0047273c54",
+                "uuid": "6ef740f7-1774-5c15-8bb4-19e7bcf6cb91",
                 "layover_city": "SFO",
                 "rest": "36.22",
                 "hotel_info": [
@@ -218,7 +218,7 @@
                     "hotel": {
                       "source": {
                         "idx": 12,
-                        "txt": "                SFO HYATT REGENCY SAN FRANCISCO             4157881234     36.22                            \n"
+                        "txt": "                SFO HYATT REGENCY SAN FRANCISCO             4157881234     36.22\n"
                       },
                       "layover_city": "SFO",
                       "name": "HYATT REGENCY SAN FRANCISCO",
@@ -229,7 +229,7 @@
                     "transportation": {
                       "source": {
                         "idx": 13,
-                        "txt": "                    AIRLINE COACH SERVICES, INC             16506977733                                     \n"
+                        "txt": "                    AIRLINE COACH SERVICES, INC             16506977733\n"
                       },
                       "name": "AIRLINE COACH SERVICES, INC",
                       "phone": "16506977733",
@@ -240,11 +240,11 @@
               }
             },
             {
-              "uuid": "189ebb9e-42ac-5d9f-bd9f-a73431cfaa21",
+              "uuid": "87fec615-d627-51ce-869e-b658df29f2ff",
               "report": {
                 "source": {
                   "idx": 14,
-                  "txt": "                RPT 1230/1230                                                                               \n"
+                  "txt": "                RPT 1230/1230\n"
                 },
                 "report": "1230/1230",
                 "calendar": []
@@ -253,7 +253,7 @@
                 {
                   "source": {
                     "idx": 15,
-                    "txt": "3  4/4 80   16  SFO 1330/1330  L JFK 2203/1903   5.33                                                       \n"
+                    "txt": "3  4/4 80   16  SFO 1330/1330  L JFK 2203/1903   5.33\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "4/4",
@@ -275,7 +275,7 @@
               "release": {
                 "source": {
                   "idx": 16,
-                  "txt": "                                 RLS 2233/1933   5.33   0.00   5.33   7.03        6.33                      \n"
+                  "txt": "                                 RLS 2233/1933   5.33   0.00   5.33   7.03        6.33\n"
                 },
                 "release": "2233/1933",
                 "block": "5.33",
@@ -286,7 +286,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "efe6a9a3-79f8-5a7e-a786-1065360c250f",
+                "uuid": "f87a51d4-cd77-505c-8ce3-67e9f0d37b0c",
                 "layover_city": "JFK",
                 "rest": "15.57",
                 "hotel_info": [
@@ -294,7 +294,7 @@
                     "hotel": {
                       "source": {
                         "idx": 17,
-                        "txt": "                JFK TWA HOTEL                               2128069000     15.57                            \n"
+                        "txt": "                JFK TWA HOTEL                               2128069000     15.57\n"
                       },
                       "layover_city": "JFK",
                       "name": "TWA HOTEL",
@@ -305,7 +305,7 @@
                     "transportation": {
                       "source": {
                         "idx": 18,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -316,11 +316,11 @@
               }
             },
             {
-              "uuid": "fc2ccd2c-2f5f-533c-9e16-f93cf210981d",
+              "uuid": "8dc085cc-7df9-52d1-a13a-adc4fde07df3",
               "report": {
                 "source": {
                   "idx": 19,
-                  "txt": "                RPT 1430/1130                                                                               \n"
+                  "txt": "                RPT 1430/1130\n"
                 },
                 "report": "1430/1130",
                 "calendar": []
@@ -329,7 +329,7 @@
                 {
                   "source": {
                     "idx": 20,
-                    "txt": "4  5/5 80  341  JFK 1530/1230  L LAX 1852/1852   6.22                                                       \n"
+                    "txt": "4  5/5 80  341  JFK 1530/1230  L LAX 1852/1852   6.22\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "5/5",
@@ -351,7 +351,7 @@
               "release": {
                 "source": {
                   "idx": 21,
-                  "txt": "                                 RLS 1922/1922   6.22   0.00   6.22   7.52        7.22                      \n"
+                  "txt": "                                 RLS 1922/1922   6.22   0.00   6.22   7.52        7.22\n"
                 },
                 "release": "1922/1922",
                 "block": "6.22",
@@ -367,7 +367,7 @@
           "footer": {
             "source": {
               "idx": 22,
-              "txt": "TTL                                             23.56   2.44  26.40        93.23                            \n"
+              "txt": "TTL                                             23.56   2.44  26.40        93.23\n"
             },
             "block": "23.56",
             "synth": "2.44",
@@ -411,11 +411,11 @@
           ]
         },
         {
-          "uuid": "33fea328-bf71-5afc-8d52-2cc2f4d5162f",
+          "uuid": "7038a712-45b9-5b62-8b72-13926d4a75f6",
           "header": {
             "source": {
               "idx": 24,
-              "txt": "SEQ 6539    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6539    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6539",
             "ops_count": "1",
@@ -425,11 +425,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "ba90036f-f28e-5720-9ed5-0a033e483ac3",
+              "uuid": "97af210a-3c45-580c-9da5-d7258b66b2a9",
               "report": {
                 "source": {
                   "idx": 25,
-                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212  3 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212  3 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "2259/2259",
                 "calendar": [
@@ -445,7 +445,7 @@
                 {
                   "source": {
                     "idx": 26,
-                    "txt": "1  1/2 63 2725  LAX 2359/2359  M CLT 0737/0437   4.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/2 63 2725  LAX 2359/2359  M CLT 0737/0437   4.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/2",
@@ -475,7 +475,7 @@
               "release": {
                 "source": {
                   "idx": 27,
-                  "txt": "                                 RLS 0807/0507   4.38   0.00   4.38   6.08        5.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0807/0507   4.38   0.00   4.38   6.08        5.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0807/0507",
                 "block": "4.38",
@@ -494,7 +494,7 @@
                 ]
               },
               "layover": {
-                "uuid": "86e7abcc-5f95-505f-b4f9-7c5a4a449d73",
+                "uuid": "a53ce8aa-26ff-5b1a-8b3c-47a3fbdca7df",
                 "layover_city": "CLT",
                 "rest": "11.19",
                 "hotel_info": [
@@ -502,7 +502,7 @@
                     "hotel": {
                       "source": {
                         "idx": 28,
-                        "txt": "                CLT DOUBLETREE CLT AIRPORT                  17043579100    11.19       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                CLT DOUBLETREE CLT AIRPORT                  17043579100    11.19       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "CLT",
                       "name": "DOUBLETREE CLT AIRPORT",
@@ -521,7 +521,7 @@
                     "transportation": {
                       "source": {
                         "idx": 29,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -537,11 +537,11 @@
               }
             },
             {
-              "uuid": "10b6337e-3756-5713-a324-ef0042b8cf1c",
+              "uuid": "28830105-118a-5917-9611-e640007b6376",
               "report": {
                 "source": {
                   "idx": 30,
-                  "txt": "                RPT 1926/1626                                                                               \n"
+                  "txt": "                RPT 1926/1626\n"
                 },
                 "report": "1926/1626",
                 "calendar": []
@@ -550,7 +550,7 @@
                 {
                   "source": {
                     "idx": 31,
-                    "txt": "2  2/2 63 2984  CLT 2026/1726  D SEA 2315/2315   5.49                                                       \n"
+                    "txt": "2  2/2 63 2984  CLT 2026/1726  D SEA 2315/2315   5.49\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -572,7 +572,7 @@
               "release": {
                 "source": {
                   "idx": 32,
-                  "txt": "                                 RLS 2345/2345   5.49   0.00   5.49   7.19        6.49                      \n"
+                  "txt": "                                 RLS 2345/2345   5.49   0.00   5.49   7.19        6.49\n"
                 },
                 "release": "2345/2345",
                 "block": "5.49",
@@ -583,7 +583,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "051ee9a7-121a-5337-82c4-bbb60b2d3f33",
+                "uuid": "44196135-e545-5017-90d9-b9d4ba163205",
                 "layover_city": "SEA",
                 "rest": "12.26",
                 "hotel_info": [
@@ -591,7 +591,7 @@
                     "hotel": {
                       "source": {
                         "idx": 33,
-                        "txt": "                SEA CROWNE PLAZA AP                         12062481000    12.26                            \n"
+                        "txt": "                SEA CROWNE PLAZA AP                         12062481000    12.26\n"
                       },
                       "layover_city": "SEA",
                       "name": "CROWNE PLAZA AP",
@@ -602,7 +602,7 @@
                     "transportation": {
                       "source": {
                         "idx": 34,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -613,11 +613,11 @@
               }
             },
             {
-              "uuid": "92310f47-bb48-524d-987a-07c6c2e6a2f2",
+              "uuid": "475a29c6-f6d2-537d-86eb-8fa2b62ad1c9",
               "report": {
                 "source": {
                   "idx": 35,
-                  "txt": "                RPT 1211/1211                                                                               \n"
+                  "txt": "                RPT 1211/1211\n"
                 },
                 "report": "1211/1211",
                 "calendar": []
@@ -626,7 +626,7 @@
                 {
                   "source": {
                     "idx": 36,
-                    "txt": "3  3/3 92 2778  SEA 1311/1311    LAX 1558/1558   2.47          2.26                                         \n"
+                    "txt": "3  3/3 92 2778  SEA 1311/1311    LAX 1558/1558   2.47          2.26\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -647,7 +647,7 @@
                 {
                   "source": {
                     "idx": 37,
-                    "txt": "3  3/3 92  803  LAX 1824/1824  D STL 2353/2153   3.29                                                       \n"
+                    "txt": "3  3/3 92  803  LAX 1824/1824  D STL 2353/2153   3.29\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -669,7 +669,7 @@
               "release": {
                 "source": {
                   "idx": 38,
-                  "txt": "                                 RLS 0023/2223   6.16   0.00   6.16  10.12        9.42                      \n"
+                  "txt": "                                 RLS 0023/2223   6.16   0.00   6.16  10.12        9.42\n"
                 },
                 "release": "0023/2223",
                 "block": "6.16",
@@ -680,7 +680,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "168a150c-7224-5b9d-ab31-1a5ae5d0c946",
+                "uuid": "3b704099-418e-5ef4-9e4a-d62bd9875421",
                 "layover_city": "STL",
                 "rest": "19.06",
                 "hotel_info": [
@@ -688,7 +688,7 @@
                     "hotel": {
                       "source": {
                         "idx": 39,
-                        "txt": "                STL MARRIOTT GRAND ST. LOUIS                13146219600    19.06                            \n"
+                        "txt": "                STL MARRIOTT GRAND ST. LOUIS                13146219600    19.06\n"
                       },
                       "layover_city": "STL",
                       "name": "MARRIOTT GRAND ST. LOUIS",
@@ -699,7 +699,7 @@
                     "transportation": {
                       "source": {
                         "idx": 40,
-                        "txt": "                    JED TRANSPORTATION                      3144292200                                      \n"
+                        "txt": "                    JED TRANSPORTATION                      3144292200\n"
                       },
                       "name": "JED TRANSPORTATION",
                       "phone": "3144292200",
@@ -710,11 +710,11 @@
               }
             },
             {
-              "uuid": "7a196d4d-3cec-5d01-9f94-14977cb87c8b",
+              "uuid": "03c0ae27-8160-59e1-9211-8987b370cf10",
               "report": {
                 "source": {
                   "idx": 41,
-                  "txt": "                RPT 1829/1629                                                                               \n"
+                  "txt": "                RPT 1829/1629\n"
                 },
                 "report": "1829/1629",
                 "calendar": []
@@ -723,7 +723,7 @@
                 {
                   "source": {
                     "idx": 42,
-                    "txt": "4  4/4 92  453  STL 1929/1729    LAX 2137/2137   4.08                                                       \n"
+                    "txt": "4  4/4 92  453  STL 1929/1729    LAX 2137/2137   4.08\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "4/4",
@@ -745,7 +745,7 @@
               "release": {
                 "source": {
                   "idx": 43,
-                  "txt": "                                 RLS 2207/2207   4.08   0.00   4.08   5.38        5.08                      \n"
+                  "txt": "                                 RLS 2207/2207   4.08   0.00   4.08   5.38        5.08\n"
                 },
                 "release": "2207/2207",
                 "block": "4.08",
@@ -761,7 +761,7 @@
           "footer": {
             "source": {
               "idx": 44,
-              "txt": "TTL                                             20.51   0.09  21.00        72.08                            \n"
+              "txt": "TTL                                             20.51   0.09  21.00        72.08\n"
             },
             "block": "20.51",
             "synth": "0.09",
@@ -805,11 +805,11 @@
           ]
         },
         {
-          "uuid": "90be199d-9f49-5e3e-b2f1-c8aa78ceb3f5",
+          "uuid": "7ab63be4-14a1-5f11-a2c6-808034369581",
           "header": {
             "source": {
               "idx": 46,
-              "txt": "SEQ 6540    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6540    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6540",
             "ops_count": "1",
@@ -819,11 +819,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "519bf090-f2d2-54a4-93b3-d6096ae2a272",
+              "uuid": "b0d587db-441e-59fd-bfb2-de7114eb8fec",
               "report": {
                 "source": {
                   "idx": 47,
-                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212  4 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212  4 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "2359/2359",
                 "calendar": [
@@ -839,7 +839,7 @@
                 {
                   "source": {
                     "idx": 48,
-                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0558/0358   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0558/0358   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -869,7 +869,7 @@
               "release": {
                 "source": {
                   "idx": 49,
-                  "txt": "                                 RLS 0628/0428   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0628/0428   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0628/0428",
                 "block": "2.59",
@@ -888,7 +888,7 @@
                 ]
               },
               "layover": {
-                "uuid": "b33ad4dc-739e-5365-ad9d-225dcb1ecbe7",
+                "uuid": "3941c075-6fda-55d9-b3ce-bd113b39f443",
                 "layover_city": "DFW",
                 "rest": "11.41",
                 "hotel_info": [
@@ -896,7 +896,7 @@
                     "hotel": {
                       "source": {
                         "idx": 50,
-                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    11.41       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    11.41       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "DFW",
                       "name": "HYATT REGENCY DFW",
@@ -915,7 +915,7 @@
                     "transportation": {
                       "source": {
                         "idx": 51,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -931,11 +931,11 @@
               }
             },
             {
-              "uuid": "38ab0dc6-fcb3-5be9-8318-cd9240fc056d",
+              "uuid": "5ee6b551-d929-587f-aa01-941f5169b28d",
               "report": {
                 "source": {
                   "idx": 52,
-                  "txt": "                RPT 1809/1609                                                                               \n"
+                  "txt": "                RPT 1809/1609\n"
                 },
                 "report": "1809/1609",
                 "calendar": []
@@ -944,7 +944,7 @@
                 {
                   "source": {
                     "idx": 53,
-                    "txt": "2  1/1 26 1814  DFW 1909/1709    PHL 2317/2017   3.08                                                       \n"
+                    "txt": "2  1/1 26 1814  DFW 1909/1709    PHL 2317/2017   3.08\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "1/1",
@@ -966,7 +966,7 @@
               "release": {
                 "source": {
                   "idx": 54,
-                  "txt": "                                 RLS 2347/2047   3.08   0.00   3.08   4.38        4.08                      \n"
+                  "txt": "                                 RLS 2347/2047   3.08   0.00   3.08   4.38        4.08\n"
                 },
                 "release": "2347/2047",
                 "block": "3.08",
@@ -977,7 +977,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "b8169ed5-95f8-52ca-9745-43015d02c21d",
+                "uuid": "746c4848-66cc-5041-832c-774c2f19dbc5",
                 "layover_city": "PHL",
                 "rest": "11.36",
                 "hotel_info": [
@@ -985,7 +985,7 @@
                     "hotel": {
                       "source": {
                         "idx": 55,
-                        "txt": "                PHL MARRIOTT PHL AIRPORT                    12154929000    11.36                            \n"
+                        "txt": "                PHL MARRIOTT PHL AIRPORT                    12154929000    11.36\n"
                       },
                       "layover_city": "PHL",
                       "name": "MARRIOTT PHL AIRPORT",
@@ -996,7 +996,7 @@
                     "transportation": {
                       "source": {
                         "idx": 56,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1007,11 +1007,11 @@
               }
             },
             {
-              "uuid": "8ae8dd43-f8f3-53a8-87b3-8c62b2da0f2c",
+              "uuid": "6acbd19c-9152-50db-804e-589fb319541f",
               "report": {
                 "source": {
                   "idx": 57,
-                  "txt": "                RPT 1123/0823                                                                               \n"
+                  "txt": "                RPT 1123/0823\n"
                 },
                 "report": "1123/0823",
                 "calendar": []
@@ -1020,7 +1020,7 @@
                 {
                   "source": {
                     "idx": 58,
-                    "txt": "3  2/2 64 1752  PHL 1223/0923  L CUN 1520/1320   3.57          1.00                                         \n"
+                    "txt": "3  2/2 64 1752  PHL 1223/0923  L CUN 1520/1320   3.57          1.00\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/2",
@@ -1041,7 +1041,7 @@
                 {
                   "source": {
                     "idx": 59,
-                    "txt": "3  2/2 64 1971  CUN 1620/1420  D PHL 2101/1801   3.41                                                       \n"
+                    "txt": "3  2/2 64 1971  CUN 1620/1420  D PHL 2101/1801   3.41\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/2",
@@ -1063,7 +1063,7 @@
               "release": {
                 "source": {
                   "idx": 60,
-                  "txt": "                                 RLS 2131/1831   7.38   0.00   7.38  10.08        9.38                      \n"
+                  "txt": "                                 RLS 2131/1831   7.38   0.00   7.38  10.08        9.38\n"
                 },
                 "release": "2131/1831",
                 "block": "7.38",
@@ -1074,7 +1074,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "e6966207-bc00-5c97-8b5a-c0086fd46b2c",
+                "uuid": "ac281b88-4a9a-5d8c-be23-72518c240926",
                 "layover_city": "PHL",
                 "rest": "13.03",
                 "hotel_info": [
@@ -1082,7 +1082,7 @@
                     "hotel": {
                       "source": {
                         "idx": 61,
-                        "txt": "                PHL MARRIOTT PHL AIRPORT                    12154929000    13.03                            \n"
+                        "txt": "                PHL MARRIOTT PHL AIRPORT                    12154929000    13.03\n"
                       },
                       "layover_city": "PHL",
                       "name": "MARRIOTT PHL AIRPORT",
@@ -1093,7 +1093,7 @@
                     "transportation": {
                       "source": {
                         "idx": 62,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1104,11 +1104,11 @@
               }
             },
             {
-              "uuid": "54f7a187-ace4-5901-ad42-0b4090e7fa3a",
+              "uuid": "44df6304-15e9-5ce5-b4a2-4a5b5845b971",
               "report": {
                 "source": {
                   "idx": 63,
-                  "txt": "                RPT 0934/0634                                                                               \n"
+                  "txt": "                RPT 0934/0634\n"
                 },
                 "report": "0934/0634",
                 "calendar": []
@@ -1117,7 +1117,7 @@
                 {
                   "source": {
                     "idx": 64,
-                    "txt": "4  3/3 63  847  PHL 1034/0734    CLT 1223/0923   1.49          2.37X                                        \n"
+                    "txt": "4  3/3 63  847  PHL 1034/0734    CLT 1223/0923   1.49          2.37X\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "3/3",
@@ -1138,7 +1138,7 @@
                 {
                   "source": {
                     "idx": 65,
-                    "txt": "4  3/3 63 1117  CLT 1500/1200  L LAX 1721/1721   5.21                                                       \n"
+                    "txt": "4  3/3 63 1117  CLT 1500/1200  L LAX 1721/1721   5.21\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "3/3",
@@ -1160,7 +1160,7 @@
               "release": {
                 "source": {
                   "idx": 66,
-                  "txt": "                                 RLS 1751/1751   7.10   0.00   7.10  11.17       10.47                      \n"
+                  "txt": "                                 RLS 1751/1751   7.10   0.00   7.10  11.17       10.47\n"
                 },
                 "release": "1751/1751",
                 "block": "7.10",
@@ -1176,7 +1176,7 @@
           "footer": {
             "source": {
               "idx": 67,
-              "txt": "TTL                                             20.55   0.05  21.00        66.52                            \n"
+              "txt": "TTL                                             20.55   0.05  21.00        66.52\n"
             },
             "block": "20.55",
             "synth": "0.05",
@@ -1253,11 +1253,11 @@
       },
       "trips": [
         {
-          "uuid": "7edac261-dd9d-5440-a096-a2555b25ab14",
+          "uuid": "0aaf8c49-761d-590d-b545-0174857b3259",
           "header": {
             "source": {
               "idx": 75,
-              "txt": "SEQ 6567    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6567    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6567",
             "ops_count": "1",
@@ -1267,11 +1267,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "cb661809-cf02-5009-a26e-9c221b65084c",
+              "uuid": "a7e25bf9-a0f6-51e2-8cda-b97a57bfb166",
               "report": {
                 "source": {
                   "idx": 76,
-                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212  4 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                RPT 2259/2259                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212  4 \u2212\u2212 \u2212\u2212\n"
                 },
                 "report": "2259/2259",
                 "calendar": [
@@ -1287,7 +1287,7 @@
                 {
                   "source": {
                     "idx": 77,
-                    "txt": "1  1/2 63 2725  LAX 2359/2359  M CLT 0737/0437   4.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/2 63 2725  LAX 2359/2359  M CLT 0737/0437   4.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/2",
@@ -1317,7 +1317,7 @@
               "release": {
                 "source": {
                   "idx": 78,
-                  "txt": "                                 RLS 0807/0507   4.38   0.00   4.38   6.08        5.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0807/0507   4.38   0.00   4.38   6.08        5.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0807/0507",
                 "block": "4.38",
@@ -1336,7 +1336,7 @@
                 ]
               },
               "layover": {
-                "uuid": "9638d9e9-64b6-5ec2-bf26-039ed3f83541",
+                "uuid": "181d1993-4e5d-59b7-a918-d6cc7ffe502a",
                 "layover_city": "CLT",
                 "rest": "11.33",
                 "hotel_info": [
@@ -1344,7 +1344,7 @@
                     "hotel": {
                       "source": {
                         "idx": 79,
-                        "txt": "                CLT DOUBLETREE CLT AIRPORT                  17043579100    11.33       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                CLT DOUBLETREE CLT AIRPORT                  17043579100    11.33       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "CLT",
                       "name": "DOUBLETREE CLT AIRPORT",
@@ -1363,7 +1363,7 @@
                     "transportation": {
                       "source": {
                         "idx": 80,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1379,11 +1379,11 @@
               }
             },
             {
-              "uuid": "54cdb2e9-4437-5b5d-aa65-ba910d39f6b3",
+              "uuid": "578ba0cf-40ae-57bc-ad42-d9fbf43737aa",
               "report": {
                 "source": {
                   "idx": 81,
-                  "txt": "                RPT 1940/1640                                                                               \n"
+                  "txt": "                RPT 1940/1640\n"
                 },
                 "report": "1940/1640",
                 "calendar": []
@@ -1392,7 +1392,7 @@
                 {
                   "source": {
                     "idx": 82,
-                    "txt": "2  2/2 63 1533  CLT 2040/1740  D LAS 2228/2228   4.48                                                       \n"
+                    "txt": "2  2/2 63 1533  CLT 2040/1740  D LAS 2228/2228   4.48\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -1414,7 +1414,7 @@
               "release": {
                 "source": {
                   "idx": 83,
-                  "txt": "                                 RLS 2258/2258   4.48   0.00   4.48   6.18        5.48                      \n"
+                  "txt": "                                 RLS 2258/2258   4.48   0.00   4.48   6.18        5.48\n"
                 },
                 "release": "2258/2258",
                 "block": "4.48",
@@ -1425,7 +1425,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "7d5cd754-2e3f-5b6a-90e9-249a71f8aa81",
+                "uuid": "4059d978-29ef-5d58-8df9-30e370dbf1fd",
                 "layover_city": "LAS",
                 "rest": "18.33",
                 "hotel_info": [
@@ -1433,7 +1433,7 @@
                     "hotel": {
                       "source": {
                         "idx": 84,
-                        "txt": "                LAS MARRIOTT LAS VEGAS                      17026502000    18.33                            \n"
+                        "txt": "                LAS MARRIOTT LAS VEGAS                      17026502000    18.33\n"
                       },
                       "layover_city": "LAS",
                       "name": "MARRIOTT LAS VEGAS",
@@ -1444,7 +1444,7 @@
                     "transportation": {
                       "source": {
                         "idx": 85,
-                        "txt": "                    WORLDWIDE FLIGHT SERVICES               7025912180                                      \n"
+                        "txt": "                    WORLDWIDE FLIGHT SERVICES               7025912180\n"
                       },
                       "name": "WORLDWIDE FLIGHT SERVICES",
                       "phone": "7025912180",
@@ -1455,11 +1455,11 @@
               }
             },
             {
-              "uuid": "42febd89-c89d-5940-87fa-700e53005e62",
+              "uuid": "ec620a52-722a-5fff-abc0-a597df0a2f83",
               "report": {
                 "source": {
                   "idx": 86,
-                  "txt": "                RPT 1631/1631                                                                               \n"
+                  "txt": "                RPT 1631/1631\n"
                 },
                 "report": "1631/1631",
                 "calendar": []
@@ -1468,7 +1468,7 @@
                 {
                   "source": {
                     "idx": 87,
-                    "txt": "3  3/3 26 2388  LAS 1731/1731    LAX 1846/1846   1.15          2.41X                                        \n"
+                    "txt": "3  3/3 26 2388  LAS 1731/1731    LAX 1846/1846   1.15          2.41X\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -1489,7 +1489,7 @@
                 {
                   "source": {
                     "idx": 88,
-                    "txt": "3  3/4 63 2920  LAX 2127/2127  M TPA 0501/0201   4.34                                                       \n"
+                    "txt": "3  3/4 63 2920  LAX 2127/2127  M TPA 0501/0201   4.34\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/4",
@@ -1511,7 +1511,7 @@
               "release": {
                 "source": {
                   "idx": 89,
-                  "txt": "                                 RLS 0531/0231   5.49   0.05   5.54  10.00        9.30                      \n"
+                  "txt": "                                 RLS 0531/0231   5.49   0.05   5.54  10.00        9.30\n"
                 },
                 "release": "0531/0231",
                 "block": "5.49",
@@ -1522,7 +1522,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "c0075cd1-4af5-5e4c-a498-2d88ba0a8911",
+                "uuid": "828dd115-c51d-5b5d-90b7-bf127997657d",
                 "layover_city": "TPA",
                 "rest": "10.58",
                 "hotel_info": [
@@ -1530,7 +1530,7 @@
                     "hotel": {
                       "source": {
                         "idx": 90,
-                        "txt": "                TPA HILTON GARDEN INN WESTSHORE             18132892700    10.58                            \n"
+                        "txt": "                TPA HILTON GARDEN INN WESTSHORE             18132892700    10.58\n"
                       },
                       "layover_city": "TPA",
                       "name": "HILTON GARDEN INN WESTSHORE",
@@ -1541,7 +1541,7 @@
                     "transportation": {
                       "source": {
                         "idx": 91,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1552,11 +1552,11 @@
               }
             },
             {
-              "uuid": "39667516-95b8-5cf0-8943-fe0e33b411a1",
+              "uuid": "204853b5-ff88-5c6e-87d2-b0e1bcd0e912",
               "report": {
                 "source": {
                   "idx": 92,
-                  "txt": "                RPT 1629/1329                                                                               \n"
+                  "txt": "                RPT 1629/1329\n"
                 },
                 "report": "1629/1329",
                 "calendar": []
@@ -1565,7 +1565,7 @@
                 {
                   "source": {
                     "idx": 93,
-                    "txt": "4  4/4 63 2905  TPA 1729/1429    CLT 1916/1616   1.47          1.13                                         \n"
+                    "txt": "4  4/4 63 2905  TPA 1729/1429    CLT 1916/1616   1.47          1.13\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "4/4",
@@ -1586,7 +1586,7 @@
                 {
                   "source": {
                     "idx": 94,
-                    "txt": "4  4/4 63 2725  CLT 2029/1729  D LAX 2246/2246   5.17                                                       \n"
+                    "txt": "4  4/4 63 2725  CLT 2029/1729  D LAX 2246/2246   5.17\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "4/4",
@@ -1608,7 +1608,7 @@
               "release": {
                 "source": {
                   "idx": 95,
-                  "txt": "                                 RLS 2316/2316   7.04   0.00   7.04   9.47        9.17                      \n"
+                  "txt": "                                 RLS 2316/2316   7.04   0.00   7.04   9.47        9.17\n"
                 },
                 "release": "2316/2316",
                 "block": "7.04",
@@ -1624,7 +1624,7 @@
           "footer": {
             "source": {
               "idx": 96,
-              "txt": "TTL                                             22.19   0.05  22.24        73.17                            \n"
+              "txt": "TTL                                             22.19   0.05  22.24        73.17\n"
             },
             "block": "22.19",
             "synth": "0.05",
@@ -1668,11 +1668,11 @@
           ]
         },
         {
-          "uuid": "f3a0f489-9459-533c-bbc6-0095514c535b",
+          "uuid": "586c107d-46c1-5540-953d-6a4145bc23fb",
           "header": {
             "source": {
               "idx": 98,
-              "txt": "SEQ 6568    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6568    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6568",
             "ops_count": "1",
@@ -1682,11 +1682,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "383a2ba9-9520-5cbb-81ac-f723400b21d7",
+              "uuid": "d879acc7-efb8-584b-b6b0-d2ab62c2e993",
               "report": {
                 "source": {
                   "idx": 99,
-                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \n"
+                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212\n"
                 },
                 "report": "2359/2359",
                 "calendar": [
@@ -1702,7 +1702,7 @@
                 {
                   "source": {
                     "idx": 100,
-                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0558/0358   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0558/0358   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -1732,7 +1732,7 @@
               "release": {
                 "source": {
                   "idx": 101,
-                  "txt": "                                 RLS 0628/0428   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0628/0428   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0628/0428",
                 "block": "2.59",
@@ -1751,7 +1751,7 @@
                 ]
               },
               "layover": {
-                "uuid": "14b08703-f3d6-5241-8297-e389a576caff",
+                "uuid": "1a7e5870-9cf3-5d40-9d7d-184cc28e127a",
                 "layover_city": "DFW",
                 "rest": "11.42",
                 "hotel_info": [
@@ -1759,7 +1759,7 @@
                     "hotel": {
                       "source": {
                         "idx": 102,
-                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    11.42       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    11.42       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "DFW",
                       "name": "HYATT REGENCY DFW",
@@ -1778,7 +1778,7 @@
                     "transportation": {
                       "source": {
                         "idx": 103,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1794,11 +1794,11 @@
               }
             },
             {
-              "uuid": "74d0b7cd-1178-5782-a4d9-9c753cf8f3b4",
+              "uuid": "5f915ab7-0637-5251-b0bb-f5e4d6928906",
               "report": {
                 "source": {
                   "idx": 104,
-                  "txt": "                RPT 1810/1610                                                                               \n"
+                  "txt": "                RPT 1810/1610\n"
                 },
                 "report": "1810/1610",
                 "calendar": []
@@ -1807,7 +1807,7 @@
                 {
                   "source": {
                     "idx": 105,
-                    "txt": "2  1/1 63 1430  DFW 1910/1710    SFO 2101/2101   3.51                                                       \n"
+                    "txt": "2  1/1 63 1430  DFW 1910/1710    SFO 2101/2101   3.51\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "1/1",
@@ -1829,7 +1829,7 @@
               "release": {
                 "source": {
                   "idx": 106,
-                  "txt": "                                 RLS 2131/2131   3.51   0.00   3.51   5.21        4.51                      \n"
+                  "txt": "                                 RLS 2131/2131   3.51   0.00   3.51   5.21        4.51\n"
                 },
                 "release": "2131/2131",
                 "block": "3.51",
@@ -1840,7 +1840,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "6bf96b33-1b67-5513-acea-039262f73b8b",
+                "uuid": "857e8610-8e96-5802-be58-689f9f4b6bea",
                 "layover_city": "SFO",
                 "rest": "15.39",
                 "hotel_info": [
@@ -1848,7 +1848,7 @@
                     "hotel": {
                       "source": {
                         "idx": 107,
-                        "txt": "                SFO MARRIOTT SAN FRANCISCO AIRPORT          16506929100    15.39                            \n"
+                        "txt": "                SFO MARRIOTT SAN FRANCISCO AIRPORT          16506929100    15.39\n"
                       },
                       "layover_city": "SFO",
                       "name": "MARRIOTT SAN FRANCISCO AIRPORT",
@@ -1859,7 +1859,7 @@
                     "transportation": {
                       "source": {
                         "idx": 108,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -1870,11 +1870,11 @@
               }
             },
             {
-              "uuid": "ceb7e692-cb4b-5273-b19e-affa3b0d7d21",
+              "uuid": "069eb39a-2279-5a72-8405-0223b7fdd8d9",
               "report": {
                 "source": {
                   "idx": 109,
-                  "txt": "                RPT 1210/1210                                                                               \n"
+                  "txt": "                RPT 1210/1210\n"
                 },
                 "report": "1210/1210",
                 "calendar": []
@@ -1883,7 +1883,7 @@
                 {
                   "source": {
                     "idx": 110,
-                    "txt": "3  2/2 63 2830  SFO 1310/1310  L CLT 2107/1807   4.57          1.25X                                        \n"
+                    "txt": "3  2/2 63 2830  SFO 1310/1310  L CLT 2107/1807   4.57          1.25X\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/2",
@@ -1904,7 +1904,7 @@
                 {
                   "source": {
                     "idx": 111,
-                    "txt": "3  2/3 63 1937  CLT 2232/1932  D BOS 0043/2143   2.11                                                       \n"
+                    "txt": "3  2/3 63 1937  CLT 2232/1932  D BOS 0043/2143   2.11\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/3",
@@ -1926,7 +1926,7 @@
               "release": {
                 "source": {
                   "idx": 112,
-                  "txt": "                                 RLS 0113/2213   7.08   0.00   7.08  10.03        9.33                      \n"
+                  "txt": "                                 RLS 0113/2213   7.08   0.00   7.08  10.03        9.33\n"
                 },
                 "release": "0113/2213",
                 "block": "7.08",
@@ -1937,7 +1937,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "253ef2cf-2b93-5e57-9b54-5df81032d95a",
+                "uuid": "984926ac-9b08-5b52-b404-ae1b55128882",
                 "layover_city": "BOS",
                 "rest": "15.47",
                 "hotel_info": [
@@ -1945,7 +1945,7 @@
                     "hotel": {
                       "source": {
                         "idx": 113,
-                        "txt": "                BOS THE WESTIN COPLEY PLACE BOSTON          6172629600     15.47                            \n"
+                        "txt": "                BOS THE WESTIN COPLEY PLACE BOSTON          6172629600     15.47\n"
                       },
                       "layover_city": "BOS",
                       "name": "THE WESTIN COPLEY PLACE BOSTON",
@@ -1956,7 +1956,7 @@
                     "transportation": {
                       "source": {
                         "idx": 114,
-                        "txt": "                    DESERT COACH                            6022866161                                      \n"
+                        "txt": "                    DESERT COACH                            6022866161\n"
                       },
                       "name": "DESERT COACH",
                       "phone": "6022866161",
@@ -1967,11 +1967,11 @@
               }
             },
             {
-              "uuid": "d7a34d7c-29f9-533d-a992-969f752ac14f",
+              "uuid": "368f4af9-fae5-5a31-8a7e-f5fb39e4d5c9",
               "report": {
                 "source": {
                   "idx": 115,
-                  "txt": "                RPT 1700/1400                                                                               \n"
+                  "txt": "                RPT 1700/1400\n"
                 },
                 "report": "1700/1400",
                 "calendar": []
@@ -1980,7 +1980,7 @@
                 {
                   "source": {
                     "idx": 116,
-                    "txt": "4  3/3 80  779  BOS 1800/1500  D LAX 2131/2131   6.31                                                       \n"
+                    "txt": "4  3/3 80  779  BOS 1800/1500  D LAX 2131/2131   6.31\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "3/3",
@@ -2002,7 +2002,7 @@
               "release": {
                 "source": {
                   "idx": 117,
-                  "txt": "                                 RLS 2201/2201   6.31   0.00   6.31   8.01        7.31                      \n"
+                  "txt": "                                 RLS 2201/2201   6.31   0.00   6.31   8.01        7.31\n"
                 },
                 "release": "2201/2201",
                 "block": "6.31",
@@ -2018,7 +2018,7 @@
           "footer": {
             "source": {
               "idx": 118,
-              "txt": "TTL                                             20.29   0.31  21.00        71.02                            \n"
+              "txt": "TTL                                             20.29   0.31  21.00        71.02\n"
             },
             "block": "20.29",
             "synth": "0.31",
@@ -2062,11 +2062,11 @@
           ]
         },
         {
-          "uuid": "9b72b562-057b-5fe8-9794-06f673771ddd",
+          "uuid": "1a71a2b1-d670-53d8-aa22-2de4b6e80e3e",
           "header": {
             "source": {
               "idx": 120,
-              "txt": "SEQ 6569    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6569    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6569",
             "ops_count": "1",
@@ -2076,11 +2076,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "845d201c-01de-5b88-8011-f62032e6cea0",
+              "uuid": "f77c6eb5-90d3-5c7e-9f0e-611b7c5c69ee",
               "report": {
                 "source": {
                   "idx": 121,
-                  "txt": "                RPT 0012/0012                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \n"
+                  "txt": "                RPT 0012/0012                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212\n"
                 },
                 "report": "0012/0012",
                 "calendar": [
@@ -2096,7 +2096,7 @@
                 {
                   "source": {
                     "idx": 122,
-                    "txt": "1  1/1 26 1413  LAX 0112/0112  M MIA 0905/0605   4.53                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 26 1413  LAX 0112/0112  M MIA 0905/0605   4.53                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -2126,7 +2126,7 @@
               "release": {
                 "source": {
                   "idx": 123,
-                  "txt": "                                 RLS 0935/0635   4.53   0.00   4.53   6.23        5.53 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0935/0635   4.53   0.00   4.53   6.23        5.53 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0935/0635",
                 "block": "4.53",
@@ -2145,7 +2145,7 @@
                 ]
               },
               "layover": {
-                "uuid": "f92708ba-2feb-5358-a7b9-a1669eb9ab32",
+                "uuid": "0ca6710c-813c-5bbc-a3a9-b11f489bd2ff",
                 "layover_city": "MIA",
                 "rest": "27.55",
                 "hotel_info": [
@@ -2153,7 +2153,7 @@
                     "hotel": {
                       "source": {
                         "idx": 124,
-                        "txt": "                MIA RESIDENCE INN SUNNY ISLES               13059335224    27.55       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                MIA RESIDENCE INN SUNNY ISLES               13059335224    27.55       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "MIA",
                       "name": "RESIDENCE INN SUNNY ISLES",
@@ -2172,7 +2172,7 @@
                     "transportation": {
                       "source": {
                         "idx": 125,
-                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SKYHOP GLOBAL                           9544000412                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SKYHOP GLOBAL",
                       "phone": "9544000412",
@@ -2188,11 +2188,11 @@
               }
             },
             {
-              "uuid": "a84b7cb6-2235-5afb-b624-1f9b43a0a772",
+              "uuid": "cca61799-83ac-524c-815f-9be6b05039dc",
               "report": {
                 "source": {
                   "idx": 126,
-                  "txt": "                RPT 1230/0930                                                                               \n"
+                  "txt": "                RPT 1230/0930\n"
                 },
                 "report": "1230/0930",
                 "calendar": []
@@ -2201,7 +2201,7 @@
                 {
                   "source": {
                     "idx": 127,
-                    "txt": "2  2/2 91 1461  MIA 1330/1030    STT 1711/1311   2.41          0.51                                         \n"
+                    "txt": "2  2/2 91 1461  MIA 1330/1030    STT 1711/1311   2.41          0.51\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -2222,7 +2222,7 @@
                 {
                   "source": {
                     "idx": 128,
-                    "txt": "2  2/2 91 1391  STT 1802/1402  D MIA 2005/1705   3.03          2.00                                         \n"
+                    "txt": "2  2/2 91 1391  STT 1802/1402  D MIA 2005/1705   3.03          2.00\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -2243,7 +2243,7 @@
                 {
                   "source": {
                     "idx": 129,
-                    "txt": "2  2/2 91 2622  MIA 2205/1905    NAS 2308/2008   1.03                                                       \n"
+                    "txt": "2  2/2 91 2622  MIA 2205/1905    NAS 2308/2008   1.03\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -2265,7 +2265,7 @@
               "release": {
                 "source": {
                   "idx": 130,
-                  "txt": "                                 RLS 2338/2038   6.47   0.00   6.47  11.08       10.38                      \n"
+                  "txt": "                                 RLS 2338/2038   6.47   0.00   6.47  11.08       10.38\n"
                 },
                 "release": "2338/2038",
                 "block": "6.47",
@@ -2276,7 +2276,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "e0b89137-43ae-56d3-91b2-7c7e247b6ecf",
+                "uuid": "d3fd3b70-a5f3-5883-8e94-ef47adaf8187",
                 "layover_city": "NAS",
                 "rest": "14.26",
                 "hotel_info": [
@@ -2284,7 +2284,7 @@
                     "hotel": {
                       "source": {
                         "idx": 131,
-                        "txt": "                NAS COURTYARD NASSAU DOWNTOWN               2423022975     14.26                            \n"
+                        "txt": "                NAS COURTYARD NASSAU DOWNTOWN               2423022975     14.26\n"
                       },
                       "layover_city": "NAS",
                       "name": "COURTYARD NASSAU DOWNTOWN",
@@ -2295,7 +2295,7 @@
                     "transportation": {
                       "source": {
                         "idx": 132,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -2306,11 +2306,11 @@
               }
             },
             {
-              "uuid": "2adfe841-307a-5f4a-b612-e49d83f0f611",
+              "uuid": "8056cd76-583f-5767-ad83-4183afb43d51",
               "report": {
                 "source": {
                   "idx": 133,
-                  "txt": "                RPT 1404/1104                                                                               \n"
+                  "txt": "                RPT 1404/1104\n"
                 },
                 "report": "1404/1104",
                 "calendar": []
@@ -2319,7 +2319,7 @@
                 {
                   "source": {
                     "idx": 134,
-                    "txt": "3  3/3 45  859D NAS 1434/1134    CLT 1658/1358    AA    2.24   1.22X                                        \n"
+                    "txt": "3  3/3 45  859D NAS 1434/1134    CLT 1658/1358    AA    2.24   1.22X\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -2340,7 +2340,7 @@
                 {
                   "source": {
                     "idx": 135,
-                    "txt": "3  3/3 63  267  CLT 1820/1520  D LAX 2037/2037   5.17                                                       \n"
+                    "txt": "3  3/3 63  267  CLT 1820/1520  D LAX 2037/2037   5.17\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -2362,7 +2362,7 @@
               "release": {
                 "source": {
                   "idx": 136,
-                  "txt": "                                 RLS 2107/2107   5.17   2.24   7.41  10.03        9.33                      \n"
+                  "txt": "                                 RLS 2107/2107   5.17   2.24   7.41  10.03        9.33\n"
                 },
                 "release": "2107/2107",
                 "block": "5.17",
@@ -2378,7 +2378,7 @@
           "footer": {
             "source": {
               "idx": 137,
-              "txt": "TTL                                             16.57   3.01  19.58        69.55                            \n"
+              "txt": "TTL                                             16.57   3.01  19.58        69.55\n"
             },
             "block": "16.57",
             "synth": "3.01",
@@ -2422,11 +2422,11 @@
           ]
         },
         {
-          "uuid": "c3006c2b-581b-5bcd-8421-6f1106ae6b4c",
+          "uuid": "f169d5f7-dab8-5a84-99e7-acc449a5e7cd",
           "header": {
             "source": {
               "idx": 139,
-              "txt": "SEQ 6572    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6572    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6572",
             "ops_count": "1",
@@ -2436,11 +2436,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "c1c5162f-4956-5d5f-b7d2-61e446de8e9f",
+              "uuid": "9bcab182-d544-5f38-995d-15fe2e3e7ba4",
               "report": {
                 "source": {
                   "idx": 140,
-                  "txt": "                RPT 0741/0741                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \n"
+                  "txt": "                RPT 0741/0741                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212\n"
                 },
                 "report": "0741/0741",
                 "calendar": [
@@ -2456,7 +2456,7 @@
                 {
                   "source": {
                     "idx": 141,
-                    "txt": "1  1/1 26   31  LAX 0841/0841  B HNL 1150/1450   6.09                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 26   31  LAX 0841/0841  B HNL 1150/1450   6.09                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -2486,7 +2486,7 @@
               "release": {
                 "source": {
                   "idx": 142,
-                  "txt": "                                 RLS 1220/1520   6.09   0.00   6.09   7.39        7.09 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 1220/1520   6.09   0.00   6.09   7.39        7.09 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "1220/1520",
                 "block": "6.09",
@@ -2505,7 +2505,7 @@
                 ]
               },
               "layover": {
-                "uuid": "cc69bcbd-be7f-5077-abf4-6bcd3cc185ad",
+                "uuid": "ed2b0646-9728-50bf-9be4-2e9902f4419c",
                 "layover_city": "HNL",
                 "rest": "17.55",
                 "hotel_info": [
@@ -2513,7 +2513,7 @@
                     "hotel": {
                       "source": {
                         "idx": 143,
-                        "txt": "                HNL PRINCE WAIKIKI                          18089561111    17.55       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                HNL PRINCE WAIKIKI                          18089561111    17.55       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "HNL",
                       "name": "PRINCE WAIKIKI",
@@ -2532,7 +2532,7 @@
                     "transportation": {
                       "source": {
                         "idx": 144,
-                        "txt": "                    VIP TRANSPORTATION\u2212 HNL                 8088360317                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    VIP TRANSPORTATION\u2212 HNL                 8088360317                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "VIP TRANSPORTATION\u2212 HNL",
                       "phone": "8088360317",
@@ -2548,11 +2548,11 @@
               }
             },
             {
-              "uuid": "502154b4-8d92-53e7-853c-9023a0b675d6",
+              "uuid": "aaf103d7-41e5-55e8-b26d-28906660bfb0",
               "report": {
                 "source": {
                   "idx": 145,
-                  "txt": "                RPT 0615/0815                                                                               \n"
+                  "txt": "                RPT 0615/0815\n"
                 },
                 "report": "0615/0815",
                 "calendar": []
@@ -2561,7 +2561,7 @@
                 {
                   "source": {
                     "idx": 146,
-                    "txt": "2  2/2 26 1480  HNL 0715/0915  B LAX 1447/1447   5.32                                                       \n"
+                    "txt": "2  2/2 26 1480  HNL 0715/0915  B LAX 1447/1447   5.32\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -2583,7 +2583,7 @@
               "release": {
                 "source": {
                   "idx": 147,
-                  "txt": "                                 RLS 1517/1517   5.32   0.00   5.32   7.02        6.32                      \n"
+                  "txt": "                                 RLS 1517/1517   5.32   0.00   5.32   7.02        6.32\n"
                 },
                 "release": "1517/1517",
                 "block": "5.32",
@@ -2599,7 +2599,7 @@
           "footer": {
             "source": {
               "idx": 148,
-              "txt": "TTL                                             11.41   0.00  11.41        32.36                            \n"
+              "txt": "TTL                                             11.41   0.00  11.41        32.36\n"
             },
             "block": "11.41",
             "synth": "0.00",
@@ -2664,7 +2664,7 @@
       "page_footer": {
         "source": {
           "idx": 221,
-          "txt": "COCKPIT  ISSUED 07OCT2022  EFF 01NOV2022               LAX 320  INTL                             PAGE  1469"
+          "txt": "COCKPIT  ISSUED 07OCT2022  EFF 01NOV2022               LAX 320  INTL                             PAGE  1469\n"
         },
         "issued": "07OCT2022",
         "effective": "01NOV2022",
@@ -2676,11 +2676,11 @@
       },
       "trips": [
         {
-          "uuid": "5a90ab4b-9771-5680-8d6c-7cdf1f228b5c",
+          "uuid": "c32a3aa7-523f-5918-a9fe-4f3cc321c24f",
           "header": {
             "source": {
               "idx": 156,
-              "txt": "SEQ 6602    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6602    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6602",
             "ops_count": "1",
@@ -2690,11 +2690,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "7265b21b-751b-5448-95c1-eafd5ae7ed85",
+              "uuid": "e454dd63-b9eb-50d7-81c1-6b34b22e0369",
               "report": {
                 "source": {
                   "idx": 157,
-                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6 \n"
+                  "txt": "                RPT 2359/2359                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6\n"
                 },
                 "report": "2359/2359",
                 "calendar": [
@@ -2710,7 +2710,7 @@
                 {
                   "source": {
                     "idx": 158,
-                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0458/0258   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 63 2625  LAX 0059/0059  M DFW 0458/0258   2.59                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -2740,7 +2740,7 @@
               "release": {
                 "source": {
                   "idx": 159,
-                  "txt": "                                 RLS 0528/0328   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 0528/0328   2.59   0.00   2.59   4.29        3.59 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "0528/0328",
                 "block": "2.59",
@@ -2759,7 +2759,7 @@
                 ]
               },
               "layover": {
-                "uuid": "9635597a-5b80-560c-9a16-b0ee4c15084d",
+                "uuid": "c746bab3-3144-5ea4-a0c1-b23f8f7ea170",
                 "layover_city": "DFW",
                 "rest": "14.31",
                 "hotel_info": [
@@ -2767,7 +2767,7 @@
                     "hotel": {
                       "source": {
                         "idx": 160,
-                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    14.31       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                DFW HYATT REGENCY DFW                       19724531234    14.31       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "DFW",
                       "name": "HYATT REGENCY DFW",
@@ -2786,7 +2786,7 @@
                     "transportation": {
                       "source": {
                         "idx": 161,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -2802,11 +2802,11 @@
               }
             },
             {
-              "uuid": "aa0504aa-b0ba-5c55-9caf-33da6c4efd8d",
+              "uuid": "3e648d81-43b3-5ae3-b3c2-4d067f2ebf3b",
               "report": {
                 "source": {
                   "idx": 162,
-                  "txt": "                RPT 1959/1759                                                                               \n"
+                  "txt": "                RPT 1959/1759\n"
                 },
                 "report": "1959/1759",
                 "calendar": []
@@ -2815,7 +2815,7 @@
                 {
                   "source": {
                     "idx": 163,
-                    "txt": "2  1/1 64 2394  DFW 2059/1859    SEA 2323/2323   4.24                                                       \n"
+                    "txt": "2  1/1 64 2394  DFW 2059/1859    SEA 2323/2323   4.24\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "1/1",
@@ -2837,7 +2837,7 @@
               "release": {
                 "source": {
                   "idx": 164,
-                  "txt": "                                 RLS 2353/2353   4.24   0.00   4.24   5.54        5.24                      \n"
+                  "txt": "                                 RLS 2353/2353   4.24   0.00   4.24   5.54        5.24\n"
                 },
                 "release": "2353/2353",
                 "block": "4.24",
@@ -2848,7 +2848,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "c5f406ad-d98c-5e31-b0ff-e267cf2e7024",
+                "uuid": "63563e13-50d7-5b39-9132-f56c32deb47c",
                 "layover_city": "SEA",
                 "rest": "12.33",
                 "hotel_info": [
@@ -2856,7 +2856,7 @@
                     "hotel": {
                       "source": {
                         "idx": 165,
-                        "txt": "                SEA CROWNE PLAZA AP                         12062481000    12.33                            \n"
+                        "txt": "                SEA CROWNE PLAZA AP                         12062481000    12.33\n"
                       },
                       "layover_city": "SEA",
                       "name": "CROWNE PLAZA AP",
@@ -2867,7 +2867,7 @@
                     "transportation": {
                       "source": {
                         "idx": 166,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -2878,11 +2878,11 @@
               }
             },
             {
-              "uuid": "86e844c0-bf16-5d37-9e7f-55796ba8f86c",
+              "uuid": "9df7184f-797e-50a9-921c-a139c7972b71",
               "report": {
                 "source": {
                   "idx": 167,
-                  "txt": "                RPT 1226/1226                                                                               \n"
+                  "txt": "                RPT 1226/1226\n"
                 },
                 "report": "1226/1226",
                 "calendar": []
@@ -2891,7 +2891,7 @@
                 {
                   "source": {
                     "idx": 168,
-                    "txt": "3  2/2 63 2775  SEA 1326/1326  L CLT 2124/1824   4.58          1.22X                                        \n"
+                    "txt": "3  2/2 63 2775  SEA 1326/1326  L CLT 2124/1824   4.58          1.22X\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/2",
@@ -2912,7 +2912,7 @@
                 {
                   "source": {
                     "idx": 169,
-                    "txt": "3  2/2 63  494  CLT 2246/1946  D RDU 2355/2055   1.09                                                       \n"
+                    "txt": "3  2/2 63  494  CLT 2246/1946  D RDU 2355/2055   1.09\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "2/2",
@@ -2934,7 +2934,7 @@
               "release": {
                 "source": {
                   "idx": 170,
-                  "txt": "                                 RLS 0025/2125   6.07   0.00   6.07   8.59        8.29                      \n"
+                  "txt": "                                 RLS 0025/2125   6.07   0.00   6.07   8.59        8.29\n"
                 },
                 "release": "0025/2125",
                 "block": "6.07",
@@ -2945,7 +2945,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "71cd45cf-0caf-5710-bfd2-4599dd4d4257",
+                "uuid": "4ae55639-9cf8-50ef-8323-1f02a68cb8e4",
                 "layover_city": "RDU",
                 "rest": "16.34",
                 "hotel_info": [
@@ -2953,7 +2953,7 @@
                     "hotel": {
                       "source": {
                         "idx": 171,
-                        "txt": "                RDU EMBASSY SUITES                          19196771840    16.34                            \n"
+                        "txt": "                RDU EMBASSY SUITES                          19196771840    16.34\n"
                       },
                       "layover_city": "RDU",
                       "name": "EMBASSY SUITES",
@@ -2964,7 +2964,7 @@
                     "transportation": {
                       "source": {
                         "idx": 172,
-                        "txt": "                    SHUTTLE                                                                                 \n"
+                        "txt": "                    SHUTTLE\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -2975,11 +2975,11 @@
               }
             },
             {
-              "uuid": "64ef784a-0f91-506c-ac2b-7b55c25598f5",
+              "uuid": "fb9dc4a5-ba87-544d-b2b2-e1bc79d174cd",
               "report": {
                 "source": {
                   "idx": 173,
-                  "txt": "                RPT 1659/1359                                                                               \n"
+                  "txt": "                RPT 1659/1359\n"
                 },
                 "report": "1659/1359",
                 "calendar": []
@@ -2988,7 +2988,7 @@
                 {
                   "source": {
                     "idx": 174,
-                    "txt": "4  3/3 64  451  RDU 1759/1459    PHL 1925/1625   1.26          1.25X                                        \n"
+                    "txt": "4  3/3 64  451  RDU 1759/1459    PHL 1925/1625   1.26          1.25X\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "3/3",
@@ -3009,7 +3009,7 @@
                 {
                   "source": {
                     "idx": 175,
-                    "txt": "4  3/3 26 1799  PHL 2050/1750  D LAX 2351/2351   6.01                                                       \n"
+                    "txt": "4  3/3 26 1799  PHL 2050/1750  D LAX 2351/2351   6.01\n"
                   },
                   "dutyperiod_idx": "4",
                   "dep_arr_day": "3/3",
@@ -3031,7 +3031,7 @@
               "release": {
                 "source": {
                   "idx": 176,
-                  "txt": "                                 RLS 0021/0021   7.27   0.00   7.27  10.22        9.52                      \n"
+                  "txt": "                                 RLS 0021/0021   7.27   0.00   7.27  10.22        9.52\n"
                 },
                 "release": "0021/0021",
                 "block": "7.27",
@@ -3047,7 +3047,7 @@
           "footer": {
             "source": {
               "idx": 177,
-              "txt": "TTL                                             20.57   0.03  21.00        73.22                            \n"
+              "txt": "TTL                                             20.57   0.03  21.00        73.22\n"
             },
             "block": "20.57",
             "synth": "0.03",
@@ -3091,11 +3091,11 @@
           ]
         },
         {
-          "uuid": "91cc0351-f9b6-5314-bc6a-bb498ec699b6",
+          "uuid": "62a43601-c6a2-5fec-8971-5f91a320ce28",
           "header": {
             "source": {
               "idx": 179,
-              "txt": "SEQ 6604    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6604    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6604",
             "ops_count": "1",
@@ -3105,11 +3105,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "58099187-aa5d-5f1b-b001-1111b2a2a69c",
+              "uuid": "c3d9bd49-454c-5c0d-b0d0-f45b43c56a98",
               "report": {
                 "source": {
                   "idx": 180,
-                  "txt": "                RPT 0730/0730                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6 \n"
+                  "txt": "                RPT 0730/0730                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6\n"
                 },
                 "report": "0730/0730",
                 "calendar": [
@@ -3125,7 +3125,7 @@
                 {
                   "source": {
                     "idx": 181,
-                    "txt": "1  1/1 80    2  LAX 0830/0830  B JFK 1708/1408   5.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 80    2  LAX 0830/0830  B JFK 1708/1408   5.38                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -3155,7 +3155,7 @@
               "release": {
                 "source": {
                   "idx": 182,
-                  "txt": "                                 RLS 1738/1438   5.38   0.00   5.38   7.08        6.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 1738/1438   5.38   0.00   5.38   7.08        6.38 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "1738/1438",
                 "block": "5.38",
@@ -3174,7 +3174,7 @@
                 ]
               },
               "layover": {
-                "uuid": "9bbe3a24-9198-5c36-b638-58df335ceafa",
+                "uuid": "0fce67b3-2c5e-56cc-be56-6d47b44e5b65",
                 "layover_city": "JFK",
                 "rest": "15.37",
                 "hotel_info": [
@@ -3182,7 +3182,7 @@
                     "hotel": {
                       "source": {
                         "idx": 183,
-                        "txt": "                JFK TWA HOTEL                               2128069000     15.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                JFK TWA HOTEL                               2128069000     15.37       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "JFK",
                       "name": "TWA HOTEL",
@@ -3201,7 +3201,7 @@
                     "transportation": {
                       "source": {
                         "idx": 184,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -3217,11 +3217,11 @@
               }
             },
             {
-              "uuid": "34419684-bcad-58bd-bf57-dc8580874885",
+              "uuid": "e197501b-e296-5505-8828-133252abc3af",
               "report": {
                 "source": {
                   "idx": 185,
-                  "txt": "                RPT 0915/0615                                                                               \n"
+                  "txt": "                RPT 0915/0615\n"
                 },
                 "report": "0915/0615",
                 "calendar": []
@@ -3230,7 +3230,7 @@
                 {
                   "source": {
                     "idx": 186,
-                    "txt": "2  2/2 80    3  JFK 1015/0715  L LAX 1336/1336   6.21          1.26X                                        \n"
+                    "txt": "2  2/2 80    3  JFK 1015/0715  L LAX 1336/1336   6.21          1.26X\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -3251,7 +3251,7 @@
                 {
                   "source": {
                     "idx": 187,
-                    "txt": "2  2/2 26 2530  LAX 1502/1502  D LAS 1614/1614   1.12                                                       \n"
+                    "txt": "2  2/2 26 2530  LAX 1502/1502  D LAS 1614/1614   1.12\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -3273,7 +3273,7 @@
               "release": {
                 "source": {
                   "idx": 188,
-                  "txt": "                                 RLS 1644/1644   7.33   0.00   7.33  10.29        9.59                      \n"
+                  "txt": "                                 RLS 1644/1644   7.33   0.00   7.33  10.29        9.59\n"
                 },
                 "release": "1644/1644",
                 "block": "7.33",
@@ -3284,7 +3284,7 @@
                 "calendar": []
               },
               "layover": {
-                "uuid": "6ba8bcbb-8f1a-58bd-9b87-0201a9df87ba",
+                "uuid": "49af4c8d-f5ec-5dd9-972d-4cf916df3b59",
                 "layover_city": "LAS",
                 "rest": "18.21",
                 "hotel_info": [
@@ -3292,7 +3292,7 @@
                     "hotel": {
                       "source": {
                         "idx": 189,
-                        "txt": "                LAS MARRIOTT LAS VEGAS                      17026502000    18.21                            \n"
+                        "txt": "                LAS MARRIOTT LAS VEGAS                      17026502000    18.21\n"
                       },
                       "layover_city": "LAS",
                       "name": "MARRIOTT LAS VEGAS",
@@ -3303,7 +3303,7 @@
                     "transportation": {
                       "source": {
                         "idx": 190,
-                        "txt": "                    WORLDWIDE FLIGHT SERVICES               7025912180                                      \n"
+                        "txt": "                    WORLDWIDE FLIGHT SERVICES               7025912180\n"
                       },
                       "name": "WORLDWIDE FLIGHT SERVICES",
                       "phone": "7025912180",
@@ -3314,11 +3314,11 @@
               }
             },
             {
-              "uuid": "a9369ea7-028b-5569-b803-bdc7cbe5e54b",
+              "uuid": "af4a429d-f498-592c-88c2-b630b9245e31",
               "report": {
                 "source": {
                   "idx": 191,
-                  "txt": "                RPT 1105/1105                                                                               \n"
+                  "txt": "                RPT 1105/1105\n"
                 },
                 "report": "1105/1105",
                 "calendar": []
@@ -3327,7 +3327,7 @@
                 {
                   "source": {
                     "idx": 192,
-                    "txt": "3  3/3 26 2479D LAS 1135/1135    LAX 1252/1252    AA    1.17   2.10X                                        \n"
+                    "txt": "3  3/3 26 2479D LAS 1135/1135    LAX 1252/1252    AA    1.17   2.10X\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -3348,7 +3348,7 @@
                 {
                   "source": {
                     "idx": 193,
-                    "txt": "3  3/3 26 2530  LAX 1502/1502    LAS 1614/1614   1.12          1.17                                         \n"
+                    "txt": "3  3/3 26 2530  LAX 1502/1502    LAS 1614/1614   1.12          1.17\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -3369,7 +3369,7 @@
                 {
                   "source": {
                     "idx": 194,
-                    "txt": "3  3/3 26 2388  LAS 1731/1731    LAX 1846/1846   1.15                                                       \n"
+                    "txt": "3  3/3 26 2388  LAS 1731/1731    LAX 1846/1846   1.15\n"
                   },
                   "dutyperiod_idx": "3",
                   "dep_arr_day": "3/3",
@@ -3391,7 +3391,7 @@
               "release": {
                 "source": {
                   "idx": 195,
-                  "txt": "                                 RLS 1916/1916   2.27   1.38   4.05   8.11        7.41                      \n"
+                  "txt": "                                 RLS 1916/1916   2.27   1.38   4.05   8.11        7.41\n"
                 },
                 "release": "1916/1916",
                 "block": "2.27",
@@ -3407,7 +3407,7 @@
           "footer": {
             "source": {
               "idx": 196,
-              "txt": "TTL                                             15.38   1.38  17.16        59.46                            \n"
+              "txt": "TTL                                             15.38   1.38  17.16        59.46\n"
             },
             "block": "15.38",
             "synth": "1.38",
@@ -3451,11 +3451,11 @@
           ]
         },
         {
-          "uuid": "e76b485e-1b32-5b1a-9e14-2088e0d5d2f0",
+          "uuid": "bdef12fc-3b0c-5e4c-924d-7d8e5c483284",
           "header": {
             "source": {
               "idx": 198,
-              "txt": "SEQ 6605    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6605    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6605",
             "ops_count": "1",
@@ -3465,11 +3465,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "44e0724e-efa3-5e19-8208-f89d0b534e46",
+              "uuid": "6c15fbb5-2883-59b6-b3aa-48d28b2fa114",
               "report": {
                 "source": {
                   "idx": 199,
-                  "txt": "                RPT 0915/0915                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6 \n"
+                  "txt": "                RPT 0915/0915                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6\n"
                 },
                 "report": "0915/0915",
                 "calendar": [
@@ -3485,7 +3485,7 @@
                 {
                   "source": {
                     "idx": 200,
-                    "txt": "1  1/1 26  271  LAX 1015/1015  L OGG 1359/1559   5.44                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 26  271  LAX 1015/1015  L OGG 1359/1559   5.44                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -3515,7 +3515,7 @@
               "release": {
                 "source": {
                   "idx": 201,
-                  "txt": "                                 RLS 1429/1629   5.44   0.00   5.44   7.14        6.44 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 1429/1629   5.44   0.00   5.44   7.14        6.44 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "1429/1629",
                 "block": "5.44",
@@ -3534,7 +3534,7 @@
                 ]
               },
               "layover": {
-                "uuid": "19bf73a0-ab56-55fe-9945-7c93c633eeb0",
+                "uuid": "ab04da07-b386-5bb6-9fb9-09210dd57e5c",
                 "layover_city": "OGG",
                 "rest": "24.03",
                 "hotel_info": [
@@ -3542,7 +3542,7 @@
                     "hotel": {
                       "source": {
                         "idx": 202,
-                        "txt": "                OGG MAUI COAST HTL                          18088746284    24.03       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                OGG MAUI COAST HTL                          18088746284    24.03       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "OGG",
                       "name": "MAUI COAST HTL",
@@ -3561,7 +3561,7 @@
                     "transportation": {
                       "source": {
                         "idx": 203,
-                        "txt": "                    VIP TRANSPORTATION\u2212 OGG                 8088712702                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    VIP TRANSPORTATION\u2212 OGG                 8088712702                 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "VIP TRANSPORTATION\u2212 OGG",
                       "phone": "8088712702",
@@ -3577,11 +3577,11 @@
               }
             },
             {
-              "uuid": "0023efd0-fc9c-525c-acf6-881ea3d9180f",
+              "uuid": "fad73ed2-4501-5ee7-b301-b7cf2b42d804",
               "report": {
                 "source": {
                   "idx": 204,
-                  "txt": "                RPT 1432/1632                                                                               \n"
+                  "txt": "                RPT 1432/1632\n"
                 },
                 "report": "1432/1632",
                 "calendar": []
@@ -3590,7 +3590,7 @@
                 {
                   "source": {
                     "idx": 205,
-                    "txt": "2  2/2 26  212  OGG 1532/1732  L LAX 2250/2250   5.18                                                       \n"
+                    "txt": "2  2/2 26  212  OGG 1532/1732  L LAX 2250/2250   5.18\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -3612,7 +3612,7 @@
               "release": {
                 "source": {
                   "idx": 206,
-                  "txt": "                                 RLS 2320/2320   5.18   0.00   5.18   6.48        6.18                      \n"
+                  "txt": "                                 RLS 2320/2320   5.18   0.00   5.18   6.48        6.18\n"
                 },
                 "release": "2320/2320",
                 "block": "5.18",
@@ -3628,7 +3628,7 @@
           "footer": {
             "source": {
               "idx": 207,
-              "txt": "TTL                                             11.02   0.00  11.02        38.05                            \n"
+              "txt": "TTL                                             11.02   0.00  11.02        38.05\n"
             },
             "block": "11.02",
             "synth": "0.00",
@@ -3672,11 +3672,11 @@
           ]
         },
         {
-          "uuid": "ec5e8f31-1fe0-5e46-913b-394090bd0dde",
+          "uuid": "9e41df30-bd9f-5b09-ae9a-457092d9b76d",
           "header": {
             "source": {
               "idx": 209,
-              "txt": "SEQ 6606    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU \n"
+              "txt": "SEQ 6606    1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
             },
             "number": "6606",
             "ops_count": "1",
@@ -3686,11 +3686,11 @@
           },
           "dutyperiods": [
             {
-              "uuid": "84cca662-87de-5185-8896-6d0d792ed2ce",
+              "uuid": "1b299eb4-b320-5dca-bdfa-1577c2ece4e1",
               "report": {
                 "source": {
                   "idx": 210,
-                  "txt": "                RPT 0920/0920                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6 \n"
+                  "txt": "                RPT 0920/0920                                                             \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212  6\n"
                 },
                 "report": "0920/0920",
                 "calendar": [
@@ -3706,7 +3706,7 @@
                 {
                   "source": {
                     "idx": 211,
-                    "txt": "1  1/1 80    4  LAX 1020/1020  L JFK 1845/1545   5.25                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                    "txt": "1  1/1 80    4  LAX 1020/1020  L JFK 1845/1545   5.25                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                   },
                   "dutyperiod_idx": "1",
                   "dep_arr_day": "1/1",
@@ -3736,7 +3736,7 @@
               "release": {
                 "source": {
                   "idx": 212,
-                  "txt": "                                 RLS 1915/1615   5.25   0.00   5.25   6.55        6.25 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                  "txt": "                                 RLS 1915/1615   5.25   0.00   5.25   6.55        6.25 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                 },
                 "release": "1915/1615",
                 "block": "5.25",
@@ -3755,7 +3755,7 @@
                 ]
               },
               "layover": {
-                "uuid": "7ae97d8c-4d43-5c2c-bb7f-a6695ee9e5af",
+                "uuid": "c1beeeac-6f33-5402-af93-22514086e772",
                 "layover_city": "JFK",
                 "rest": "14.45",
                 "hotel_info": [
@@ -3763,7 +3763,7 @@
                     "hotel": {
                       "source": {
                         "idx": 213,
-                        "txt": "                JFK TWA HOTEL                               2128069000     14.45       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \n"
+                        "txt": "                JFK TWA HOTEL                               2128069000     14.45       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "layover_city": "JFK",
                       "name": "TWA HOTEL",
@@ -3782,7 +3782,7 @@
                     "transportation": {
                       "source": {
                         "idx": 214,
-                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212          \n"
+                        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
                       },
                       "name": "SHUTTLE",
                       "phone": "",
@@ -3798,11 +3798,11 @@
               }
             },
             {
-              "uuid": "7abd9192-775c-5793-a6d7-6224ea855dff",
+              "uuid": "5813fcb4-3534-5b5f-bbf1-6d2d00629ea0",
               "report": {
                 "source": {
                   "idx": 215,
-                  "txt": "                RPT 1000/0700                                                                               \n"
+                  "txt": "                RPT 1000/0700\n"
                 },
                 "report": "1000/0700",
                 "calendar": []
@@ -3811,7 +3811,7 @@
                 {
                   "source": {
                     "idx": 216,
-                    "txt": "2  2/2 80  331  JFK 1100/0800  L LAX 1422/1422   6.22                                                       \n"
+                    "txt": "2  2/2 80  331  JFK 1100/0800  L LAX 1422/1422   6.22\n"
                   },
                   "dutyperiod_idx": "2",
                   "dep_arr_day": "2/2",
@@ -3833,7 +3833,7 @@
               "release": {
                 "source": {
                   "idx": 217,
-                  "txt": "                                 RLS 1452/1452   6.22   0.00   6.22   7.52        7.22                      \n"
+                  "txt": "                                 RLS 1452/1452   6.22   0.00   6.22   7.52        7.22\n"
                 },
                 "release": "1452/1452",
                 "block": "6.22",
@@ -3849,7 +3849,7 @@
           "footer": {
             "source": {
               "idx": 218,
-              "txt": "TTL                                             11.47   0.00  11.47        29.32                            \n"
+              "txt": "TTL                                             11.47   0.00  11.47        29.32\n"
             },
             "block": "11.47",
             "synth": "0.00",

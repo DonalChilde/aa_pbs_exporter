@@ -46,7 +46,7 @@
     "parsed_data": {
       "source": {
         "idx": 3,
-        "txt": "SEQ 25018   2 OPS   POSN CA FO                MEXICO QUALIFICATION                     MO TU WE TH FR SA SU \n"
+        "txt": "SEQ 25018   2 OPS   POSN CA FO                MEXICO QUALIFICATION                     MO TU WE TH FR SA SU\n"
       },
       "number": "25018",
       "ops_count": "2",
@@ -60,7 +60,7 @@
     "parsed_data": {
       "source": {
         "idx": 4,
-        "txt": "SEQ 30569   1 OPS   POSN CA FO                                                         New prior month      \n"
+        "txt": "SEQ 30569   1 OPS   POSN CA FO                                                         New prior month\n"
       },
       "number": "30569",
       "ops_count": "1",
@@ -74,7 +74,7 @@
     "parsed_data": {
       "source": {
         "idx": 5,
-        "txt": "SEQ 30890   1 OPS   POSN CA FO                                                         Replaces prior month \n"
+        "txt": "SEQ 30890   1 OPS   POSN CA FO                                                         Replaces prior month\n"
       },
       "number": "30890",
       "ops_count": "1",
