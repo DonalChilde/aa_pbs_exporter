@@ -63,7 +63,9 @@ class ExpandedValidator:
                         f"{dp_idx} of {dp_count} for trip {trip.number}",
                     )
                     compact_dutyperiod = dutyperiod_lookup[dutyperiod.compact_uuid]
-                    self.validate_dutyperiod(compact_dutyperiod, dutyperiod, ctx)
+                    self.validate_dutyperiod(
+                        compact_dutyperiod, dutyperiod, ctx, trip.number
+                    )
                     flight_lookup = {x.uuid: x for x in compact_dutyperiod.flights}
                     flight_count = len(dutyperiod.flights)
                     for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
@@ -72,7 +74,7 @@ class ExpandedValidator:
                             f"{flight.number}, {flt_idx} of {flight_count}",
                         )
                         compact_flight = flight_lookup[flight.compact_uuid]
-                        self.validate_flight(compact_flight, flight, ctx)
+                        self.validate_flight(compact_flight, flight, ctx, trip.number)
 
     def validate_bid_package(
         self,
@@ -158,15 +160,21 @@ class ExpandedValidator:
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
         ctx: dict | None,
+        trip_number: str,
     ):
-        self.check_report_times(compact_dutyperiod, expanded_dutyperiod, ctx)
-        self.check_release_times(compact_dutyperiod, expanded_dutyperiod, ctx)
-        self.check_dutytime(expanded_dutyperiod, ctx)
+        self.check_report_times(
+            compact_dutyperiod, expanded_dutyperiod, ctx, trip_number
+        )
+        self.check_release_times(
+            compact_dutyperiod, expanded_dutyperiod, ctx, trip_number
+        )
+        self.check_dutytime(expanded_dutyperiod, ctx, trip_number)
 
     def check_dutytime(
         self,
         expanded_dutyperiod: expanded.DutyPeriod,
         ctx: dict | None,
+        trip_number: str,
     ):
         dutytime = (
             expanded_dutyperiod.release.utc_date - expanded_dutyperiod.report.utc_date
@@ -175,6 +183,7 @@ class ExpandedValidator:
             msg = messages.ValidationMessage(
                 msg=f"Calculated dutytime {dutytime} does not match "
                 f"parsed dutytime {expanded_dutyperiod.duty} "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_dutyperiod.uuid} "
                 f"compact_uuid: {expanded_dutyperiod.compact_uuid} "
             )
@@ -185,6 +194,7 @@ class ExpandedValidator:
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
         ctx: dict | None,
+        trip_number: str,
     ):
         report_time = expanded_dutyperiod.report.local().time()
         if not compare_time(
@@ -196,6 +206,7 @@ class ExpandedValidator:
                 msg=f"Report times do not match. "
                 f"compact: {compact_dutyperiod.report.lcl!r}, "
                 f"expanded: {report_time!r}. "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_dutyperiod.uuid} "
                 f"compact_uuid: {expanded_dutyperiod.compact_uuid} "
             )
@@ -206,6 +217,7 @@ class ExpandedValidator:
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
         ctx: dict | None,
+        trip_number: str,
     ):
         release_time = expanded_dutyperiod.release.local().time()
         if not compare_time(
@@ -217,6 +229,7 @@ class ExpandedValidator:
                 msg=f"Release times do not match. "
                 f"compact: {compact_dutyperiod.release.lcl!r}, "
                 f"expanded: {release_time!r}. "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_dutyperiod.uuid} "
                 f"compact_uuid: {expanded_dutyperiod.compact_uuid} "
             )
@@ -227,16 +240,18 @@ class ExpandedValidator:
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
         ctx: dict | None,
+        trip_number: str,
     ):
-        self.check_departure(compact_flight, expanded_flight, ctx)
-        self.check_arrival(compact_flight, expanded_flight, ctx)
-        self.check_flight_time(expanded_flight, ctx)
+        self.check_departure(compact_flight, expanded_flight, ctx, trip_number)
+        self.check_arrival(compact_flight, expanded_flight, ctx, trip_number)
+        self.check_flight_time(expanded_flight, ctx, trip_number)
 
     def check_departure(
         self,
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
         ctx: dict | None,
+        trip_number: str,
     ):
         departure_time = expanded_flight.departure.local().time()
         if not compare_time(
@@ -248,6 +263,7 @@ class ExpandedValidator:
                 msg=f"Departure times do not match for flight {expanded_flight.number}. "
                 f"compact: {compact_flight.departure.lcl!r}, "
                 f"expanded: {departure_time!r}. "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_flight.uuid} "
                 f"compact_uuid: {expanded_flight.compact_uuid} "
             )
@@ -258,6 +274,7 @@ class ExpandedValidator:
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
         ctx: dict | None,
+        trip_number: str,
     ):
         arrival_time = expanded_flight.arrival.local().time()
         if not compare_time(
@@ -269,6 +286,7 @@ class ExpandedValidator:
                 msg=f"Arrival times do not match for flight {expanded_flight.number}. "
                 f"compact: {compact_flight.arrival.lcl!r}, "
                 f"expanded: {arrival_time!r}. "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_flight.uuid} "
                 f"compact_uuid: {expanded_flight.compact_uuid} "
             )
@@ -278,6 +296,7 @@ class ExpandedValidator:
         self,
         expanded_flight: expanded.Flight,
         ctx: dict | None,
+        trip_number: str,
     ):
         flight_time = (
             expanded_flight.arrival.utc_date - expanded_flight.departure.utc_date
@@ -287,6 +306,7 @@ class ExpandedValidator:
                 msg = messages.ValidationMessage(
                     f"Flight time {flight_time} does not match synth time "
                     f"{expanded_flight.synth} on deadhead flight {expanded_flight.number}. "
+                    f"trip number: {trip_number} "
                     f"uuid: {expanded_flight.uuid} "
                     f"compact_uuid: {expanded_flight.compact_uuid} "
                 )
@@ -296,8 +316,11 @@ class ExpandedValidator:
             msg = messages.ValidationMessage(
                 f"Flight time {flight_time} does not match block time "
                 f"{expanded_flight.block} on flight {expanded_flight.number}. "
+                f"trip number: {trip_number} "
                 f"uuid: {expanded_flight.uuid} "
                 f"compact_uuid: {expanded_flight.compact_uuid} "
+                f"\n\tdeparture: {expanded_flight.departure_station} {expanded_flight.departure}"
+                f"\n\tarrival: {expanded_flight.arrival_station} {expanded_flight.arrival}"
             )
             self.send_message(msg, ctx)
 

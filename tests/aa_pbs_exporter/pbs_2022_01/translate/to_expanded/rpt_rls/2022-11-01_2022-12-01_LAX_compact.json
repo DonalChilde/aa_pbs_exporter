@@ -1,8 +1,8 @@
 {
-  "uuid": "e9e93992-a793-5c5e-8839-88773787d334",
+  "uuid": "38958cb2-65a0-59a1-abc5-84fdc3762b40",
   "source": {
     "file_path": "/home/chad/projects/pfmsoft/aa_pbs_exporter/tests/aa_pbs_exporter/pbs_2022_01/translate/to_expanded/rpt_rls/rpt_rls.txt",
-    "file_hash": "ea08d5253a9954f5f673f6f2cff10a78",
+    "file_hash": "2765e33deaebbf52115a440d24f63ed4",
     "hash_method": "md5"
   },
   "pages": [
@@ -18,7 +18,7 @@
       "end": "2022-12-01",
       "trips": [
         {
-          "uuid": "d6b76aa7-28f0-5308-bcd8-cb4db607175f",
+          "uuid": "8d35579f-b396-5e60-bc07-a1f6a617a9d8",
           "number": "6538",
           "positions": [
             "CA",
@@ -32,7 +32,7 @@
           "tafb": 336180.0,
           "dutyperiods": [
             {
-              "uuid": "5e625eaf-9600-587a-8d4e-166670360287",
+              "uuid": "59b82501-ef48-528f-9fc9-1c276bd99021",
               "idx": 1,
               "report": {
                 "lcl": "22:59:00",
@@ -52,18 +52,18 @@
               "duty": 24780.0,
               "flight_duty": 22980.0,
               "layover": {
-                "uuid": "197dbc24-f1ee-547f-819d-e7062f937703",
+                "uuid": "dacb63fe-07cd-5317-9941-b3865bca7e7f",
                 "odl": 40080.0,
                 "city": "JFK",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "197dbc24-f1ee-547f-819d-e7062f937703",
+                      "uuid": "dacb63fe-07cd-5317-9941-b3865bca7e7f",
                       "name": "JFK CTD MARRIOTT",
                       "phone": "17188482121"
                     },
                     "transportation": {
-                      "uuid": "16a27a36-1396-5773-9168-5f7b60b77459",
+                      "uuid": "44c95ddf-77e9-5b7c-856c-4ae09ab86939",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -72,7 +72,7 @@
               },
               "flights": [
                 {
-                  "uuid": "53325aeb-f050-5c32-915a-3ccdecd0ab5d",
+                  "uuid": "d05d921f-b340-559b-a2ec-fe3dd0b893ea",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -100,7 +100,7 @@
               ]
             },
             {
-              "uuid": "15a6c4f2-ef8b-5a23-bc41-48646bf96f11",
+              "uuid": "ecea7fa7-fd79-58d1-9bad-dd9f7d14386e",
               "idx": 2,
               "report": {
                 "lcl": "20:00:00",
@@ -120,18 +120,18 @@
               "duty": 29280.0,
               "flight_duty": 27480.0,
               "layover": {
-                "uuid": "d208a279-7c06-503d-991a-ed0047273c54",
+                "uuid": "6ef740f7-1774-5c15-8bb4-19e7bcf6cb91",
                 "odl": 130920.0,
                 "city": "SFO",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "d208a279-7c06-503d-991a-ed0047273c54",
+                      "uuid": "6ef740f7-1774-5c15-8bb4-19e7bcf6cb91",
                       "name": "HYATT REGENCY SAN FRANCISCO",
                       "phone": "4157881234"
                     },
                     "transportation": {
-                      "uuid": "c089a148-a514-5c81-8110-45409a4d659a",
+                      "uuid": "302904b3-686d-516d-9fc2-4a1863cdeba9",
                       "name": "AIRLINE COACH SERVICES, INC",
                       "phone": "16506977733"
                     }
@@ -140,7 +140,7 @@
               },
               "flights": [
                 {
-                  "uuid": "6c327937-9c76-538e-b64f-5db49d069632",
+                  "uuid": "bacdb54b-1a41-5d75-91f0-0b0bc5a974ad",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/3",
@@ -168,7 +168,7 @@
               ]
             },
             {
-              "uuid": "189ebb9e-42ac-5d9f-bd9f-a73431cfaa21",
+              "uuid": "87fec615-d627-51ce-869e-b658df29f2ff",
               "idx": 3,
               "report": {
                 "lcl": "12:30:00",
@@ -188,18 +188,18 @@
               "duty": 25380.0,
               "flight_duty": 23580.0,
               "layover": {
-                "uuid": "efe6a9a3-79f8-5a7e-a786-1065360c250f",
+                "uuid": "f87a51d4-cd77-505c-8ce3-67e9f0d37b0c",
                 "odl": 57420.0,
                 "city": "JFK",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "efe6a9a3-79f8-5a7e-a786-1065360c250f",
+                      "uuid": "f87a51d4-cd77-505c-8ce3-67e9f0d37b0c",
                       "name": "TWA HOTEL",
                       "phone": "2128069000"
                     },
                     "transportation": {
-                      "uuid": "ce746d98-6cd6-5430-9ccf-a0a198147bd2",
+                      "uuid": "fa563f5f-7858-59dd-96c7-015624dde44f",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -208,7 +208,7 @@
               },
               "flights": [
                 {
-                  "uuid": "1a6f343a-6c04-50fe-9085-bfe35c181d5e",
+                  "uuid": "5dd05a39-ad1d-57fb-ade2-3c4f304fde63",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "4/4",
@@ -236,7 +236,7 @@
               ]
             },
             {
-              "uuid": "fc2ccd2c-2f5f-533c-9e16-f93cf210981d",
+              "uuid": "8dc085cc-7df9-52d1-a13a-adc4fde07df3",
               "idx": 4,
               "report": {
                 "lcl": "14:30:00",
@@ -258,7 +258,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "80b18960-800c-5a5e-bb3c-0e5b3f08d81c",
+                  "uuid": "7a9c9404-2d7b-5781-9f67-e598fb6c9e26",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "5/5",
@@ -291,7 +291,7 @@
           ]
         },
         {
-          "uuid": "33fea328-bf71-5afc-8d52-2cc2f4d5162f",
+          "uuid": "7038a712-45b9-5b62-8b72-13926d4a75f6",
           "number": "6539",
           "positions": [
             "CA",
@@ -305,7 +305,7 @@
           "tafb": 259680.0,
           "dutyperiods": [
             {
-              "uuid": "ba90036f-f28e-5720-9ed5-0a033e483ac3",
+              "uuid": "97af210a-3c45-580c-9da5-d7258b66b2a9",
               "idx": 1,
               "report": {
                 "lcl": "22:59:00",
@@ -325,18 +325,18 @@
               "duty": 22080.0,
               "flight_duty": 20280.0,
               "layover": {
-                "uuid": "86e7abcc-5f95-505f-b4f9-7c5a4a449d73",
+                "uuid": "a53ce8aa-26ff-5b1a-8b3c-47a3fbdca7df",
                 "odl": 40740.0,
                 "city": "CLT",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "86e7abcc-5f95-505f-b4f9-7c5a4a449d73",
+                      "uuid": "a53ce8aa-26ff-5b1a-8b3c-47a3fbdca7df",
                       "name": "DOUBLETREE CLT AIRPORT",
                       "phone": "17043579100"
                     },
                     "transportation": {
-                      "uuid": "8fa5660d-0088-5aaf-ad88-886cf49aa99f",
+                      "uuid": "e95d08c2-ed50-5532-824a-84dfb4bf8c4a",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -345,7 +345,7 @@
               },
               "flights": [
                 {
-                  "uuid": "ba8d6318-bcc0-5a29-aec0-73a1172c5066",
+                  "uuid": "ee7b85b8-3c38-54cd-b82b-de508caa01d6",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -373,7 +373,7 @@
               ]
             },
             {
-              "uuid": "10b6337e-3756-5713-a324-ef0042b8cf1c",
+              "uuid": "28830105-118a-5917-9611-e640007b6376",
               "idx": 2,
               "report": {
                 "lcl": "19:26:00",
@@ -393,18 +393,18 @@
               "duty": 26340.0,
               "flight_duty": 24540.0,
               "layover": {
-                "uuid": "051ee9a7-121a-5337-82c4-bbb60b2d3f33",
+                "uuid": "44196135-e545-5017-90d9-b9d4ba163205",
                 "odl": 44760.0,
                 "city": "SEA",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "051ee9a7-121a-5337-82c4-bbb60b2d3f33",
+                      "uuid": "44196135-e545-5017-90d9-b9d4ba163205",
                       "name": "CROWNE PLAZA AP",
                       "phone": "12062481000"
                     },
                     "transportation": {
-                      "uuid": "6d27ca4b-a814-5a89-893b-50f066659a4a",
+                      "uuid": "c5d51e73-003d-591b-968b-944d9d51fcb6",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -413,7 +413,7 @@
               },
               "flights": [
                 {
-                  "uuid": "6c3b740d-aec5-5fb3-8770-57611c8fe71d",
+                  "uuid": "06e8a675-f562-50a3-87ba-fcda798f3131",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -441,7 +441,7 @@
               ]
             },
             {
-              "uuid": "92310f47-bb48-524d-987a-07c6c2e6a2f2",
+              "uuid": "475a29c6-f6d2-537d-86eb-8fa2b62ad1c9",
               "idx": 3,
               "report": {
                 "lcl": "12:11:00",
@@ -461,18 +461,18 @@
               "duty": 36720.0,
               "flight_duty": 34920.0,
               "layover": {
-                "uuid": "168a150c-7224-5b9d-ab31-1a5ae5d0c946",
+                "uuid": "3b704099-418e-5ef4-9e4a-d62bd9875421",
                 "odl": 68760.0,
                 "city": "STL",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "168a150c-7224-5b9d-ab31-1a5ae5d0c946",
+                      "uuid": "3b704099-418e-5ef4-9e4a-d62bd9875421",
                       "name": "MARRIOTT GRAND ST. LOUIS",
                       "phone": "13146219600"
                     },
                     "transportation": {
-                      "uuid": "23a5dcc7-03af-520a-8151-2366efb2c26e",
+                      "uuid": "e401b619-1897-5abd-abc8-179818b65a0a",
                       "name": "JED TRANSPORTATION",
                       "phone": "3144292200"
                     }
@@ -481,7 +481,7 @@
               },
               "flights": [
                 {
-                  "uuid": "891d01d3-ce70-51cd-bf9b-b1eb3ea64401",
+                  "uuid": "69807592-2b02-55ef-aa95-f8e8ab221cee",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -507,7 +507,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "53086272-316b-5aa3-8177-65cd15a92eb4",
+                  "uuid": "3b4c8c2a-1287-55a7-9959-76acf0bfbb8b",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "3/3",
@@ -535,7 +535,7 @@
               ]
             },
             {
-              "uuid": "7a196d4d-3cec-5d01-9f94-14977cb87c8b",
+              "uuid": "03c0ae27-8160-59e1-9211-8987b370cf10",
               "idx": 4,
               "report": {
                 "lcl": "18:29:00",
@@ -557,7 +557,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "26d9aea6-989c-52c2-9822-25027b6e0791",
+                  "uuid": "ef0e1490-ef14-510b-bee0-13c73a9e3fb8",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "4/4",
@@ -590,7 +590,7 @@
           ]
         },
         {
-          "uuid": "90be199d-9f49-5e3e-b2f1-c8aa78ceb3f5",
+          "uuid": "7ab63be4-14a1-5f11-a2c6-808034369581",
           "number": "6540",
           "positions": [
             "CA",
@@ -604,7 +604,7 @@
           "tafb": 240720.0,
           "dutyperiods": [
             {
-              "uuid": "519bf090-f2d2-54a4-93b3-d6096ae2a272",
+              "uuid": "b0d587db-441e-59fd-bfb2-de7114eb8fec",
               "idx": 1,
               "report": {
                 "lcl": "23:59:00",
@@ -624,18 +624,18 @@
               "duty": 16140.0,
               "flight_duty": 14340.0,
               "layover": {
-                "uuid": "b33ad4dc-739e-5365-ad9d-225dcb1ecbe7",
+                "uuid": "3941c075-6fda-55d9-b3ce-bd113b39f443",
                 "odl": 42060.0,
                 "city": "DFW",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "b33ad4dc-739e-5365-ad9d-225dcb1ecbe7",
+                      "uuid": "3941c075-6fda-55d9-b3ce-bd113b39f443",
                       "name": "HYATT REGENCY DFW",
                       "phone": "19724531234"
                     },
                     "transportation": {
-                      "uuid": "578df40b-0868-5bf8-bb7e-2cfd9e573a2f",
+                      "uuid": "bbca9a32-1e6e-51d1-8f4d-1aeec0039605",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -644,7 +644,7 @@
               },
               "flights": [
                 {
-                  "uuid": "376fc31d-e5ab-5176-9149-1ad83dfd13f6",
+                  "uuid": "3eef4018-4058-505b-b105-8baf6f8cccf3",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -672,7 +672,7 @@
               ]
             },
             {
-              "uuid": "38ab0dc6-fcb3-5be9-8318-cd9240fc056d",
+              "uuid": "5ee6b551-d929-587f-aa01-941f5169b28d",
               "idx": 2,
               "report": {
                 "lcl": "18:09:00",
@@ -692,18 +692,18 @@
               "duty": 16680.0,
               "flight_duty": 14880.0,
               "layover": {
-                "uuid": "b8169ed5-95f8-52ca-9745-43015d02c21d",
+                "uuid": "746c4848-66cc-5041-832c-774c2f19dbc5",
                 "odl": 41760.0,
                 "city": "PHL",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "b8169ed5-95f8-52ca-9745-43015d02c21d",
+                      "uuid": "746c4848-66cc-5041-832c-774c2f19dbc5",
                       "name": "MARRIOTT PHL AIRPORT",
                       "phone": "12154929000"
                     },
                     "transportation": {
-                      "uuid": "8ade6ec8-9c5b-5821-a7fd-f8eadac5a23a",
+                      "uuid": "a8f98dea-6373-56a6-950f-40a4227b3089",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -712,7 +712,7 @@
               },
               "flights": [
                 {
-                  "uuid": "3ab92092-fdd8-520a-8dad-5f8c3b2cde44",
+                  "uuid": "63a2a456-7c56-540d-af74-777b1231ab32",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -740,7 +740,7 @@
               ]
             },
             {
-              "uuid": "8ae8dd43-f8f3-53a8-87b3-8c62b2da0f2c",
+              "uuid": "6acbd19c-9152-50db-804e-589fb319541f",
               "idx": 3,
               "report": {
                 "lcl": "11:23:00",
@@ -760,18 +760,18 @@
               "duty": 36480.0,
               "flight_duty": 34680.0,
               "layover": {
-                "uuid": "e6966207-bc00-5c97-8b5a-c0086fd46b2c",
+                "uuid": "ac281b88-4a9a-5d8c-be23-72518c240926",
                 "odl": 46980.0,
                 "city": "PHL",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "e6966207-bc00-5c97-8b5a-c0086fd46b2c",
+                      "uuid": "ac281b88-4a9a-5d8c-be23-72518c240926",
                       "name": "MARRIOTT PHL AIRPORT",
                       "phone": "12154929000"
                     },
                     "transportation": {
-                      "uuid": "670ee8de-b99e-5002-9e95-6326d25c3518",
+                      "uuid": "18620079-34dc-5488-a84f-4829454278b1",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -780,7 +780,7 @@
               },
               "flights": [
                 {
-                  "uuid": "e6ef16a8-b88a-540d-8baa-c0d096690ecd",
+                  "uuid": "df23befa-76d0-52ed-affa-6cadf5364a75",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -806,7 +806,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "bf927e7e-0b83-58ec-b24d-ae3f8628ef51",
+                  "uuid": "3643577c-f369-506b-8d28-dee87f6bfec5",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "2/2",
@@ -834,7 +834,7 @@
               ]
             },
             {
-              "uuid": "54f7a187-ace4-5901-ad42-0b4090e7fa3a",
+              "uuid": "44df6304-15e9-5ce5-b4a2-4a5b5845b971",
               "idx": 4,
               "report": {
                 "lcl": "09:34:00",
@@ -856,7 +856,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "8e00a867-1b4f-58c6-b578-f0fc4321d9ea",
+                  "uuid": "a1bf5940-5963-51cf-acfe-832b0c4ea341",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -882,7 +882,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "0c94b90b-7de2-5fa7-9c5e-fdab70c897ae",
+                  "uuid": "7b30a5fc-4271-5ac0-9c3c-5cfb34782993",
                   "dp_idx": 4,
                   "idx": 2,
                   "dep_arr_day": "3/3",
@@ -914,7 +914,8 @@
             "2022-11-04"
           ]
         }
-      ]
+      ],
+      "number": "1455"
     },
     {
       "uuid": "2157ed92-8ec0-5bf5-9b6f-da51e614306f",
@@ -928,7 +929,7 @@
       "end": "2022-12-01",
       "trips": [
         {
-          "uuid": "7edac261-dd9d-5440-a096-a2555b25ab14",
+          "uuid": "0aaf8c49-761d-590d-b545-0174857b3259",
           "number": "6567",
           "positions": [
             "CA",
@@ -942,7 +943,7 @@
           "tafb": 263820.0,
           "dutyperiods": [
             {
-              "uuid": "cb661809-cf02-5009-a26e-9c221b65084c",
+              "uuid": "a7e25bf9-a0f6-51e2-8cda-b97a57bfb166",
               "idx": 1,
               "report": {
                 "lcl": "22:59:00",
@@ -962,18 +963,18 @@
               "duty": 22080.0,
               "flight_duty": 20280.0,
               "layover": {
-                "uuid": "9638d9e9-64b6-5ec2-bf26-039ed3f83541",
+                "uuid": "181d1993-4e5d-59b7-a918-d6cc7ffe502a",
                 "odl": 41580.0,
                 "city": "CLT",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "9638d9e9-64b6-5ec2-bf26-039ed3f83541",
+                      "uuid": "181d1993-4e5d-59b7-a918-d6cc7ffe502a",
                       "name": "DOUBLETREE CLT AIRPORT",
                       "phone": "17043579100"
                     },
                     "transportation": {
-                      "uuid": "c84d0d3d-abaf-599e-86fb-f6b9b39e14b2",
+                      "uuid": "c0c615e4-3c30-5f41-bd2b-9b1dec6ec1f2",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -982,7 +983,7 @@
               },
               "flights": [
                 {
-                  "uuid": "ddcc8ed7-c166-59ec-b56d-9394a89d8714",
+                  "uuid": "8c08b658-4a4d-5651-8d7e-4a7c1c7b4c54",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/2",
@@ -1010,7 +1011,7 @@
               ]
             },
             {
-              "uuid": "54cdb2e9-4437-5b5d-aa65-ba910d39f6b3",
+              "uuid": "578ba0cf-40ae-57bc-ad42-d9fbf43737aa",
               "idx": 2,
               "report": {
                 "lcl": "19:40:00",
@@ -1030,18 +1031,18 @@
               "duty": 22680.0,
               "flight_duty": 20880.0,
               "layover": {
-                "uuid": "7d5cd754-2e3f-5b6a-90e9-249a71f8aa81",
+                "uuid": "4059d978-29ef-5d58-8df9-30e370dbf1fd",
                 "odl": 66780.0,
                 "city": "LAS",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "7d5cd754-2e3f-5b6a-90e9-249a71f8aa81",
+                      "uuid": "4059d978-29ef-5d58-8df9-30e370dbf1fd",
                       "name": "MARRIOTT LAS VEGAS",
                       "phone": "17026502000"
                     },
                     "transportation": {
-                      "uuid": "f1b44970-0abf-5489-879c-7e31ff9511e2",
+                      "uuid": "cde6103d-50dd-5b96-affa-73c3e88ea2f1",
                       "name": "WORLDWIDE FLIGHT SERVICES",
                       "phone": "7025912180"
                     }
@@ -1050,7 +1051,7 @@
               },
               "flights": [
                 {
-                  "uuid": "9a569113-9df1-5e1e-940e-3647c227bddb",
+                  "uuid": "8f4b0bb5-d6c1-54a6-931e-e049dbdfdccf",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -1078,7 +1079,7 @@
               ]
             },
             {
-              "uuid": "42febd89-c89d-5940-87fa-700e53005e62",
+              "uuid": "ec620a52-722a-5fff-abc0-a597df0a2f83",
               "idx": 3,
               "report": {
                 "lcl": "16:31:00",
@@ -1098,18 +1099,18 @@
               "duty": 36000.0,
               "flight_duty": 34200.0,
               "layover": {
-                "uuid": "c0075cd1-4af5-5e4c-a498-2d88ba0a8911",
+                "uuid": "828dd115-c51d-5b5d-90b7-bf127997657d",
                 "odl": 39480.0,
                 "city": "TPA",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "c0075cd1-4af5-5e4c-a498-2d88ba0a8911",
+                      "uuid": "828dd115-c51d-5b5d-90b7-bf127997657d",
                       "name": "HILTON GARDEN INN WESTSHORE",
                       "phone": "18132892700"
                     },
                     "transportation": {
-                      "uuid": "0da66fcb-d65a-5640-8d96-9b0583a49728",
+                      "uuid": "25f21a5d-b3ab-5245-aa6e-2868cf430c51",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -1118,7 +1119,7 @@
               },
               "flights": [
                 {
-                  "uuid": "1da8c812-f9f9-52db-981a-05e5fa6e70d8",
+                  "uuid": "7b6c636c-b404-5ce0-8fb7-d32435534262",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -1144,7 +1145,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "5a6c1b46-5779-51a5-8a2f-8dd25668dbbf",
+                  "uuid": "0054308e-b843-5ddb-b2cc-83d1e7076346",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "3/4",
@@ -1172,7 +1173,7 @@
               ]
             },
             {
-              "uuid": "39667516-95b8-5cf0-8943-fe0e33b411a1",
+              "uuid": "204853b5-ff88-5c6e-87d2-b0e1bcd0e912",
               "idx": 4,
               "report": {
                 "lcl": "16:29:00",
@@ -1194,7 +1195,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "bf126178-4186-5127-b32f-d44d421e35cc",
+                  "uuid": "db7e21e6-4667-5104-ac98-0789e5bcd157",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "4/4",
@@ -1220,7 +1221,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "11b03c40-9a4b-5dcb-ac9d-b50578b73d09",
+                  "uuid": "a0561298-12e0-5839-8266-5bbcb3ea4211",
                   "dp_idx": 4,
                   "idx": 2,
                   "dep_arr_day": "4/4",
@@ -1253,7 +1254,7 @@
           ]
         },
         {
-          "uuid": "f3a0f489-9459-533c-bbc6-0095514c535b",
+          "uuid": "586c107d-46c1-5540-953d-6a4145bc23fb",
           "number": "6568",
           "positions": [
             "CA",
@@ -1267,7 +1268,7 @@
           "tafb": 255720.0,
           "dutyperiods": [
             {
-              "uuid": "383a2ba9-9520-5cbb-81ac-f723400b21d7",
+              "uuid": "d879acc7-efb8-584b-b6b0-d2ab62c2e993",
               "idx": 1,
               "report": {
                 "lcl": "23:59:00",
@@ -1287,18 +1288,18 @@
               "duty": 16140.0,
               "flight_duty": 14340.0,
               "layover": {
-                "uuid": "14b08703-f3d6-5241-8297-e389a576caff",
+                "uuid": "1a7e5870-9cf3-5d40-9d7d-184cc28e127a",
                 "odl": 42120.0,
                 "city": "DFW",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "14b08703-f3d6-5241-8297-e389a576caff",
+                      "uuid": "1a7e5870-9cf3-5d40-9d7d-184cc28e127a",
                       "name": "HYATT REGENCY DFW",
                       "phone": "19724531234"
                     },
                     "transportation": {
-                      "uuid": "2eefd652-8871-5b4f-bd3a-bd3322b34585",
+                      "uuid": "9932a727-face-55de-a4f0-d5ec25be46c7",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -1307,7 +1308,7 @@
               },
               "flights": [
                 {
-                  "uuid": "d137dbd3-cbac-5e70-b6af-b89ee64cc8e8",
+                  "uuid": "0f9b8778-af10-5d4a-aa2d-2a5956af17ce",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -1335,7 +1336,7 @@
               ]
             },
             {
-              "uuid": "74d0b7cd-1178-5782-a4d9-9c753cf8f3b4",
+              "uuid": "5f915ab7-0637-5251-b0bb-f5e4d6928906",
               "idx": 2,
               "report": {
                 "lcl": "18:10:00",
@@ -1355,18 +1356,18 @@
               "duty": 19260.0,
               "flight_duty": 17460.0,
               "layover": {
-                "uuid": "6bf96b33-1b67-5513-acea-039262f73b8b",
+                "uuid": "857e8610-8e96-5802-be58-689f9f4b6bea",
                 "odl": 56340.0,
                 "city": "SFO",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "6bf96b33-1b67-5513-acea-039262f73b8b",
+                      "uuid": "857e8610-8e96-5802-be58-689f9f4b6bea",
                       "name": "MARRIOTT SAN FRANCISCO AIRPORT",
                       "phone": "16506929100"
                     },
                     "transportation": {
-                      "uuid": "f8cf076a-3f89-5603-9fa3-85eb0d8b2476",
+                      "uuid": "cbfdeba2-3668-575c-aeaf-68bf62deda71",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -1375,7 +1376,7 @@
               },
               "flights": [
                 {
-                  "uuid": "a935dc77-6a14-5e1a-bf26-9b0df95e8776",
+                  "uuid": "c12d3988-084c-564f-9da3-95a262a7555f",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -1403,7 +1404,7 @@
               ]
             },
             {
-              "uuid": "ceb7e692-cb4b-5273-b19e-affa3b0d7d21",
+              "uuid": "069eb39a-2279-5a72-8405-0223b7fdd8d9",
               "idx": 3,
               "report": {
                 "lcl": "12:10:00",
@@ -1423,18 +1424,18 @@
               "duty": 36180.0,
               "flight_duty": 34380.0,
               "layover": {
-                "uuid": "253ef2cf-2b93-5e57-9b54-5df81032d95a",
+                "uuid": "984926ac-9b08-5b52-b404-ae1b55128882",
                 "odl": 56820.0,
                 "city": "BOS",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "253ef2cf-2b93-5e57-9b54-5df81032d95a",
+                      "uuid": "984926ac-9b08-5b52-b404-ae1b55128882",
                       "name": "THE WESTIN COPLEY PLACE BOSTON",
                       "phone": "6172629600"
                     },
                     "transportation": {
-                      "uuid": "9072d3a9-d6d0-59e8-acb7-4d1a3cb32b10",
+                      "uuid": "2ec01019-4e9e-51ba-a8e3-a4189be00b97",
                       "name": "DESERT COACH",
                       "phone": "6022866161"
                     }
@@ -1443,7 +1444,7 @@
               },
               "flights": [
                 {
-                  "uuid": "abda0ad8-70cd-5a50-9ffe-a079bd9efa37",
+                  "uuid": "8547c4ba-0dad-5ee3-826f-7fb39d8e020d",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -1469,7 +1470,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "3e380c78-343a-54e5-a287-4c1ac06dc6a9",
+                  "uuid": "63a75ab6-ecde-5844-8f0b-a85a729f2a2a",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "2/3",
@@ -1497,7 +1498,7 @@
               ]
             },
             {
-              "uuid": "d7a34d7c-29f9-533d-a992-969f752ac14f",
+              "uuid": "368f4af9-fae5-5a31-8a7e-f5fb39e4d5c9",
               "idx": 4,
               "report": {
                 "lcl": "17:00:00",
@@ -1519,7 +1520,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "a40595c7-b0f2-524d-bdf1-3e3288f0bfcb",
+                  "uuid": "5a7a4225-c192-5e06-8bcc-0512ce5f67b2",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -1552,7 +1553,7 @@
           ]
         },
         {
-          "uuid": "9b72b562-057b-5fe8-9794-06f673771ddd",
+          "uuid": "1a71a2b1-d670-53d8-aa22-2de4b6e80e3e",
           "number": "6569",
           "positions": [
             "CA",
@@ -1566,7 +1567,7 @@
           "tafb": 251700.0,
           "dutyperiods": [
             {
-              "uuid": "845d201c-01de-5b88-8011-f62032e6cea0",
+              "uuid": "f77c6eb5-90d3-5c7e-9f0e-611b7c5c69ee",
               "idx": 1,
               "report": {
                 "lcl": "00:12:00",
@@ -1586,18 +1587,18 @@
               "duty": 22980.0,
               "flight_duty": 21180.0,
               "layover": {
-                "uuid": "f92708ba-2feb-5358-a7b9-a1669eb9ab32",
+                "uuid": "0ca6710c-813c-5bbc-a3a9-b11f489bd2ff",
                 "odl": 100500.0,
                 "city": "MIA",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "f92708ba-2feb-5358-a7b9-a1669eb9ab32",
+                      "uuid": "0ca6710c-813c-5bbc-a3a9-b11f489bd2ff",
                       "name": "RESIDENCE INN SUNNY ISLES",
                       "phone": "13059335224"
                     },
                     "transportation": {
-                      "uuid": "55c2d35e-9b52-5569-b41c-4e3f7111240e",
+                      "uuid": "80bb0f45-d8bd-5384-bbc4-5949f4bd126f",
                       "name": "SKYHOP GLOBAL",
                       "phone": "9544000412"
                     }
@@ -1606,7 +1607,7 @@
               },
               "flights": [
                 {
-                  "uuid": "5ce2be58-a0b7-537c-b303-cc1462f924a3",
+                  "uuid": "410fec0b-7dd9-54c4-a4db-5b92ffdb7b47",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -1634,7 +1635,7 @@
               ]
             },
             {
-              "uuid": "a84b7cb6-2235-5afb-b624-1f9b43a0a772",
+              "uuid": "cca61799-83ac-524c-815f-9be6b05039dc",
               "idx": 2,
               "report": {
                 "lcl": "12:30:00",
@@ -1654,18 +1655,18 @@
               "duty": 40080.0,
               "flight_duty": 38280.0,
               "layover": {
-                "uuid": "e0b89137-43ae-56d3-91b2-7c7e247b6ecf",
+                "uuid": "d3fd3b70-a5f3-5883-8e94-ef47adaf8187",
                 "odl": 51960.0,
                 "city": "NAS",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "e0b89137-43ae-56d3-91b2-7c7e247b6ecf",
+                      "uuid": "d3fd3b70-a5f3-5883-8e94-ef47adaf8187",
                       "name": "COURTYARD NASSAU DOWNTOWN",
                       "phone": "2423022975"
                     },
                     "transportation": {
-                      "uuid": "9cde6619-aa99-5e48-a0ab-2efd0c19c492",
+                      "uuid": "e1f691a4-c7f8-5f81-a8b9-3808beccee57",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -1674,7 +1675,7 @@
               },
               "flights": [
                 {
-                  "uuid": "95eef8df-c927-5aae-9ab7-2c0d0c985baf",
+                  "uuid": "829c5447-cb67-5f3d-a215-b6e21ad762aa",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -1700,7 +1701,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "e73eb978-1274-5d72-bfee-af85c192925b",
+                  "uuid": "4c4a6187-d343-58fb-8d53-ce62c078ae7d",
                   "dp_idx": 2,
                   "idx": 2,
                   "dep_arr_day": "2/2",
@@ -1726,7 +1727,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "1f331800-302e-533a-a041-30093f64e131",
+                  "uuid": "6e52e636-bfed-5152-9471-a2b96ce58a69",
                   "dp_idx": 2,
                   "idx": 3,
                   "dep_arr_day": "2/2",
@@ -1754,7 +1755,7 @@
               ]
             },
             {
-              "uuid": "2adfe841-307a-5f4a-b612-e49d83f0f611",
+              "uuid": "8056cd76-583f-5767-ad83-4183afb43d51",
               "idx": 3,
               "report": {
                 "lcl": "14:04:00",
@@ -1776,7 +1777,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "ccec6664-a32f-52ad-a582-15bc2937c393",
+                  "uuid": "996124ff-0221-5372-a9d9-9d3fae7da1b6",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -1802,7 +1803,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "c5b317b0-e86d-5cc9-87a4-ef27734717a9",
+                  "uuid": "ee505c3e-8b46-5d87-b5f6-00bc121706d7",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "3/3",
@@ -1835,7 +1836,7 @@
           ]
         },
         {
-          "uuid": "c3006c2b-581b-5bcd-8421-6f1106ae6b4c",
+          "uuid": "f169d5f7-dab8-5a84-99e7-acc449a5e7cd",
           "number": "6572",
           "positions": [
             "CA",
@@ -1849,7 +1850,7 @@
           "tafb": 117360.0,
           "dutyperiods": [
             {
-              "uuid": "c1c5162f-4956-5d5f-b7d2-61e446de8e9f",
+              "uuid": "9bcab182-d544-5f38-995d-15fe2e3e7ba4",
               "idx": 1,
               "report": {
                 "lcl": "07:41:00",
@@ -1869,18 +1870,18 @@
               "duty": 27540.0,
               "flight_duty": 25740.0,
               "layover": {
-                "uuid": "cc69bcbd-be7f-5077-abf4-6bcd3cc185ad",
+                "uuid": "ed2b0646-9728-50bf-9be4-2e9902f4419c",
                 "odl": 64500.0,
                 "city": "HNL",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "cc69bcbd-be7f-5077-abf4-6bcd3cc185ad",
+                      "uuid": "ed2b0646-9728-50bf-9be4-2e9902f4419c",
                       "name": "PRINCE WAIKIKI",
                       "phone": "18089561111"
                     },
                     "transportation": {
-                      "uuid": "0d7ffe90-d6d3-5784-8593-9cdb671a626b",
+                      "uuid": "d84977cb-2f40-586f-9975-4764c411368b",
                       "name": "VIP TRANSPORTATION\u2212 HNL",
                       "phone": "8088360317"
                     }
@@ -1889,7 +1890,7 @@
               },
               "flights": [
                 {
-                  "uuid": "5ba32dfd-8ac3-5745-8a08-1e4cc7bb9d0f",
+                  "uuid": "f1531246-acaa-58fd-bc93-b9b73b09e57c",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -1917,7 +1918,7 @@
               ]
             },
             {
-              "uuid": "502154b4-8d92-53e7-853c-9023a0b675d6",
+              "uuid": "aaf103d7-41e5-55e8-b26d-28906660bfb0",
               "idx": 2,
               "report": {
                 "lcl": "06:15:00",
@@ -1939,7 +1940,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "624b2062-03d6-57ac-83d6-dc2d579fc6d7",
+                  "uuid": "c83eaf21-4f0b-52a1-96cd-61daaeee8d72",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -1971,7 +1972,8 @@
             "2022-11-05"
           ]
         }
-      ]
+      ],
+      "number": "1461"
     },
     {
       "uuid": "7587982a-d25f-5c8f-9ebd-2bf1ed82af93",
@@ -1985,7 +1987,7 @@
       "end": "2022-12-01",
       "trips": [
         {
-          "uuid": "5a90ab4b-9771-5680-8d6c-7cdf1f228b5c",
+          "uuid": "c32a3aa7-523f-5918-a9fe-4f3cc321c24f",
           "number": "6602",
           "positions": [
             "CA",
@@ -1999,7 +2001,7 @@
           "tafb": 264120.0,
           "dutyperiods": [
             {
-              "uuid": "7265b21b-751b-5448-95c1-eafd5ae7ed85",
+              "uuid": "e454dd63-b9eb-50d7-81c1-6b34b22e0369",
               "idx": 1,
               "report": {
                 "lcl": "23:59:00",
@@ -2019,18 +2021,18 @@
               "duty": 16140.0,
               "flight_duty": 14340.0,
               "layover": {
-                "uuid": "9635597a-5b80-560c-9a16-b0ee4c15084d",
+                "uuid": "c746bab3-3144-5ea4-a0c1-b23f8f7ea170",
                 "odl": 52260.0,
                 "city": "DFW",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "9635597a-5b80-560c-9a16-b0ee4c15084d",
+                      "uuid": "c746bab3-3144-5ea4-a0c1-b23f8f7ea170",
                       "name": "HYATT REGENCY DFW",
                       "phone": "19724531234"
                     },
                     "transportation": {
-                      "uuid": "584f1c5c-a04c-5fb1-bf1a-cb95c19c790e",
+                      "uuid": "0b6b0b5f-c6d0-5369-bb2d-beae135a82fa",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -2039,7 +2041,7 @@
               },
               "flights": [
                 {
-                  "uuid": "6a4ca0f1-efff-51b5-bdf9-5a6acc0f14b6",
+                  "uuid": "01722425-af6b-5a88-b531-d326f45646a3",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -2067,7 +2069,7 @@
               ]
             },
             {
-              "uuid": "aa0504aa-b0ba-5c55-9caf-33da6c4efd8d",
+              "uuid": "3e648d81-43b3-5ae3-b3c2-4d067f2ebf3b",
               "idx": 2,
               "report": {
                 "lcl": "19:59:00",
@@ -2087,18 +2089,18 @@
               "duty": 21240.0,
               "flight_duty": 19440.0,
               "layover": {
-                "uuid": "c5f406ad-d98c-5e31-b0ff-e267cf2e7024",
+                "uuid": "63563e13-50d7-5b39-9132-f56c32deb47c",
                 "odl": 45180.0,
                 "city": "SEA",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "c5f406ad-d98c-5e31-b0ff-e267cf2e7024",
+                      "uuid": "63563e13-50d7-5b39-9132-f56c32deb47c",
                       "name": "CROWNE PLAZA AP",
                       "phone": "12062481000"
                     },
                     "transportation": {
-                      "uuid": "870ed135-31c7-5959-b1f5-6b793d9226b2",
+                      "uuid": "c1e88ad6-ac9a-582f-85e4-691e56e952f1",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -2107,7 +2109,7 @@
               },
               "flights": [
                 {
-                  "uuid": "a2be121e-5d1c-5d66-a98b-cad9ebcfdb86",
+                  "uuid": "641aa35e-427e-55dd-975e-89aba17113be",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -2135,7 +2137,7 @@
               ]
             },
             {
-              "uuid": "86e844c0-bf16-5d37-9e7f-55796ba8f86c",
+              "uuid": "9df7184f-797e-50a9-921c-a139c7972b71",
               "idx": 3,
               "report": {
                 "lcl": "12:26:00",
@@ -2155,18 +2157,18 @@
               "duty": 32340.0,
               "flight_duty": 30540.0,
               "layover": {
-                "uuid": "71cd45cf-0caf-5710-bfd2-4599dd4d4257",
+                "uuid": "4ae55639-9cf8-50ef-8323-1f02a68cb8e4",
                 "odl": 59640.0,
                 "city": "RDU",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "71cd45cf-0caf-5710-bfd2-4599dd4d4257",
+                      "uuid": "4ae55639-9cf8-50ef-8323-1f02a68cb8e4",
                       "name": "EMBASSY SUITES",
                       "phone": "19196771840"
                     },
                     "transportation": {
-                      "uuid": "761135dc-af4c-5b68-b849-144d78738c36",
+                      "uuid": "8d7e453a-3b43-52d7-bae0-4335b69a028e",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -2175,7 +2177,7 @@
               },
               "flights": [
                 {
-                  "uuid": "90a0036b-a0cd-57d1-8b0e-768f77569ccc",
+                  "uuid": "6ac4eef8-d56c-5b69-b051-6e035bb0a6dd",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -2201,7 +2203,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "431691c4-ea6b-5643-9f99-06282c6447bc",
+                  "uuid": "9cd0f660-e559-5bfc-a9e2-8eaf6edc3869",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "2/2",
@@ -2229,7 +2231,7 @@
               ]
             },
             {
-              "uuid": "64ef784a-0f91-506c-ac2b-7b55c25598f5",
+              "uuid": "fb9dc4a5-ba87-544d-b2b2-e1bc79d174cd",
               "idx": 4,
               "report": {
                 "lcl": "16:59:00",
@@ -2251,7 +2253,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "4442e27c-a97c-5388-98fc-36a649eb998d",
+                  "uuid": "387f73cd-336c-56bb-86d9-a1bcf117c328",
                   "dp_idx": 4,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -2277,7 +2279,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "23770ac6-438f-5221-a31b-2c8d4cab88ab",
+                  "uuid": "02a3c909-9177-5120-bebd-576c4fc287d9",
                   "dp_idx": 4,
                   "idx": 2,
                   "dep_arr_day": "3/3",
@@ -2310,7 +2312,7 @@
           ]
         },
         {
-          "uuid": "91cc0351-f9b6-5314-bc6a-bb498ec699b6",
+          "uuid": "62a43601-c6a2-5fec-8971-5f91a320ce28",
           "number": "6604",
           "positions": [
             "CA",
@@ -2324,7 +2326,7 @@
           "tafb": 215160.0,
           "dutyperiods": [
             {
-              "uuid": "58099187-aa5d-5f1b-b001-1111b2a2a69c",
+              "uuid": "c3d9bd49-454c-5c0d-b0d0-f45b43c56a98",
               "idx": 1,
               "report": {
                 "lcl": "07:30:00",
@@ -2344,18 +2346,18 @@
               "duty": 25680.0,
               "flight_duty": 23880.0,
               "layover": {
-                "uuid": "9bbe3a24-9198-5c36-b638-58df335ceafa",
+                "uuid": "0fce67b3-2c5e-56cc-be56-6d47b44e5b65",
                 "odl": 56220.0,
                 "city": "JFK",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "9bbe3a24-9198-5c36-b638-58df335ceafa",
+                      "uuid": "0fce67b3-2c5e-56cc-be56-6d47b44e5b65",
                       "name": "TWA HOTEL",
                       "phone": "2128069000"
                     },
                     "transportation": {
-                      "uuid": "594dc838-132e-5ee0-b804-82b219331f5a",
+                      "uuid": "d9b45357-7be5-5054-b10d-66a0914438b7",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -2364,7 +2366,7 @@
               },
               "flights": [
                 {
-                  "uuid": "71176d11-5595-5315-baf1-14e8b190a3b3",
+                  "uuid": "9e20ed27-fb2b-5d67-8d50-b28fb00e0cdd",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -2392,7 +2394,7 @@
               ]
             },
             {
-              "uuid": "34419684-bcad-58bd-bf57-dc8580874885",
+              "uuid": "e197501b-e296-5505-8828-133252abc3af",
               "idx": 2,
               "report": {
                 "lcl": "09:15:00",
@@ -2412,18 +2414,18 @@
               "duty": 37740.0,
               "flight_duty": 35940.0,
               "layover": {
-                "uuid": "6ba8bcbb-8f1a-58bd-9b87-0201a9df87ba",
+                "uuid": "49af4c8d-f5ec-5dd9-972d-4cf916df3b59",
                 "odl": 66060.0,
                 "city": "LAS",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "6ba8bcbb-8f1a-58bd-9b87-0201a9df87ba",
+                      "uuid": "49af4c8d-f5ec-5dd9-972d-4cf916df3b59",
                       "name": "MARRIOTT LAS VEGAS",
                       "phone": "17026502000"
                     },
                     "transportation": {
-                      "uuid": "0d624016-0cea-5931-bbd1-53b7efe78b1d",
+                      "uuid": "db483d0d-91d2-5681-bde7-84dc69f2d8ae",
                       "name": "WORLDWIDE FLIGHT SERVICES",
                       "phone": "7025912180"
                     }
@@ -2432,7 +2434,7 @@
               },
               "flights": [
                 {
-                  "uuid": "968eaf2a-a788-56e3-ace8-ab8366188821",
+                  "uuid": "f6f42be4-a9f5-555a-a4d9-971a27fda8bc",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -2458,7 +2460,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "3037545e-6852-54b8-bb96-f8c5bf88bc7d",
+                  "uuid": "eed5a00c-090a-5fae-a684-066083f2ea9e",
                   "dp_idx": 2,
                   "idx": 2,
                   "dep_arr_day": "2/2",
@@ -2486,7 +2488,7 @@
               ]
             },
             {
-              "uuid": "a9369ea7-028b-5569-b803-bdc7cbe5e54b",
+              "uuid": "af4a429d-f498-592c-88c2-b630b9245e31",
               "idx": 3,
               "report": {
                 "lcl": "11:05:00",
@@ -2508,7 +2510,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "e2a0fcc6-f31a-59ba-bcbd-34afb5298f41",
+                  "uuid": "b4340da5-a99c-5342-a9fb-82ef26b9c3ff",
                   "dp_idx": 3,
                   "idx": 1,
                   "dep_arr_day": "3/3",
@@ -2534,7 +2536,7 @@
                   "equipment_change": true
                 },
                 {
-                  "uuid": "4172b07c-c75a-5fb8-9716-b7104ae63093",
+                  "uuid": "50d61a18-9a08-526a-8aaa-0a2931af58b9",
                   "dp_idx": 3,
                   "idx": 2,
                   "dep_arr_day": "3/3",
@@ -2560,7 +2562,7 @@
                   "equipment_change": false
                 },
                 {
-                  "uuid": "7f34786d-f540-53f5-8698-b8756b6b030c",
+                  "uuid": "e619f862-a0b6-5b29-adeb-7cfd61a59847",
                   "dp_idx": 3,
                   "idx": 3,
                   "dep_arr_day": "3/3",
@@ -2593,7 +2595,7 @@
           ]
         },
         {
-          "uuid": "e76b485e-1b32-5b1a-9e14-2088e0d5d2f0",
+          "uuid": "bdef12fc-3b0c-5e4c-924d-7d8e5c483284",
           "number": "6605",
           "positions": [
             "CA",
@@ -2607,7 +2609,7 @@
           "tafb": 137100.0,
           "dutyperiods": [
             {
-              "uuid": "44e0724e-efa3-5e19-8208-f89d0b534e46",
+              "uuid": "6c15fbb5-2883-59b6-b3aa-48d28b2fa114",
               "idx": 1,
               "report": {
                 "lcl": "09:15:00",
@@ -2627,18 +2629,18 @@
               "duty": 26040.0,
               "flight_duty": 24240.0,
               "layover": {
-                "uuid": "19bf73a0-ab56-55fe-9945-7c93c633eeb0",
+                "uuid": "ab04da07-b386-5bb6-9fb9-09210dd57e5c",
                 "odl": 86580.0,
                 "city": "OGG",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "19bf73a0-ab56-55fe-9945-7c93c633eeb0",
+                      "uuid": "ab04da07-b386-5bb6-9fb9-09210dd57e5c",
                       "name": "MAUI COAST HTL",
                       "phone": "18088746284"
                     },
                     "transportation": {
-                      "uuid": "8cfc0cff-411a-56df-8fef-da05c5d674be",
+                      "uuid": "c75d47ba-f90e-58fc-948e-509d6eef93d9",
                       "name": "VIP TRANSPORTATION\u2212 OGG",
                       "phone": "8088712702"
                     }
@@ -2647,7 +2649,7 @@
               },
               "flights": [
                 {
-                  "uuid": "dde34661-4a17-557c-af6a-a6f5890bc324",
+                  "uuid": "b9a1eb1b-ab4f-5fb0-b0d9-11aeaec939be",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -2675,7 +2677,7 @@
               ]
             },
             {
-              "uuid": "0023efd0-fc9c-525c-acf6-881ea3d9180f",
+              "uuid": "fad73ed2-4501-5ee7-b301-b7cf2b42d804",
               "idx": 2,
               "report": {
                 "lcl": "14:32:00",
@@ -2697,7 +2699,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "3d5f1085-fdf9-53a2-bfa7-bccba429fe0a",
+                  "uuid": "d99dc652-1ccc-5104-a9fd-2695a802a519",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -2730,7 +2732,7 @@
           ]
         },
         {
-          "uuid": "ec5e8f31-1fe0-5e46-913b-394090bd0dde",
+          "uuid": "9e41df30-bd9f-5b09-ae9a-457092d9b76d",
           "number": "6606",
           "positions": [
             "CA",
@@ -2744,7 +2746,7 @@
           "tafb": 106320.0,
           "dutyperiods": [
             {
-              "uuid": "84cca662-87de-5185-8896-6d0d792ed2ce",
+              "uuid": "1b299eb4-b320-5dca-bdfa-1577c2ece4e1",
               "idx": 1,
               "report": {
                 "lcl": "09:20:00",
@@ -2764,18 +2766,18 @@
               "duty": 24900.0,
               "flight_duty": 23100.0,
               "layover": {
-                "uuid": "7ae97d8c-4d43-5c2c-bb7f-a6695ee9e5af",
+                "uuid": "c1beeeac-6f33-5402-af93-22514086e772",
                 "odl": 53100.0,
                 "city": "JFK",
                 "hotel_info": [
                   {
                     "hotel": {
-                      "uuid": "7ae97d8c-4d43-5c2c-bb7f-a6695ee9e5af",
+                      "uuid": "c1beeeac-6f33-5402-af93-22514086e772",
                       "name": "TWA HOTEL",
                       "phone": "2128069000"
                     },
                     "transportation": {
-                      "uuid": "8ac1c496-6714-57d8-834f-c287bb227318",
+                      "uuid": "1aa133f3-675b-5782-aea8-a491dfbada4e",
                       "name": "SHUTTLE",
                       "phone": ""
                     }
@@ -2784,7 +2786,7 @@
               },
               "flights": [
                 {
-                  "uuid": "7045c3aa-282d-5769-9b9e-d9094044c583",
+                  "uuid": "25d8e6eb-556a-5acb-aa4a-836a14d4a46a",
                   "dp_idx": 1,
                   "idx": 1,
                   "dep_arr_day": "1/1",
@@ -2812,7 +2814,7 @@
               ]
             },
             {
-              "uuid": "7abd9192-775c-5793-a6d7-6224ea855dff",
+              "uuid": "5813fcb4-3534-5b5f-bbf1-6d2d00629ea0",
               "idx": 2,
               "report": {
                 "lcl": "10:00:00",
@@ -2834,7 +2836,7 @@
               "layover": null,
               "flights": [
                 {
-                  "uuid": "850b2e71-c955-52a6-8ed0-988157fc7fc6",
+                  "uuid": "dd2dbf2a-fba7-5a82-9eb8-520215098890",
                   "dp_idx": 2,
                   "idx": 1,
                   "dep_arr_day": "2/2",
@@ -2866,7 +2868,8 @@
             "2022-11-06"
           ]
         }
-      ]
+      ],
+      "number": "1469"
     }
   ]
 }

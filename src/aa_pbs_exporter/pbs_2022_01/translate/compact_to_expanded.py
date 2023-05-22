@@ -334,4 +334,7 @@ def complete_time_instant(
         new_time=naive_time.replace(tzinfo=ZoneInfo(tz_name)),
         is_future=is_future,
     )
-    return Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=tz_name)
+    instant = Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=tz_name)
+    if instant.local().time().hour != naive_time.hour:
+        raise ValueError("WTF!")
+    return instant

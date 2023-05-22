@@ -23,7 +23,7 @@
     "parsed_data": {
       "source": {
         "idx": 1,
-        "txt": "                RPT 1000/1000                                                          sequence 25384/30DEC \n"
+        "txt": "                RPT 1000/1000                                                          sequence 25384/30DEC\n"
       },
       "report": "1000/1000",
       "calendar": []
@@ -34,7 +34,7 @@
     "parsed_data": {
       "source": {
         "idx": 2,
-        "txt": "                RPT 1829/1829                                                          sequence 01JUL       \n"
+        "txt": "                RPT 1829/1829                                                          sequence 01JUL\n"
       },
       "report": "1829/1829",
       "calendar": []
