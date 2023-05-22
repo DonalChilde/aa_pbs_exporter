@@ -241,7 +241,15 @@ class TripHeader(PyparsingParser):
             #     "special_qualification"
             # )
             + pp.Or(
-                [CALENDAR_HEADER, (pp.one_of(["Replaces", "New"]) + "prior" + "month")]
+                [
+                    CALENDAR_HEADER,
+                    (
+                        pp.one_of(["Replaces", "New"])
+                        + "prior"
+                        + "month"
+                        + pp.Optional("deadhead")
+                    ),
+                ]
             )
             + pp.StringEnd()
         )

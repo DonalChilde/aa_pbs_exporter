@@ -4,6 +4,9 @@ import click
 
 from aa_pbs_exporter.pbs_2022_01.parse_pbs_txt_file import parse_pbs_txt_file
 from aa_pbs_exporter.snippets.click.task_complete import task_complete
+from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
+    ParseException,
+)
 
 
 @click.command()
@@ -33,6 +36,7 @@ def parse(
 
     if path_in.is_dir():
         txt_files = list(path_in.glob("*.txt"))
+        click.echo(f"Checking {path_in} for files.")
         click.echo(f"Found {len(txt_files)} files.")
         if not txt_files:
             raise click.UsageError(f"No txt files found at {path_in}", ctx=ctx)
@@ -40,6 +44,11 @@ def parse(
             click.echo(f"\nParsing {idx+1} of {len(txt_files)} files.")
             click.echo(f"Parsing {txt_file.stem}")
             sub_dir = path_out / txt_file.stem
-            parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
+            try:
+                parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
+            except ParseException as error:
+                click.echo(f"There was an error parsing {txt_file}")
+                click.echo("Check the logs for more details.")
+                click.echo(error)
         task_complete(ctx=ctx)
         return 0

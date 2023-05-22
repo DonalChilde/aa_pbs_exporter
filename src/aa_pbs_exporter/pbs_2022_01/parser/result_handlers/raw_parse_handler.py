@@ -21,7 +21,7 @@ class RawResultHandler:
     def initialize(self, ctx: dict | None = None):
         _ = ctx
         if self.msg_bus is not None:
-            msg = StatusMessage(msg="Result handler initialized.")
+            msg = StatusMessage(msg="Parse result handler initialized.")
             self.msg_bus.publish_message(msg)
 
     def handle_result(
@@ -71,7 +71,7 @@ class RawResultHandler:
         self.translator.parse_complete(ctx=ctx)
         self.data = self.translator.bid_package
         if self.msg_bus is not None:
-            msg = StatusMessage(msg="Result handler finalized.")
+            msg = StatusMessage(msg="Parse result handler finalized.")
             self.msg_bus.publish_message(msg)
 
     def result_data(self) -> BidPackage | None:

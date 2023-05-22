@@ -53,7 +53,7 @@ def rotating_file_handler(
         log_file = log_dir / Path(file_name)
     else:
         log_file = log_dir / Path(f"{file_name}.log")
-    handler = RotatingFileHandler(log_file, maxBytes=102400, backupCount=10)
+    handler = RotatingFileHandler(log_file, maxBytes=10240000, backupCount=10)
     if formater is None:
         formater = UtcFormatter(fmt=DEFAULT_FORMAT)
     handler.setFormatter(fmt=formater)

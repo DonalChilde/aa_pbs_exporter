@@ -79,7 +79,9 @@ class CompactToExpanded:
         ctx: dict | None,
     ) -> Sequence[expanded.Trip]:
         logger.debug(
-            "Translating compact trip %s - %s.", compact_trip.number, compact_trip.uuid
+            "\n\tTranslating compact trip %s - %s.",
+            compact_trip.number,
+            compact_trip.uuid,
         )
         trips = []
         for start_date in compact_trip.start_dates:
@@ -95,7 +97,7 @@ class CompactToExpanded:
                 tz_name=first_report.tz_name,
             )
             logger.debug(
-                "Generated start of %s for trip %s using %s and %s.",
+                "\n\tGenerated start of %s for trip %s using %s and %s.",
                 start,
                 compact_trip.number,
                 start_date,
@@ -104,7 +106,7 @@ class CompactToExpanded:
             # Assumes trip starts and ends in same timezone.
             end = start + compact_trip.tafb
             logger.debug(
-                "Calculated trip end time %s using tafb %s", end, compact_trip.tafb
+                "\n\tCalculated trip end time %s using tafb %s", end, compact_trip.tafb
             )
             expanded_trip = expanded.Trip(
                 uuid=uuid5(compact_trip.uuid, start.utc_date.isoformat()),
@@ -125,7 +127,7 @@ class CompactToExpanded:
             dutyperiods_len = len(compact_trip.dutyperiods)
             for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
                 logger.debug(
-                    "Trip:%s, dutyperiod %s, report is %s.",
+                    "\n\t\tTrip:%s, dutyperiod %s, report is %s.",
                     expanded_trip.number,
                     f"{idx} of {dutyperiods_len}",
                     dutyperiod_ref_instant,
@@ -154,7 +156,7 @@ class CompactToExpanded:
             report, compact_release.lcl, compact_release.tz_name
         )
         logger.debug(
-            "Completed release time %s using report %s and compact release %r",
+            "\n\t\tCompleted release time %s using report %s and compact release %r",
             release,
             report,
             compact_release,
@@ -179,8 +181,8 @@ class CompactToExpanded:
         flights_len = len(compact_dutyperiod.flights)
         for idx, flight in enumerate(compact_dutyperiod.flights, start=1):
             logger.debug(
-                "Flight %s, ref_instant is %s",
-                f"{idx} of {flights_len}",
+                "\n\t\t\tFlight %s, ref_instant is %s",
+                f"{flight.number}, {idx} of {flights_len}",
                 flight_ref_instant,
             )
             expanded_flight = self.translate_flight(flight_ref_instant, flight, ctx=ctx)
@@ -201,7 +203,8 @@ class CompactToExpanded:
             tz_name=compact_flight.departure.tz_name,
         )
         logger.debug(
-            "Completed departure time %s using ref_instant %s and compact departure %r",
+            "\n\t\t\tCompleted %s departure time %s using ref_instant %s and compact departure %r",
+            compact_flight.number,
             departure,
             ref_instant,
             compact_flight.departure,
@@ -212,7 +215,8 @@ class CompactToExpanded:
             tz_name=compact_flight.arrival.tz_name,
         )
         logger.debug(
-            "Completed arrival time %s using departure %s and compact arrival %r",
+            "\n\t\t\tCompleted %s arrival time %s using departure %s and compact arrival %r",
+            compact_flight.number,
             arrival,
             departure,
             compact_flight.arrival,
