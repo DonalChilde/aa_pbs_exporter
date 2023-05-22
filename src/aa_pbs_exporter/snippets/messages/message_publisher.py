@@ -5,12 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:44-07:00            #
-# Last Modified: 2023-05-22T12:50:58.352838+00:00  #
+# Last Modified: 2023-05-22T14:13:38.638841+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Sequence
 
-from snippets.messages.messenger_protocol import (
+from .messenger_protocol import (
     MessageProtocol,
     MessagePublisherProtocol,
     MessengeListenerProtocol,

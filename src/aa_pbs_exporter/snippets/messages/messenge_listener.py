@@ -5,15 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:26-07:00            #
-# Last Modified: 2023-05-22T12:50:58.353940+00:00  #
+# Last Modified: 2023-05-22T14:13:38.639332+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from io import TextIOWrapper
 
-from snippets.messages.messenger_protocol import (
-    MessageProtocol,
-    MessengeListenerProtocol,
-)
+from .messenger_protocol import MessageProtocol, MessengeListenerProtocol
 
 
 class MessengeListener(MessengeListenerProtocol):
@@ -24,7 +21,7 @@ class MessengeListener(MessengeListenerProtocol):
         return msg.produce_message()
 
 
-class PrintMessenger(MessengeListener):
+class PrintMessengeListener(MessengeListener):
     def __init__(
         self, end: str = "\n", file: TextIOWrapper | None = None, flush: bool = False
     ) -> None:
