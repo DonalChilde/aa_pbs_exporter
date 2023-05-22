@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:08-07:00            #
-# Last Modified: 2023-05-04T13:50:18.032783+00:00  #
+# Last Modified: 2023-05-22T12:50:58.354458+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Protocol
@@ -16,13 +16,13 @@ class MessageProtocol(Protocol):
         ...
 
 
-class MessengerConsumerProtocol(Protocol):
-    def consume_message(self, msg: MessageProtocol):
+class MessengeListenerProtocol(Protocol):
+    def receive_message(self, msg: MessageProtocol):
         ...
 
 
 class MessagePublisherProtocol(Protocol):
-    consumers: list[MessengerConsumerProtocol]
+    consumers: list[MessengeListenerProtocol]
 
     def publish_message(self, msg: MessageProtocol):
         ...
