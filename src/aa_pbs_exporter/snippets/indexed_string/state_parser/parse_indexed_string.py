@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T09:11:27-07:00            #
-# Last Modified: 2023-04-16T16:14:52.916266+00:00  #
+# Last Modified: 2023-04-22T15:59:58.362776+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
@@ -15,7 +15,9 @@ from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
     IndexedStringProtocol,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
-    ParseException,
+    ParseAllFail,
+    ParseJobFail,
+    SingleParserFail,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
@@ -29,7 +31,7 @@ logger.addHandler(logging.NullHandler())
 def parse_indexed_string(
     indexed_string: IndexedStringProtocol,
     parsers: Sequence[IndexedStringParserProtocol],
-    ctx: dict[str, Any],
+    ctx: dict[str, Any] | None,
 ) -> ParseResultProtocol:
     """
     Parse an indexed string based on a list of possible parsers.
@@ -44,8 +46,9 @@ def parse_indexed_string(
         ctx: A store for arbitrary information needed to parse.
 
     Raises:
-        ParseException: Signals the failure of a parser, or the failure of the parse
-            job as a whole.
+        SingleParserFail: Signals the failure of a parser.
+        ParseJobFail: Signals the failure of the parse job as a whole.
+        ParseAllFail: Signals the failure of all parsers.
 
     Returns:
         The result of a successful parse.
@@ -53,13 +56,19 @@ def parse_indexed_string(
     for parser in parsers:
         try:
             parse_result = parser.parse(indexed_string=indexed_string, ctx=ctx)
-            logger.info("\n\tPARSED %r->%r", parser.__class__.__name__, indexed_string)
             return parse_result
-        except ParseException as error:
-            logger.info(
+        except SingleParserFail as error:
+            logger.debug(
                 "\n\tFAILED %r->%r\n\t%r",
-                parser.__class__.__name__,
-                indexed_string,
+                error.parser.__class__.__name__,
+                error.indexed_string,
                 error,
             )
-    raise ParseException(f"No parser found for {indexed_string!r}\nTried {parsers!r}")
+        except ParseJobFail as error:
+            logger.warning("Parse Job failed %s", error)
+            raise error
+    raise ParseAllFail(
+        f"No parser found for {indexed_string!r}\nTried {parsers!r}",
+        parsers=parsers,
+        indexed_string=indexed_string,
+    )

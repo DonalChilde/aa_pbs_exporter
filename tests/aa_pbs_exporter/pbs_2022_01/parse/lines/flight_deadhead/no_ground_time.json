@@ -1,0 +1,26 @@
+[
+  {
+    "current_state": "flight",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "4  4/4 64 2578D MIA 1949/1649    SAN 2220/2220    AA    5.31"
+      },
+      "dutyperiod_idx": "4",
+      "dep_arr_day": "4/4",
+      "eq_code": "64",
+      "flight_number": "2578",
+      "deadhead": "D",
+      "departure_station": "MIA",
+      "departure_time": "1949/1649",
+      "meal": "",
+      "arrival_station": "SAN",
+      "arrival_time": "2220/2220",
+      "block": "0.00",
+      "synth": "5.31",
+      "ground": "0.00",
+      "equipment_change": "",
+      "calendar": []
+    }
+  }
+]

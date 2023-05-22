@@ -1,0 +1,34 @@
+[
+  {
+    "current_state": "page_footer",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644\n"
+      },
+      "issued": "08APR2022",
+      "effective": "02MAY2022",
+      "base": "LAX",
+      "satelite_base": "",
+      "equipment": "737",
+      "division": "DOM",
+      "page": "644"
+    }
+  },
+  {
+    "current_state": "page_footer",
+    "parsed_data": {
+      "source": {
+        "idx": 1,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178"
+      },
+      "issued": "08APR2022",
+      "effective": "02MAY2022",
+      "base": "LAX",
+      "satelite_base": "",
+      "equipment": "320",
+      "division": "INTL",
+      "page": "1178"
+    }
+  }
+]

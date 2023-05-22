@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T09:11:41-07:00            #
-# Last Modified: 2023-04-16T16:14:52.917043+00:00  #
+# Last Modified: 2023-04-22T15:59:58.363966+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
@@ -16,6 +16,7 @@ from aa_pbs_exporter.snippets.indexed_string.indexed_string_protocol import (
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import (
     ParseException,
+    ParseJobFail,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_indexed_string import (
     parse_indexed_string,
@@ -65,6 +66,11 @@ def parse_indexed_strings(
             )
             current_state = parse_result.current_state
             yield parse_result
+        except ParseJobFail as error:
+            # TODO refine this message
+            logger.error("%s", error)
+            raise error
         except ParseException as error:
+            # TODO unexpected exception, should be ParseAllFail....
             logger.error("%s", error)
             raise error

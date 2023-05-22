@@ -1,0 +1,20 @@
+[
+  {
+    "current_state": "trip_footer",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "TTL                                              7.50   0.00   7.50        10.20       \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      },
+      "block": "7.50",
+      "synth": "0.00",
+      "total_pay": "7.50",
+      "tafb": "10.20",
+      "calendar": [
+        "\u2212\u2212",
+        "\u2212\u2212",
+        "\u2212\u2212"
+      ]
+    }
+  }
+]

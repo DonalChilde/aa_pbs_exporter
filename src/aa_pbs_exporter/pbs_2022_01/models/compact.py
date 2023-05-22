@@ -1,39 +1,54 @@
 """
 The compact model represents the pairing package in its most compact form. It contains
 all the info needed to expand trips with fully defined dates and times.
+uuids match the source raw model uuids.
 """
 
 from datetime import date, time, timedelta
+from typing import Iterable
+from uuid import UUID
 
 from pydantic import BaseModel
 
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+
 
 class Transportation(BaseModel):
+    uuid: UUID
     name: str
     phone: str
 
 
 class Hotel(BaseModel):
+    uuid: UUID
     name: str
     phone: str | None
 
 
+class HotelInfo(BaseModel):
+    hotel: Hotel | None
+    transportation: Transportation | None
+
+
 class LclHbt(BaseModel):
+    # TODO could factor this out to include tz_name for each, w/ function to create
+    # aware time. FactoredTime? SerializableTime? goal is to have "America/Newyork"
+    # in serialized model instead of DST-5 or whatever.
     lcl: time
     hbt: time
     tz_name: str
 
 
 class Layover(BaseModel):
+    uuid: UUID
     odl: timedelta
     city: str
-    hotel: Hotel | None
-    transportation: Transportation | None
-    hotel_additional: Hotel | None
-    transportation_additional: Transportation | None
+    hotel_info: list[HotelInfo]
 
 
 class Flight(BaseModel):
+    uuid: UUID
+    dp_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
@@ -51,6 +66,7 @@ class Flight(BaseModel):
 
 
 class DutyPeriod(BaseModel):
+    uuid: UUID
     idx: int
     report: LclHbt
     report_station: str
@@ -64,13 +80,25 @@ class DutyPeriod(BaseModel):
     layover: Layover | None
     flights: list[Flight]
 
+    def sum_block(self) -> timedelta:
+        total = timedelta()
+        for flight in self.flights:
+            total += flight.block
+        return total
+
+    def sum_synth(self) -> timedelta:
+        total = timedelta()
+        for flight in self.flights:
+            total += flight.synth
+        return total
+
 
 class Trip(BaseModel):
-    # uuid: UUID
+    uuid: UUID
     number: str
     positions: list[str]
     operations: str
-    special_qualifications: bool
+    qualifications: str
     block: timedelta
     synth: timedelta
     total_pay: timedelta
@@ -78,8 +106,15 @@ class Trip(BaseModel):
     dutyperiods: list[DutyPeriod]
     start_dates: list[date]
 
+    def sum_block(self) -> timedelta:
+        total = timedelta()
+        for dutyperiod in self.dutyperiods:
+            total += dutyperiod.block
+        return total
+
 
 class Page(BaseModel):
+    uuid: UUID
     base: str
     satellite_base: str
     equipment: str
@@ -89,11 +124,18 @@ class Page(BaseModel):
     start: date
     end: date
     trips: list[Trip]
+    number: str
 
 
 class BidPackage(BaseModel):
-    source: str
+    uuid: UUID
+    source: HashedFile | None
     pages: list[Page]
 
-    def default_file_name(self)->str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact"
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip
+
+    def default_file_name(self) -> str:
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact.json"

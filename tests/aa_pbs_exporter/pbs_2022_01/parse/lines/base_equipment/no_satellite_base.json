@@ -1,0 +1,14 @@
+[
+  {
+    "current_state": "base_equipment",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "BOS 737"
+      },
+      "base": "BOS",
+      "satellite_base": "",
+      "equipment": "737"
+    }
+  }
+]

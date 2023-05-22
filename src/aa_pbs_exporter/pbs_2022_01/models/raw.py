@@ -7,13 +7,21 @@ Assumptions:
     - The release tz and station is the same as the next report tz and station.
       - not sure how often this would come up. and it may not be a problem.
     - The start date of a bid is the same as the effective date in the page footer.
+    - uuids are built from the indexed string the data is parsed from. uuids should
+      be reproducible so long as the source document does not change - including line
+      numbers.
 """
 
 import json
+from typing import Iterable
+from uuid import NAMESPACE_DNS, UUID, uuid5
 
 from pydantic import BaseModel
 
-# TAB = "\t"
+from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+
+BIDPACKAGE_DNS = uuid5(PARSER_DNS, "BIDPACKAGE_DNS")
 NL = "\n"
 
 
@@ -21,8 +29,19 @@ class IndexedString(BaseModel):
     idx: int
     txt: str
 
+    # TODO move to common, try classmethod factory?
     def __str__(self) -> str:
         return f"{self.idx}: {self.txt!r}"
+
+    def str_with_uuid(self, ns_uuid: UUID = NAMESPACE_DNS) -> str:
+        return f"{self.idx}:{self.uuid5()}:{self.txt!r}"
+
+    def uuid5(self, ns_uuid: UUID = NAMESPACE_DNS) -> UUID:
+        return uuid5(ns_uuid, f"{self.idx}: {self.txt!r}")
+
+
+def indexed_string_factory(idx: int, txt: str) -> IndexedString:
+    return IndexedString(idx=idx, txt=txt)
 
 
 class ParsedIndexedString(BaseModel):
@@ -32,6 +51,14 @@ class ParsedIndexedString(BaseModel):
         data = self.dict()
         data.pop("source", None)
         return f"{self.source}\n\t{self.__class__.__name__}: {json.dumps(data)}"
+
+    def str_with_uuid(self) -> str:
+        data = self.dict()
+        data.pop("source", None)
+        return f"{self.source.str_with_uuid()}\n\t{self.__class__.__name__}: {json.dumps(data)}"
+
+    def uuid5(self) -> UUID:
+        return self.source.uuid5()
 
 
 class PageHeader1(ParsedIndexedString):
@@ -58,13 +85,12 @@ class TripHeader(ParsedIndexedString):
     ops_count: str
     positions: str
     operations: str
-    special_qualification: str
-    calendar: str
+    qualifications: str
 
 
 class DutyPeriodReport(ParsedIndexedString):
     report: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Flight(ParsedIndexedString):
@@ -82,7 +108,7 @@ class Flight(ParsedIndexedString):
     synth: str
     ground: str
     equipment_change: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class DutyPeriodRelease(ParsedIndexedString):
@@ -92,7 +118,7 @@ class DutyPeriodRelease(ParsedIndexedString):
     total_pay: str
     duty: str
     flight_duty: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Hotel(ParsedIndexedString):
@@ -100,26 +126,26 @@ class Hotel(ParsedIndexedString):
     name: str
     phone: str
     rest: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class HotelAdditional(ParsedIndexedString):
     layover_city: str
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class Transportation(ParsedIndexedString):
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class TransportationAdditional(ParsedIndexedString):
     name: str
     phone: str
-    calendar: str
+    calendar: list[str] = []
 
 
 class TripFooter(ParsedIndexedString):
@@ -127,7 +153,11 @@ class TripFooter(ParsedIndexedString):
     synth: str
     total_pay: str
     tafb: str
-    calendar: str
+    calendar: list[str] = []
+
+
+class CalendarOnly(ParsedIndexedString):
+    calendar: list[str] = []
 
 
 class TripSeparator(ParsedIndexedString):
@@ -144,43 +174,78 @@ class PageFooter(ParsedIndexedString):
     page: str
 
 
-class PackageDate(ParsedIndexedString):
-    month: str
-    year: str
+# class PackageDate(ParsedIndexedString):
+#     month: str
+#     year: str
+
+
+class HotelInfo(BaseModel):
+    hotel: Hotel | HotelAdditional | None
+    transportation: Transportation | TransportationAdditional | None
 
 
 class Layover(BaseModel):
-    hotel: Hotel
-    transportation: Transportation | None = None
-    hotel_additional: HotelAdditional | None = None
-    transportation_additional: TransportationAdditional | None = None
+    uuid: UUID
+    layover_city: str
+    rest: str
+    hotel_info: list[HotelInfo]
+
+    # def uuid5(self) -> UUID:
+    #     return self.hotel_info[0].hotel.source.uuid5()
 
 
 class DutyPeriod(BaseModel):
+    uuid: UUID
     report: DutyPeriodReport
     flights: list[Flight]
     release: DutyPeriodRelease | None = None
     layover: Layover | None = None
 
+    # def uuid5(self) -> UUID:
+    #     return self.report.source.uuid5()
+
 
 class Trip(BaseModel):
+    uuid: UUID
     header: TripHeader
     dutyperiods: list[DutyPeriod]
     footer: TripFooter | None = None
+    calendar_only: CalendarOnly | None = None
+    calendar_entries: list[str] = []
+
+    # def uuid5(self) -> UUID:
+    #     return self.header.uuid5()
 
 
 class Page(BaseModel):
+    uuid: UUID
     page_header_1: PageHeader1
     page_header_2: PageHeader2 | None = None
     base_equipment: BaseEquipment | None = None
     page_footer: PageFooter | None = None
     trips: list[Trip]
 
+    def uuid5(self) -> UUID:
+        return self.page_header_1.source.uuid5()
+
 
 class BidPackage(BaseModel):
-    source: str
+    uuid: UUID
+    source: HashedFile | None
     pages: list[Page]
 
-    def default_file_name(self)->str:
+    def default_file_name(self) -> str:
         assert self.pages[0].page_footer is not None
-        return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw"
+        return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw.json"
+
+    def uuid5(self) -> UUID:
+        if self.source:
+            uuid_seed = self.source.file_hash
+        else:
+            uuid_seed = "None"
+        return uuid5(BIDPACKAGE_DNS, uuid_seed)
+
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip

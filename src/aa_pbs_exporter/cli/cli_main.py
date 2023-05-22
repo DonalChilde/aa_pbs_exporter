@@ -17,9 +17,7 @@ LOG_DIR = Path(APP_DIR).expanduser() / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 # TODO change init location so that can make customizable log level based on verbosity,
 # TODO custom file name based on date? so that each run gets its own log?
-rotating_file_logger(
-    logger_name=PROJECT_SLUG, log_dir=LOG_DIR, log_level=logging.WARNING
-)
+rotating_file_logger(logger_name=PROJECT_SLUG, log_dir=LOG_DIR, log_level=logging.DEBUG)
 
 
 @click.command()

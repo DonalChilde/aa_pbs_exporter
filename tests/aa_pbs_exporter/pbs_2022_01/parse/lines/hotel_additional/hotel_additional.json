@@ -1,0 +1,28 @@
+[
+  {
+    "current_state": "hotel_additional",
+    "parsed_data": {
+      "source": {
+        "idx": 0,
+        "txt": "               +PHL MARRIOTT OLD CITY                       12152386000\n"
+      },
+      "layover_city": "PHL",
+      "name": "MARRIOTT OLD CITY",
+      "phone": "12152386000",
+      "calendar": []
+    }
+  },
+  {
+    "current_state": "hotel_additional",
+    "parsed_data": {
+      "source": {
+        "idx": 1,
+        "txt": "               +PHL CAMBRIA HOTEL AND SUITES                12157325500"
+      },
+      "layover_city": "PHL",
+      "name": "CAMBRIA HOTEL AND SUITES",
+      "phone": "12157325500",
+      "calendar": []
+    }
+  }
+]

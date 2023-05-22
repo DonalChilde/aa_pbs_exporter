@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-31T08:12:18-07:00            #
-# Last Modified: 2022-12-04T01:11:10.071840+00:00  #
+# Last Modified: 2023-04-30T17:01:31.844931+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -15,6 +15,8 @@ Convenience functions for logging.
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+
+from aa_pbs_exporter.snippets.logging.utc_formatter import UtcFormatter
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -51,9 +53,9 @@ def rotating_file_handler(
         log_file = log_dir / Path(file_name)
     else:
         log_file = log_dir / Path(f"{file_name}.log")
-    handler = RotatingFileHandler(log_file, maxBytes=102400, backupCount=10)
+    handler = RotatingFileHandler(log_file, maxBytes=10240000, backupCount=10)
     if formater is None:
-        formater = logging.Formatter(fmt=DEFAULT_FORMAT)
+        formater = UtcFormatter(fmt=DEFAULT_FORMAT)
     handler.setFormatter(fmt=formater)
     handler.setLevel(log_level)
     return handler

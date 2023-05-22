@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 # from aa_pbs_exporter.pbs_2022_01.helpers import parse_string_by_line
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.pbs_2022_01.result_handler import AssembleRawBidPackage
+from aa_pbs_exporter.pbs_2022_01.translate.result_handler import ParsedToRaw
 from aa_pbs_exporter.snippets.indexed_string.state_parser.result_handler import (
     MultipleResultHandler,
 )

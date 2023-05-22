@@ -68,7 +68,7 @@ function _do_with_confirmation() {
 
     # Define your actions
     ACTION_1="if [ -d '$path/.venv' ]; then rm -rf '$path/.venv'; fi"
-    ACTION_2="python3 -m virtualenv '$path/.venv'"
+    ACTION_2="python3.11 -m venv '$path/.venv'"
     ACTION_3="source '$path/.venv/bin/activate'"
     ACTION_4="export PIP_REQUIRE_VIRTUALENV=true"
     ACTION_5="pip3 install -U pip"
@@ -123,7 +123,7 @@ function --help() {
     HELPTEXT=$(
         cat <<END
     NAME
-        $SCRIPT - Create a virtualenv in the project directory, and 
+        $SCRIPT - Create a virtualenv in the project directory, and
             install the project with editable flag.
 
     SYNOPSIS
@@ -131,12 +131,12 @@ function --help() {
         $SCRIPT --help
 
     DESCRIPTION
-        $SCRIPT is used to create a virtualenv in the project directory, and 
-            install the project with editable flag. Will remove an existing .venv 
+        $SCRIPT is used to create a virtualenv in the project directory, and
+            install the project with editable flag. Will remove an existing .venv
             directory if found. Runs the following commands:
 
                 if [ -d '[DIRECTORY]/.venv' ]; then rm -rf '[DIRECTORY]/.venv'; fi
-                python3 -m virtualenv '[DIRECTORY]/.venv'
+                python3.11 -m venv '[DIRECTORY]/.venv'
                 source '[DIRECTORY]/.venv/bin/activate'
                 export PIP_REQUIRE_VIRTUALENV=true
                 pip3 install -U pip

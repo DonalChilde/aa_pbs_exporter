@@ -1,75 +1,48 @@
-from datetime import date, datetime, timedelta
-from zoneinfo import ZoneInfo
+"""
+
+
+Assumptions:
+    Trip.end = last Dutyperiod.release
+    trip starts and ends in base
+"""
+
+from datetime import date, timedelta
+from typing import Iterable
+from uuid import UUID
 
 from pydantic import BaseModel
 
-# TODO make validator class to allow passing out validation messages
-# TODO split to expanded model, and expand functions? rename?
-# TODO decide on parser version scheme, and rename packages
-#   - pbs_2022_10
-#       - parse
-#       - models
-#           - raw
-#           - expanded
-#       - validate
-#       - convert
-
-
-class Instant(BaseModel):
-    utc_date: datetime
-    tz_name: str
-
-    def local(self, tz_name: str | None = None) -> datetime:
-        if tz_name is None:
-            return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
-        return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
-
-    def __copy__(self) -> "Instant":
-        return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
-
-    def __add__(self, other:timedelta) -> "Instant":
-        if not isinstance(other, timedelta):
-            return NotImplemented
-        new_instant = Instant(
-            utc_date=self.utc_date + other, tz_name=self.tz_name
-        )
-        return new_instant
-
-    def __sub__(self, other:timedelta) -> "Instant":
-        if not isinstance(other, timedelta):
-            return NotImplemented
-        new_instant = Instant(
-            utc_date=self.utc_date - other, tz_name=self.tz_name
-        )
-        return new_instant
-
-
-class SourceReference(BaseModel):
-    source: str
-    from_line: int
-    to_line: int
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
 
 
 class Transportation(BaseModel):
+    uuid: UUID
     name: str
     phone: str
 
 
 class Hotel(BaseModel):
+    uuid: UUID
     name: str
     phone: str | None
 
 
-class Layover(BaseModel):
-    odl: timedelta
-    city: str
+class HotelInfo(BaseModel):
     hotel: Hotel | None
     transportation: Transportation | None
-    hotel_additional: Hotel | None
-    transportation_additional: Transportation | None
+
+
+class Layover(BaseModel):
+    uuid: UUID
+    odl: timedelta
+    city: str
+    hotel_info: list[HotelInfo]
 
 
 class Flight(BaseModel):
+    uuid: UUID
+    compact_uuid: UUID
+    dp_idx: int
     idx: int
     dep_arr_day: str
     eq_code: str
@@ -87,6 +60,8 @@ class Flight(BaseModel):
 
 
 class DutyPeriod(BaseModel):
+    uuid: UUID
+    compact_uuid: UUID
     idx: int
     report: Instant
     report_station: str
@@ -102,13 +77,14 @@ class DutyPeriod(BaseModel):
 
 
 class Trip(BaseModel):
-    # uuid: UUID
+    uuid: UUID
+    compact_uuid: UUID
     number: str
     start: Instant
     end: Instant
     positions: list[str]
     operations: str
-    special_qualifications: bool
+    qualifications: str
     block: timedelta
     synth: timedelta
     total_pay: timedelta
@@ -117,6 +93,7 @@ class Trip(BaseModel):
 
 
 class Page(BaseModel):
+    uuid: UUID
     base: str
     satellite_base: str
     equipment: str
@@ -126,11 +103,18 @@ class Page(BaseModel):
     start: date
     end: date
     trips: list[Trip]
+    number: str
 
 
 class BidPackage(BaseModel):
-    source: str
+    uuid: UUID
+    source: HashedFile | None
     pages: list[Page]
 
-    def default_file_name(self)->str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded"
+    def default_file_name(self) -> str:
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded.json"
+
+    def walk_trips(self) -> Iterable[Trip]:
+        for page in self.pages:
+            for trip in page.trips:
+                yield trip

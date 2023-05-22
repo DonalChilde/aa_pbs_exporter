@@ -20,7 +20,7 @@ import aa_pbs_exporter  # pylint: disable=wrong-import-position
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 distro = distribution("aa_pbs_exporter")
-print(distro)
+# print(distro)
 project = distro.metadata["Name"]
 project_copyright = f"2022, {distro.metadata['Author']}"
 author = distro.metadata["Author"]
