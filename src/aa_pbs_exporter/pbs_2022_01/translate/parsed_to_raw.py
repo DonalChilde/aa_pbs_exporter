@@ -1,17 +1,20 @@
 import logging
 from uuid import uuid5
 
-from aa_pbs_exporter.pbs_2022_01 import messages, validate
+from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.helpers.collect_calendar_entries import (
     collect_calendar_entries,
 )
+from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
-from aa_pbs_exporter.snippets.messages.publisher import Publisher
+from aa_pbs_exporter.snippets import messages
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
+ERROR = "parsed.translation.error"
+STATUS = "parsed.translation.status"
+DEBUG = "parsed.translation.debug"
 
 
 class ParsedToRaw:
@@ -19,7 +22,7 @@ class ParsedToRaw:
         self,
         source: HashedFile | None,
         validator: validate.RawValidator | None,
-        msg_bus: Publisher | None,
+        msg_bus: messages.MessagePublisher | None,
     ) -> None:
         self.source = source
         self.validator = validator
@@ -30,13 +33,19 @@ class ParsedToRaw:
         uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
         self.msg_bus = msg_bus
-        msg = messages.StatusMessage(f"Parse translator initialized for {self.source}")
+        msg = messages.Message(
+            f"Parse translator initialized for {self.source}", category=STATUS
+        )
         self.send_message(msg, None)
 
-    def send_message(self, msg: MessageProtocol, ctx: dict | None):
+    def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx
-        # It is expected that all messages sent here are status messages, with info level logging.
-        logger.info("%s", msg)
+        if msg.category == STATUS:
+            logger.info("\n\t%s", indent_message(msg))
+        elif msg.category == DEBUG:
+            logger.debug("\n\t%s", indent_message(msg))
+        elif msg.category == ERROR:
+            logger.warning("\n\t%s", indent_message(msg))
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
@@ -109,8 +118,10 @@ class ParsedToRaw:
     def parse_complete(self, ctx: dict | None = None):
         for trip in self.bid_package.walk_trips():
             trip.calendar_entries = collect_calendar_entries(trip)
-        msg = messages.StatusMessage(
-            f"Completed translation of parsed data. {sum(1 for _ in self.bid_package.walk_trips())} trips found."
+        msg = messages.Message(
+            f"Completed translation of parsed data. "
+            f"{sum(1 for _ in self.bid_package.walk_trips())} trips found.",
+            category=STATUS,
         )
         self.send_message(msg=msg, ctx=ctx)
         if self.validator is not None:

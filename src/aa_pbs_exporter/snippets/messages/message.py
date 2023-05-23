@@ -5,13 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:14:53-07:00            #
-# Last Modified: 2023-05-22T14:13:38.637746+00:00  #
+# Last Modified: 2023-05-22T17:42:40.602462+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
-from .messenger_protocol import MessageProtocol
 
 
-class Message(MessageProtocol):
+class Message:
     def __init__(
         self,
         msg: str,

@@ -8,13 +8,13 @@ from aa_pbs_exporter.pbs_2022_01.parser.parse_manager import ParseManager
 from aa_pbs_exporter.pbs_2022_01.parser.result_handlers.raw_parse_handler import (
     RawResultHandler,
 )
+from aa_pbs_exporter.snippets import messages
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file
-from aa_pbs_exporter.snippets.messages.publisher import Publisher
 
 
 def init_parse_manager(
     source_path: Path | None = None,
-    msg_bus: Publisher | None = None,
+    msg_bus: messages.MessagePublisher | None = None,
 ) -> ParseManager[BidPackage]:
     if source_path is None:
         source = source_path

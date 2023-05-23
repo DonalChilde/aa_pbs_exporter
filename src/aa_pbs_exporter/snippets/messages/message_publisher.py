@@ -5,22 +5,19 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:44-07:00            #
-# Last Modified: 2023-05-22T14:13:38.638841+00:00  #
+# Last Modified: 2023-05-22T17:42:40.603070+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Sequence
 
-from .messenger_protocol import (
-    MessageProtocol,
-    MessagePublisherProtocol,
-    MessengeListenerProtocol,
-)
+from .message import Message
+from .messenge_listener import MessengeListener
 
 
-class MessagePublisher(MessagePublisherProtocol):
-    def __init__(self, consumers: Sequence[MessengeListenerProtocol]) -> None:
-        self.consumers = list(consumers)
+class MessagePublisher:
+    def __init__(self, listeners: Sequence[MessengeListener]) -> None:
+        self.listeners = list(listeners)
 
-    def publish_message(self, msg: MessageProtocol):
-        for consumer in self.consumers:
-            consumer.receive_message(msg=msg)
+    def publish_message(self, msg: Message):
+        for listener in self.listeners:
+            listener.receive_message(msg=msg)

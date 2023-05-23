@@ -5,37 +5,69 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:26-07:00            #
-# Last Modified: 2023-05-22T14:13:38.639332+00:00  #
+# Last Modified: 2023-05-22T17:42:40.603572+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from io import TextIOWrapper
+from typing import Callable
 
-from .messenger_protocol import MessageProtocol, MessengeListenerProtocol
+from . import Message
 
 
-class MessengeListener(MessengeListenerProtocol):
-    def receive_message(self, msg: MessageProtocol):
+class MessengeListener:
+    def __init__(
+        self,
+        *,
+        sieve: Callable[[Message], bool] | None = None,
+        formatter: Callable[[Message], str] | None = None,
+    ) -> None:
+        self.sieve = sieve
+        self.formatter = formatter
+
+    def receive_message(self, msg: Message):
         raise NotImplementedError
 
-    def format_received_message(self, msg: MessageProtocol) -> str:
-        return msg.produce_message()
+    def format_message(self, msg: Message) -> str:
+        if self.formatter is None:
+            return msg.produce_message()
+        return self.formatter(msg)
+
+    def filter_message(self, msg: Message) -> bool:
+        if self.sieve is None:
+            return True
+        return self.sieve(msg)
 
 
 class PrintMessengeListener(MessengeListener):
     def __init__(
-        self, end: str = "\n", file: TextIOWrapper | None = None, flush: bool = False
+        self,
+        *,
+        sieve: Callable[[Message], bool] | None = None,
+        formatter: Callable[[Message], str] | None = None,
+        end: str = "\n",
+        file: TextIOWrapper | None = None,
+        flush: bool = False,
     ) -> None:
-        super().__init__()
+        super().__init__(sieve=sieve, formatter=formatter)
         self.end = end
         self.file = file
         self.flush = flush
 
-    def receive_message(self, msg: MessageProtocol):
-        msg_txt = self.format_received_message(msg)
-        if msg_txt is not None:
+    def receive_message(self, msg: Message):
+        if self.filter_message(msg=msg):
+            msg_txt = self.format_message(msg)
             print(
                 msg_txt,
                 end=self.end,
                 file=self.file,
                 flush=self.flush,
             )
+
+
+def category_sieve(txt: str) -> Callable[[Message], bool]:
+    def sieve(msg: Message) -> bool:
+        if txt in msg.category:
+            return True
+        return False
+
+    return sieve

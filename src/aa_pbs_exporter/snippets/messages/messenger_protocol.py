@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-26T11:15:08-07:00            #
-# Last Modified: 2023-05-22T12:50:58.354458+00:00  #
+# Last Modified: 2023-05-22T17:37:55.448635+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 from typing import Protocol
@@ -22,7 +22,7 @@ class MessengeListenerProtocol(Protocol):
 
 
 class MessagePublisherProtocol(Protocol):
-    consumers: list[MessengeListenerProtocol]
+    listeners: list[MessengeListenerProtocol]
 
     def publish_message(self, msg: MessageProtocol):
         ...
