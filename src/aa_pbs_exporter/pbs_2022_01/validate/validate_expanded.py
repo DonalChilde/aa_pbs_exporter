@@ -2,6 +2,7 @@ import logging
 from datetime import timedelta
 
 from aa_pbs_exporter.pbs_2022_01.helpers.compare_time import compare_time
+from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.helpers.length import length
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
@@ -40,7 +41,8 @@ class ExpandedValidator:
         msg = messages.Message(
             f"Validating expanded bid package. source={expanded_bid.source} "
             f"uuid={expanded_bid.uuid}",
-            category=ERROR,
+            category=STATUS,
+            level=Level.PKG,
         )
         self.send_message(msg, ctx)
         self.validate_bid_package(compact_bid, expanded_bid, ctx)
@@ -49,8 +51,8 @@ class ExpandedValidator:
         for page_idx, page in enumerate(expanded_bid.pages, start=1):
             msg = messages.Message(
                 f"Validating page {page.number}, {page_idx} of {page_count}",
-                category=STATUS,
-                level=1,
+                category=DEBUG,
+                level=Level.PAGE,
             )
             self.send_message(msg, ctx)
             compact_page = page_lookup[page.uuid]
@@ -59,10 +61,10 @@ class ExpandedValidator:
             trip_count = len(page.trips)
             for trip_idx, trip in enumerate(page.trips, start=1):
                 msg = messages.Message(
-                    f"Validating trip {trip_idx} of {trip_count} on page "
-                    f"{page.number}, {trip.number} start={trip.start}",
-                    category=STATUS,
-                    level=2,
+                    f"Validating trip {trip.number}, {trip_idx} of {trip_count} on page "
+                    f"{page.number}, start={trip.start}",
+                    category=DEBUG,
+                    level=Level.TRIP,
                 )
                 self.send_message(msg, ctx)
                 compact_trip = trip_lookup[trip.compact_uuid]
@@ -73,8 +75,8 @@ class ExpandedValidator:
                     msg = messages.Message(
                         f"Validating dutyperiod {dp_idx} of {dp_count} for trip "
                         f"{trip.number}",
-                        category=STATUS,
-                        level=3,
+                        category=DEBUG,
+                        level=Level.DP,
                     )
                     self.send_message(msg, ctx)
                     compact_dutyperiod = dutyperiod_lookup[dutyperiod.compact_uuid]
@@ -87,8 +89,8 @@ class ExpandedValidator:
                         msg = messages.Message(
                             f"Validating flight {flight.number}, {flt_idx} of "
                             f"{flight_count}",
-                            category=STATUS,
-                            level=4,
+                            category=DEBUG,
+                            level=Level.FLT,
                         )
                         self.send_message(msg, ctx)
                         compact_flight = flight_lookup[flight.compact_uuid]
@@ -105,6 +107,7 @@ class ExpandedValidator:
             msg = messages.Message(
                 f"Expanded bid package bid has no pages. uuid: {expanded_bid.uuid}",
                 category=ERROR,
+                level=Level.PKG + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         trip_count = length(expanded_bid.walk_trips())
@@ -112,6 +115,7 @@ class ExpandedValidator:
             msg = messages.Message(
                 f"No trips found in expanded bid package. uuid: {expanded_bid.uuid}",
                 category=ERROR,
+                level=Level.PKG + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -151,7 +155,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_trip.uuid} "
                 f"compact_uuid: {expanded_trip.compact_uuid} ",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -165,7 +169,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_trip.uuid} "
                 f"compact_uuid: {expanded_trip.compact_uuid} ",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -178,7 +182,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_trip.uuid} "
                 f"compact_uuid: {expanded_trip.compact_uuid} ",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -212,9 +216,11 @@ class ExpandedValidator:
                 f"parsed dutytime {expanded_dutyperiod.duty} "
                 f"trip number: {trip_number} "
                 f"uuid: {expanded_dutyperiod.uuid} "
-                f"compact_uuid: {expanded_dutyperiod.compact_uuid} ",
+                f"compact_uuid: {expanded_dutyperiod.compact_uuid} "
+                f"\n\trelease:{expanded_dutyperiod.release}"
+                f"\n\treport:{expanded_dutyperiod.report}",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -233,13 +239,13 @@ class ExpandedValidator:
         ):
             msg = messages.Message(
                 msg=f"Report times do not match. "
-                f"compact: {compact_dutyperiod.report.lcl!r}, "
-                f"expanded: {report_time!r}. "
+                f"compact: {compact_dutyperiod.report}, "
+                f"expanded: {expanded_dutyperiod.report}. "
                 f"trip number: {trip_number} "
                 f"uuid: {expanded_dutyperiod.uuid} "
                 f"compact_uuid: {expanded_dutyperiod.compact_uuid} ",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -264,7 +270,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_dutyperiod.uuid} "
                 f"compact_uuid: {expanded_dutyperiod.compact_uuid} ",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -300,7 +306,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_flight.uuid} "
                 f"compact_uuid: {expanded_flight.compact_uuid} ",
                 category=ERROR,
-                level=4,
+                level=Level.FLT + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -325,7 +331,7 @@ class ExpandedValidator:
                 f"uuid: {expanded_flight.uuid} "
                 f"compact_uuid: {expanded_flight.compact_uuid} ",
                 category=ERROR,
-                level=4,
+                level=Level.FLT + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -347,7 +353,7 @@ class ExpandedValidator:
                     f"uuid: {expanded_flight.uuid} "
                     f"compact_uuid: {expanded_flight.compact_uuid} ",
                     category=ERROR,
-                    level=4,
+                    level=Level.FLT + 1,
                 )
                 self.send_message(msg, ctx)
             return
@@ -361,7 +367,7 @@ class ExpandedValidator:
                 f"\n\tdeparture: {expanded_flight.departure_station} {expanded_flight.departure}"
                 f"\n\tarrival: {expanded_flight.arrival_station} {expanded_flight.arrival}",
                 category=ERROR,
-                level=4,
+                level=Level.FLT + 1,
             )
             self.send_message(msg, ctx)
 

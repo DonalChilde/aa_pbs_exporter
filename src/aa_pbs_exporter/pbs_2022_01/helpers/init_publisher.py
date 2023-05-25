@@ -22,7 +22,7 @@ def status_sieve() -> Callable[[messages.Message], bool]:
 
 
 def std_out_sieve() -> Callable[[messages.Message], bool]:
-    return messages.category_sieve("foo")
+    return messages.category_sieve("foo")  # FIXME needs multiple sieve function
 
 
 def indent_message(msg: messages.Message) -> str:
@@ -52,7 +52,9 @@ def init_publisher(
     msg_pub.listeners.extend((parse, translation, validation))
     if std_out:
         msg_pub.listeners.append(
-            messages.PrintMessengeListener(formatter=indent_message)
+            messages.PrintMessengeListener(
+                sieve=status_sieve(), formatter=indent_message
+            )
         )
 
     return msg_pub

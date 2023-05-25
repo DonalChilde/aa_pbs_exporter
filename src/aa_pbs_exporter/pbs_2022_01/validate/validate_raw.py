@@ -1,5 +1,6 @@
 import logging
 
+from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.snippets import messages
@@ -32,6 +33,7 @@ class RawValidator:
             f"Validating raw bid package. source={bid_package.source} "
             f"uuid={bid_package.uuid}",
             category=STATUS,
+            level=Level.PKG,
         )
         self.send_message(msg, ctx)
         self.validate_bid_package(bid_package, ctx)
@@ -39,7 +41,8 @@ class RawValidator:
         for page_idx, page in enumerate(bid_package.pages, start=1):
             msg = messages.Message(
                 f"Validating page {page_idx} of {page_count}",
-                category=STATUS,
+                category=DEBUG,
+                level=Level.PAGE,
             )
             self.send_message(msg, ctx)
             trip_count = len(page.trips)
@@ -47,7 +50,8 @@ class RawValidator:
             for trip_idx, trip in enumerate(page.trips, start=1):
                 msg = messages.Message(
                     f"Validating trip {trip.header.number}, {trip_idx} of {trip_count}",
-                    category=STATUS,
+                    category=DEBUG,
+                    level=Level.TRIP,
                 )
                 self.send_message(msg, ctx)
                 self.validate_trip(trip, ctx)
@@ -55,7 +59,8 @@ class RawValidator:
                 for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
                     msg = messages.Message(
                         f"Validating dutyperiod {dp_idx} of {dp_count}",
-                        category=STATUS,
+                        category=DEBUG,
+                        level=Level.DP,
                     )
                     self.send_message(msg, ctx)
                     self.validate_dutyperiod(dutyperiod, ctx)
@@ -63,7 +68,8 @@ class RawValidator:
                     for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
                         msg = messages.Message(
                             f"Validating flight {flight.flight_number}, {flt_idx} of {flight_count}",
-                            category=STATUS,
+                            category=DEBUG,
+                            level=Level.FLT,
                         )
                         self.send_message(msg, ctx)
                         self.validate_flight(flight, ctx)

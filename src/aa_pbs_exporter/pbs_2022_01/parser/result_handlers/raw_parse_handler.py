@@ -42,7 +42,7 @@ class RawResultHandler:
 
     def initialize(self, ctx: dict | None = None):
         _ = ctx
-        msg = messages.Message(msg="Parse result handler initialized.", category=STATUS)
+        msg = messages.Message(msg="Parse result handler initialized.", category=DEBUG)
         self.send_message(msg=msg, ctx=ctx)
 
     def handle_result(
@@ -91,7 +91,7 @@ class RawResultHandler:
     def finalize(self, ctx: dict | None = None):
         self.translator.parse_complete(ctx=ctx)
         self.data = self.translator.bid_package
-        msg = messages.Message(msg="Parse result handler finalized.", category=STATUS)
+        msg = messages.Message(msg="Parse result handler finalized.", category=DEBUG)
         self.send_message(msg=msg, ctx=ctx)
 
     def result_data(self) -> raw.BidPackage | None:

@@ -1,7 +1,6 @@
 import logging
-from datetime import date
-from typing import Sequence, Tuple
 
+from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.helpers.length import length
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
@@ -37,7 +36,7 @@ class CompactValidator:
         msg = messages.Message(
             f"Validating compact bid package. source={compact_bid.source} uuid={compact_bid.uuid}",
             category=STATUS,
-            level=0,
+            level=Level.PKG,
         )
         self.send_message(msg, ctx)
         self.validate_bid_package(raw_bid, compact_bid, ctx)
@@ -47,7 +46,7 @@ class CompactValidator:
             msg = messages.Message(
                 f"Validating page {page.number}, {page_idx} of {page_count}",
                 category=DEBUG,
-                level=1,
+                level=Level.PAGE,
             )
             self.send_message(msg=msg, ctx=ctx)
             raw_page = page_lookup[page.uuid]
@@ -58,7 +57,7 @@ class CompactValidator:
                 msg = messages.Message(
                     f"Validating trip {trip.number}, {trip_idx} of {trip_count}",
                     category=DEBUG,
-                    level=2,
+                    level=Level.TRIP,
                 )
                 self.send_message(msg=msg, ctx=ctx)
 
@@ -70,7 +69,7 @@ class CompactValidator:
                     msg = messages.Message(
                         f"Validating dutyperiod {dp_idx} of {dp_count}",
                         category=DEBUG,
-                        level=3,
+                        level=Level.DP,
                     )
                     self.send_message(msg=msg, ctx=ctx)
                     raw_dutyperiod = dutyperiod_lookup[dutyperiod.uuid]
@@ -83,7 +82,7 @@ class CompactValidator:
                         msg = messages.Message(
                             f"Validating flight {flight.number}, {flt_idx} of {flight_count}",
                             category=DEBUG,
-                            level=4,
+                            level=Level.FLT,
                         )
                         self.send_message(msg=msg, ctx=ctx)
                         raw_flight = flight_lookup[flight.uuid]
@@ -94,7 +93,9 @@ class CompactValidator:
     ):
         if not compact_bid.pages:
             msg = messages.Message(
-                f"Compact bid has no pages. uuid: {compact_bid.uuid}", category=ERROR
+                f"Compact bid has no pages. uuid: {compact_bid.uuid}",
+                category=ERROR,
+                level=Level.PKG + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         compact_trip_count = length(compact_bid.walk_trips())
@@ -105,12 +106,14 @@ class CompactValidator:
                 f"count: {raw_trip_count}. Check skipped prior month trips. "
                 f"uuid: {compact_bid.uuid}",
                 category=ERROR,
+                level=Level.PKG + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         if compact_trip_count < 1:
             msg = messages.Message(
                 f"No trips found in compact bid package. uuid: {compact_bid.uuid}",
                 category=ERROR,
+                level=Level.PKG + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -122,7 +125,7 @@ class CompactValidator:
                 f"No trips found on compact page ref={compact_page.number}. "
                 f"Were they all prior month trips? uuid: {compact_page.uuid}",
                 category=ERROR,
-                level=1,
+                level=Level.PAGE + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -138,7 +141,7 @@ class CompactValidator:
                 f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         sum_block = compact_trip.sum_block()
@@ -149,7 +152,7 @@ class CompactValidator:
                 f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -162,7 +165,7 @@ class CompactValidator:
                 f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         if not compact_trip.positions:
@@ -171,7 +174,7 @@ class CompactValidator:
                 f"for compact trip {compact_trip.number}. "
                 f"uuid: {compact_trip.uuid}",
                 category=ERROR,
-                level=2,
+                level=Level.TRIP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         for idx, dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
@@ -191,7 +194,7 @@ class CompactValidator:
                 f"dp_idx={compact_dutyperiod.idx} "
                 f"uuid: {compact_dutyperiod.uuid}",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         sum_total_pay = compact_dutyperiod.synth + compact_dutyperiod.block
@@ -203,7 +206,7 @@ class CompactValidator:
                 f"dp_idx={compact_dutyperiod.idx} "
                 f"uuid: {compact_dutyperiod.uuid}",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
 
@@ -236,37 +239,6 @@ class CompactValidator:
     ):
         pass
 
-    def check_calendar_entry_count(
-        self, raw_trip: raw.Trip, valid_dates: Sequence[date], ctx: dict | None
-    ):
-        if not len(raw_trip.calendar_entries) == len(valid_dates):
-            msg = messages.Message(
-                f"Count of calendar_entries: {len(raw_trip.calendar_entries)} "
-                f"does not match valid_dates: {len(valid_dates)}. "
-                f"uuid: {raw_trip.uuid}",
-                category=ERROR,
-                level=2,
-            )
-            self.send_message(msg=msg, ctx=ctx)
-        return
-
-    def check_start_date(
-        self,
-        day: Tuple[int, int],
-        start_date: date,
-        raw_trip: raw.Trip,
-        ctx: dict | None,
-    ):
-        if day[1] != start_date.day:
-            msg = messages.Message(
-                f"Partial date: {day!r} does not match day of date: "
-                f"{start_date.isoformat()}. "
-                f"uuid:{raw_trip.uuid}",
-                category=ERROR,
-                level=2,
-            )
-            self.send_message(msg=msg, ctx=ctx)
-
     def check_indexes(
         self, dp_idx, compact_dutyperiod: compact.DutyPeriod, ctx: dict | None
     ):
@@ -277,7 +249,7 @@ class CompactValidator:
                 f"{compact_dutyperiod.idx}. "
                 f"uuid:{compact_dutyperiod.uuid}",
                 category=ERROR,
-                level=3,
+                level=Level.DP + 1,
             )
             self.send_message(msg=msg, ctx=ctx)
         for flt_idx, flight in enumerate(compact_dutyperiod.flights, start=1):
@@ -287,7 +259,7 @@ class CompactValidator:
                     f"flight index {flight.dp_idx}. "
                     f"uuid:{flight.uuid}",
                     category=ERROR,
-                    level=4,
+                    level=Level.FLT + 1,
                 )
                 self.send_message(msg=msg, ctx=ctx)
             if flt_idx != flight.idx:
@@ -295,6 +267,6 @@ class CompactValidator:
                     f"Code idx {flt_idx} does not match parsed flight idx {flight.idx}. "
                     f"uuid:{flight.uuid}",
                     category=ERROR,
-                    level=4,
+                    level=Level.FLT + 1,
                 )
                 self.send_message(msg=msg, ctx=ctx)

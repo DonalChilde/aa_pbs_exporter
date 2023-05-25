@@ -119,7 +119,7 @@ class ParsedToRaw:
         for trip in self.bid_package.walk_trips():
             trip.calendar_entries = collect_calendar_entries(trip)
         msg = messages.Message(
-            f"Completed translation of parsed data. "
+            f"Completed translation of parsed data to intermediate raw format. "
             f"{sum(1 for _ in self.bid_package.walk_trips())} trips found.",
             category=STATUS,
         )
