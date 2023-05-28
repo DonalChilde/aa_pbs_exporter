@@ -68,7 +68,7 @@ function _do_with_confirmation() {
 
     # Define your actions
     ACTION_1="if [ -d '$path/.venv' ]; then rm -rf '$path/.venv'; fi"
-    ACTION_2="python3.11 -m venv '$path/.venv'"
+    ACTION_2="python3 -m venv '$path/.venv'"
     ACTION_3="source '$path/.venv/bin/activate'"
     ACTION_4="export PIP_REQUIRE_VIRTUALENV=true"
     ACTION_5="pip3 install -U pip"
