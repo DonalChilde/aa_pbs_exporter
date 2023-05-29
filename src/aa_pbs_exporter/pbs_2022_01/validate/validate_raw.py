@@ -1,54 +1,77 @@
 import logging
 
-from aa_pbs_exporter.pbs_2022_01 import messages
+from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
+from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import raw
-from aa_pbs_exporter.snippets.messages.messenger_protocol import MessageProtocol
-from aa_pbs_exporter.snippets.messages.publisher import Publisher
+from aa_pbs_exporter.snippets import messages
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
+ERROR = "raw.validation.error"
+STATUS = "raw.validation.status"
+DEBUG = "raw.validation.debug"
+
 
 class RawValidator:
-    def __init__(self, msg_bus: Publisher | None = None) -> None:
+    def __init__(self, msg_bus: messages.MessagePublisher | None = None) -> None:
         self.msg_bus = msg_bus
 
-    def send_message(self, msg: MessageProtocol, ctx: dict | None):
+    def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx
-        if isinstance(msg, messages.StatusMessage):
-            logger.info("%s", msg)
-        else:
-            logger.warning("%s", msg)
+        if msg.category == STATUS:
+            logger.info("\n\t%s", indent_message(msg))
+        elif msg.category == DEBUG:
+            logger.debug("\n\t%s", indent_message(msg))
+        elif msg.category == ERROR:
+            logger.warning("\n\t%s", indent_message(msg))
         if self.msg_bus is not None:
             self.msg_bus.publish_message(msg=msg)
 
     def validate(self, bid_package: raw.BidPackage, ctx: dict | None):
-        msg = messages.StatusMessage(
-            f"Validating raw bid package. source={bid_package.source} uuid={bid_package.uuid}"
+        msg = messages.Message(
+            f"Validating raw bid package. source={bid_package.source} "
+            f"uuid={bid_package.uuid}",
+            category=STATUS,
+            level=Level.PKG,
         )
         self.send_message(msg, ctx)
         self.validate_bid_package(bid_package, ctx)
         page_count = len(bid_package.pages)
         for page_idx, page in enumerate(bid_package.pages, start=1):
-            logger.debug("Validating page %s", f"{page_idx} of {page_count}")
+            msg = messages.Message(
+                f"Validating page {page_idx} of {page_count}",
+                category=DEBUG,
+                level=Level.PAGE,
+            )
+            self.send_message(msg, ctx)
             trip_count = len(page.trips)
             self.validate_page(page, ctx)
             for trip_idx, trip in enumerate(page.trips, start=1):
-                logger.debug(
-                    "Validating trip %s",
-                    f"{trip.header.number}, {trip_idx} of {trip_count}",
+                msg = messages.Message(
+                    f"Validating trip {trip.header.number}, {trip_idx} of {trip_count}",
+                    category=DEBUG,
+                    level=Level.TRIP,
                 )
+                self.send_message(msg, ctx)
                 self.validate_trip(trip, ctx)
                 dp_count = len(trip.dutyperiods)
                 for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
-                    logger.debug("Validating dutyperiod %s", f"{dp_idx} of {dp_count}")
+                    msg = messages.Message(
+                        f"Validating dutyperiod {dp_idx} of {dp_count}",
+                        category=DEBUG,
+                        level=Level.DP,
+                    )
+                    self.send_message(msg, ctx)
                     self.validate_dutyperiod(dutyperiod, ctx)
                     flight_count = len(dutyperiod.flights)
                     for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
-                        logger.debug(
-                            "Validating flight %s",
-                            f"{flight.flight_number}, {flt_idx} of {flight_count}",
+                        msg = messages.Message(
+                            f"Validating flight {flight.flight_number}, {flt_idx} of {flight_count}",
+                            category=DEBUG,
+                            level=Level.FLT,
                         )
+                        self.send_message(msg, ctx)
                         self.validate_flight(flight, ctx)
 
     def validate_bid_package(self, bid_package: raw.BidPackage, ctx: dict | None):
@@ -74,9 +97,10 @@ class RawValidator:
     ):
         if not bid_package.pages:
             self.send_message(
-                messages.ValidationMessage(
+                messages.Message(
                     f"Bid package has no pages. uuid: {bid_package.uuid} "
-                    f"source: {bid_package.source}"
+                    f"source: {bid_package.source}",
+                    category=ERROR,
                 ),
                 ctx,
             )
@@ -84,20 +108,25 @@ class RawValidator:
     def check_page_for_empty_properies(self, page: raw.Page, ctx: dict | None):
         if not page.trips:
             self.send_message(
-                messages.ValidationMessage(f"Page has no trips. uuid: {page.uuid}"),
+                messages.Message(
+                    f"Page has no trips. uuid: {page.uuid}",
+                    category=ERROR,
+                ),
                 ctx=ctx,
             )
         if page.page_header_2 is None:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Page has no page_header_2. uuid: {page.uuid}"
+                messages.Message(
+                    f"Page has no page_header_2. uuid: {page.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )
         if page.page_footer is None:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Page has no page_footer. uuid: {page.uuid}"
+                messages.Message(
+                    f"Page has no page_footer. uuid: {page.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )
@@ -106,14 +135,18 @@ class RawValidator:
         _ = ctx
         if not trip.dutyperiods:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Trip has no dutyperiods. uuid: {trip.uuid}"
+                messages.Message(
+                    f"Trip has no dutyperiods. uuid: {trip.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )
         if trip.footer is None:
             self.send_message(
-                messages.ValidationMessage(f"Trip has no footer. uuid: {trip.uuid}"),
+                messages.Message(
+                    f"Trip has no footer. uuid: {trip.uuid}",
+                    category=ERROR,
+                ),
                 ctx=ctx,
             )
 
@@ -123,15 +156,17 @@ class RawValidator:
         _ = ctx
         if not dutyperiod.flights:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}"
+                messages.Message(
+                    f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )
         if dutyperiod.release is None:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Dutyperiod has no release. uuid: {dutyperiod.uuid}"
+                messages.Message(
+                    f"Dutyperiod has no release. uuid: {dutyperiod.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )
@@ -143,8 +178,9 @@ class RawValidator:
         assert layover is not None
         if layover.hotel_info[0].hotel is None:
             self.send_message(
-                messages.ValidationMessage(
-                    f"Layover has no primary hotel. uuid: {layover.uuid}"
+                messages.Message(
+                    f"Layover has no primary hotel. uuid: {layover.uuid}",
+                    category=ERROR,
                 ),
                 ctx=ctx,
             )

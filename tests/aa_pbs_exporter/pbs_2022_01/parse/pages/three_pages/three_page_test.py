@@ -22,7 +22,6 @@ def test_page(test_app_data_dir: Path, logger: Logger):
     raw_package, compact_package, expanded_package = parse_pbs_txt_file(
         txt_file=res_file,
         output_dir=output_path,
-        debug_path=debug_path,
         compact_out=False,
     )
     assert compact_package is None

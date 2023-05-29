@@ -31,7 +31,8 @@ def test_page(test_app_data_dir: Path, logger: Logger):
     res_file = res_dir.joinpath(RAW_TEST_DATA.input_data)
 
     raw_package, compact_package, expanded_package = parse_pbs_txt_file(
-        txt_file=res_file, output_dir=output_path, debug_path=debug_path
+        txt_file=res_file,
+        output_dir=output_path,
     )
     if not SERIALIZE_ONLY:
         input_bytes = res_dir.joinpath(RAW_TEST_DATA.result_data).read_bytes()

@@ -17,7 +17,7 @@ def parse(
     ctx: click.Context,
     path_in: Path,
     path_out: Path,
-):
+) -> int:
     """Parse a pairing package text file to json or yaml.
 
     PATH_IN can be a single txt file, or a directory containing one or more
@@ -52,3 +52,4 @@ def parse(
                 click.echo(error)
         task_complete(ctx=ctx)
         return 0
+    raise click.UsageError("There was an unexpected error.")
