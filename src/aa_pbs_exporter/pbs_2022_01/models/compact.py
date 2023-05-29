@@ -139,3 +139,10 @@ class BidPackage(BaseModel):
 
     def default_file_name(self) -> str:
         return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact.json"
+
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, BidPackage):
+            if self.source != __value.source:
+                return False
+            return (self.uuid, self.pages) == (__value.uuid, __value.pages)
+        return super().__eq__(__value)

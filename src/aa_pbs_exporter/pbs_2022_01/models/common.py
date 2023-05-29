@@ -14,6 +14,15 @@ class HashedFile(BaseModel):
     def factory(cls, file_path: Path, file_hash: str, hash_method: str) -> "HashedFile":
         return cls(file_path=file_path, file_hash=file_hash, hash_method=hash_method)
 
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, HashedFile):
+            return (self.file_hash, self.hash_method) == (
+                __value.file_hash,
+                __value.hash_method,
+            )
+
+        return super().__eq__(__value)
+
 
 class Instant(BaseModel):
     """Represents an instant in time.

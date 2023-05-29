@@ -118,3 +118,10 @@ class BidPackage(BaseModel):
         for page in self.pages:
             for trip in page.trips:
                 yield trip
+
+    def __eq__(self, __value: object) -> bool:
+        if isinstance(__value, BidPackage):
+            if self.source != __value.source:
+                return False
+            return (self.uuid, self.pages) == (__value.uuid, __value.pages)
+        return super().__eq__(__value)
