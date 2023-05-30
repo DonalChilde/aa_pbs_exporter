@@ -52,6 +52,7 @@ dev = [
     "isort",
 
     # Tools
+    "scriv",
 
 ]
 lint = ["pylint", "mypy"]
@@ -106,3 +107,7 @@ omit = ["*/snippets/*"]
 
 [tool.coverage.html]
 directory = "htmlcov"
+
+[tool.scriv]
+format = "md"
+md_header_level = "2"
