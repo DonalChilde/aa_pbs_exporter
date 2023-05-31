@@ -39,10 +39,10 @@ issue link [#1](https://github.com/DonalChilde/aa_pbs_exporter/issues/1)
 - Use `scriv` to manage the changelog.
 
   - Pull requests
-    - [#0](https://github.com/DonalChilde/aa_pbs_exporter/pull/0)
+    - [#54](https://github.com/DonalChilde/aa_pbs_exporter/pull/54)
 
   - closes
-    - [#0](https://github.com/DonalChilde/aa_pbs_exporter/issues/0)
+    - None
 
 <!--
 
