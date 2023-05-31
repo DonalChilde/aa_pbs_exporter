@@ -3,10 +3,7 @@
 <!-- changelog-start -->
 
 ## [Unreleased](https://github.com/DonalChilde/aa_pbs_exporter/v0.0.1...refs/heads/develop)
-<!-- Dont forget to:
-    - Update the Unreleased compare version to latest release tag
-    - Update compare/_previous_version_tag_ 
-    - Delete <a></a> tag -->
+<!-- Dont forget to update the Unreleased compare version to latest release tag -->
 <!-- Copy paste release notes below here -->
 <!-- scriv-insert-here -->
 
