@@ -52,6 +52,7 @@ dev = [
     "isort",
 
     # Tools
+    "scriv",
 
 ]
 lint = ["pylint", "mypy"]
@@ -106,3 +107,10 @@ omit = ["*/snippets/*"]
 
 [tool.coverage.html]
 directory = "htmlcov"
+
+[tool.scriv]
+version = "literal: pyproject.toml: project.version"
+format = "md"
+md_header_level = "2"
+entry_title_template = "file: changelog.d/templates/entry_title_template.md.j2"
+new_fragment_template = "file: changelog.d/templates/new_fragment.${config:format}.j2"
