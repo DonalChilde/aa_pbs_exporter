@@ -9,5 +9,6 @@ DATE_STRING="$(date -u "+%Y%m%dT%H%M%sZ")"
 PATH_YEAR="2020"
 
 for i in "${array_2020[@]}"; do
-    aa-pbs-exporter parse ~/projects/aal-pbs-data-"$PATH_YEAR"/"$i"/extracted-text/ ~/tmp/pbs_packages/parsed_data/"$DATE_STRING"/"$i"
+    ./scripts/parse_to_tmp.sh ~/projects/aal-pbs-data-"$PATH_YEAR"/"$i"/extracted-text/ "$DATE_STRING"/"$i"
+    # aa-pbs-exporter parse ~/projects/aal-pbs-data-"$PATH_YEAR"/"$i"/extracted-text/ ~/tmp/pbs_packages/parsed_data/"$DATE_STRING"/"$i"
 done
