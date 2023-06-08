@@ -229,7 +229,7 @@ class TripHeader(PyparsingParser):
             + pp.Opt("ONLY")
             + pp.Opt(
                 pp.ZeroOrMore(
-                    pp.Word(pp.alphas + ".", as_keyword=False), stop_on="OPERATION"
+                    pp.Word(pp.printables, as_keyword=False), stop_on="OPERATION"
                 )
                 + pp.Suppress("OPERATION"),
                 default=list(),
