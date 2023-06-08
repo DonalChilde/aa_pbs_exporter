@@ -9,6 +9,7 @@ DATE_STRING="$(date -u "+%Y%m%dT%H%M%sZ")"
 # Use DATE_STRING if no path prefix provided
 PATH_PREFIX=${2:-"$DATE_STRING"}
 SOURCE_FILE=$1
+OUTPUT_DIR="tmp/aa-pbs-exporter/parsed_data"
 
-echo "$SOURCE - $FOO"
-aa-pbs-exporter parse $SOURCE_FILE ~/tmp/aa-pbs-exporter/parsed_data/"$PATH_PREFIX"
+mkdir -p "$HOME/$OUTPUT_DIR/$PATH_PREFIX"
+aa-pbs-exporter parse $SOURCE_FILE "$HOME/$OUTPUT_DIR/$PATH_PREFIX" | tee "$HOME/$OUTPUT_DIR/$PATH_PREFIX"/cmd_output.txt

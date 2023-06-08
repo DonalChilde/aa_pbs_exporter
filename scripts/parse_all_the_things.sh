@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-array_2020=(2020.11 2020.12)
-array_2021=(2021.01 2021.02 2021.03 2021.04 2021.05 2021.06 2021.07 2021.08 2021.09 2021.10)
-array_2022=(2022.01 2022.02 2022.03 2022.04 2022.05 2022.06 2022.07 2022.08 2022.09 2022.10 2022.11 2022.12)
-array_2023=(2023.01 2023.03 2023.03 2023.04 2023.05 2023.06)
+# Accepts Params
+#   YEAR - the year to parse.
+
+declare -A DATA_DIRS
+DATA_DIRS[2020]="11 12"
+DATA_DIRS[2021]="01 02 03 04 05 06 07 08 09 10"
+DATA_DIRS[2022]="01 02 03 04 05 06 07 08 09 10 11 12"
+DATA_DIRS[2023]="01 03 03 04 05 06"
 
 DATE_STRING="$(date -u "+%Y%m%dT%H%M%sZ")"
-PATH_YEAR="2020"
+PATH_YEAR=$1
 
-for i in "${array_2020[@]}"; do
-    ./scripts/parse_to_tmp.sh ~/projects/aal-pbs-data-"$PATH_YEAR"/"$i"/extracted-text/ "$DATE_STRING"/"$i"
-    # aa-pbs-exporter parse ~/projects/aal-pbs-data-"$PATH_YEAR"/"$i"/extracted-text/ ~/tmp/pbs_packages/parsed_data/"$DATE_STRING"/"$i"
+IFS=' '
+read -a MONTHS <<<"${DATA_DIRS[$PATH_YEAR]}"
+for i in "${MONTHS[@]}"; do
+    ./scripts/parse_to_tmp.sh ~/projects/aal-pbs-data-"$PATH_YEAR"/"$PATH_YEAR.$i"/extracted-text/ "$DATE_STRING"/"$PATH_YEAR.$i"
 done
