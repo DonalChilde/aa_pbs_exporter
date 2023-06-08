@@ -42,6 +42,7 @@ CALENDAR_ENTRY = pp.Or(
     ]
 )
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
+POSITIONS = pp.one_of("CA FO FB C", as_keyword=True)
 
 
 class IndexedStringParser(IndexedStringParserProtocol):
@@ -221,18 +222,21 @@ class TripHeader(PyparsingParser):
             + pp.Word(pp.nums, min=1, as_keyword=True)("ops_count")
             + "OPS"
             + "POSN"
-            + pp.OneOrMore(
-                pp.Word(pp.alphas, min=1, max=2, as_keyword=True), stop_on="MO"
-            )("positions")
+            # + pp.OneOrMore(
+            #     pp.Word(pp.alphas, min=1, max=2, as_keyword=True), stop_on="MO"
+            # )("positions")
+            + pp.OneOrMore(POSITIONS)("positions")
             + pp.Opt("ONLY")
             + pp.Opt(
-                pp.ZeroOrMore(pp.Word(pp.alphas, as_keyword=True), stop_on="OPERATION")
+                pp.ZeroOrMore(
+                    pp.Word(pp.alphas + ".", as_keyword=False), stop_on="OPERATION"
+                )
                 + pp.Suppress("OPERATION"),
                 default=list(),
             )("operations")
             + pp.Opt(
                 pp.ZeroOrMore(
-                    pp.Word(pp.alphas, as_keyword=True), stop_on="QUALIFICATION"
+                    pp.Word(pp.printables, as_keyword=True), stop_on="QUALIFICATION"
                 )
                 + pp.Suppress("QUALIFICATION"),
                 default=list(),

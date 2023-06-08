@@ -4,3 +4,8 @@ SEQ 16945   1 OPS   POSN CA FO                SPECIAL QUALIFICATION             
 SEQ 25018   2 OPS   POSN CA FO                MEXICO QUALIFICATION                     MO TU WE TH FR SA SU
 SEQ 30569   1 OPS   POSN CA FO                                                         New prior month
 SEQ 30890   1 OPS   POSN CA FO                                                         Replaces prior month
+SEQ 19448   1 OPS   POSN CA FO                ST. THOMAS OPERATION                     MO TU WE TH FR SA SU 
+SEQ 265    10 OPS   POSN FB ONLY              GERMAN   OPERATION                       MO TU WE TH FR SA SU 
+SEQ 264     4 OPS   POSN FB ONLY                                                       MO TU WE TH FR SA SU 
+SEQ 657     2 OPS   POSN FO C                                                          MO TU WE TH FR SA SU 
+SEQ 30097   1 OPS   POSN FB ONLY              JAPANESE OPERATION                       Replaces prior month 
