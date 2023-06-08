@@ -34,7 +34,7 @@ class CompactValidator:
         self, raw_bid: raw.BidPackage, compact_bid: compact.BidPackage, ctx: dict | None
     ):
         msg = messages.Message(
-            f"Validating compact bid package. source={compact_bid.source} uuid={compact_bid.uuid}",
+            f"Validating compact bid package. uuid={compact_bid.uuid}",
             category=STATUS,
             level=Level.PKG,
         )

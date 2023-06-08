@@ -39,8 +39,7 @@ class ExpandedValidator:
         ctx: dict | None,
     ):
         msg = messages.Message(
-            f"Validating expanded bid package. source={expanded_bid.source} "
-            f"uuid={expanded_bid.uuid}",
+            f"Validating expanded bid package. uuid={expanded_bid.uuid}",
             category=STATUS,
             level=Level.PKG,
         )

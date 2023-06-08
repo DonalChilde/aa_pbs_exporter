@@ -65,6 +65,8 @@ class RawResultHandler:
                 self.translator.base_equipment(data)
             case "TripHeader":
                 self.translator.trip_header(data)
+            case "PriorMonthDeadhead":
+                self.translator.prior_month_deadhead(data)
             case "DutyPeriodReport":
                 self.translator.duty_period_report(data)
             case "Flight":

@@ -30,8 +30,7 @@ class RawValidator:
 
     def validate(self, bid_package: raw.BidPackage, ctx: dict | None):
         msg = messages.Message(
-            f"Validating raw bid package. source={bid_package.source} "
-            f"uuid={bid_package.uuid}",
+            f"Validating raw bid package. uuid={bid_package.uuid}",
             category=STATUS,
             level=Level.PKG,
         )

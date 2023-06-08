@@ -48,7 +48,7 @@ class CompactToExpanded:
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
         msg = messages.Message(
-            f"Translating data from compact to expanded. {compact_bid_package.source}",
+            f"Translating data from compact to expanded.",
             category=STATUS,
             level=Level.PKG,
         )

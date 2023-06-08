@@ -88,6 +88,10 @@ class TripHeader(ParsedIndexedString):
     qualifications: str
 
 
+class PriorMonthDeadhead(ParsedIndexedString):
+    pass
+
+
 class DutyPeriodReport(ParsedIndexedString):
     report: str
     calendar: list[str] = []

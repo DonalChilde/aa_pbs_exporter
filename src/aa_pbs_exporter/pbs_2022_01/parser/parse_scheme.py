@@ -18,6 +18,7 @@ from aa_pbs_exporter.pbs_2022_01.parser.parsers import (
     TripFooter,
     TripHeader,
     TripSeparator,
+    PriorMonthDeadhead,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
@@ -31,7 +32,8 @@ def parse_scheme() -> Dict[str, Sequence[IndexedStringParserProtocol]]:
         "page_header_2": [HeaderSeparator()],
         "header_separator": [TripHeader(), BaseEquipment()],
         "base_equipment": [TripHeader()],
-        "trip_header": [DutyPeriodReport()],
+        "trip_header": [DutyPeriodReport(), PriorMonthDeadhead()],
+        "prior_month_deadhead": [DutyPeriodReport()],
         "dutyperiod_report": [Flight(), FlightDeadhead()],
         "flight": [Flight(), FlightDeadhead(), DutyPeriodRelease()],
         "dutyperiod_release": [Hotel(), TripFooter()],

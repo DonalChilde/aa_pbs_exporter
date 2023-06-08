@@ -33,10 +33,10 @@ class ParsedToRaw:
         uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
         self.msg_bus = msg_bus
-        msg = messages.Message(
-            f"Parse translator initialized for {self.source}", category=STATUS
-        )
-        self.send_message(msg, None)
+        # msg = messages.Message(
+        #     f"Parse translator initialized for {self.source}", category=STATUS
+        # )
+        # self.send_message(msg, None)
 
     def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx
@@ -65,6 +65,9 @@ class ParsedToRaw:
     def trip_header(self, parsed: raw.TripHeader):
         trip = raw.Trip(uuid=parsed.uuid5(), header=parsed, dutyperiods=[])
         self.bid_package.pages[-1].trips.append(trip)
+
+    def prior_month_deadhead(self, parsed: raw.PriorMonthDeadhead):
+        pass
 
     def duty_period_report(self, parsed: raw.DutyPeriodReport):
         dutyperiod = raw.DutyPeriod(uuid=parsed.uuid5(), report=parsed, flights=[])
@@ -122,6 +125,7 @@ class ParsedToRaw:
             f"Completed translation of parsed data to intermediate raw format. "
             f"{sum(1 for _ in self.bid_package.walk_trips())} trips found.",
             category=STATUS,
+            level=1,
         )
         self.send_message(msg=msg, ctx=ctx)
         if self.validator is not None:

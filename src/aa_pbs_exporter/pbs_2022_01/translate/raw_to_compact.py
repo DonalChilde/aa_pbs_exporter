@@ -61,7 +61,7 @@ class RawToCompact:
             uuid=raw_bid_package.uuid, source=raw_bid_package.source, pages=[]
         )
         msg = messages.Message(
-            f"Translating data from raw to compact. {raw_bid_package.source}",
+            f"Translating data from raw to compact.",
             category=STATUS,
             level=Level.PKG,
         )
@@ -90,13 +90,13 @@ class RawToCompact:
                 self.send_message(msg=msg, ctx=ctx)
                 if "prior" in trip.header.source.txt:
                     # skip prior month trips
-                    msg = messages.Message(
-                        f"Skipping prior month trip {trip.header.number}. "
-                        f"uuid: {trip.uuid}",
-                        category=STATUS,
-                        level=Level.TRIP + 1,
-                    )
-                    self.send_message(msg, ctx)
+                    # msg = messages.Message(
+                    #     f"Skipping prior month trip {trip.header.number}. "
+                    #     f"uuid: {trip.uuid}",
+                    #     category=STATUS,
+                    #     level=Level.TRIP + 1,
+                    # )
+                    # self.send_message(msg, ctx)
                     continue
                 compact_trip = self.translate_trip(trip, valid_dates, ctx=ctx)
                 compact_page.trips.append(compact_trip)

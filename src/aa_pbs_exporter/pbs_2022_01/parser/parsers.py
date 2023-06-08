@@ -278,6 +278,27 @@ class TripHeader(PyparsingParser):
         return ParseResult(current_state=self.success_state, parsed_data=parsed)
 
 
+class PriorMonthDeadhead(IndexedStringParser):
+    def __init__(self) -> None:
+        super().__init__("prior_month_deadhead")
+
+    def parse(
+        self,
+        indexed_string: raw.IndexedString,
+        ctx: dict[str, Any] | None,
+        **kwargs,
+    ) -> ParseResult:
+        _ = ctx, kwargs
+        if "PRIOR" in indexed_string.txt:
+            parsed = raw.PriorMonthDeadhead(source=indexed_string)
+            return ParseResult(current_state=self.success_state, parsed_data=parsed)
+        raise SingleParserFail(
+            "'PRIOR' not found in line.",
+            parser=self,
+            indexed_string=indexed_string,
+        )
+
+
 class DutyPeriodReport(PyparsingParser):
     def __init__(self) -> None:
         super().__init__("dutyperiod_report")
