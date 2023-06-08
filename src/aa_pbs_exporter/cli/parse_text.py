@@ -30,7 +30,8 @@ def parse(
             ctx=ctx,
         )
     if path_in.is_file():
-        parse_pbs_txt_file(txt_file=path_in, output_dir=path_out)
+        # parse_pbs_txt_file(txt_file=path_in, output_dir=path_out)
+        parse_the_file(path_out=path_out, txt_file=path_in)
         task_complete(ctx=ctx)
         return 0
 
@@ -42,14 +43,26 @@ def parse(
             raise click.UsageError(f"No txt files found at {path_in}", ctx=ctx)
         for idx, txt_file in enumerate(txt_files):
             click.echo(f"\nParsing {idx+1} of {len(txt_files)} files.")
-            click.echo(f"Parsing {txt_file.stem}")
-            sub_dir = path_out / txt_file.stem
-            try:
-                parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
-            except ParseException as error:
-                click.echo(f"There was an error parsing {txt_file}")
-                click.echo("Check the logs for more details.")
-                click.echo(error)
+            parse_the_file(path_out=path_out, txt_file=txt_file)
+            # click.echo(f"Parsing {txt_file.stem}")
+            # sub_dir = path_out / txt_file.stem
+            # try:
+            #     parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
+            # except ParseException as error:
+            #     click.echo(f"There was an error parsing {txt_file}")
+            #     click.echo("Check the logs for more details.")
+            #     click.echo(error)
         task_complete(ctx=ctx)
         return 0
     raise click.UsageError("There was an unexpected error.")
+
+
+def parse_the_file(path_out: Path, txt_file: Path):
+    sub_dir = path_out / txt_file.name.split(".")[0]
+    click.echo(f"Parsing {txt_file} to {sub_dir}")
+    try:
+        parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
+    except ParseException as error:
+        click.echo(f"There was an error parsing {txt_file}")
+        click.echo("Check the logs for more details.")
+        click.echo(error)
