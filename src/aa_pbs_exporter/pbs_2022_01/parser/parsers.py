@@ -322,7 +322,7 @@ class Flight(PyparsingParser):
             + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
                 "day_of_sequence"
             )
-            + pp.Word(pp.nums, exact=2, as_keyword=True)("equipment_code")
+            + pp.Word(pp.alphanums, exact=2, as_keyword=True)("equipment_code")
             + pp.Word(pp.nums)("flight_number")
             + pp.Word(pp.alphas, exact=3, as_keyword=True)("departure_station")
             + DUALTIME("departure_time")
@@ -379,7 +379,7 @@ class FlightDeadhead(PyparsingParser):
             + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
                 "day_of_sequence"
             )
-            + pp.Word(pp.nums, exact=2, as_keyword=True)("equipment_code")
+            + pp.Word(pp.alphanums, exact=2, as_keyword=True)("equipment_code")
             + pp.Word(pp.nums)("flight_number")
             + pp.Literal("D")("deadhead")
             + pp.WordEnd()

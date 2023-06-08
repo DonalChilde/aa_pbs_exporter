@@ -16,6 +16,7 @@ SERIALIZE_ONLY = False
 TEST_DATA = [
     ResourceTestData("ground_time.txt", "ground_time.json"),
     ResourceTestData("no_ground_time.txt", "no_ground_time.json"),
+    ResourceTestData("alpha_eq_type.txt", "alpha_eq_type.json"),
 ]
 TEST_FAIL = [ResourceTestData("fail.txt", "")]
 
