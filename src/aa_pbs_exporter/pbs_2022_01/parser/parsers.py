@@ -42,7 +42,7 @@ CALENDAR_ENTRY = pp.Or(
     ]
 )
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
-POSITIONS = pp.one_of("CA FO FB C", as_keyword=True)
+POSITIONS = pp.one_of("CA FO FB C RC", as_keyword=True)
 
 
 class IndexedStringParser(IndexedStringParserProtocol):
