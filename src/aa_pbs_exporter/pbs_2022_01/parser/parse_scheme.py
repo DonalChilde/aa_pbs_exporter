@@ -13,12 +13,12 @@ from aa_pbs_exporter.pbs_2022_01.parser.parsers import (
     PageFooter,
     PageHeader1,
     PageHeader2,
+    PriorMonthDeadhead,
     Transportation,
     TransportationAdditional,
     TripFooter,
     TripHeader,
     TripSeparator,
-    PriorMonthDeadhead,
 )
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
