@@ -23,11 +23,11 @@ pre-commit autoupdate
 # Make initial commit. You may have to repeat the add and commit commands if git hooks modify files.
 git add .
 git commit -m "initial commit"
-git tag -a v0.0.0 -m "initial commit tag"
+git tag -a 0.0.0 -m "initial commit tag"
 # Link local git repo to a separately created new GitHub project.
 git remote add origin https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}.git
 git push -u origin master
-git push origin v0.0.0
+git push origin 0.0.0
 ```
 
 ### Convenient one liners
@@ -44,12 +44,12 @@ git init && pre-commit install && pre-commit autoupdate
 
 ```bash
 # Make initial commit. You may have to repeat this command if git hooks modify files
-git add . && git commit -m "initial commit" && git tag -a v0.0.0 -m "initial commit tag"
+git add . && git commit -m "initial commit" && git tag -a 0.0.0 -m "initial commit tag"
 ```
 
 ```bash
 # Link local git repo to a separately created new GitHub project.
-git remote add origin https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}.git && git push -u origin master && git push origin v0.0.0
+git remote add origin https://github.com/{{cookiecutter.github_user}}/{{cookiecutter.project_name}}.git && git push -u origin master && git push origin 0.0.0
 ```
 
 ### GitHub setup
