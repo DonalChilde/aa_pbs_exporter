@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-10T08:32:51-07:00            #
-# Last Modified:  TODO update snippet#
+# Last Modified: 2023-06-20T23:38:15.658195+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
@@ -19,7 +19,7 @@ from typing import Callable, Sequence
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
-from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from ..file.validate_file_out import validate_file_out
 
 
 def extract_text_from_pdf_to_file(
