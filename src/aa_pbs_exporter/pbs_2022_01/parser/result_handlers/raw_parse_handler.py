@@ -1,10 +1,13 @@
 # type: ignore
 
 import logging
+from datetime import UTC, datetime
+from io import TextIOWrapper
+from time import perf_counter_ns
+from typing import Generic, TypeVar
 
 from aa_pbs_exporter.pbs_2022_01 import translate
-from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
-from aa_pbs_exporter.pbs_2022_01.models import raw
+from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.snippets import messages
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
@@ -17,41 +20,69 @@ ERROR = "parse.error"
 STATUS = "parse.status"
 DEBUG = "parse.debug"
 
+T = TypeVar("T")
 
-class RawResultHandler:
+
+class RawResultHandler(Generic[T]):
     def __init__(
         self,
         translator: translate.ParsedToRaw,
+        debug_fp: TextIOWrapper | None = None,
         msg_bus: messages.MessagePublisher | None = None,
     ) -> None:
         super().__init__()
         self.translator = translator
         self.msg_bus = msg_bus
-        self.data: raw.BidPackage | None = None
+        self._debug_fp = debug_fp
+        self.data: T | None = None
+        self.start: int = 0
+        self.end: int = 0
 
-    def send_message(self, msg: messages.Message, ctx: dict | None):
-        _ = ctx
-        if msg.category == STATUS:
-            logger.info("\n\t%s", indent_message(msg))
-        elif msg.category == DEBUG:
-            logger.debug("\n\t%s", indent_message(msg))
-        elif msg.category == ERROR:
-            logger.warning("\n\t%s", indent_message(msg))
-        if self.msg_bus is not None:
-            self.msg_bus.publish_message(msg=msg)
+    @property
+    def debug_fp(self) -> TextIOWrapper | None:
+        return self._debug_fp
+
+    @debug_fp.setter
+    def debug_fp(self, value: TextIOWrapper | None):
+        self._debug_fp = value
+        self.translator.debug_fp = value
+        if self.translator.validator is not None:
+            self.translator.validator.debug_fp = value
+
+    # def send_message(self, msg: messages.Message, ctx: dict | None):
+    #     _ = ctx
+    #     if msg.category == STATUS:
+    #         logger.info("\n\t%s", indent_message(msg))
+    #     elif msg.category == DEBUG:
+    #         logger.debug("\n\t%s", indent_message(msg))
+    #     elif msg.category == ERROR:
+    #         logger.warning("\n\t%s", indent_message(msg))
+    #     if self.debug_fp is not None:
+    #         self.debug_fp.write(msg.produce_message())
+    #     if self.msg_bus is not None:
+    #         self.msg_bus.publish_message(msg=msg)
+
+    def debug_write(self, value: str):
+        if self.debug_fp is not None:
+            print(value, file=self.debug_fp)
 
     def initialize(self, ctx: dict | None = None):
         _ = ctx
-        msg = messages.Message(msg="Parse result handler initialized.", category=DEBUG)
-        self.send_message(msg=msg, ctx=ctx)
+        # msg = messages.Message(msg="Parse result handler initialized.", category=DEBUG)
+        # self.send_message(msg=msg, ctx=ctx)
+        self.debug_write(
+            f"********** Parse started on {datetime.now(UTC).isoformat()} **********\n"
+        )
+        self.start = perf_counter_ns()
 
     def handle_result(
         self, parse_result: ParseResultProtocol, ctx: dict | None = None, **kwargs
     ):
         _ = kwargs, ctx
 
-        msg = messages.Message(f"{parse_result}", category=DEBUG)
-        self.send_message(msg=msg, ctx=ctx)
+        # msg = messages.Message(f"{parse_result}", category=DEBUG)
+        # self.send_message(msg=msg, ctx=ctx)
+        self.debug_write(str(parse_result))
         data = parse_result.parsed_data
         match_value = data.__class__.__qualname__
         match match_value:
@@ -91,10 +122,13 @@ class RawResultHandler:
                 self.translator.page_footer(data)
 
     def finalize(self, ctx: dict | None = None):
+        self.debug_write("\n********** Finalize Translation **********\n")
         self.translator.parse_complete(ctx=ctx)
         self.data = self.translator.bid_package
-        msg = messages.Message(msg="Parse result handler finalized.", category=DEBUG)
-        self.send_message(msg=msg, ctx=ctx)
+        self.end = perf_counter_ns()
+        self.debug_write(
+            f"********** Parse complete in {elapsed.nanos_to_seconds(self.start,self.end):4f} seconds. **********\n"
+        )
 
-    def result_data(self) -> raw.BidPackage | None:
+    def result_data(self) -> T | None:
         return self.data

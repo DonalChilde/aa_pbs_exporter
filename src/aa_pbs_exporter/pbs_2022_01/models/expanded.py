@@ -6,13 +6,19 @@ Assumptions:
     trip starts and ends in base
 """
 
+import logging
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Iterable
 from uuid import UUID
 
 from pydantic import BaseModel
 
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.timers.function_timer import function_timer
+
+logger = logging.getLogger(__name__)
 
 
 class Transportation(BaseModel):
@@ -125,3 +131,21 @@ class BidPackage(BaseModel):
                 return False
             return (self.uuid, self.pages) == (__value.uuid, __value.pages)
         return super().__eq__(__value)
+
+
+@function_timer(logger=logger, level=logging.INFO)
+def load_expanded(file_in: Path) -> BidPackage:
+    bid_package = BidPackage.parse_file(file_in)
+    return bid_package
+
+
+@function_timer(logger=logger, level=logging.INFO)
+def save_expanded(
+    save_dir: Path, file_name: str | None, overwrite: bool, bid_package: BidPackage
+):
+    if file_name is None:
+        file_out = save_dir / bid_package.default_file_name()
+    else:
+        file_out = save_dir / file_name
+    validate_file_out(file_out, overwrite=overwrite)
+    file_out.write_text(bid_package.json(indent=2))

@@ -1,7 +1,9 @@
 import logging
 import time
 from datetime import date, datetime
-from typing import Callable, Sequence, Tuple
+from io import TextIOWrapper
+from pathlib import Path
+from typing import Callable, Self, Sequence, Tuple
 
 from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_month_day import complete_month_day
@@ -15,6 +17,7 @@ from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
 )
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
@@ -37,11 +40,26 @@ class RawToCompact:
         tz_lookup: Callable[[str], str],
         validator: validate.CompactValidator | None,
         msg_bus: messages.MessagePublisher | None,
+        debug_file: Path | None = None,
     ) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package: compact.BidPackage | None = None
         self.validator = validator
         self.msg_bus = msg_bus
+        self.debug_file = debug_file
+        self.debug_fp: TextIOWrapper | None = None
+
+    def __enter__(self) -> Self:
+        if self.debug_file is not None:
+            validate_file_out(self.debug_file, overwrite=True)
+            self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
+            if self.validator is not None:
+                self.validator.debug_fp = self.debug_fp
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.debug_fp is not None:
+            self.debug_fp.close()
 
     def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx
@@ -371,8 +389,14 @@ class RawToCompact:
         return [(x.idx, int(x.txt)) for x in indexed_days]
 
 
-def raw_to_compact(raw_package: raw.BidPackage, msg_bus: messages.MessagePublisher):
+def raw_to_compact(
+    raw_package: raw.BidPackage,
+    msg_bus: messages.MessagePublisher | None,
+    debug_file: Path | None = None,
+):
     validator = validate.CompactValidator(msg_bus=msg_bus)
-    translator = RawToCompact(tz_from_iata, validator=validator, msg_bus=msg_bus)
-    compact_package = translator.translate(raw_package)
+    with RawToCompact(
+        tz_lookup=tz_from_iata, validator=validator, msg_bus=None, debug_file=debug_file
+    ) as translator:
+        compact_package = translator.translate(raw_package)
     return compact_package

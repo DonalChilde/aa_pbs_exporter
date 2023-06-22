@@ -1,9 +1,11 @@
+from io import TextIOWrapper
 import logging
 
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.snippets import messages
+from aa_pbs_exporter.snippets.string.indent import indent
+
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -14,66 +16,93 @@ DEBUG = "raw.validation.debug"
 
 
 class RawValidator:
-    def __init__(self, msg_bus: messages.MessagePublisher | None = None) -> None:
+    def __init__(
+        self,
+        msg_bus: messages.MessagePublisher | None = None,
+        debug_fp: TextIOWrapper | None = None,
+    ) -> None:
         self.msg_bus = msg_bus
+        self.debug_fp = debug_fp
 
-    def send_message(self, msg: messages.Message, ctx: dict | None):
-        _ = ctx
-        if msg.category == STATUS:
-            logger.info("\n\t%s", indent_message(msg))
-        elif msg.category == DEBUG:
-            logger.debug("\n\t%s", indent_message(msg))
-        elif msg.category == ERROR:
-            logger.warning("\n\t%s", indent_message(msg))
-        if self.msg_bus is not None:
-            self.msg_bus.publish_message(msg=msg)
+    # def send_message(self, msg: messages.Message, ctx: dict | None):
+    #     _ = ctx
+    #     if msg.category == STATUS:
+    #         logger.info("\n\t%s", indent_message(msg))
+    #     elif msg.category == DEBUG:
+    #         logger.debug("\n\t%s", indent_message(msg))
+    #     elif msg.category == ERROR:
+    #         logger.warning("\n\t%s", indent_message(msg))
+    #     if self.debug_fp is not None:
+    #         self.debug_write(indent_message(msg))
+    #     if self.msg_bus is not None:
+    #         self.msg_bus.publish_message(msg=msg)
+
+    def debug_write(self, value: str, indent_level: int = 0):
+        if self.debug_fp is not None:
+            print(indent(value, indent_level), file=self.debug_fp)
 
     def validate(self, bid_package: raw.BidPackage, ctx: dict | None):
-        msg = messages.Message(
-            f"Validating raw bid package. uuid={bid_package.uuid}",
-            category=STATUS,
-            level=Level.PKG,
+        self.debug_write(
+            f"********** Validating raw bid package. uuid={bid_package.uuid} **********"
         )
-        self.send_message(msg, ctx)
+        # msg = messages.Message(
+        #     f"Validating raw bid package. uuid={bid_package.uuid}",
+        #     category=STATUS,
+        #     level=Level.PKG,
+        # )
+        # self.send_message(msg, ctx)
         self.validate_bid_package(bid_package, ctx)
         page_count = len(bid_package.pages)
         for page_idx, page in enumerate(bid_package.pages, start=1):
-            msg = messages.Message(
-                f"Validating page {page_idx} of {page_count}",
-                category=DEBUG,
-                level=Level.PAGE,
-            )
-            self.send_message(msg, ctx)
+            # msg = messages.Message(
+            #     f"Validating page {page_idx} of {page_count}",
+            #     category=DEBUG,
+            #     level=Level.PAGE,
+            # )
+            # self.send_message(msg, ctx)
+            self.debug_write(f"Validating page {page_idx} of {page_count}", Level.PAGE)
             trip_count = len(page.trips)
             self.validate_page(page, ctx)
             for trip_idx, trip in enumerate(page.trips, start=1):
-                msg = messages.Message(
+                # msg = messages.Message(
+                #     f"Validating trip {trip.header.number}, {trip_idx} of {trip_count}",
+                #     category=DEBUG,
+                #     level=Level.TRIP,
+                # )
+                # self.send_message(msg, ctx)
+                self.debug_write(
                     f"Validating trip {trip.header.number}, {trip_idx} of {trip_count}",
-                    category=DEBUG,
-                    level=Level.TRIP,
+                    Level.TRIP,
                 )
-                self.send_message(msg, ctx)
                 self.validate_trip(trip, ctx)
                 dp_count = len(trip.dutyperiods)
                 for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
-                    msg = messages.Message(
-                        f"Validating dutyperiod {dp_idx} of {dp_count}",
-                        category=DEBUG,
-                        level=Level.DP,
+                    # msg = messages.Message(
+                    #     f"Validating dutyperiod {dp_idx} of {dp_count}",
+                    #     category=DEBUG,
+                    #     level=Level.DP,
+                    # )
+                    # self.send_message(msg, ctx)
+                    self.debug_write(
+                        f"Validating dutyperiod {dp_idx} of {dp_count}", Level.DP
                     )
-                    self.send_message(msg, ctx)
                     self.validate_dutyperiod(dutyperiod, ctx)
                     flight_count = len(dutyperiod.flights)
                     for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
-                        msg = messages.Message(
+                        # msg = messages.Message(
+                        #     f"Validating flight {flight.flight_number}, {flt_idx} of {flight_count}",
+                        #     category=DEBUG,
+                        #     level=Level.FLT,
+                        # )
+                        # self.send_message(msg, ctx)
+                        self.debug_write(
                             f"Validating flight {flight.flight_number}, {flt_idx} of {flight_count}",
-                            category=DEBUG,
-                            level=Level.FLT,
+                            Level.FLT,
                         )
-                        self.send_message(msg, ctx)
                         self.validate_flight(flight, ctx)
 
     def validate_bid_package(self, bid_package: raw.BidPackage, ctx: dict | None):
+        self.debug_write(f"Validating bid package. uuid={bid_package.uuid}", Level.PKG)
         self.check_bid_for_empty_properies(bid_package=bid_package, ctx=ctx)
 
     def validate_page(self, page: raw.Page, ctx: dict | None):
@@ -95,79 +124,94 @@ class RawValidator:
         self, bid_package: raw.BidPackage, ctx: dict | None
     ):
         if not bid_package.pages:
-            self.send_message(
-                messages.Message(
-                    f"Bid package has no pages. uuid: {bid_package.uuid} "
-                    f"source: {bid_package.source}",
-                    category=ERROR,
-                ),
-                ctx,
+            # self.send_message(
+            #     messages.Message(
+            #         f"Bid package has no pages. uuid: {bid_package.uuid} "
+            #         f"source: {bid_package.source}",
+            #         category=ERROR,
+            #     ),
+            #     ctx,
+            # )
+            self.debug_write(
+                f"ERROR: Bid package has no pages. uuid: {bid_package.uuid} "
+                f"source: {bid_package.source}"
             )
 
     def check_page_for_empty_properies(self, page: raw.Page, ctx: dict | None):
         if not page.trips:
-            self.send_message(
-                messages.Message(
-                    f"Page has no trips. uuid: {page.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
-            )
+            # self.send_message(
+            #     messages.Message(
+            #         f"Page has no trips. uuid: {page.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(f"ERROR: Page has no trips. uuid: {page.uuid}")
         if page.page_header_2 is None:
-            self.send_message(
-                messages.Message(
-                    f"Page has no page_header_2. uuid: {page.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
-            )
+            # self.send_message(
+            #     messages.Message(
+            #         f"Page has no page_header_2. uuid: {page.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(f"ERROR: Page has no page_header_2. uuid: {page.uuid}")
         if page.page_footer is None:
-            self.send_message(
-                messages.Message(
-                    f"Page has no page_footer. uuid: {page.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
-            )
+            # self.send_message(
+            #     messages.Message(
+            #         f"Page has no page_footer. uuid: {page.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write("ERROR: Page has no page_footer. uuid: {page.uuid}")
 
     def check_trip_for_empty_properies(self, trip: raw.Trip, ctx: dict | None):
         _ = ctx
         if not trip.dutyperiods:
-            self.send_message(
-                messages.Message(
-                    f"Trip has no dutyperiods. uuid: {trip.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
-            )
+            # self.send_message(
+            #     messages.Message(
+            #         f"Trip has no dutyperiods. uuid: {trip.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(f"ERROR: Trip has no dutyperiods. uuid: {trip.uuid}")
         if trip.footer is None:
-            self.send_message(
-                messages.Message(
-                    f"Trip has no footer. uuid: {trip.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
-            )
+            # self.send_message(
+            #     messages.Message(
+            #         f"Trip has no footer. uuid: {trip.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(f"ERROR: Trip has no footer. uuid: {trip.uuid}")
 
     def check_dutyperiod_for_empty_properies(
         self, dutyperiod: raw.DutyPeriod, ctx: dict | None
     ):
         _ = ctx
         if not dutyperiod.flights:
-            self.send_message(
-                messages.Message(
-                    f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
+            # self.send_message(
+            #     messages.Message(
+            #         f"Dutyperiod has no flights. uuid: {dutyperiod.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(
+                f"ERROR: Dutyperiod has no flights. uuid: {dutyperiod.uuid}"
             )
         if dutyperiod.release is None:
-            self.send_message(
-                messages.Message(
-                    f"Dutyperiod has no release. uuid: {dutyperiod.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
+            # self.send_message(
+            #     messages.Message(
+            #         f"Dutyperiod has no release. uuid: {dutyperiod.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(
+                f"ERROR: Dutyperiod has no release. uuid: {dutyperiod.uuid}"
             )
         if dutyperiod.layover is not None:
             self.check_layover_for_empty_properies(layover=dutyperiod.layover, ctx=ctx)
@@ -176,10 +220,13 @@ class RawValidator:
         _ = ctx
         assert layover is not None
         if layover.hotel_info[0].hotel is None:
-            self.send_message(
-                messages.Message(
-                    f"Layover has no primary hotel. uuid: {layover.uuid}",
-                    category=ERROR,
-                ),
-                ctx=ctx,
+            # self.send_message(
+            #     messages.Message(
+            #         f"Layover has no primary hotel. uuid: {layover.uuid}",
+            #         category=ERROR,
+            #     ),
+            #     ctx=ctx,
+            # )
+            self.debug_write(
+                f"ERROR: Layover has no primary hotel. uuid: {layover.uuid}"
             )

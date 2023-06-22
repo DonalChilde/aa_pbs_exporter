@@ -1,3 +1,4 @@
+from io import TextIOWrapper
 import logging
 
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
@@ -16,8 +17,13 @@ DEBUG = "compact.validation.debug"
 
 # TODO split individual checks out into functions for clarity
 class CompactValidator:
-    def __init__(self, msg_bus: messages.MessagePublisher | None = None) -> None:
+    def __init__(
+        self,
+        msg_bus: messages.MessagePublisher | None = None,
+        debug_fp: TextIOWrapper | None = None,
+    ) -> None:
         self.msg_bus = msg_bus
+        self.debug_fp = debug_fp
 
     def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx

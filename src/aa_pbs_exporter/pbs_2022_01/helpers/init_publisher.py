@@ -58,3 +58,13 @@ def init_publisher(
         )
 
     return msg_pub
+
+
+def init_parse_publisher(
+    parse_fp: TextIOWrapper | None = None,
+) -> messages.MessagePublisher:
+    msg_pub = messages.MessagePublisher([])
+    if parse_fp is not None:
+        parse = messages.PrintMessengeListener(formatter=indent_message, file=parse_fp)
+        msg_pub.listeners.append(parse)
+    return msg_pub

@@ -1,6 +1,8 @@
+from io import TextIOWrapper
 import logging
 from datetime import datetime, time, timedelta, timezone
-from typing import Sequence
+from pathlib import Path
+from typing import Self, Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
 
@@ -11,6 +13,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
 from aa_pbs_exporter.snippets import messages
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -24,9 +27,24 @@ class CompactToExpanded:
         self,
         validator: validate.ExpandedValidator | None,
         msg_bus: messages.MessagePublisher | None,
+        debug_file: Path | None = None,
     ) -> None:
         self.validator = validator
         self.msg_bus = msg_bus
+        self.debug_file = debug_file
+        self.debug_fp: TextIOWrapper | None = None
+
+    def __enter__(self) -> Self:
+        if self.debug_file is not None:
+            validate_file_out(self.debug_file, overwrite=True)
+            self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
+            if self.validator is not None:
+                self.validator.debug_fp = self.debug_fp
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.debug_fp is not None:
+            self.debug_fp.close()
 
     def send_message(self, msg: messages.Message, ctx: dict | None):
         _ = ctx
@@ -379,11 +397,15 @@ class CompactToExpanded:
 
 
 def compact_to_expanded(
-    compact_package: compact.BidPackage, msg_bus: messages.MessagePublisher
+    compact_package: compact.BidPackage,
+    msg_bus: messages.MessagePublisher | None,
+    debug_file: Path | None = None,
 ):
     validator = validate.ExpandedValidator(msg_bus=msg_bus)
-    translator = CompactToExpanded(validator=validator, msg_bus=msg_bus)
-    expanded_package = translator.translate(compact_package)
+    with CompactToExpanded(
+        validator=validator, msg_bus=msg_bus, debug_file=debug_file
+    ) as translator:
+        expanded_package = translator.translate(compact_package)
     return expanded_package
 
 
