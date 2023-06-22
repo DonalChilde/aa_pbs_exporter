@@ -44,4 +44,8 @@ def parse_pbs_strings(
     manager: ParseManager[raw.BidPackage],
 ) -> raw.BidPackage | None:
     indexed_strings = index_pbs_strings(strings)
-    return parse_job(indexed_strings=indexed_strings, manager=manager)
+    # This is the lowest level interface with the state parser code.
+    # Here is the place to initialize any resources managed by the parse manager.
+    with manager:
+        result = parse_job(indexed_strings=indexed_strings, manager=manager)
+    return result
