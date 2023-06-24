@@ -6,13 +6,12 @@ from pathlib import Path
 from typing import Callable, Self, Sequence, Tuple
 
 from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_month_day import complete_month_day
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.helpers.tz_from_iata import tz_from_iata
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
-from aa_pbs_exporter.snippets import messages
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
@@ -22,6 +21,7 @@ from aa_pbs_exporter.snippets.indexed_string.filters import is_numeric
 from aa_pbs_exporter.snippets.indexed_string.index_and_filter_strings import (
     index_and_filter_strings,
 )
+from aa_pbs_exporter.snippets.string.indent import indent
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -39,13 +39,11 @@ class RawToCompact:
         self,
         tz_lookup: Callable[[str], str],
         validator: validate.CompactValidator | None,
-        msg_bus: messages.MessagePublisher | None,
         debug_file: Path | None = None,
     ) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package: compact.BidPackage | None = None
         self.validator = validator
-        self.msg_bus = msg_bus
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
 
@@ -61,93 +59,84 @@ class RawToCompact:
         if self.debug_fp is not None:
             self.debug_fp.close()
 
-    def send_message(self, msg: messages.Message, ctx: dict | None):
-        _ = ctx
-        if msg.category == STATUS:
-            logger.info("\n\t%s", indent_message(msg))
-        elif msg.category == DEBUG:
-            logger.debug("\n\t%s", indent_message(msg))
-        elif msg.category == ERROR:
-            logger.warning("\n\t%s", indent_message(msg))
-        if self.msg_bus is not None:
-            self.msg_bus.publish_message(msg=msg)
+    def debug_write(self, value: str, indent_level: int = 0):
+        if self.debug_fp is not None:
+            print(indent(value, indent_level), file=self.debug_fp)
 
     def translate(
         self, raw_bid_package: raw.BidPackage, ctx: dict | None = None
     ) -> compact.BidPackage:
+        start = time.perf_counter_ns()
         self.compact_bid_package = compact.BidPackage(
             uuid=raw_bid_package.uuid, source=raw_bid_package.source, pages=[]
         )
-        msg = messages.Message(
-            f"Translating data from raw to compact.",
-            category=STATUS,
-            level=Level.PKG,
+
+        self.debug_write(
+            f"********** Translating from raw to compact. uuid:{raw_bid_package.uuid} **********",
+            Level.PKG,
         )
-        self.send_message(msg, ctx)
 
         for page_idx, page in enumerate(raw_bid_package.pages, start=1):
-            msg = messages.Message(
+            assert page.page_footer is not None
+            self.debug_write(
                 f"Translating page {page.page_footer.page} {page_idx} "
                 f"of {len(raw_bid_package.pages)}",
-                category=DEBUG,
-                level=Level.PAGE,
+                Level.PAGE,
             )
-            self.send_message(msg=msg, ctx=ctx)
             compact_page = self.translate_page(page, ctx=ctx)
             self.compact_bid_package.pages.append(compact_page)
             valid_dates = list(date_range(compact_page.start, compact_page.end))
-            logger.debug("There are %s possible start dates.", len(valid_dates))
+            self.debug_write(f"There are {len(valid_dates)} possible start dates.")
             for trip_idx, trip in enumerate(page.trips, start=1):
-                msg = messages.Message(
+                self.debug_write(
                     f"Translating trip {trip.header.number} {trip_idx} "
                     f"of {len(page.trips)}"
                     f"uuid: {trip.uuid}",
-                    category=DEBUG,
-                    level=Level.TRIP,
+                    Level.TRIP,
                 )
-                self.send_message(msg=msg, ctx=ctx)
                 if "prior" in trip.header.source.txt:
                     # skip prior month trips
-                    # msg = messages.Message(
-                    #     f"Skipping prior month trip {trip.header.number}. "
-                    #     f"uuid: {trip.uuid}",
-                    #     category=STATUS,
-                    #     level=Level.TRIP + 1,
-                    # )
-                    # self.send_message(msg, ctx)
+
+                    self.debug_write(
+                        f"Skipping prior month trip: {trip.header.number}", Level.TRIP
+                    )
                     continue
                 compact_trip = self.translate_trip(trip, valid_dates, ctx=ctx)
                 compact_page.trips.append(compact_trip)
                 for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
-                    msg = messages.Message(
+                    self.debug_write(
                         f"Translating dutyperiod {dp_idx} "
                         f"of {len(trip.dutyperiods)}"
                         f"uuid: {dutyperiod.uuid}",
-                        category=DEBUG,
-                        level=Level.DP,
+                        Level.DP,
                     )
-                    self.send_message(msg=msg, ctx=ctx)
                     compact_dutyperiod = self.translate_dutyperiod(
                         dp_idx, dutyperiod, ctx=ctx
                     )
                     compact_trip.dutyperiods.append(compact_dutyperiod)
                     for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
-                        msg = messages.Message(
+                        self.debug_write(
                             f"Translating flight {flight.flight_number} {flt_idx} "
                             f"of {len(dutyperiod.flights)}"
                             f"uuid: {flight.source.uuid5()}",
-                            category=DEBUG,
-                            level=Level.FLT,
+                            Level.FLT,
                         )
-                        self.send_message(msg=msg, ctx=ctx)
                         compact_flight = self.translate_flight(
                             dp_idx, flt_idx, flight, ctx=ctx
                         )
                         compact_dutyperiod.flights.append(compact_flight)
-
+        end = time.perf_counter_ns()
+        self.debug_write(
+            f"Translation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
+        )
         if self.validator is not None:
+            start = time.perf_counter_ns()
             self.validator.validate(
                 raw_bid=raw_bid_package, compact_bid=self.compact_bid_package, ctx=ctx
+            )
+            end = time.perf_counter_ns()
+            self.debug_write(
+                f"Validation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
             )
         return self.compact_bid_package
 
@@ -160,22 +149,20 @@ class RawToCompact:
         effective = datetime.strptime(raw_page.page_footer.effective, DATE).date()
         start_struct = time.strptime(raw_page.page_header_2.from_date, MONTH_DAY)
         start = complete_month_day(effective, start_struct)
-        msg = messages.Message(
+
+        self.debug_write(
             f"Completed page start date {start} using ref_date {effective}, and "
             f"future date string {raw_page.page_header_2.from_date}",
-            category=DEBUG,
-            level=Level.PAGE + 1,
+            Level.PAGE + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         end_struct = time.strptime(raw_page.page_header_2.to_date, MONTH_DAY)
         end = complete_month_day(effective, end_struct)
-        msg = messages.Message(
+
+        self.debug_write(
             f"Completed page end date {end} using ref_date {effective}, and "
             f"future date string {raw_page.page_header_2.to_date}",
-            category=DEBUG,
-            level=Level.PAGE + 1,
+            Level.PAGE + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         trips: list[compact.Trip] = []
         compact_page = compact.Page(
             uuid=raw_page.uuid,
@@ -222,13 +209,12 @@ class RawToCompact:
         compact_trip.start_dates = self.collect_start_dates(
             valid_dates=valid_dates, raw_trip=raw_trip, ctx=ctx
         )
-        msg = messages.Message(
+
+        self.debug_write(
             f"Found {len(compact_trip.start_dates)} start dates for "
             f"trip {compact_trip.number}. {compact_trip.start_dates!r}",
-            category=DEBUG,
-            level=Level.TRIP + 1,
+            Level.TRIP + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         return compact_trip
 
     def translate_dutyperiod(
@@ -356,27 +342,23 @@ class RawToCompact:
         self, valid_dates: Sequence[date], raw_trip: raw.Trip, ctx: dict | None
     ) -> list[date]:
         if not len(raw_trip.calendar_entries) == len(valid_dates):
-            msg = messages.Message(
+            self.debug_write(
                 f"Count of calendar_entries: {len(raw_trip.calendar_entries)} "
                 f"does not match valid_dates: {len(valid_dates)}. "
                 f"uuid: {raw_trip.uuid}",
-                category=ERROR,
-                level=Level.TRIP + 1,
+                Level.TRIP + 1,
             )
-            self.send_message(msg=msg, ctx=ctx)
         start_dates: list[date] = []
         days = self.collect_start_days(raw_trip=raw_trip)
         for day in days:
             start_date = valid_dates[day[0]]
             if day[1] != start_date.day:
-                msg = messages.Message(
+                self.debug_write(
                     f"Partial date: {day!r} does not match day of date: "
                     f"{start_date.isoformat()}. "
                     f"uuid:{raw_trip.uuid}",
-                    category=ERROR,
-                    level=Level.TRIP + 1,
+                    Level.TRIP + 1,
                 )
-                self.send_message(msg=msg, ctx=ctx)
             start_dates.append(start_date)
         return start_dates
 
@@ -391,12 +373,12 @@ class RawToCompact:
 
 def raw_to_compact(
     raw_package: raw.BidPackage,
-    msg_bus: messages.MessagePublisher | None,
     debug_file: Path | None = None,
 ):
-    validator = validate.CompactValidator(msg_bus=msg_bus)
+    validator = validate.CompactValidator()
     with RawToCompact(
-        tz_lookup=tz_from_iata, validator=validator, msg_bus=None, debug_file=debug_file
+        tz_lookup=tz_from_iata, validator=validator, debug_file=debug_file
     ) as translator:
         compact_package = translator.translate(raw_package)
+
     return compact_package

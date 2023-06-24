@@ -8,7 +8,6 @@ from aa_pbs_exporter.pbs_2022_01.helpers.collect_calendar_entries import (
 )
 from aa_pbs_exporter.pbs_2022_01.models import raw
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-from aa_pbs_exporter.snippets import messages
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -22,7 +21,6 @@ class ParsedToRaw:
         self,
         source: HashedFile | None,
         validator: validate.RawValidator | None,
-        msg_bus: messages.MessagePublisher | None = None,
         debug_fp: TextIOWrapper | None = None,
     ) -> None:
         self.source = source
@@ -34,20 +32,6 @@ class ParsedToRaw:
             uuid_seed = "None"
         uuid = uuid5(raw.BIDPACKAGE_DNS, uuid_seed)
         self.bid_package = raw.BidPackage(uuid=uuid, source=source, pages=[])
-        self.msg_bus = msg_bus
-
-    # def send_message(self, msg: messages.Message, ctx: dict | None):
-    #     _ = ctx
-    #     if msg.category == STATUS:
-    #         logger.info("\n\t%s", indent_message(msg))
-    #     elif msg.category == DEBUG:
-    #         logger.debug("\n\t%s", indent_message(msg))
-    #     elif msg.category == ERROR:
-    #         logger.warning("\n\t%s", indent_message(msg))
-    #     if self.debug_fp is not None:
-    #         self.debug_write(indent_message(msg))
-    #     if self.msg_bus is not None:
-    #         self.msg_bus.publish_message(msg=msg)
 
     def debug_write(self, value: str):
         if self.debug_fp is not None:

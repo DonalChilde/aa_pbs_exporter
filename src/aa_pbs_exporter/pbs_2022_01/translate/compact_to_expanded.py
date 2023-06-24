@@ -5,15 +5,16 @@ from pathlib import Path
 from typing import Self, Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
+from time import perf_counter_ns
 
 from aa_pbs_exporter.pbs_2022_01 import validate
+from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
-from aa_pbs_exporter.snippets import messages
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.string.indent import indent
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -26,11 +27,10 @@ class CompactToExpanded:
     def __init__(
         self,
         validator: validate.ExpandedValidator | None,
-        msg_bus: messages.MessagePublisher | None,
         debug_file: Path | None = None,
     ) -> None:
         self.validator = validator
-        self.msg_bus = msg_bus
+
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
 
@@ -46,56 +46,54 @@ class CompactToExpanded:
         if self.debug_fp is not None:
             self.debug_fp.close()
 
-    def send_message(self, msg: messages.Message, ctx: dict | None):
-        _ = ctx
-        if msg.category == STATUS:
-            logger.info("\n\t%s", indent_message(msg))
-        elif msg.category == DEBUG:
-            logger.debug("\n\t%s", indent_message(msg))
-        elif msg.category == ERROR:
-            logger.warning("\n\t%s", indent_message(msg))
-        if self.msg_bus is not None:
-            self.msg_bus.publish_message(msg=msg)
+    def debug_write(self, value: str, indent_level: int = 0):
+        if self.debug_fp is not None:
+            print(indent(value, indent_level), file=self.debug_fp)
 
     def translate(
         self,
         compact_bid_package: compact.BidPackage,
         ctx: dict | None = None,
     ) -> expanded.BidPackage:
+        start = perf_counter_ns()
         expanded_bid_package = expanded.BidPackage(
             uuid=compact_bid_package.uuid, source=compact_bid_package.source, pages=[]
         )
-        msg = messages.Message(
-            f"Translating data from compact to expanded.",
-            category=STATUS,
-            level=Level.PKG,
+
+        self.debug_write(
+            f"********** Translating from compact to expanded. "
+            f"uuid:{compact_bid_package.uuid} **********\n",
+            Level.PKG,
         )
-        self.send_message(msg, ctx)
         for page_idx, page in enumerate(compact_bid_package.pages, start=1):
-            msg = messages.Message(
+            self.debug_write(
                 f"Translating compact page {page.number} {page_idx} "
                 f"of {len(compact_bid_package.pages)} "
                 f"uuid: {page.uuid}",
-                category=DEBUG,
-                level=Level.PAGE,
+                Level.PAGE,
             )
-            self.send_message(msg=msg, ctx=ctx)
             expanded_page = self.translate_page(page, ctx=ctx)
             expanded_bid_package.pages.append(expanded_page)
             for trip_idx, trip in enumerate(page.trips, start=1):
-                msg = messages.Message(
+                self.debug_write(
                     f"Translating compact trip {trip.number} {trip_idx} "
                     f"of {len(page.trips)} "
                     f"uuid: {trip.uuid}",
-                    category=DEBUG,
-                    level=Level.TRIP,
+                    Level.TRIP,
                 )
-                self.send_message(msg=msg, ctx=ctx)
                 expanded_trips = self.translate_trip(trip, ctx=ctx)
                 expanded_page.trips.extend(expanded_trips)
-
+        end = perf_counter_ns()
+        self.debug_write(
+            f"Translation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
+        )
         if self.validator is not None:
+            start = perf_counter_ns()
             self.validator.validate(compact_bid_package, expanded_bid_package, ctx)
+            end = perf_counter_ns()
+            self.debug_write(
+                f"Validation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
+            )
         return expanded_bid_package
 
     def expand_dutyperiods(
@@ -105,20 +103,15 @@ class CompactToExpanded:
         dutyperiod_ref_instant = expanded_trip.start + timedelta()
         dutyperiods_len = len(compact_trip.dutyperiods)
         for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
-            msg = messages.Message(
+            self.debug_write(
                 f"Translating compact dutyperiod {idx} of {dutyperiods_len} for "
                 f"Trip:{expanded_trip.number} - {expanded_trip.start.local().date()}.",
-                category=DEBUG,
-                level=Level.DP,
+                Level.DP,
             )
-            self.send_message(msg=msg, ctx=ctx)
-            self.send_message(
-                messages.Message(
-                    f"report is {dutyperiod_ref_instant}",
-                    category=DEBUG,
-                    level=Level.DP + 1,
-                ),
-                ctx=ctx,
+
+            self.debug_write(
+                f"report is {dutyperiod_ref_instant}",
+                Level.DP + 1,
             )
             expanded_dutyperiod = self.translate_dutyperiod(
                 report=dutyperiod_ref_instant,
@@ -129,13 +122,11 @@ class CompactToExpanded:
                 dutyperiod_ref_instant = (
                     expanded_dutyperiod.release + expanded_dutyperiod.layover.odl
                 )
-                msg = messages.Message(
+                self.debug_write(
                     f"Added layover {expanded_dutyperiod.layover.odl} "
                     f"to release {expanded_dutyperiod.release} to get next report.",
-                    category=DEBUG,
-                    level=Level.DP + 1,
+                    Level.DP + 1,
                 )
-                self.send_message(msg=msg, ctx=ctx)
             expanded_dutyperiods.append(expanded_dutyperiod)
         return expanded_dutyperiods
 
@@ -177,20 +168,18 @@ class CompactToExpanded:
                 utc_date=start_utc,
                 tz_name=first_report.tz_name,
             )
-            msg = messages.Message(
+
+            self.debug_write(
                 f"Generated start of trip: {start} using {start_date} and {first_report}.",
-                category=DEBUG,
-                level=Level.TRIP + 1,
+                Level.TRIP + 1,
             )
-            self.send_message(msg=msg, ctx=ctx)
             # Assumes trip starts and ends in same timezone.
             end = start + compact_trip.tafb
-            msg = messages.Message(
+
+            self.debug_write(
                 f"Calculated trip end time {end} using tafb {compact_trip.tafb}",
-                category=DEBUG,
-                level=Level.TRIP + 1,
+                Level.TRIP + 1,
             )
-            self.send_message(msg=msg, ctx=ctx)
 
             expanded_trip = expanded.Trip(
                 uuid=uuid5(compact_trip.uuid, start.utc_date.isoformat()),
@@ -222,13 +211,12 @@ class CompactToExpanded:
         release = complete_time_instant(
             report, compact_release.lcl, compact_release.tz_name
         )
-        msg = messages.Message(
+
+        self.debug_write(
             f"Completed release time {release} using report {report} and compact "
             f"release {compact_release!r}",
-            category=DEBUG,
-            level=Level.DP + 1,
+            Level.DP + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         expanded_dutyperiod = expanded.DutyPeriod(
             uuid=uuid5(compact_dutyperiod.uuid, report.utc_date.isoformat()),
             compact_uuid=compact_dutyperiod.uuid,
@@ -261,13 +249,11 @@ class CompactToExpanded:
         flight_ref_instant = expanded_dutyperiod.report
         flights_len = len(compact_dutyperiod.flights)
         for idx, flight in enumerate(compact_dutyperiod.flights, start=1):
-            msg = messages.Message(
+            self.debug_write(
                 f"Translating Flight {flight.number}, {idx} of {flights_len}, "
                 f"ref_instant is {flight_ref_instant} ",
-                category=DEBUG,
-                level=Level.FLT,
+                Level.FLT,
             )
-            self.send_message(msg=msg, ctx=ctx)
             expanded_flight = self.translate_flight(flight_ref_instant, flight, ctx=ctx)
             flights.append(expanded_flight)
             flight_ref_instant = expanded_flight.arrival + expanded_flight.ground
@@ -285,25 +271,23 @@ class CompactToExpanded:
             naive_time=compact_flight.departure.lcl,
             tz_name=compact_flight.departure.tz_name,
         )
-        msg = messages.Message(
+
+        self.debug_write(
             f"Completed {compact_flight.number} departure time {departure} using "
             f"ref_instant {ref_instant} and compact departure {compact_flight.departure}",
-            category=DEBUG,
-            level=Level.FLT + 1,
+            Level.FLT + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         arrival = complete_time_instant(
             ref_instant=departure,
             naive_time=compact_flight.arrival.lcl,
             tz_name=compact_flight.arrival.tz_name,
         )
-        msg = messages.Message(
+
+        self.debug_write(
             f"Completed {compact_flight.number} arrival time {arrival} using "
             f"departure {departure} and compact arrival {compact_flight.arrival}",
-            category=DEBUG,
-            level=Level.FLT + 1,
+            Level.FLT + 1,
         )
-        self.send_message(msg=msg, ctx=ctx)
         expanded_flight = expanded.Flight(
             uuid=uuid5(compact_flight.uuid, departure.utc_date.isoformat()),
             compact_uuid=compact_flight.uuid,
@@ -398,13 +382,10 @@ class CompactToExpanded:
 
 def compact_to_expanded(
     compact_package: compact.BidPackage,
-    msg_bus: messages.MessagePublisher | None,
     debug_file: Path | None = None,
 ):
-    validator = validate.ExpandedValidator(msg_bus=msg_bus)
-    with CompactToExpanded(
-        validator=validator, msg_bus=msg_bus, debug_file=debug_file
-    ) as translator:
+    validator = validate.ExpandedValidator()
+    with CompactToExpanded(validator=validator, debug_file=debug_file) as translator:
         expanded_package = translator.translate(compact_package)
     return expanded_package
 

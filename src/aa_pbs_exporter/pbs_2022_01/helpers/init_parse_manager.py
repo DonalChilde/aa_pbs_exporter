@@ -1,6 +1,5 @@
 from hashlib import md5
 from pathlib import Path
-from typing import IO, Any
 
 from aa_pbs_exporter.pbs_2022_01 import translate, validate
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
@@ -24,9 +23,10 @@ def init_parse_manager(
         source = make_hashed_file(
             file_path=source_path, hasher=md5(), result_factory=HashedFile.factory
         )
-    validator = validate.RawValidator(msg_bus=msg_bus)
+    validator = validate.RawValidator()
     translator = translate.ParsedToRaw(
-        source=source, validator=validator, msg_bus=msg_bus
+        source=source,
+        validator=validator,
     )
     result_handler: RawResultHandler = RawResultHandler[BidPackage](
         translator=translator, msg_bus=msg_bus

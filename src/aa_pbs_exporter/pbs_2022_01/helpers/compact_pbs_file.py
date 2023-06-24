@@ -38,7 +38,7 @@ def compact_pbs_object(
     raw_bid_package: raw.BidPackage,
 ) -> compact.BidPackage:
     compact_bid_package = translate.raw_to_compact(
-        raw_package=raw_bid_package, msg_bus=None, debug_file=debug_file
+        raw_package=raw_bid_package, debug_file=debug_file
     )
     if save_dir is not None:
         compact.save_compact(
