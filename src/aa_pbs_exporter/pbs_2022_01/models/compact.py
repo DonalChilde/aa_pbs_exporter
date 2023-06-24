@@ -144,7 +144,7 @@ class BidPackage(BaseModel):
                 yield trip
 
     def default_file_name(self) -> str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact.json"
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact_{self.uuid}.json"
 
     def __eq__(self, __value: object) -> bool:
         if isinstance(__value, BidPackage):

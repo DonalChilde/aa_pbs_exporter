@@ -118,7 +118,7 @@ class BidPackage(BaseModel):
     pages: list[Page]
 
     def default_file_name(self) -> str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded.json"
+        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_expanded_{self.uuid}.json"
 
     def walk_trips(self) -> Iterable[Trip]:
         for page in self.pages:
