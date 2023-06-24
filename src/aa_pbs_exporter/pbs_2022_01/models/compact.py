@@ -144,7 +144,16 @@ class BidPackage(BaseModel):
                 yield trip
 
     def default_file_name(self) -> str:
-        return f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}_compact_{self.uuid}.json"
+        return (
+            f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}"
+            f"_compact_{self.uuid}.json"
+        )
+
+    @classmethod
+    def default_debug_file(cls, debug_dir: Path | None, name: str) -> Path | None:
+        if debug_dir is None:
+            return None
+        return debug_dir / f"{name}_compact-debug.txt"
 
     def __eq__(self, __value: object) -> bool:
         if isinstance(__value, BidPackage):

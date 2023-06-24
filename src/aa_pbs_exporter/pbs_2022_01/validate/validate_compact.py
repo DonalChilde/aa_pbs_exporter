@@ -2,7 +2,6 @@ from io import TextIOWrapper
 import logging
 
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.helpers.init_publisher import indent_message
 from aa_pbs_exporter.pbs_2022_01.helpers.length import length
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
 from aa_pbs_exporter.snippets.string.indent import indent

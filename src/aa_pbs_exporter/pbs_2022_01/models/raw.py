@@ -245,7 +245,10 @@ class BidPackage(BaseModel):
 
     def default_file_name(self) -> str:
         assert self.pages[0].page_footer is not None
-        return f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}_raw_{self.uuid}.json"
+        return (
+            f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}"
+            f"_raw_{self.uuid}.json"
+        )
 
     def uuid5(self) -> UUID:
         if self.source:

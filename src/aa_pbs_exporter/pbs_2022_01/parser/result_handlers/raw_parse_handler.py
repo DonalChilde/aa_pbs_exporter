@@ -8,7 +8,6 @@ from typing import Generic, TypeVar
 
 from aa_pbs_exporter.pbs_2022_01 import translate
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
-from aa_pbs_exporter.snippets import messages
 from aa_pbs_exporter.snippets.indexed_string.state_parser.state_parser_protocols import (
     ParseResultProtocol,
 )
@@ -28,11 +27,9 @@ class RawResultHandler(Generic[T]):
         self,
         translator: translate.ParsedToRaw,
         debug_fp: TextIOWrapper | None = None,
-        msg_bus: messages.MessagePublisher | None = None,
     ) -> None:
         super().__init__()
         self.translator = translator
-        self.msg_bus = msg_bus
         self._debug_fp = debug_fp
         self.data: T | None = None
         self.start: int = 0
@@ -49,27 +46,13 @@ class RawResultHandler(Generic[T]):
         if self.translator.validator is not None:
             self.translator.validator.debug_fp = value
 
-    # def send_message(self, msg: messages.Message, ctx: dict | None):
-    #     _ = ctx
-    #     if msg.category == STATUS:
-    #         logger.info("\n\t%s", indent_message(msg))
-    #     elif msg.category == DEBUG:
-    #         logger.debug("\n\t%s", indent_message(msg))
-    #     elif msg.category == ERROR:
-    #         logger.warning("\n\t%s", indent_message(msg))
-    #     if self.debug_fp is not None:
-    #         self.debug_fp.write(msg.produce_message())
-    #     if self.msg_bus is not None:
-    #         self.msg_bus.publish_message(msg=msg)
-
     def debug_write(self, value: str):
         if self.debug_fp is not None:
             print(value, file=self.debug_fp)
 
     def initialize(self, ctx: dict | None = None):
         _ = ctx
-        # msg = messages.Message(msg="Parse result handler initialized.", category=DEBUG)
-        # self.send_message(msg=msg, ctx=ctx)
+
         self.debug_write(
             f"********** Parse started on {datetime.now(UTC).isoformat()} **********\n"
         )
@@ -80,8 +63,6 @@ class RawResultHandler(Generic[T]):
     ):
         _ = kwargs, ctx
 
-        # msg = messages.Message(f"{parse_result}", category=DEBUG)
-        # self.send_message(msg=msg, ctx=ctx)
         self.debug_write(str(parse_result))
         data = parse_result.parsed_data
         match_value = data.__class__.__qualname__
