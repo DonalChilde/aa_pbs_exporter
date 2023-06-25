@@ -13,7 +13,7 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import
 @click.pass_context
 @click.argument("path_in", type=click.Path(exists=True, path_type=Path))
 @click.argument("path_out", type=Path)
-@click.option("--debug-path", "-d", type=Path)
+@click.option("--debug-path", "-d", type=Path, default=None)
 @click.option("--debug/--no-debug", default=True, show_default=True)
 @click.option("--compact/--no-compact", default=True, show_default=True)
 @click.option("--expand/--no-expand", default=True, show_default=True)
