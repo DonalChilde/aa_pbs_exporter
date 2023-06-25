@@ -13,10 +13,18 @@ from aa_pbs_exporter.snippets.indexed_string.state_parser.parse_exception import
 @click.pass_context
 @click.argument("path_in", type=click.Path(exists=True, path_type=Path))
 @click.argument("path_out", type=Path)
+@click.option("--debug-path", "-d", type=Path)
+@click.option("--debug/--no-debug", default=True, show_default=True)
+@click.option("--compact/--no-compact", default=True, show_default=True)
+@click.option("--expand/--no-expand", default=True, show_default=True)
 def parse(
     ctx: click.Context,
     path_in: Path,
     path_out: Path,
+    debug: bool,
+    debug_path: Path | None,
+    compact: bool,
+    expand: bool,
 ) -> int:
     """Parse a pairing package text file to json or yaml.
 
@@ -61,7 +69,7 @@ def parse_the_file(path_out: Path, txt_file: Path):
     sub_dir = path_out / txt_file.name.split(".")[0]
     click.echo(f"Parsing {txt_file} to {sub_dir}")
     try:
-        parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir)
+        parse_pbs_txt_file(txt_file=txt_file, output_dir=sub_dir, debug_dir=sub_dir)
     except ParseException as error:
         click.echo(f"There was an error parsing {txt_file}")
         click.echo("Check the logs for more details.")
