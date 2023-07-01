@@ -1,18 +1,26 @@
+from dataclasses import dataclass
 import json
 from importlib import resources
 from logging import Logger
 from pathlib import Path
+from typing import Callable, Iterable, Sequence
 
 import pytest
 
 from aa_pbs_exporter.pbs_2022_01.parser import parsers_td
 from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme_td import ParserLookupSingle
 from aa_pbs_exporter.snippets.indexed_string.typedict.index_strings import index_strings
+from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
+    IndexedString,
+)
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
     ParseException,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_file_to_json import (
     parse_file_to_json,
+)
+from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
+    IndexedStringParserProtocol,
 )
 from tests.aa_pbs_exporter.resources.helpers_2 import ResourceTestData
 
@@ -25,6 +33,55 @@ TEST_DATA = [
 
 
 TEST_FAIL = [ResourceTestData("fail.txt", "fail.json")]
+
+
+@dataclass
+class ParserTest:
+    input_data: str
+    result_data: str
+    expected_data: str
+    resource_package: str
+    name: str
+    category: str
+    parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]]
+    indexer: Callable[[Iterable[str]], Iterable[IndexedString]]
+
+
+foo: list[ParserTest] = [
+    ParserTest(
+        input_data="satellite_base.txt",
+        result_data="satellite_base.json",
+        expected_data="satellite_base.json",
+        resource_package=str(__package__),
+        name="BaseEquipment",
+        category="line",
+        parser_lookup=ParserLookupSingle(parsers_td.BaseEquipment()),
+        indexer=index_strings,
+    )
+]
+
+
+@pytest.mark.parametrize("test_data", foo)
+def test_parser_2(test_app_data_dir: Path, logger: Logger, test_data: ParserTest):
+    output_path = test_app_data_dir / test_data.category / test_data.name
+    res_dir = resources.files(test_data.resource_package)
+    print("Package Name:", test_data.resource_package)
+    res_file = res_dir.joinpath(test_data.input_data)
+    json_path = output_path / f"{test_data.result_data}"
+    debug_path = output_path / f"{test_data.input_data}_debug.txt"
+    with resources.as_file(res_file) as file_in:
+        result = parse_file_to_json(
+            file_in=file_in,
+            indexer=test_data.indexer,
+            parser_lookup=test_data.parser_lookup,
+            file_out=json_path,
+            debug_out=debug_path,
+        )
+    if not SERIALIZE_ONLY:
+        expected_file = res_dir.joinpath(test_data.result_data)
+        expected = json.loads(expected_file.read_text())
+        assert result == expected
+    assert False
 
 
 def test_parser(test_app_data_dir: Path, logger: Logger):

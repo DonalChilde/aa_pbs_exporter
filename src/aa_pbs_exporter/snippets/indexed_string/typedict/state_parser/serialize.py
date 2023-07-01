@@ -19,6 +19,6 @@ def save_as_json(
 
 
 def load_from_json(file_in: Path) -> CollectedParseResults:
-    with open(file_in, mode="rb", encoding="utf-8") as file_fp:
+    with open(file_in, mode="rb") as file_fp:
         results = json.load(file_fp)
     return results

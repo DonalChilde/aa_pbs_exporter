@@ -12,7 +12,7 @@ from aa_pbs_exporter.snippets.logging.logging import (
     rotating_file_handler,
 )
 
-APP_LOG_LEVEL = logging.DEBUG
+APP_LOG_LEVEL = logging.INFO
 TEST_LOG_LEVEL = logging.DEBUG
 
 

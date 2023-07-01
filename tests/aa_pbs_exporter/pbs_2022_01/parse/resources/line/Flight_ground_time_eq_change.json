@@ -1,0 +1,37 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "65",
+        "flight_number": "2131",
+        "deadhead": "",
+        "departure_station": "SAN",
+        "departure_time": "1337/1337",
+        "meal": "",
+        "arrival_station": "ORD",
+        "arrival_time": "1935/1735",
+        "block": "3.58",
+        "synth": "0.00",
+        "ground": "1.10",
+        "equipment_change": "X",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 0,
+        "txt": "1  1/1 65 2131  SAN 1337/1337    ORD 1935/1735   3.58          1.10X                   \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212"
+      }
+    }
+  ]
+}

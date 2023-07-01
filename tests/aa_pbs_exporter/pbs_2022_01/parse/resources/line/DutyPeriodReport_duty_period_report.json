@@ -1,0 +1,46 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "1237/1237",
+        "calendar": [
+          "2",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 0,
+        "txt": "                RPT 1237/1237                                                           2 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "1000/1000",
+        "calendar": []
+      },
+      "source": {
+        "idx": 1,
+        "txt": "                RPT 1000/1000                                                          sequence 25384/30DEC\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "1829/1829",
+        "calendar": []
+      },
+      "source": {
+        "idx": 2,
+        "txt": "                RPT 1829/1829                                                          sequence 01JUL\n"
+      }
+    }
+  ]
+}

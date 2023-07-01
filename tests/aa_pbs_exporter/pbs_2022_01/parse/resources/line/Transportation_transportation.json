@@ -1,0 +1,49 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SIN FIN DE SERVICIOS",
+        "phone": "3331223240",
+        "calendar": []
+      },
+      "source": {
+        "idx": 0,
+        "txt": "                    SIN FIN DE SERVICIOS                    3331223240\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "VIP TRANSPORTATION\u2212 OGG",
+        "phone": "8088712702",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 1,
+        "txt": "                    VIP TRANSPORTATION\u2212 OGG                 8088712702                 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "",
+        "phone": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 2,
+        "txt": "                                                                                      \u2212\u2212 \u2212\u2212 \u2212\u2212"
+      }
+    }
+  ]
+}

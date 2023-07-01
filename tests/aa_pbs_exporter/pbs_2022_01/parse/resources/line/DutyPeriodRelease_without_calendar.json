@@ -1,0 +1,21 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "2252/2252",
+        "block": "0.00",
+        "synth": "5.46",
+        "total_pay": "5.46",
+        "duty": "6.46",
+        "flight_duty": "0.00",
+        "calendar": []
+      },
+      "source": {
+        "idx": 0,
+        "txt": "                                 RLS 2252/2252   0.00   5.46   5.46   6.46        0.00"
+      }
+    }
+  ]
+}

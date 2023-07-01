@@ -1,0 +1,13 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "PageHeader1",
+      "parsed_data": {},
+      "source": {
+        "idx": 0,
+        "txt": "\f   DAY          \u2212\u2212DEPARTURE\u2212\u2212    \u2212\u2212\u2212ARRIVAL\u2212\u2212\u2212                GRND/        REST/\n"
+      }
+    }
+  ]
+}

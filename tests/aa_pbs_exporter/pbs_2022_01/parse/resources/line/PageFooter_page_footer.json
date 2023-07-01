@@ -1,0 +1,37 @@
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "PageFooter",
+      "parsed_data": {
+        "issued": "08APR2022",
+        "effective": "02MAY2022",
+        "base": "LAX",
+        "satelite_base": "",
+        "equipment": "737",
+        "division": "DOM",
+        "page": "644"
+      },
+      "source": {
+        "idx": 0,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 737  DOM                              PAGE   644\n"
+      }
+    },
+    {
+      "parse_ident": "PageFooter",
+      "parsed_data": {
+        "issued": "08APR2022",
+        "effective": "02MAY2022",
+        "base": "LAX",
+        "satelite_base": "",
+        "equipment": "320",
+        "division": "INTL",
+        "page": "1178"
+      },
+      "source": {
+        "idx": 1,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               LAX 320  INTL                             PAGE  1178"
+      }
+    }
+  ]
+}
