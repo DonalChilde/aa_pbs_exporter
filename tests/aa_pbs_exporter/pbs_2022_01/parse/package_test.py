@@ -29,6 +29,16 @@ PAGE_TEST_DATA = [
         parser_lookup=parser_lookup,
         indexer=index_pbs_strings,
     ),
+    ParserTest(
+        input_data="20220408124407.txt",
+        result_data="20220408124407.json",
+        expected_data="20220408124407.json",
+        resource_package=f"{__package__}.resources",
+        name="PBS_DFW_May_2022",
+        category="full_package",
+        parser_lookup=parser_lookup,
+        indexer=index_pbs_strings,
+    ),
 ]
 PAGE_FAIL_TEST_DATA = [
     ParserTest(
@@ -44,6 +54,7 @@ PAGE_FAIL_TEST_DATA = [
 ]
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("test_data", PAGE_TEST_DATA)
 def test_parser(test_app_data_dir: Path, logger: Logger, test_data: ParserTest):
     output_path = test_app_data_dir / test_data.category
