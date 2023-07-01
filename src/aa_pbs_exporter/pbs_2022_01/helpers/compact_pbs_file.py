@@ -6,12 +6,13 @@ from typing import Callable, Sequence
 
 from aa_pbs_exporter.pbs_2022_01 import translate
 from aa_pbs_exporter.pbs_2022_01.models import compact, raw
-from aa_pbs_exporter.snippets.timers.function_timer import function_timer
+from aa_pbs_exporter.snippets.timers import timers
 
 logger = logging.getLogger(__name__)
+time_logger = timers.TimeLogger(logger=logger, level=logging.INFO)
 
 
-@function_timer(logger=logger, level=logging.INFO)
+@timers.timer_ns(time_logger)
 def compact_pbs_file(
     file_in: Path,
     save_dir: Path | None,
@@ -29,7 +30,7 @@ def compact_pbs_file(
     )
 
 
-@function_timer(logger=logger, level=logging.INFO)
+@timers.timer_ns(time_logger)
 def compact_pbs_object(
     save_dir: Path | None,
     file_name: str | None,

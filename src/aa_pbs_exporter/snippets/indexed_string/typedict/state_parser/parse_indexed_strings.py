@@ -5,11 +5,11 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T09:11:41-07:00            #
-# Last Modified: 2023-06-26T23:11:51.057592+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
-from typing import Any, Iterable, Iterator
+from typing import Any, Callable, Iterable, Iterator, Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
     IndexedString,
@@ -22,8 +22,8 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_indexed
     parse_indexed_string,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
+    IndexedStringParserProtocol,
     ParseResult,
-    ParserLookupProtocol,
 )
 
 logger = logging.getLogger(__name__)
@@ -32,7 +32,8 @@ logger.addHandler(logging.NullHandler())
 
 def parse_indexed_strings(
     indexed_strings: Iterable[IndexedString],
-    parser_lookup: ParserLookupProtocol,
+    parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]],
+    beginning_state: str = "start",
     ctx: dict[str, Any] | None = None,
 ) -> Iterator[ParseResult]:
     """
@@ -57,12 +58,12 @@ def parse_indexed_strings(
     Yields:
         The parse result, which contains the new state, and any parsed data.
     """
-    current_state = "start"
+    current_state = beginning_state
     for indexed_string in indexed_strings:
         try:
             parse_result = parse_indexed_string(
                 indexed_string=indexed_string,
-                parsers=parser_lookup.expected_parsers(current_state),
+                parsers=parser_lookup(current_state),
                 ctx=ctx,
             )
             current_state = parse_result["parse_ident"]

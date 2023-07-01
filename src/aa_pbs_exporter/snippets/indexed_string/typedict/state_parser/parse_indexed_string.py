@@ -58,14 +58,14 @@ def parse_indexed_string(
             parse_result = parser.parse(indexed_string=indexed_string, ctx=ctx)
             return parse_result
         except SingleParserFail as error:
-            logger.info(
+            logger.debug(
                 "\n\tFAILED %r->%r\n\t%r",
                 error.parser.__class__.__name__,
                 error.indexed_string,
                 error,
             )
         except ParseJobFail as error:
-            logger.info("Parse Job failed %s", error)
+            logger.error("Parse Job failed %s", error)
             raise error
     raise ParseAllFail(
         f"No parser found for {indexed_string!r}\nTried {parsers!r}",

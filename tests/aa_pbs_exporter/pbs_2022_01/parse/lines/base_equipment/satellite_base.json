@@ -1,14 +1,17 @@
-[
-  {
-    "current_state": "base_equipment",
-    "parsed_data": {
+{
+  "kwargs": {},
+  "data": [
+    {
+      "parse_ident": "BaseEquipment",
+      "parsed_data": {
+        "base": "LAX",
+        "satellite_base": "SAN",
+        "equipment": "737"
+      },
       "source": {
         "idx": 0,
         "txt": "LAX SAN 737"
-      },
-      "base": "LAX",
-      "satellite_base": "SAN",
-      "equipment": "737"
+      }
     }
-  }
-]
+  ]
+}

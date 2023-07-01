@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-05T05:59:13-07:00            #
-# Last Modified: 2023-06-26T23:11:51.056598+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -15,24 +15,27 @@ When parsing semi structured text, parsing a section often depends on
 knowing what the previous section was. This parser allows the selection of possible
 parsers based on the results of the previous successfully parsed string.
 """
-from typing import Any, Protocol, Sequence, TypedDict, TypeVar
+from typing import Any, Mapping, Protocol, TypedDict
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
     IndexedString,
 )
 
-T = TypeVar("T")
-
 
 class ParseResult(TypedDict):
     parse_ident: str
-    parsed_data: dict[str, Any]
+    parsed_data: Mapping[Any, Any]
     source: IndexedString
 
 
-class ResultHandlerData(TypedDict):
+class CollectedParseResults(TypedDict):
     kwargs: dict[str, Any]
     data: list[ParseResult]
+
+
+class ParsedIndexedString(TypedDict):
+    parsed_data: Mapping[Any, Any]
+    source: IndexedString
 
 
 # class ParsedIndexedStringProtocol(Protocol):
@@ -94,7 +97,7 @@ class IndexedStringParserProtocol(Protocol):
 class ResultHandlerProtocol(Protocol):
     """Do something with a parse result."""
 
-    data: ResultHandlerData | None
+    data: CollectedParseResults | None
 
     def __enter__(self):
         raise NotImplementedError
@@ -114,22 +117,22 @@ class ResultHandlerProtocol(Protocol):
         raise NotImplementedError
 
 
-class ParserLookupProtocol(Protocol):
-    def expected_parsers(
-        self, state: str, **kwargs
-    ) -> Sequence[IndexedStringParserProtocol]:
-        """
-        Get a sequence of parsers expected to match the next indexed string.
+# class ParserLookupProtocol(Protocol):
+#     def expected_parsers(
+#         self, state: str, **kwargs
+#     ) -> Sequence[IndexedStringParserProtocol]:
+#         """
+#         Get a sequence of parsers expected to match the next indexed string.
 
-        The parsers returned are based on the current state of a parse job.
+#         The parsers returned are based on the current state of a parse job.
 
-        Args:
-            state: The current state of a parse job.
+#         Args:
+#             state: The current state of a parse job.
 
-        Returns:
-            A sequence of parsers expected to match the next indexed string.
-        """
-        raise NotImplementedError
+#         Returns:
+#             A sequence of parsers expected to match the next indexed string.
+#         """
+#         raise NotImplementedError
 
 
 # class ParseManagerProtocol(Protocol[T]):

@@ -16,9 +16,10 @@ from pydantic import BaseModel
 
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
-from aa_pbs_exporter.snippets.timers.function_timer import function_timer
+from aa_pbs_exporter.snippets.timers import timers
 
 logger = logging.getLogger(__name__)
+time_logger = timers.TimeLogger(logger=logger, level=logging.INFO)
 
 
 class Transportation(BaseModel):
@@ -142,13 +143,13 @@ class BidPackage(BaseModel):
         return super().__eq__(__value)
 
 
-@function_timer(logger=logger, level=logging.INFO)
+@timers.timer_ns(time_logger)
 def load_expanded(file_in: Path) -> BidPackage:
     bid_package = BidPackage.parse_file(file_in)
     return bid_package
 
 
-@function_timer(logger=logger, level=logging.INFO)
+@timers.timer_ns(time_logger)
 def save_expanded(
     save_dir: Path, file_name: str | None, overwrite: bool, bid_package: BidPackage
 ):

@@ -14,3 +14,7 @@ from typing import TypedDict
 class IndexedString(TypedDict):
     idx: int
     txt: str
+
+
+def indexed_string_factory(idx: int, txt: str) -> IndexedString:
+    return IndexedString(idx=idx, txt=txt)
