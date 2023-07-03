@@ -5,13 +5,13 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-28T08:31:08-07:00            #
-# Last Modified: 2023-03-01T15:20:06.269228+00:00  #
+# Last Modified: 2023-07-03T14:06:33.789233+00:00  #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, BinaryIO, Callable, Protocol
+from typing import TYPE_CHECKING, BinaryIO, Callable, Protocol, TypedDict
 
 if TYPE_CHECKING:
     from hashlib import _Hash
@@ -65,14 +65,20 @@ def hash_file(file_path: Path, hasher: "_Hash", block_size: int = 2**10 * 64) ->
 
 
 class HashedFileProtocol(Protocol):
-    file_path: Path
+    file_path: str
     file_hash: str
     hash_method: str
 
 
-@dataclass
+class HashedFileDict(TypedDict):
+    file_path: str
+    file_hash: str
+    hash_method: str
+
+
+@dataclass(slots=True)
 class HashedFile:
-    file_path: Path
+    file_path: str
     file_hash: str
     hash_method: str
 
@@ -80,7 +86,9 @@ class HashedFile:
 def hashed_file_result_factory(
     file_path: Path, file_hash: str, hash_method: str
 ) -> HashedFileProtocol:
-    return HashedFile(file_path=file_path, file_hash=file_hash, hash_method=hash_method)
+    return HashedFile(
+        file_path=str(file_path), file_hash=file_hash, hash_method=hash_method
+    )
 
 
 def make_hashed_file(
@@ -93,3 +101,14 @@ def make_hashed_file(
 ):
     hash_str = hash_file(file_path=file_path, hasher=hasher, block_size=block_size)
     return result_factory(file_path, hash_str, hasher.name)
+
+
+def make_hashed_file_dict(
+    file_path: Path, hasher: "_Hash", block_size: int = 2**10 * 64
+) -> HashedFileDict:
+    hash_str = hash_file(file_path=file_path, hasher=hasher, block_size=block_size)
+    return {
+        "file_path": str(file_path),
+        "file_hash": hash_str,
+        "hash_method": hasher.name,
+    }

@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.Transportation_transportation.txt",
+      "file_hash": "9719e6e86b9443523e95a1e94a743562",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "Transportation",

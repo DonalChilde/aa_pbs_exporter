@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.HotelAdditional_hotel_additional.txt",
+      "file_hash": "1f681fc97568904cbf04172ba1bcda4c",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "HotelAdditional",

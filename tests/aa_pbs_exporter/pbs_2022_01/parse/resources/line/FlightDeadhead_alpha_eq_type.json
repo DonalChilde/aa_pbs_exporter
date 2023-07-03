@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.FlightDeadhead_alpha_eq_type.txt",
+      "file_hash": "65129154fc39ae1c65bb057fa06745cd",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "Flight",

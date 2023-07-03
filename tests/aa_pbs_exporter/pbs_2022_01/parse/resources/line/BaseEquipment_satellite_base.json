@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.BaseEquipment_satellite_base.txt",
+      "file_hash": "65d0334aefa413f5bb12ee6c07fd5fd3",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "BaseEquipment",

@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.FlightDeadhead_ground_time.txt",
+      "file_hash": "30a74224de301415afffaf85bbc7a65e",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "Flight",

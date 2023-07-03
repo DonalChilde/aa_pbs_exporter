@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.TripFooter_trip_footer.txt",
+      "file_hash": "f095f9eac9c830598d456e294e4ce4c0",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "TripFooter",

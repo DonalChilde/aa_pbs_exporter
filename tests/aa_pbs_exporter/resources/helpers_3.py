@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from importlib import resources
+from importlib.abc import Traversable
 from typing import Callable, Iterable, Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
@@ -9,12 +11,32 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
 )
 
 
+# TODO add this to snippets
+@dataclass
+class ResourceLocator:
+    package: str
+    file: str
+
+    def file_resource(self) -> Traversable:
+        package_resource = resources.files(self.package)
+        return package_resource.joinpath(self.file)
+
+    def __str__(self) -> str:
+        return f"{self.package}.{self.file}"
+
+    def __repr__(self) -> str:
+        return (
+            f"{self.__class__.__name__}("
+            f"package={self.package}, "
+            f"file={self.file!r})"
+        )
+
+
 @dataclass
 class ParserTest:
-    input_data: str
+    input_data: ResourceLocator
     result_data: str
-    expected_data: str
-    resource_package: str
+    expected_data: ResourceLocator
     name: str
     category: str
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]]

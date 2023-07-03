@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.CalendarOnly_calendar_only.txt",
+      "file_hash": "0e12c615080002eb69254aeae1ee918e",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "CalendarOnly",

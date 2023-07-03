@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.page.OnePage_one_page.txt",
+      "file_hash": "9d459053648baa5c428f093316ecd04f",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "PageHeader1",

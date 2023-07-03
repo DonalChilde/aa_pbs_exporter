@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.DutyPeriodRelease_with_calendar.txt",
+      "file_hash": "c5a4daf3512ffaf9c46b4025410b5960",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "DutyPeriodRelease",

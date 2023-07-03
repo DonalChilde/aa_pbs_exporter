@@ -1,5 +1,11 @@
 {
-  "kwargs": {},
+  "kwargs": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.pbs_2022_01.parse.resources.line.TripHeader_trip_header.txt",
+      "file_hash": "1d4e4c997d1437cb7cf4a960e035947f",
+      "hash_method": "md5"
+    }
+  },
   "data": [
     {
       "parse_ident": "TripHeader",
