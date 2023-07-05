@@ -124,7 +124,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LHR",
         "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
@@ -324,7 +324,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LHR",
         "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
@@ -524,7 +524,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",
@@ -613,7 +613,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "MXP",
         "name": "MELIA MILANO",
@@ -690,7 +690,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",
@@ -878,7 +878,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",
@@ -967,7 +967,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "MXP",
         "name": "MELIA MILANO",
@@ -1044,7 +1044,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",

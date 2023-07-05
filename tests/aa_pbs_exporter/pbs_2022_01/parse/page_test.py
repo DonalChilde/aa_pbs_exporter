@@ -1,14 +1,13 @@
-from dataclasses import dataclass
+from hashlib import md5
 from importlib import resources
-from importlib.abc import Traversable
 from logging import Logger
 from pathlib import Path
-from hashlib import md5
 
 import pytest
-from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_strings_td import index_pbs_strings
 
+from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_strings_td import index_pbs_strings
 from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme_td import parser_lookup
+from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file_dict
 from aa_pbs_exporter.snippets.indexed_string.typedict.index_strings import index_strings
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser import serialize
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
@@ -18,7 +17,6 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_file_to
     parse_file_to_json,
 )
 from tests.aa_pbs_exporter.resources.helpers_3 import ParserTest, ResourceLocator
-from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file_dict
 
 SERIALIZE_ONLY = False
 RESOURCE_DIR = f"{__package__}.resources.page"
@@ -54,26 +52,6 @@ PAGE_FAIL_TEST_DATA = [
         indexer=index_strings,
     ),
 ]
-
-
-# @dataclass
-# class ResourceLocator:
-#     package: str
-#     file: str
-
-#     def file_resource(self) -> Traversable:
-#         package_resource = resources.files(self.package)
-#         return package_resource.joinpath(self.file)
-
-#     def __str__(self) -> str:
-#         return f"{self.package}.{self.file}"
-
-#     def __repr__(self) -> str:
-#         return (
-#             f"{self.__class__.__name__}("
-#             f"package={self.package}, "
-#             f"file={self.file!r})"
-#         )
 
 
 @pytest.mark.parametrize("test_data", PAGE_TEST_DATA)

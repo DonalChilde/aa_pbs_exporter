@@ -32,6 +32,7 @@ class Hotel(BaseModel):
     phone: str | None
 
 
+# TODO change this to collection of info, eg. hotel_name,trans_name, etc.
 class HotelInfo(BaseModel):
     hotel: Hotel | None
     transportation: Transportation | None

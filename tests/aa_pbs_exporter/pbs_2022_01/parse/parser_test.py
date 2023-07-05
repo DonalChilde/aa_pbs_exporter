@@ -147,12 +147,12 @@ PARSER_TEST_DATA: list[ParserTest] = [
         indexer=index_strings,
     ),
     ParserTest(
-        input_data=ResourceLocator(RESOURCE_DIR, "Hotel_hotel.txt"),
+        input_data=ResourceLocator(RESOURCE_DIR, "Layover_hotel.txt"),
         result_data="",
-        expected_data=ResourceLocator(RESOURCE_DIR, "Hotel_hotel.json"),
+        expected_data=ResourceLocator(RESOURCE_DIR, "Layover_hotel.json"),
         name="Hotel",
         category="line",
-        parser_lookup=ParserLookupSingle(parsers_td.Hotel()),
+        parser_lookup=ParserLookupSingle(parsers_td.Layover()),
         indexer=index_strings,
     ),
     ParserTest(

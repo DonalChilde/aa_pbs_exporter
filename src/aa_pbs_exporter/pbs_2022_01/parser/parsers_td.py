@@ -532,7 +532,7 @@ class DutyPeriodRelease(PyparsingParser):
         )
 
 
-class Hotel(PyparsingParser):
+class Layover(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
         self.p_parser = (
@@ -560,7 +560,7 @@ class Hotel(PyparsingParser):
     ) -> ParseResult:
         _ = ctx, kwargs
         result_dict = self.get_result(indexed_string=indexed_string)
-        parsed_data = raw.Hotel(
+        parsed_data = raw.Layover(
             layover_city=result_dict.get("layover_city", ""),
             name=result_dict.get("hotel", ""),
             phone=result_dict.get("hotel_phone", ""),
@@ -738,8 +738,9 @@ class CalendarOnly(PyparsingParser):
         )
 
     def parse(
-        self, indexed_string: IndexedString, ctx: dict[str, Any], **kwargs
+        self, indexed_string: IndexedString, ctx: dict[str, Any] | None = None, **kwargs
     ) -> ParseResult:
+        _ = ctx
         expected_len = 20
         ws_len = len(get_leading_whitespace(indexed_string["txt"]))
         if ws_len < expected_len:

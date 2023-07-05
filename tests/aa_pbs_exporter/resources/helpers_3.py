@@ -1,3 +1,5 @@
+import logging
+import traceback
 from dataclasses import dataclass
 from importlib import resources
 from importlib.abc import Traversable
@@ -10,6 +12,8 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
     IndexedStringParserProtocol,
 )
 
+logger = logging.getLogger(__name__)
+
 
 # TODO add this to snippets
 @dataclass
@@ -19,6 +23,11 @@ class ResourceLocator:
 
     def file_resource(self) -> Traversable:
         package_resource = resources.files(self.package)
+        logger.info(
+            "Finding Resource %s\n\tCalled From:\n\t%s",
+            str(self),
+            traceback.format_stack()[-2],
+        )
         return package_resource.joinpath(self.file)
 
     def __str__(self) -> str:

@@ -41,10 +41,10 @@ def parse_scheme() -> Dict[str, Sequence[IndexedStringParserProtocol]]:
             parsers.DutyPeriodRelease(),
         ],
         "DutyPeriodRelease": [
-            parsers.Hotel(),
+            parsers.Layover(),
             parsers.TripFooter(),
         ],
-        "Hotel": [
+        "Layover": [
             parsers.Transportation(),
             parsers.DutyPeriodReport(),
             parsers.HotelAdditional(),

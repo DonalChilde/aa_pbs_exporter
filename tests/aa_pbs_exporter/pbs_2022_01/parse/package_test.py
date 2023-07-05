@@ -4,8 +4,8 @@ from logging import Logger
 from pathlib import Path
 
 import pytest
-from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_strings_td import index_pbs_strings
 
+from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_strings_td import index_pbs_strings
 from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme_td import parser_lookup
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file_dict
 from aa_pbs_exporter.snippets.indexed_string.typedict.index_strings import index_strings

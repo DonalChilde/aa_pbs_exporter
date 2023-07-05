@@ -65,7 +65,7 @@ class DutyPeriodRelease(TypedDict):
     calendar: list[str]
 
 
-class Hotel(TypedDict):
+class Layover(TypedDict):
     layover_city: str
     name: str
     phone: str

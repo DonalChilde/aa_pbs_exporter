@@ -143,6 +143,7 @@ class RawToCompact:
     def translate_page(
         self, raw_page: raw.Page, ctx: dict | None = None
     ) -> compact.Page:
+        _ = ctx
         assert raw_page.page_footer is not None
         assert raw_page.page_header_2 is not None
 
@@ -256,6 +257,7 @@ class RawToCompact:
     def translate_flight(
         self, dp_idx: int, idx: int, raw_flight: raw.Flight, ctx: dict | None = None
     ) -> compact.Flight:
+        _ = ctx
         departure_station = raw_flight.departure_station
         arrival_station = raw_flight.arrival_station
         departure = self.split_times(raw_flight.departure_time, departure_station)
@@ -312,6 +314,7 @@ class RawToCompact:
     def translate_hotel(
         self, raw_hotel: raw.Hotel | raw.HotelAdditional | None, ctx: dict | None = None
     ) -> compact.Hotel | None:
+        _ = ctx
         if raw_hotel is None:
             return None
         compact_hotel = compact.Hotel(
@@ -324,6 +327,7 @@ class RawToCompact:
         raw_trans: raw.Transportation | raw.TransportationAdditional | None,
         ctx: dict | None = None,
     ) -> compact.Transportation | None:
+        _ = ctx
         if raw_trans is None:
             return None
         compact_transportation = compact.Transportation(
@@ -341,6 +345,7 @@ class RawToCompact:
     def collect_start_dates(
         self, valid_dates: Sequence[date], raw_trip: raw.Trip, ctx: dict | None
     ) -> list[date]:
+        _ = ctx
         if not len(raw_trip.calendar_entries) == len(valid_dates):
             self.debug_write(
                 f"Count of calendar_entries: {len(raw_trip.calendar_entries)} "

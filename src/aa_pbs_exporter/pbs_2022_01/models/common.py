@@ -1,17 +1,16 @@
 from datetime import datetime, timedelta
-from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel
 
 
 class HashedFile(BaseModel):
-    file_path: Path
+    file_path: str
     file_hash: str
     hash_method: str
 
     @classmethod
-    def factory(cls, file_path: Path, file_hash: str, hash_method: str) -> "HashedFile":
+    def factory(cls, file_path: str, file_hash: str, hash_method: str) -> "HashedFile":
         return cls(file_path=file_path, file_hash=file_hash, hash_method=hash_method)
 
     def __eq__(self, __value: object) -> bool:

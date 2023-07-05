@@ -48,15 +48,15 @@ def _logger(test_log_path):
     log_dir: Path = test_log_path
     handler = rotating_file_handler(
         log_dir=log_dir,
-        file_name=__name__,
+        file_name=__package__,
         log_level=TEST_LOG_LEVEL,
     )
-    test_logger = logging.getLogger(__name__)
+    test_logger = logging.getLogger(__package__)
     test_logger.setLevel(TEST_LOG_LEVEL)
     test_logger.addHandler(handler)
-    test_logger.warning("Does this even work?")
+    test_logger.info("Defined logger: %s", __package__)
     test_logger.info(
-        "Rotating file logger %s initialized with handler= %r", __name__, handler
+        "Rotating file logger %s initialized with handler= %r", __package__, handler
     )
     project_logger = logging.getLogger("aa_pbs_exporter")
     add_handlers_to_target_logger(test_logger, project_logger)

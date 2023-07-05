@@ -38,32 +38,6 @@ class ParsedIndexedString(TypedDict):
     source: IndexedString
 
 
-# class ParsedIndexedStringProtocol(Protocol):
-#     """Contains data parsed from an `IndexedStringProtocol`.
-
-#     This class is usually subclassed to represent the source string, and the
-#     parsed result.
-
-#     Attributes:
-#         source: The IndexedString that was parsed.
-#     """
-
-#     source: IndexedStringProtocol
-
-
-# class ParseResultProtocol(Protocol):
-#     """The result of a successful parse.
-
-#     Attributes:
-#         current_state: The current state of the parser.
-#         parsed_data: The data parsed from an `IndexedStringProtocol`
-
-#     """
-
-#     current_state: str
-#     parsed_data: Any
-
-
 class IndexedStringParserProtocol(Protocol):
     """Parse an IndexedString."""
 

@@ -577,7 +577,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "DFW",
         "name": "COURTYARD BLACKSTONE FTW",
@@ -924,7 +924,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "DFW",
         "name": "COURTYARD BLACKSTONE FTW",
@@ -1124,7 +1124,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "THE AYRES",
@@ -1348,7 +1348,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "THE AYRES",
@@ -1591,7 +1591,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "TLV",
         "name": "TEL AVIV HILTON",
@@ -1668,7 +1668,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",
@@ -1832,7 +1832,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "HOTEL INFO IN CCI/CREW PORTAL",
@@ -1909,7 +1909,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "CDG",
         "name": "PULLMAN PARIS TOUR EIFFEL",
@@ -1986,7 +1986,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "COURTYARD CENTRAL PARK",
@@ -2174,7 +2174,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "RENAISSANCE LONG BEACH",
@@ -2374,7 +2374,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "JFK",
         "name": "JFK CTD MARRIOTT",
@@ -2574,7 +2574,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "CLT",
         "name": "DOUBLETREE DOWNTOWN",
@@ -2988,7 +2988,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "DFW",
         "name": "COURTYARD BLACKSTONE FTW",
@@ -3335,7 +3335,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "THE AYRES",
@@ -3559,7 +3559,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "DFW",
         "name": "COURTYARD BLACKSTONE FTW",
@@ -3759,7 +3759,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "RENAISSANCE LONG BEACH",
@@ -3959,7 +3959,7 @@
       }
     },
     {
-      "parse_ident": "Hotel",
+      "parse_ident": "Layover",
       "parsed_data": {
         "layover_city": "LAX",
         "name": "THE AYRES",

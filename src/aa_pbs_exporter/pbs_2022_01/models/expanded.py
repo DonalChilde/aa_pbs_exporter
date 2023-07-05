@@ -34,6 +34,7 @@ class Hotel(BaseModel):
     phone: str | None
 
 
+# TODO update to match new compact model
 class HotelInfo(BaseModel):
     hotel: Hotel | None
     transportation: Transportation | None
