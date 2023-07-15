@@ -35,15 +35,25 @@
               "uuid": "99eb1b59-54a0-5ea0-94d3-b5bdebac99b1",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11280.0,
@@ -63,16 +73,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -89,16 +109,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -128,15 +158,25 @@
               "uuid": "1e04aab8-2c9a-5289-8e61-3668e72681dc",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11280.0,
@@ -156,16 +196,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -182,16 +232,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -221,15 +281,25 @@
               "uuid": "e1d2321a-ffa2-5411-b739-f054a7d053ce",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11280.0,
@@ -249,16 +319,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -275,16 +355,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -314,15 +404,25 @@
               "uuid": "e862c4de-10fd-5927-8c51-02bb95a16d18",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "12:38:00",
-                "hbt": "13:38:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "DFW",
               "block": 11280.0,
@@ -334,7 +434,22 @@
                 "uuid": "3fc20e22-ee6b-57b5-b9c4-786c03b34e2e",
                 "odl": 103920.0,
                 "city": "DFW",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "26d6d7ae-5532-58f2-a220-754573d3b37d",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "8a3a4870-d7fb-59ca-a3a1-d5418d727def",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -347,16 +462,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -369,15 +494,25 @@
               "uuid": "a9b14a92-2085-5d31-a02b-0d0575353912",
               "idx": 2,
               "report": {
-                "lcl": "17:30:00",
-                "hbt": "18:30:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "DFW",
               "release": {
-                "lcl": "22:45:00",
-                "hbt": "22:45:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 9900.0,
@@ -397,16 +532,26 @@
                   "deadhead": false,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "18:30:00",
-                    "hbt": "19:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "22:15:00",
-                    "hbt": "22:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 9900.0,
                   "synth": 0.0,
@@ -436,15 +581,25 @@
               "uuid": "f516f067-51a1-5a39-997d-9123c26cd75c",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11280.0,
@@ -464,16 +619,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -490,16 +655,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -529,15 +704,25 @@
               "uuid": "ef00f418-319e-567e-842c-f3a39aabcfb7",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "12:38:00",
-                "hbt": "13:38:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "DFW",
               "block": 11280.0,
@@ -549,7 +734,22 @@
                 "uuid": "360cef7c-93b3-575d-add2-a65dcddb3769",
                 "odl": 103920.0,
                 "city": "DFW",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "639da440-3f1e-5267-ae35-8ad668f07917",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "d8f16f33-dd22-56fe-9828-c8c16f60c1b7",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -562,16 +762,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -584,15 +794,25 @@
               "uuid": "13570aaf-7afb-575f-8365-353e2490b526",
               "idx": 2,
               "report": {
-                "lcl": "17:30:00",
-                "hbt": "18:30:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "DFW",
               "release": {
-                "lcl": "22:45:00",
-                "hbt": "22:45:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 9900.0,
@@ -612,16 +832,26 @@
                   "deadhead": false,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "18:30:00",
-                    "hbt": "19:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "22:15:00",
-                    "hbt": "22:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 9900.0,
                   "synth": 0.0,
@@ -651,15 +881,25 @@
               "uuid": "1b28c2fd-a2d1-5a1c-a09e-9391738a3869",
               "idx": 1,
               "report": {
-                "lcl": "10:15:00",
-                "hbt": "10:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "14:23:00",
-                "hbt": "17:23:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20280.0,
@@ -671,7 +911,22 @@
                 "uuid": "b698e590-7e06-572b-9126-5fd941cc1f83",
                 "odl": 59820.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "0bc7e3c3-2329-59b3-a141-cc6e2f6ae28b",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "c050f90b-70b4-51db-bb9b-a601cfc98f58",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -684,16 +939,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:15:00",
-                    "hbt": "11:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "13:53:00",
-                    "hbt": "16:53:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20280.0,
                   "synth": 0.0,
@@ -706,15 +971,25 @@
               "uuid": "d535fe8e-2f58-52e1-8e9a-1a1f7d4db8cf",
               "idx": 2,
               "report": {
-                "lcl": "07:00:00",
-                "hbt": "10:00:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 10560.0,
@@ -734,16 +1009,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "08:00:00",
-                    "hbt": "11:00:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "B",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:56:00",
-                    "hbt": "13:56:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10560.0,
                   "synth": 0.0,
@@ -760,16 +1045,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -799,15 +1094,25 @@
               "uuid": "ff6d8632-04bf-5be2-8068-54eafda5c7db",
               "idx": 1,
               "report": {
-                "lcl": "10:15:00",
-                "hbt": "10:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "14:23:00",
-                "hbt": "17:23:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20280.0,
@@ -819,7 +1124,22 @@
                 "uuid": "df2a972c-c3dd-5a3d-a28d-4cb5d615997d",
                 "odl": 59820.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "e9f3575c-43c2-50f6-978f-e47b0dde1a43",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "cca4c6b0-8903-5d02-a057-4df37ff5e2a0",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -832,16 +1152,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:15:00",
-                    "hbt": "11:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "13:53:00",
-                    "hbt": "16:53:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20280.0,
                   "synth": 0.0,
@@ -854,15 +1184,25 @@
               "uuid": "e71656a7-04d9-5219-9729-fd4bf0e5d91d",
               "idx": 2,
               "report": {
-                "lcl": "07:00:00",
-                "hbt": "10:00:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 10560.0,
@@ -882,16 +1222,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "08:00:00",
-                    "hbt": "11:00:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "B",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:56:00",
-                    "hbt": "13:56:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10560.0,
                   "synth": 0.0,
@@ -908,16 +1258,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -961,15 +1321,25 @@
               "uuid": "de2cee45-e288-5fc3-b430-b86cd324664e",
               "idx": 1,
               "report": {
-                "lcl": "16:00:00",
-                "hbt": "16:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "16:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "16:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "20:09:00",
-                "hbt": "23:09:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "20:09:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "23:09:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20340.0,
@@ -981,7 +1351,22 @@
                 "uuid": "52aba375-6bb6-5d3b-a2f7-224f919e7db7",
                 "odl": 86340.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "84b064f8-9703-5075-a047-6e7eb14fb957",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "ccf8e4a9-dc6b-5f26-a137-f46f86ca0c3f",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -994,16 +1379,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "17:00:00",
-                    "hbt": "17:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "17:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "17:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "19:39:00",
-                    "hbt": "22:39:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "19:39:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "22:39:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20340.0,
                   "synth": 0.0,
@@ -1016,15 +1411,25 @@
               "uuid": "baf5e4a0-985d-5021-a300-f393af8e3df0",
               "idx": 2,
               "report": {
-                "lcl": "20:08:00",
-                "hbt": "23:08:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "20:08:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "23:08:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "05:30:00",
-                "hbt": "05:30:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "05:30:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "05:30:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 17520.0,
@@ -1044,16 +1449,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "21:08:00",
-                    "hbt": "00:08:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "21:08:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "00:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "05:00:00",
-                    "hbt": "05:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "05:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "05:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 17520.0,
                   "synth": 0.0,
@@ -1083,15 +1498,25 @@
               "uuid": "e47da2f5-3616-5930-a6f1-7c8948652e3d",
               "idx": 1,
               "report": {
-                "lcl": "16:33:00",
-                "hbt": "16:33:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "16:33:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "16:33:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "20:58:00",
-                "hbt": "20:58:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "20:58:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "20:58:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "JFK",
               "block": 10500.0,
@@ -1103,7 +1528,22 @@
                 "uuid": "8e7fcc5f-c5ea-56c7-a141-df31fb524786",
                 "odl": 39720.0,
                 "city": "JFK",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "78d39078-b9c2-5ee9-ad5d-4937bfddfe4b",
+                      "name": "JFK CTD MARRIOTT",
+                      "phone": "17188482121"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "ce7a211d-a493-5d44-912f-22734ad64e3a",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1116,16 +1556,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "17:33:00",
-                    "hbt": "17:33:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "17:33:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "17:33:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "JFK",
                   "arrival": {
-                    "lcl": "20:28:00",
-                    "hbt": "20:28:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "20:28:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "20:28:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10500.0,
                   "synth": 0.0,
@@ -1138,15 +1588,25 @@
               "uuid": "4c0bb6d6-88bc-562e-9b7f-be9e112a2556",
               "idx": 2,
               "report": {
-                "lcl": "08:00:00",
-                "hbt": "08:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "08:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "08:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "JFK",
               "release": {
-                "lcl": "12:39:00",
-                "hbt": "12:39:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "12:39:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "12:39:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11340.0,
@@ -1166,16 +1626,26 @@
                   "deadhead": false,
                   "departure_station": "JFK",
                   "departure": {
-                    "lcl": "09:00:00",
-                    "hbt": "09:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "09:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "09:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "12:09:00",
-                    "hbt": "12:09:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "12:09:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "12:09:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11340.0,
                   "synth": 0.0,
@@ -1205,15 +1675,25 @@
               "uuid": "1649304d-6d87-547e-958c-0fe59ef9da5e",
               "idx": 1,
               "report": {
-                "lcl": "10:20:00",
-                "hbt": "10:20:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:20:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:20:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "13:57:00",
-                "hbt": "13:57:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "13:57:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "13:57:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "CLT",
               "block": 7620.0,
@@ -1225,7 +1705,22 @@
                 "uuid": "3c83630d-f4b3-5cb5-9aa3-8bd66c367922",
                 "odl": 82680.0,
                 "city": "CLT",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "d1dcdd87-938e-5c36-a2ce-74f1a5b421a3",
+                      "name": "DOUBLETREE DOWNTOWN",
+                      "phone": "17043470070"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "2b27b7ac-3642-505d-860f-cf2480f6a2eb",
+                        "name": "EXECUTIVE CAR",
+                        "phone": "7045252191"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1238,16 +1733,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:20:00",
-                    "hbt": "11:20:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:20:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:20:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "CLT",
                   "arrival": {
-                    "lcl": "13:27:00",
-                    "hbt": "13:27:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "13:27:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "13:27:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 7620.0,
                   "synth": 0.0,
@@ -1260,15 +1765,25 @@
               "uuid": "5b44b193-967e-5cec-941e-d68948f689af",
               "idx": 2,
               "report": {
-                "lcl": "12:55:00",
-                "hbt": "12:55:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "12:55:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "12:55:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "CLT",
               "release": {
-                "lcl": "22:45:00",
-                "hbt": "22:45:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 9900.0,
@@ -1288,16 +1803,26 @@
                   "deadhead": true,
                   "departure_station": "CLT",
                   "departure": {
-                    "lcl": "13:25:00",
-                    "hbt": "13:25:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "13:25:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "13:25:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "15:19:00",
-                    "hbt": "16:19:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "15:19:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "16:19:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10440.0,
@@ -1314,16 +1839,26 @@
                   "deadhead": false,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "18:30:00",
-                    "hbt": "19:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "22:15:00",
-                    "hbt": "22:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 9900.0,
                   "synth": 0.0,
@@ -1367,15 +1902,25 @@
               "uuid": "f5441185-9284-546a-a382-d75157c6151b",
               "idx": 1,
               "report": {
-                "lcl": "11:15:00",
-                "hbt": "11:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "11:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "11:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "19:20:00",
-                "hbt": "19:20:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "19:20:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "19:20:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 8220.0,
@@ -1395,16 +1940,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "12:15:00",
-                    "hbt": "12:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "12:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "12:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "CLT",
                   "arrival": {
-                    "lcl": "14:32:00",
-                    "hbt": "14:32:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "14:32:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "14:32:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 8220.0,
                   "synth": 0.0,
@@ -1421,16 +1976,26 @@
                   "deadhead": true,
                   "departure_station": "CLT",
                   "departure": {
-                    "lcl": "16:49:00",
-                    "hbt": "16:49:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "16:49:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "16:49:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:50:00",
-                    "hbt": "18:50:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:50:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:50:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 7260.0,
@@ -1460,15 +2025,25 @@
               "uuid": "4972beed-a166-5668-9374-257121b0f842",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "12:38:00",
-                "hbt": "13:38:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "DFW",
               "block": 11280.0,
@@ -1480,7 +2055,22 @@
                 "uuid": "3c3bac70-cccf-5263-9f2e-429b828d4755",
                 "odl": 98520.0,
                 "city": "DFW",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "fc28726d-4e3f-54ad-a478-9805685c9014",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "7317a2a6-5422-5fd8-866a-2e36383cfbb0",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1493,16 +2083,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -1515,15 +2115,25 @@
               "uuid": "72f83822-d4df-5ed9-b5e0-78a81425e5de",
               "idx": 2,
               "report": {
-                "lcl": "16:00:00",
-                "hbt": "17:00:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "16:00:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "17:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "DFW",
               "release": {
-                "lcl": "21:19:00",
-                "hbt": "21:19:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "21:19:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "21:19:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 10140.0,
@@ -1543,16 +2153,26 @@
                   "deadhead": false,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "17:00:00",
-                    "hbt": "18:00:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "17:00:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "18:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "20:49:00",
-                    "hbt": "20:49:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "20:49:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "20:49:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10140.0,
                   "synth": 0.0,
@@ -1582,15 +2202,25 @@
               "uuid": "7d9622a1-2fe7-5eee-b5d8-ac3899f52594",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 11280.0,
@@ -1610,16 +2240,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -1636,16 +2276,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -1675,15 +2325,25 @@
               "uuid": "289b8171-db8d-5023-a6dd-e6d4a8ea6f1c",
               "idx": 1,
               "report": {
-                "lcl": "10:15:00",
-                "hbt": "10:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "14:23:00",
-                "hbt": "17:23:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20280.0,
@@ -1695,7 +2355,22 @@
                 "uuid": "203e0f67-a0f9-588b-a881-9a2a66162f02",
                 "odl": 59820.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "674ee3f9-022f-54d3-8ff5-f5bbb2bfbd2b",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "80371a2e-77cf-58ce-94d1-8bf1c6b2509b",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1708,16 +2383,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:15:00",
-                    "hbt": "11:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "13:53:00",
-                    "hbt": "16:53:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20280.0,
                   "synth": 0.0,
@@ -1730,15 +2415,25 @@
               "uuid": "1503855f-404e-5949-8544-ce985c07a490",
               "idx": 2,
               "report": {
-                "lcl": "07:00:00",
-                "hbt": "10:00:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 10560.0,
@@ -1758,16 +2453,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "08:00:00",
-                    "hbt": "11:00:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "B",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:56:00",
-                    "hbt": "13:56:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10560.0,
                   "synth": 0.0,
@@ -1784,16 +2489,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,
@@ -1823,15 +2538,25 @@
               "uuid": "4a53b0ca-0c5d-5593-a2e9-f720288d5916",
               "idx": 1,
               "report": {
-                "lcl": "09:00:00",
-                "hbt": "09:00:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "12:38:00",
-                "hbt": "13:38:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "DFW",
               "block": 11280.0,
@@ -1843,7 +2568,22 @@
                 "uuid": "905105c9-27a6-5836-bf45-a2d5e8b26f80",
                 "odl": 103920.0,
                 "city": "DFW",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "37aec236-f8d6-55ac-ae05-e5f4ba003834",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5e755a58-6768-5a77-b146-e54d9340522a",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1856,16 +2596,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "10:00:00",
-                    "hbt": "10:00:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:08:00",
-                    "hbt": "13:08:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 11280.0,
                   "synth": 0.0,
@@ -1878,15 +2628,25 @@
               "uuid": "8b73824d-4040-540b-80d0-d80e2636b955",
               "idx": 2,
               "report": {
-                "lcl": "17:30:00",
-                "hbt": "18:30:00",
-                "tz_name": "America/Chicago"
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "DFW",
               "release": {
-                "lcl": "22:45:00",
-                "hbt": "22:45:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 9900.0,
@@ -1906,16 +2666,26 @@
                   "deadhead": false,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "18:30:00",
-                    "hbt": "19:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "22:15:00",
-                    "hbt": "22:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 9900.0,
                   "synth": 0.0,
@@ -1945,15 +2715,25 @@
               "uuid": "5fa51ca8-bfa0-5d47-8e07-c9827e17b809",
               "idx": 1,
               "report": {
-                "lcl": "10:15:00",
-                "hbt": "10:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "14:23:00",
-                "hbt": "17:23:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20280.0,
@@ -1965,7 +2745,22 @@
                 "uuid": "980bbe24-8a88-52af-af32-aad0004439b9",
                 "odl": 115020.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "c4e00761-f4cb-5e5c-acfd-8930002bb998",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "3e798ed8-6003-5a79-b2ef-6bf23e353744",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -1978,16 +2773,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:15:00",
-                    "hbt": "11:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "13:53:00",
-                    "hbt": "16:53:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20280.0,
                   "synth": 0.0,
@@ -2000,15 +2805,25 @@
               "uuid": "9587c968-f72b-5825-b231-15592e611aa9",
               "idx": 2,
               "report": {
-                "lcl": "22:20:00",
-                "hbt": "01:20:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "22:20:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "01:20:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "07:39:00",
-                "hbt": "07:39:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "07:39:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "07:39:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 17340.0,
@@ -2028,16 +2843,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "23:20:00",
-                    "hbt": "02:20:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "23:20:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "02:20:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "D",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "07:09:00",
-                    "hbt": "07:09:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "07:09:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "07:09:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 17340.0,
                   "synth": 0.0,
@@ -2067,15 +2892,25 @@
               "uuid": "281815d1-20b7-5588-a21a-bb62ff45f40b",
               "idx": 1,
               "report": {
-                "lcl": "10:15:00",
-                "hbt": "10:15:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "MIA",
               "release": {
-                "lcl": "14:23:00",
-                "hbt": "17:23:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "LAX",
               "block": 20280.0,
@@ -2087,7 +2922,22 @@
                 "uuid": "2edfa2cc-4118-5e5d-9014-66c423cb15c7",
                 "odl": 59820.0,
                 "city": "LAX",
-                "hotel_info": []
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "39926a38-3fb2-5ce5-a2ce-be320e7c8ebd",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "e0aa2b0c-7e95-5138-8bb1-01c2f0e2acce",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
               },
               "flights": [
                 {
@@ -2100,16 +2950,26 @@
                   "deadhead": false,
                   "departure_station": "MIA",
                   "departure": {
-                    "lcl": "11:15:00",
-                    "hbt": "11:15:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "L",
                   "arrival_station": "LAX",
                   "arrival": {
-                    "lcl": "13:53:00",
-                    "hbt": "16:53:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 20280.0,
                   "synth": 0.0,
@@ -2122,15 +2982,25 @@
               "uuid": "aeadd374-ded5-518c-bb9e-cfe943e3278d",
               "idx": 2,
               "report": {
-                "lcl": "07:00:00",
-                "hbt": "10:00:00",
-                "tz_name": "America/Los_Angeles"
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "report_station": "LAX",
               "release": {
-                "lcl": "18:52:00",
-                "hbt": "18:52:00",
-                "tz_name": "America/New_York"
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
               },
               "release_station": "MIA",
               "block": 10560.0,
@@ -2150,16 +3020,26 @@
                   "deadhead": false,
                   "departure_station": "LAX",
                   "departure": {
-                    "lcl": "08:00:00",
-                    "hbt": "11:00:00",
-                    "tz_name": "America/Los_Angeles"
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "B",
                   "arrival_station": "DFW",
                   "arrival": {
-                    "lcl": "12:56:00",
-                    "hbt": "13:56:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 10560.0,
                   "synth": 0.0,
@@ -2176,16 +3056,26 @@
                   "deadhead": true,
                   "departure_station": "DFW",
                   "departure": {
-                    "lcl": "14:30:00",
-                    "hbt": "15:30:00",
-                    "tz_name": "America/Chicago"
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "meal": "",
                   "arrival_station": "MIA",
                   "arrival": {
-                    "lcl": "18:22:00",
-                    "hbt": "18:22:00",
-                    "tz_name": "America/New_York"
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
                   },
                   "block": 0.0,
                   "synth": 10320.0,

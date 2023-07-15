@@ -1,15 +1,15 @@
+from importlib import resources
 from logging import Logger
 from pathlib import Path
-from aa_pbs_exporter.pbs_2022_01.helpers.serialize_pydantic import SerializePydantic
-from tests.aa_pbs_exporter.pbs_2022_01.translate.resource_definitions import COLLECTED_1
-from aa_pbs_exporter.pbs_2022_01.translate.collected_to_compact import (
-    CollectedToCompact,
-)
+
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
-from aa_pbs_exporter.pbs_2022_01.models.raw_collected import BidPackage
+from aa_pbs_exporter.pbs_2022_01.helpers.serialize_pydantic import SerializePydantic
 from aa_pbs_exporter.pbs_2022_01.models import compact
-from importlib import resources
-from aa_pbs_exporter.pbs_2022_01.helpers.tz_from_iata import tz_from_iata
+from aa_pbs_exporter.pbs_2022_01.models.raw_collected import BidPackage
+from aa_pbs_exporter.pbs_2022_01.translate.collected_to_compact import (
+    translate_collected_to_compact,
+)
+from tests.aa_pbs_exporter.pbs_2022_01.translate.resource_definitions import COLLECTED_1
 from tests.aa_pbs_exporter.resources.helpers_3 import ResourceLocator
 
 
@@ -21,13 +21,12 @@ def test_collected_to_compact(test_app_data_dir: Path, logger: Logger):
         input_data = loader.load_from_json_file(input_path)
         debug_path = output_path / f"{input_path.stem}-compact-debug.txt"
         compact_path = output_path / f"{input_path.stem}-compact.json"
-    translator = CollectedToCompact(
-        tz_lookup=tz_from_iata, debug_file=debug_path, validator=None
+    compact_bid = translate_collected_to_compact(
+        collected_bid_package=input_data, debug_file=debug_path
     )
-    with translator:
-        compact_data = translator.translate(input_data)
-        pydantic_serializer = SerializePydantic[compact.BidPackage]()
-        pydantic_serializer.save_as_json(compact_path, compact_data)
+
+    pydantic_serializer = SerializePydantic[compact.BidPackage]()
+    pydantic_serializer.save_as_json(compact_path, compact_bid)
     expected_res = ResourceLocator(
         f"{__package__}.resources.compact", f"{compact_path.name}"
     )
@@ -35,5 +34,5 @@ def test_collected_to_compact(test_app_data_dir: Path, logger: Logger):
         expected = pydantic_serializer.load_from_json_file(
             compact.BidPackage, expected_path
         )
-    assert expected == compact_data
+    assert expected == compact_bid
     # assert False
