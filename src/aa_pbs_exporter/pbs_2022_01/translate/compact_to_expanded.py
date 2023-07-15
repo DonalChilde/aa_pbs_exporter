@@ -161,12 +161,12 @@ class CompactToExpanded:
             first_report = compact_trip.dutyperiods[0].report
             start_utc = datetime.combine(
                 start_date,
-                first_report.lcl,
-                ZoneInfo(first_report.tz_name),
+                first_report.lcl.time,
+                ZoneInfo(first_report.lcl.tz_name),
             ).astimezone(timezone.utc)
             start = Instant(
                 utc_date=start_utc,
-                tz_name=first_report.tz_name,
+                tz_name=first_report.lcl.tz_name,
             )
 
             self.debug_write(
@@ -209,7 +209,7 @@ class CompactToExpanded:
     ) -> expanded.DutyPeriod:
         compact_release = compact_dutyperiod.release
         release = complete_time_instant(
-            report, compact_release.lcl, compact_release.tz_name
+            report, compact_release.lcl.time, compact_release.lcl.tz_name
         )
 
         self.debug_write(
@@ -268,8 +268,8 @@ class CompactToExpanded:
         _ = ctx
         departure = complete_time_instant(
             ref_instant=ref_instant,
-            naive_time=compact_flight.departure.lcl,
-            tz_name=compact_flight.departure.tz_name,
+            naive_time=compact_flight.departure.lcl.time,
+            tz_name=compact_flight.departure.lcl.tz_name,
         )
 
         self.debug_write(
@@ -279,8 +279,8 @@ class CompactToExpanded:
         )
         arrival = complete_time_instant(
             ref_instant=departure,
-            naive_time=compact_flight.arrival.lcl,
-            tz_name=compact_flight.arrival.tz_name,
+            naive_time=compact_flight.arrival.lcl.time,
+            tz_name=compact_flight.arrival.lcl.tz_name,
         )
 
         self.debug_write(
@@ -330,23 +330,23 @@ class CompactToExpanded:
         _ = ctx
         expanded_hotel_info: list[expanded.HotelInfo] = []
         for info in compact_hotel_info:
-            if info.hotel is None:
-                expanded_hotel = None
-            else:
-                expanded_hotel = expanded.Hotel(
-                    uuid=info.hotel.uuid, name=info.hotel.name, phone=info.hotel.phone
-                )
-            if info.transportation is None:
-                expanded_transportation = None
-            else:
+            # if info.hotel is None:
+            #     expanded_hotel = None
+            # else:
+            expanded_hotel = expanded.Hotel(
+                uuid=info.hotel.uuid, name=info.hotel.name, phone=info.hotel.phone
+            )
+            expanded_transportations = []
+            for compact_trans in info.transportation:
                 expanded_transportation = expanded.Transportation(
-                    uuid=info.transportation.uuid,
-                    name=info.transportation.name,
-                    phone=info.transportation.phone,
+                    uuid=compact_trans.uuid,
+                    name=compact_trans.name,
+                    phone=compact_trans.phone,
                 )
+                expanded_transportations.append(expanded_transportation)
             expanded_hotel_info.append(
                 expanded.HotelInfo(
-                    hotel=expanded_hotel, transportation=expanded_transportation
+                    hotel=expanded_hotel, transportation=expanded_transportations
                 )
             )
         return expanded_hotel_info
@@ -380,7 +380,7 @@ class CompactToExpanded:
         return expanded_transportation
 
 
-def compact_to_expanded(
+def translate_compact_to_expanded(
     compact_package: compact.BidPackage,
     debug_file: Path | None = None,
 ):

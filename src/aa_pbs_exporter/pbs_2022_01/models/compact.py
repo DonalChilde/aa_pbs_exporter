@@ -15,6 +15,7 @@ from pydantic import BaseModel
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.timers import timers
+from aa_pbs_exporter.pbs_2022_01.helpers import instant_time as instant
 
 logger = logging.getLogger(__name__)
 time_logger = timers.TimeLogger(logger=logger, level=logging.INFO)
@@ -29,22 +30,17 @@ class Transportation(BaseModel):
 class Hotel(BaseModel):
     uuid: UUID
     name: str
-    phone: str | None
+    phone: str
 
 
-# TODO change this to collection of info, eg. hotel_name,trans_name, etc.
 class HotelInfo(BaseModel):
-    hotel: Hotel | None
-    transportation: Transportation | None
+    hotel: Hotel
+    transportation: list[Transportation]
 
 
 class LclHbt(BaseModel):
-    # TODO could factor this out to include tz_name for each, w/ function to create
-    # aware time. FactoredTime? SerializableTime? goal is to have "America/Newyork"
-    # in serialized model instead of DST-5 or whatever.
-    lcl: time
-    hbt: time
-    tz_name: str
+    lcl: instant.InstantTime
+    hbt: instant.InstantTime
 
 
 class Layover(BaseModel):

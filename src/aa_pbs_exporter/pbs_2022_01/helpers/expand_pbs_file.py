@@ -39,7 +39,7 @@ def expand_pbs_object(
     debug_file: Path | None,
     compact_bid_package: compact.BidPackage,
 ) -> expanded.BidPackage:
-    expanded_bid_package = translate.compact_to_expanded(
+    expanded_bid_package = translate.translate_compact_to_expanded(
         compact_package=compact_bid_package, debug_file=debug_file
     )
     if save_dir is not None:

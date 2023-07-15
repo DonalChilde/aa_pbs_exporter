@@ -31,13 +31,12 @@ class Transportation(BaseModel):
 class Hotel(BaseModel):
     uuid: UUID
     name: str
-    phone: str | None
+    phone: str
 
 
-# TODO update to match new compact model
 class HotelInfo(BaseModel):
-    hotel: Hotel | None
-    transportation: Transportation | None
+    hotel: Hotel
+    transportation: list[Transportation]
 
 
 class Layover(BaseModel):

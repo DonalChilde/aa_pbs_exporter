@@ -1,3 +1,7 @@
+class ValidateCollected:
+    pass
+
+
 # from io import TextIOWrapper
 # import logging
 

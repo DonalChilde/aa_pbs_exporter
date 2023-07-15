@@ -118,6 +118,8 @@ class PageFooter(TypedDict):
     page: str
 
 
+# TODO combine with raw_collected
+
 # # class PackageDate(ParsedIndexedString):
 # #     month: str
 # #     year: str

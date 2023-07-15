@@ -1,12 +1,15 @@
 import logging
 from datetime import timedelta
 from io import TextIOWrapper
+from pathlib import Path
 import time
+from typing import Self
 
 from aa_pbs_exporter.pbs_2022_01.helpers.compare_time import compare_time
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.length import length
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 
@@ -23,9 +26,21 @@ DEBUG = "expanded.validation.debug"
 class ExpandedValidator:
     def __init__(
         self,
-        debug_fp: TextIOWrapper | None = None,
+        debug_file: Path | None = None,
     ) -> None:
-        self.debug_fp = debug_fp
+        self.debug_file = debug_file
+        self.debug_fp: TextIOWrapper | None = None
+
+    def __enter__(self) -> Self:
+        if self.debug_file is not None:
+            validate_file_out(self.debug_file, overwrite=True)
+            self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
+
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.debug_fp is not None:
+            self.debug_fp.close()
 
     def debug_write(self, value: str, indent_level: int = 0):
         if self.debug_fp is not None:
@@ -35,14 +50,13 @@ class ExpandedValidator:
         self,
         compact_bid: compact.BidPackage,
         expanded_bid: expanded.BidPackage,
-        ctx: dict | None,
     ):
         self.debug_write(
             f"********** Validating expanded bid package. "
             f"uuid={expanded_bid.uuid} **********",
             Level.PKG,
         )
-        self.validate_bid_package(compact_bid, expanded_bid, ctx)
+        self.validate_bid_package(compact_bid, expanded_bid)
         page_lookup = {x.uuid: x for x in compact_bid.pages}
         page_count = len(expanded_bid.pages)
         for page_idx, page in enumerate(expanded_bid.pages, start=1):
@@ -51,7 +65,7 @@ class ExpandedValidator:
                 Level.PAGE,
             )
             compact_page = page_lookup[page.uuid]
-            self.validate_page(compact_page, page, ctx)
+            self.validate_page(compact_page, page)
             trip_lookup = {x.uuid: x for x in compact_page.trips}
             trip_count = len(page.trips)
             for trip_idx, trip in enumerate(page.trips, start=1):
@@ -61,7 +75,7 @@ class ExpandedValidator:
                     Level.TRIP,
                 )
                 compact_trip = trip_lookup[trip.compact_uuid]
-                self.validate_trip(compact_trip, trip, ctx)
+                self.validate_trip(compact_trip, trip)
                 dutyperiod_lookup = {x.uuid: x for x in compact_trip.dutyperiods}
                 dp_count = len(trip.dutyperiods)
                 for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
@@ -72,7 +86,7 @@ class ExpandedValidator:
                     )
                     compact_dutyperiod = dutyperiod_lookup[dutyperiod.compact_uuid]
                     self.validate_dutyperiod(
-                        compact_dutyperiod, dutyperiod, ctx, trip.number
+                        compact_dutyperiod, dutyperiod, trip.number
                     )
                     flight_lookup = {x.uuid: x for x in compact_dutyperiod.flights}
                     flight_count = len(dutyperiod.flights)
@@ -83,13 +97,12 @@ class ExpandedValidator:
                             Level.FLT,
                         )
                         compact_flight = flight_lookup[flight.compact_uuid]
-                        self.validate_flight(compact_flight, flight, ctx, trip.number)
+                        self.validate_flight(compact_flight, flight, trip.number)
 
     def validate_bid_package(
         self,
         compact_bid: compact.BidPackage,
         expanded_bid: expanded.BidPackage,
-        ctx: dict | None,
     ):
         _ = compact_bid
         if not expanded_bid.pages:
@@ -108,7 +121,6 @@ class ExpandedValidator:
         self,
         compact_page: compact.Page,
         expanded_page: expanded.Page,
-        ctx: dict | None,
     ):
         pass
         # trip_lookup = {x.uuid: x for x in compact_page.trips}
@@ -119,14 +131,13 @@ class ExpandedValidator:
         self,
         compact_trip: compact.Trip,
         expanded_trip: expanded.Trip,
-        ctx: dict | None,
     ):
         _ = compact_trip
-        self.check_trip_tafb(expanded_trip, ctx)
-        self.check_trip_length(expanded_trip, ctx)
-        self.check_trip_end(expanded_trip, ctx)
+        self.check_trip_tafb(expanded_trip)
+        self.check_trip_length(expanded_trip)
+        self.check_trip_end(expanded_trip)
 
-    def check_trip_length(self, expanded_trip: expanded.Trip, ctx: dict | None):
+    def check_trip_length(self, expanded_trip: expanded.Trip):
         total = timedelta()
         for dutyperiod in expanded_trip.dutyperiods:
             duration = dutyperiod.release.utc_date - dutyperiod.report.utc_date
@@ -142,7 +153,7 @@ class ExpandedValidator:
                 Level.TRIP + 1,
             )
 
-    def check_trip_tafb(self, expanded_trip: expanded.Trip, ctx: dict | None):
+    def check_trip_tafb(self, expanded_trip: expanded.Trip):
         last_release = expanded_trip.dutyperiods[-1].release.utc_date
         trip_tafb = last_release - expanded_trip.start.utc_date
         if trip_tafb != expanded_trip.tafb:
@@ -154,7 +165,7 @@ class ExpandedValidator:
                 Level.TRIP + 1,
             )
 
-    def check_trip_end(self, expanded_trip: expanded.Trip, ctx: dict | None):
+    def check_trip_end(self, expanded_trip: expanded.Trip):
         last_release = expanded_trip.dutyperiods[-1].release
         if last_release != expanded_trip.end:
             self.debug_write(
@@ -169,21 +180,15 @@ class ExpandedValidator:
         self,
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
-        ctx: dict | None,
         trip_number: str,
     ):
-        self.check_report_times(
-            compact_dutyperiod, expanded_dutyperiod, ctx, trip_number
-        )
-        self.check_release_times(
-            compact_dutyperiod, expanded_dutyperiod, ctx, trip_number
-        )
-        self.check_dutytime(expanded_dutyperiod, ctx, trip_number)
+        self.check_report_times(compact_dutyperiod, expanded_dutyperiod, trip_number)
+        self.check_release_times(compact_dutyperiod, expanded_dutyperiod, trip_number)
+        self.check_dutytime(expanded_dutyperiod, trip_number)
 
     def check_dutytime(
         self,
         expanded_dutyperiod: expanded.DutyPeriod,
-        ctx: dict | None,
         trip_number: str,
     ):
         dutytime = (
@@ -205,13 +210,12 @@ class ExpandedValidator:
         self,
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
-        ctx: dict | None,
         trip_number: str,
     ):
         report_time = expanded_dutyperiod.report.local().time()
         if not compare_time(
             report_time,
-            compact_dutyperiod.report.lcl,
+            compact_dutyperiod.report.lcl.time,
             ignore_tz=True,
         ):
             self.debug_write(
@@ -228,13 +232,12 @@ class ExpandedValidator:
         self,
         compact_dutyperiod: compact.DutyPeriod,
         expanded_dutyperiod: expanded.DutyPeriod,
-        ctx: dict | None,
         trip_number: str,
     ):
         release_time = expanded_dutyperiod.release.local().time()
         if not compare_time(
             release_time,
-            compact_dutyperiod.release.lcl,
+            compact_dutyperiod.release.lcl.time,
             ignore_tz=True,
         ):
             self.debug_write(
@@ -251,24 +254,22 @@ class ExpandedValidator:
         self,
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
-        ctx: dict | None,
         trip_number: str,
     ):
-        self.check_departure(compact_flight, expanded_flight, ctx, trip_number)
-        self.check_arrival(compact_flight, expanded_flight, ctx, trip_number)
-        self.check_flight_time(expanded_flight, ctx, trip_number)
+        self.check_departure(compact_flight, expanded_flight, trip_number)
+        self.check_arrival(compact_flight, expanded_flight, trip_number)
+        self.check_flight_time(expanded_flight, trip_number)
 
     def check_departure(
         self,
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
-        ctx: dict | None,
         trip_number: str,
     ):
         departure_time = expanded_flight.departure.local().time()
         if not compare_time(
             departure_time,
-            compact_flight.departure.lcl,
+            compact_flight.departure.lcl.time,
             ignore_tz=True,
         ):
             self.debug_write(
@@ -285,13 +286,12 @@ class ExpandedValidator:
         self,
         compact_flight: compact.Flight,
         expanded_flight: expanded.Flight,
-        ctx: dict | None,
         trip_number: str,
     ):
         arrival_time = expanded_flight.arrival.local().time()
         if not compare_time(
             arrival_time,
-            compact_flight.arrival.lcl,
+            compact_flight.arrival.lcl.time,
             ignore_tz=True,
         ):
             self.debug_write(
@@ -307,7 +307,6 @@ class ExpandedValidator:
     def check_flight_time(
         self,
         expanded_flight: expanded.Flight,
-        ctx: dict | None,
         trip_number: str,
     ):
         flight_time = (
@@ -340,7 +339,6 @@ class ExpandedValidator:
         self,
         compact_layover: compact.Layover,
         expanded_layover: expanded.Layover,
-        ctx: dict | None,
     ):
         pass
 
@@ -348,7 +346,6 @@ class ExpandedValidator:
         self,
         conpact_hotel: compact.Hotel,
         expanded_hotel: expanded.Hotel,
-        ctx: dict | None,
     ):
         pass
 
@@ -356,6 +353,16 @@ class ExpandedValidator:
         self,
         compact_transportation: compact.Transportation,
         expanded_transportation: expanded.Transportation,
-        ctx: dict | None,
     ):
         pass
+
+
+def validate_expanded_bid_package(
+    compact_bid_package: compact.BidPackage,
+    expanded_bid_package: expanded.BidPackage,
+    debug_file: Path | None = None,
+):
+    with ExpandedValidator(debug_file=debug_file) as validator:
+        validator.validate(
+            compact_bid=compact_bid_package, expanded_bid=expanded_bid_package
+        )

@@ -20,7 +20,8 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
         uuid=str(uuid), metadata=parse_results["kwargs"], pages=[]
     )
     for parse_result in parse_results["data"]:
-        match parse_result["parse_ident"]:
+        value = parse_result["parse_ident"]
+        match value:
             case "PageHeader1":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
                 page = rc.Page(uuid=str(uuid), page_header_1=parse_result, trips=[])
@@ -56,14 +57,16 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 )
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"].append(dutyperiod)
             case "Flight":
+                uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
+                flight = rc.Flight(uuid=str(uuid), flight=parse_result)
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
                     "flights"
-                ].append(parse_result)
+                ].append(flight)
             case "DutyPeriodRelease":
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
                     "release"
                 ] = parse_result
-            case "Hotel":
+            case "Layover":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
                 layover = rc.Layover(
                     uuid=str(uuid), layover=parse_result, hotel_info=[]
@@ -91,8 +94,16 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 pass
             case "PageFooter":
                 bid_package["pages"][-1]["page_footer"] = parse_result
+            case _:
+                raise ValueError(f"{value} did not find a matching case.")
     return bid_package
 
 
 def make_uuid5(self, indexed_string: IndexedString, ns_uuid: UUID = PARSER_DNS) -> UUID:
     return uuid5(ns_uuid, f"{self.idx}: {self.txt!r}")
+
+
+def translate_parsed_to_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
+    """This is the entry point."""
+    bid_package = collect_raw(parse_results=parse_results)
+    return bid_package

@@ -1,13 +1,9 @@
-from typing import TypedDict
+from typing import Any, Iterator, TypedDict
+from uuid import UUID
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     ParseResult,
 )
-
-
-class HotelInfo(TypedDict):
-    hotel: ParseResult
-    transportation: ParseResult
 
 
 class Layover(TypedDict):
@@ -53,29 +49,66 @@ class BidPackage(TypedDict):
     pages: list[Page]
 
 
-#     def default_file_name(self) -> str:
-#         assert self.pages[0].page_footer is not None
-#         return (
-#             f"{self.pages[0].page_footer.effective}_{self.pages[0].page_footer.base}"
-#             f"_raw_{self.uuid}.json"
-#         )
+class PackageBrowser:
+    def __init__(self, package: BidPackage):
+        self.package = package
+        self._lookup: dict[str, Any] = {}
 
-#     def uuid5(self) -> UUID:
-#         if self.source:
-#             uuid_seed = self.source.file_hash
-#         else:
-#             uuid_seed = "None"
-#         return uuid5(BIDPACKAGE_DNS, uuid_seed)
+    def _init_lookup(self):
+        for page in self.pages():
+            self._lookup[page["uuid"]] = page
+        for trip in self.trips(None):
+            self._lookup[trip["uuid"]] = trip
+        for dutyperiod in self.dutyperiods(None):
+            self._lookup[dutyperiod["uuid"]] = dutyperiod
+        for flight in self.flights(None):
+            self._lookup[flight["uuid"]] = flight
+        for layover in self.layovers(None):
+            if layover is not None:
+                self._lookup[layover["uuid"]] = layover
 
-#     def walk_trips(self) -> Iterable[Trip]:
-#         for page in self.pages:
-#             for trip in page.trips:
-#                 yield trip
+    def lookup(self, uuid: UUID):
+        # TODO catch missing uuids
+        if not self._lookup:
+            self._init_lookup()
+        return self._lookup[str(uuid)]
 
+    def pages(
+        self,
+    ) -> Iterator[Page]:
+        for page in self.package["pages"]:
+            yield page
 
-#     def __eq__(self, __value: object) -> bool:
-#         if isinstance(__value, BidPackage):
-#             if self.source != __value.source:
-#                 return False
-#             return (self.uuid, self.pages) == (__value.uuid, __value.pages)
-#         return super().__eq__(__value)
+    def trips(self, page: Page | None) -> Iterator[Trip]:
+        if page is None:
+            for page_a in self.pages():
+                for trip in page_a["trips"]:
+                    yield trip
+        else:
+            for trip in page["trips"]:
+                yield trip
+
+    def dutyperiods(self, trip: Trip | None) -> Iterator[DutyPeriod]:
+        if trip is None:
+            for trip_a in self.trips(None):
+                for dutyperiod in trip_a["dutyperiods"]:
+                    yield dutyperiod
+        else:
+            for dutyperiod in trip["dutyperiods"]:
+                yield dutyperiod
+
+    def flights(self, dutyperiod: DutyPeriod | None) -> Iterator[Flight]:
+        if dutyperiod is None:
+            for dutyperiod_a in self.dutyperiods(None):
+                for flight in dutyperiod_a["flights"]:
+                    yield flight
+        else:
+            for flight in dutyperiod["flights"]:
+                yield flight
+
+    def layovers(self, dutyperiod: DutyPeriod | None) -> Iterator[Layover | None]:
+        if dutyperiod is None:
+            for dutyperiod_a in self.dutyperiods(None):
+                yield dutyperiod_a["layover"]
+        else:
+            yield dutyperiod["layover"]
