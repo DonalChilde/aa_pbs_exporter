@@ -11,16 +11,16 @@
 from typing import Callable, Iterable, Iterator
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 
 
 def index_and_filter_strings(
     strings: Iterable[str],
-    string_filter: Callable[[IndexedString], bool],
-    factory: Callable[[int, str], IndexedString] | None = None,
+    string_filter: Callable[[IndexedStringDict], bool],
+    factory: Callable[[int, str], IndexedStringDict] | None = None,
     index_start=0,
-) -> Iterator[IndexedString]:
+) -> Iterator[IndexedStringDict]:
     """
     Enumerate and filter a string iterable, yield matches as an `IndexedStringProtocol`
 
@@ -35,7 +35,7 @@ def index_and_filter_strings(
     """
     for idx, txt in enumerate(strings, start=index_start):
         if factory is None:
-            indexed_string = IndexedString(idx=idx, txt=txt)
+            indexed_string = IndexedStringDict(idx=idx, txt=txt)
         else:
             indexed_string = factory(idx, txt)
         if string_filter(indexed_string):
@@ -45,18 +45,18 @@ def index_and_filter_strings(
 class FilteredStringIndexer:
     def __init__(
         self,
-        string_filter: Callable[[IndexedString], bool],
-        factory: Callable[[int, str], IndexedString] | None = None,
+        string_filter: Callable[[IndexedStringDict], bool],
+        factory: Callable[[int, str], IndexedStringDict] | None = None,
         index_start=0,
     ) -> None:
         self.string_filter = string_filter
         self.factory = factory
         self.index_start = index_start
 
-    def __call__(self, strings: Iterable[str]) -> Iterator[IndexedString]:
+    def __call__(self, strings: Iterable[str]) -> Iterator[IndexedStringDict]:
         for idx, txt in enumerate(strings, start=self.index_start):
             if self.factory is None:
-                indexed_string = IndexedString(idx=idx, txt=txt)
+                indexed_string = IndexedStringDict(idx=idx, txt=txt)
             else:
                 indexed_string = self.factory(idx, txt)
             if self.string_filter(indexed_string):

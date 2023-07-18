@@ -16,7 +16,7 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.index_and_filter_strings i
     index_and_filter_strings,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
     indexed_string_factory,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_job import (
@@ -33,19 +33,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def data_starts(indexed_string: IndexedString) -> bool:
+def data_starts(indexed_string: IndexedStringDict) -> bool:
     if "DEPARTURE" in indexed_string["txt"]:
         return True
     return False
 
 
-def pbs_data_filter() -> Callable[[IndexedString], bool]:
+def pbs_data_filter() -> Callable[[IndexedStringDict], bool]:
     return MultipleTests(
         testers=[SkipTillFirstMatch(match_test=data_starts), not_white_space]
     )
 
 
-def index_pbs_strings(strings: Iterable[str]) -> Iterable[IndexedString]:
+def index_pbs_strings(strings: Iterable[str]) -> Iterable[IndexedStringDict]:
     indexed_strings = index_and_filter_strings(
         strings=strings, string_filter=pbs_data_filter(), factory=indexed_string_factory
     )

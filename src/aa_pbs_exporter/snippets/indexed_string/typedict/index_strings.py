@@ -11,15 +11,15 @@
 from typing import Callable, Iterable, Iterator
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 
 
 def index_strings(
     strings: Iterable[str],
-    factory: Callable[[int, str], IndexedString] | None = None,
+    factory: Callable[[int, str], IndexedStringDict] | None = None,
     index_start=0,
-) -> Iterator[IndexedString]:
+) -> Iterator[IndexedStringDict]:
     """
     Enumerate a string iterable, yield an `IndexedStringProtocol`.
 
@@ -33,7 +33,7 @@ def index_strings(
     """
     for idx, txt in enumerate(strings, start=index_start):
         if factory is None:
-            indexed_string = IndexedString(idx=idx, txt=txt)
+            indexed_string = IndexedStringDict(idx=idx, txt=txt)
         else:
             indexed_string = factory(idx, txt)
         yield indexed_string

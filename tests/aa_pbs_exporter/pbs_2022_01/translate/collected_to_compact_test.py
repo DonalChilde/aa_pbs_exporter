@@ -9,7 +9,7 @@ from aa_pbs_exporter.pbs_2022_01.models.raw_collected import BidPackage
 from aa_pbs_exporter.pbs_2022_01.translate.collected_to_compact import (
     translate_collected_to_compact,
 )
-from tests.aa_pbs_exporter.pbs_2022_01.translate.resource_definitions import COLLECTED_1
+from tests.aa_pbs_exporter.resources.resource_definitions import COLLECTED_1
 from tests.aa_pbs_exporter.resources.helpers_3 import ResourceLocator
 
 
@@ -26,13 +26,11 @@ def test_collected_to_compact(test_app_data_dir: Path, logger: Logger):
     )
 
     pydantic_serializer = SerializePydantic[compact.BidPackage]()
-    pydantic_serializer.save_as_json(compact_path, compact_bid)
+    pydantic_serializer.save_json(compact_path, compact_bid)
     expected_res = ResourceLocator(
         f"{__package__}.resources.compact", f"{compact_path.name}"
     )
     with resources.as_file(expected_res.file_resource()) as expected_path:
-        expected = pydantic_serializer.load_from_json_file(
-            compact.BidPackage, expected_path
-        )
+        expected = pydantic_serializer.load_json(compact.BidPackage, expected_path)
     assert expected == compact_bid
     # assert False

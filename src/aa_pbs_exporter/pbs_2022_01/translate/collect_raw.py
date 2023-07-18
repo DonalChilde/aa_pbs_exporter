@@ -1,7 +1,7 @@
 from uuid import UUID, uuid5
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
@@ -99,7 +99,9 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
     return bid_package
 
 
-def make_uuid5(self, indexed_string: IndexedString, ns_uuid: UUID = PARSER_DNS) -> UUID:
+def make_uuid5(
+    self, indexed_string: IndexedStringDict, ns_uuid: UUID = PARSER_DNS
+) -> UUID:
     return uuid5(ns_uuid, f"{self.idx}: {self.txt!r}")
 
 

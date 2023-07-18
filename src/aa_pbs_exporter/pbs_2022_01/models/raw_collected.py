@@ -109,6 +109,6 @@ class PackageBrowser:
     def layovers(self, dutyperiod: DutyPeriod | None) -> Iterator[Layover | None]:
         if dutyperiod is None:
             for dutyperiod_a in self.dutyperiods(None):
-                yield dutyperiod_a["layover"]
+                yield dutyperiod_a.get("layover", None)
         else:
-            yield dutyperiod["layover"]
+            yield dutyperiod.get("layover", None)

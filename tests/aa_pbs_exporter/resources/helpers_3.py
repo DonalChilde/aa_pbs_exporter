@@ -1,15 +1,21 @@
 import logging
 import traceback
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from hashlib import md5
 from importlib import resources
 from importlib.abc import Traversable
 from typing import Callable, Iterable, Sequence
 
+from aa_pbs_exporter.snippets.hash.file_hash import (
+    HashedFileDict,
+    make_hashed_file_dict,
+)
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
+    ParseResult,
 )
 
 logger = logging.getLogger(__name__)
@@ -49,4 +55,28 @@ class ParserTest:
     name: str
     category: str
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]]
-    indexer: Callable[[Iterable[str]], Iterable[IndexedString]]
+    indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]]
+
+
+def hashed_file_from_resource(
+    file_resource: ResourceLocator, resource_as_path: bool = True
+) -> HashedFileDict:
+    with resources.as_file(file_resource.file_resource()) as file_path:
+        hashed_file = make_hashed_file_dict(file_path=file_path, hasher=md5())
+    if resource_as_path:
+        hashed_file["file_path"] = str(file_resource)
+    return hashed_file
+
+
+@dataclass
+class GrammarTest:
+    txt: str
+    description: str = ""
+    result: dict = field(default_factory=dict)
+
+
+@dataclass
+class ParserTest2:
+    idx_str: IndexedStringDict
+    result: ParseResult
+    description: str = ""

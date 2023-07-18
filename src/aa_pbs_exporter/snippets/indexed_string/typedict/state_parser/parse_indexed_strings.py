@@ -12,7 +12,7 @@ import logging
 from typing import Any, Callable, Iterable, Iterator, Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
     ParseException,
@@ -31,7 +31,7 @@ logger.addHandler(logging.NullHandler())
 
 
 def parse_indexed_strings(
-    indexed_strings: Iterable[IndexedString],
+    indexed_strings: Iterable[IndexedStringDict],
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]],
     beginning_state: str = "start",
     ctx: dict[str, Any] | None = None,

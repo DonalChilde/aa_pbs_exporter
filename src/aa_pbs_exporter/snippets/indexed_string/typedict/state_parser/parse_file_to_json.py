@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Callable, Iterable, Sequence
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_job import (
     parse_job,
@@ -19,7 +19,7 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
 def parse_file_to_json(
     file_in: Path,
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]],
-    indexer: Callable[[Iterable[str]], Iterable[IndexedString]],
+    indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]],
     file_out: Path | None = None,
     debug_out: Path | None = None,
     **kwargs,

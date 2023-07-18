@@ -65,7 +65,7 @@ doc = [
     "myst-parser",
     "sphinx-click",
 ]
-vscode = ["esbonio", "rst2html", "rstcheck"]
+vscode = ["esbonio"]
 testing = [
     "pytest",
     "coverage[toml]",

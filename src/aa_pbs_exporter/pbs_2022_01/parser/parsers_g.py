@@ -3,63 +3,22 @@ import re
 from typing import Any
 
 import pyparsing as pp
+
+from aa_pbs_exporter.pbs_2022_01.models import raw_parsed as raw_p
+from aa_pbs_exporter.pbs_2022_01.parser import grammar as g
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
     IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
     SingleParserFail,
 )
-from aa_pbs_exporter.pbs_2022_01.models import raw_parsed as raw_p
-
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
     ParseResult,
 )
 
-# from aa_pbs_exporter.pbs_2022_01.models import raw
-# from aa_pbs_exporter.pbs_2022_01.models.parse_result import ParseResult
-
-
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
-
-CALENDAR_HEADER = pp.Literal("MO") + "TU" + "WE" + "TH" + "FR" + "SA" + "SU"
-MONTH_NUMERAL = pp.Word(pp.nums, exact=2)
-DAY_NUMERAL = pp.Word(pp.nums, exact=2)
-SHORT_MONTH = pp.Word(pp.alphas, exact=3)
-DATE_DDMMM = MONTH_NUMERAL + SHORT_MONTH
-DATE_MMSLASHDD = MONTH_NUMERAL + "/" + DAY_NUMERAL
-MINUS_SIGN = "\u2212"
-HYPHEN_MINUS = "\u002d"
-DASH_UNICODE = "\u002d\u2212"
-PUNCT_UNICODE = "\u2019"
-ADDS_UNICODE = "Ã©"
-DAY_NUMERAL = pp.Word(pp.nums, exact=2)
-YEAR = pp.Word(pp.nums, exact=4)
-DATE_DDMMMYY = pp.Combine(DAY_NUMERAL + SHORT_MONTH + YEAR)
-PHONE_NUMBER = pp.Word(pp.nums, min=4, as_keyword=True)
-TIME = pp.Word(pp.nums, exact=4, as_keyword=True)
-DUALTIME = pp.Combine(TIME + pp.Literal("/") + TIME)
-DASH_DAY = pp.Word(DASH_UNICODE, exact=2)
-NUMERICAL_DAY = pp.Or(
-    [
-        pp.Word(pp.nums, exact=1, as_keyword=True),
-        pp.Word(pp.nums, exact=2, as_keyword=True),
-    ]
-)
-CALENDAR_DAY = pp.Or([DASH_DAY, NUMERICAL_DAY])
-CALENDAR_ENTRY = pp.OneOrMore(CALENDAR_DAY)
-
-
-# CALENDAR_ENTRY = pp.Or(
-#     [
-#         pp.Word(DASH_UNICODE, exact=2, as_keyword=True),
-#         pp.Word(pp.nums, exact=1, as_keyword=True),
-#         pp.Word(pp.nums, exact=2, as_keyword=True),
-#     ]
-# )
-DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
-POSITIONS = pp.one_of("CA FO FB C RC", as_keyword=True)
 
 
 class IndexedStringParser(IndexedStringParserProtocol):
@@ -76,7 +35,7 @@ class IndexedStringParser(IndexedStringParserProtocol):
 class PyparsingParser(IndexedStringParser):
     p_parser: pp.ParserElement
 
-    def get_result(self, indexed_string: IndexedStringDict) -> dict:
+    def get_result(self, indexed_string: IndexedStringDict) -> dict[str, Any]:
         try:
             result = self.p_parser.parse_string(indexed_string["txt"])
             result_dict = result.as_dict()
@@ -122,14 +81,7 @@ class PageHeader1(IndexedStringParser):
 class PageHeader2(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.SkipTo("CALENDAR", include=True)
-            + DATE_MMSLASHDD("from_date")
-            + pp.Word(DASH_UNICODE)
-            + DATE_MMSLASHDD("to_date")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.PageHeader2
 
     def parse(
         self,
@@ -148,19 +100,6 @@ class PageHeader2(PyparsingParser):
             parsed_data=parsed_data,
             source=indexed_string,
         )
-        # try:
-        #     if words[-2] == "CALENDAR":
-        #         parsed_data = PageHeader2(
-        #             source=indexed_string, calendar_range=words[-1]
-        #         )
-        #         return ParseResult(self.success_state, parsed_data)
-        #     raise SingleParserFail(
-        #         f"Found {words[-2]} instead of 'CALENDAR' in {indexed_string!r}."
-        #     )
-        # except KeyError as error:
-        #     raise SingleParserFail(
-        #         f"unable to index position [-2] in  {indexed_string!r}"
-        #     ) from error
 
 
 class HeaderSeparator(IndexedStringParser):
@@ -216,13 +155,7 @@ class TripSeparator(IndexedStringParser):
 class BaseEquipment(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.Word(pp.alphas, exact=3)("base")
-            + pp.Opt(pp.Word(pp.alphas, exact=3)("satelite_base"))
-            + pp.Word(pp.nums, exact=3)("equipment")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.BaseEquipment
 
     def parse(
         self,
@@ -250,48 +183,7 @@ class TripHeader(PyparsingParser):
         super().__init__(self.__class__.__name__)
         # FIXME build progressive match, with options,
         # loop over list of possibles, take first match
-        self.p_parser = (
-            pp.StringStart()
-            + "SEQ"
-            + pp.Word(pp.nums, min=1, as_keyword=True)("number")
-            + pp.Word(pp.nums, min=1, as_keyword=True)("ops_count")
-            + "OPS"
-            + "POSN"
-            # + pp.OneOrMore(
-            #     pp.Word(pp.alphas, min=1, max=2, as_keyword=True), stop_on="MO"
-            # )("positions")
-            + pp.OneOrMore(POSITIONS)("positions")
-            + pp.Opt("ONLY")
-            + pp.Opt(
-                pp.ZeroOrMore(
-                    pp.Word(pp.printables, as_keyword=False), stop_on="OPERATION"
-                )
-                + pp.Suppress("OPERATION"),
-                default=list(),
-            )("operations")
-            + pp.Opt(
-                pp.ZeroOrMore(
-                    pp.Word(pp.printables, as_keyword=True), stop_on="QUALIFICATION"
-                )
-                + pp.Suppress("QUALIFICATION"),
-                default=list(),
-            )("qualifications")
-            # + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"), default="")(
-            #     "special_qualification"
-            # )
-            + pp.Or(
-                [
-                    CALENDAR_HEADER,
-                    (
-                        pp.one_of(["Replaces", "New"])
-                        + "prior"
-                        + "month"
-                        + pp.Optional("deadhead")
-                    ),
-                ]
-            )
-            + pp.StringEnd()
-        )
+        self.p_parser = g.TripHeader
 
     def parse(
         self,
@@ -344,20 +236,7 @@ class PriorMonthDeadhead(IndexedStringParser):
 class DutyPeriodReport(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + "RPT"
-            + DUALTIME("report")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.Opt(
-                pp.Literal("sequence")
-                + pp.Word(pp.nums, min=1)("sequence_number")
-                + "/"
-                + DATE_DDMMM("date")
-            )
-            + pp.Opt(pp.Literal("sequence") + DATE_DDMMM("date"))
-            + pp.StringEnd()
-        )
+        self.p_parser = g.DutyPeriodReport
 
     def parse(
         self,
@@ -386,28 +265,7 @@ class DutyPeriodReport(PyparsingParser):
 class Flight(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.Word(pp.nums, exact=1, as_keyword=True)("dutyperiod")
-            + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
-                "day_of_sequence"
-            )
-            + pp.Word(pp.alphanums, exact=2, as_keyword=True)("equipment_code")
-            + pp.Word(pp.nums)("flight_number")
-            + pp.Word(pp.alphas, exact=3, as_keyword=True)("departure_station")
-            + DUALTIME("departure_time")
-            + pp.Opt(pp.Word(pp.alphas, exact=1, as_keyword=True), default="")(
-                "crew_meal"
-            )
-            + pp.Word(pp.alphas, exact=3, as_keyword=True)("arrival_station")
-            + DUALTIME("arrival_time")
-            + DURATION("block")
-            # FIXME synth time? Can this happen on a non deadhead?
-            + pp.Opt(DURATION("ground"), default="0.00")
-            + pp.Opt("X", default="")("equipment_change")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.Flight
 
     def parse(
         self,
@@ -446,30 +304,7 @@ class Flight(PyparsingParser):
 class FlightDeadhead(PyparsingParser):
     def __init__(self) -> None:
         super().__init__("Flight")
-        self.p_parser = (
-            pp.StringStart()
-            + pp.Word(pp.nums, exact=1, as_keyword=True)("dutyperiod")
-            + pp.Combine(pp.Word(pp.nums, exact=1) + "/" + pp.Word(pp.nums, exact=1))(
-                "day_of_sequence"
-            )
-            + pp.Word(pp.alphanums, exact=2, as_keyword=True)("equipment_code")
-            + pp.Word(pp.nums)("flight_number")
-            + pp.Literal("D")("deadhead")
-            + pp.WordEnd()
-            + pp.Word(pp.alphas, exact=3, as_keyword=True)("departure_station")
-            + DUALTIME("departure_time")
-            + pp.Opt(pp.Word(pp.alphas, exact=1, as_keyword=True), default="")(
-                "crew_meal"
-            )
-            + pp.Word(pp.alphas, exact=3, as_keyword=True)("arrival_station")
-            + DUALTIME("arrival_time")
-            + pp.Word(pp.alphas, exact=2)("deadhead_block")
-            + DURATION("synth")
-            + pp.Opt(DURATION("ground"), default="0.00")
-            + pp.Opt("X", default="")("equipment_change")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.FlightDeadhead
 
     def parse(
         self,
@@ -506,18 +341,7 @@ class FlightDeadhead(PyparsingParser):
 class DutyPeriodRelease(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + "RLS"
-            + DUALTIME("release_time")
-            + DURATION("block")
-            + DURATION("synth")
-            + DURATION("total_pay")
-            + DURATION("duty")
-            + DURATION("flight_duty")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.DutyPeriodRelease
 
     def parse(
         self,
@@ -546,22 +370,7 @@ class DutyPeriodRelease(PyparsingParser):
 class Layover(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.Word(pp.alphas, exact=3, as_keyword=True)("layover_city")
-            + pp.original_text_for(
-                pp.OneOrMore(
-                    pp.Word(
-                        pp.printables + PUNCT_UNICODE + DASH_UNICODE + ADDS_UNICODE
-                    ),
-                    stop_on=PHONE_NUMBER | DURATION,
-                )
-            )("hotel")
-            + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
-            + DURATION("rest")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.Layover
 
     def parse(
         self,
@@ -588,23 +397,7 @@ class Layover(PyparsingParser):
 class HotelAdditional(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.Literal("+")
-            + pp.Word(pp.alphas, exact=3)("layover_city")
-            + pp.WordEnd()
-            + pp.original_text_for(
-                pp.OneOrMore(
-                    pp.Word(
-                        pp.printables + PUNCT_UNICODE + DASH_UNICODE + ADDS_UNICODE
-                    ),
-                    stop_on=PHONE_NUMBER | DURATION,
-                )
-            )("hotel")
-            + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.HotelAdditional
 
     def parse(
         self,
@@ -630,16 +423,7 @@ class HotelAdditional(PyparsingParser):
 class Transportation(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.NotAny("+")
-            + pp.original_text_for(
-                pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_ENTRY, pp.StringEnd()]))
-            )("transportation")
-            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default="")("transportation_phone")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.Transportation
 
     def parse(
         self,
@@ -664,16 +448,7 @@ class Transportation(PyparsingParser):
 class TransportationAdditional(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.NotAny("+")
-            + pp.original_text_for(
-                pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_ENTRY, pp.StringEnd()]))
-            )("transportation")
-            + pp.Opt(~CALENDAR_ENTRY + PHONE_NUMBER, default="")("transportation_phone")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.TransportationAdditional
 
     def parse(
         self,
@@ -706,16 +481,7 @@ class TransportationAdditional(PyparsingParser):
 class TripFooter(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + "TTL"
-            + DURATION("block")
-            + DURATION("synth")
-            + DURATION("total_pay")
-            + DURATION("tafb")
-            + pp.ZeroOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.TripFooter
 
     def parse(
         self,
@@ -742,11 +508,7 @@ class TripFooter(PyparsingParser):
 class CalendarOnly(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + pp.OneOrMore(CALENDAR_ENTRY)("calendar_entries")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.CalendarOnly
 
     def parse(
         self,
@@ -786,21 +548,7 @@ def get_leading_whitespace(txt: str) -> str:
 class PageFooter(PyparsingParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
-        self.p_parser = (
-            pp.StringStart()
-            + "COCKPIT"
-            + "ISSUED"
-            + DATE_DDMMMYY("issued")
-            + "EFF"
-            + DATE_DDMMMYY("effective")
-            + pp.Word(pp.alphas, exact=3)("base")
-            + pp.Opt(pp.Word(pp.alphas, exact=3)("satelite_base"), default="")
-            + pp.Word(pp.nums, exact=3)("equipment")
-            + (pp.Literal("INTL") | pp.Literal("DOM"))("division")
-            + "PAGE"
-            + pp.Word(pp.nums)("internal_page")
-            + pp.StringEnd()
-        )
+        self.p_parser = g.PageFooter
 
     def parse(
         self,

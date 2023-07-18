@@ -18,14 +18,14 @@ parsers based on the results of the previous successfully parsed string.
 from typing import Any, Mapping, Protocol, TypedDict
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 
 
 class ParseResult(TypedDict):
     parse_ident: str
     parsed_data: Mapping[Any, Any]
-    source: IndexedString
+    source: IndexedStringDict
 
 
 class CollectedParseResults(TypedDict):
@@ -35,7 +35,7 @@ class CollectedParseResults(TypedDict):
 
 class ParsedIndexedString(TypedDict):
     parsed_data: Mapping[Any, Any]
-    source: IndexedString
+    source: IndexedStringDict
 
 
 class IndexedStringParserProtocol(Protocol):
@@ -43,7 +43,7 @@ class IndexedStringParserProtocol(Protocol):
 
     def parse(
         self,
-        indexed_string: IndexedString,
+        indexed_string: IndexedStringDict,
         ctx: dict[str, Any] | None,
         **kwargs,
     ) -> ParseResult:

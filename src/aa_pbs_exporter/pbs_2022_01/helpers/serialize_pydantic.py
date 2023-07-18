@@ -2,7 +2,7 @@ import logging
 import traceback
 from pathlib import Path
 from time import perf_counter_ns
-from typing import Any, Generic, Type, TypeVar
+from typing import Any, Generic, TypeVar
 
 from pydantic import BaseModel
 
@@ -22,21 +22,19 @@ def nanos_to_seconds(start: int, end: int) -> float:
 class SerializePydantic(Generic[T]):
     """A basic Pydantic to/from json serializer with perf logging."""
 
-    def __init__(self) -> None:
-        super().__init__()
-
-    def save_as_json(
+    def save_json(
         self,
         file_out: Path,
         data: T,
         overwrite: bool = False,
-        indent: int = 2,
+        indent: int | None = 2,
         **kwargs,
     ):
         kwargs["indent"] = indent
         start = perf_counter_ns()
         validate_file_out(file_out, overwrite=overwrite)
-        file_out.write_text(data.json(**kwargs))
+        data.model_dump_json(**kwargs)
+        file_out.write_text(data.model_dump_json(**kwargs))
         end = perf_counter_ns()
         logger.info(
             "Saved %s to %s in %s seconds.\n\tCalled From:\n\t%s",
@@ -46,9 +44,18 @@ class SerializePydantic(Generic[T]):
             traceback.format_stack()[-2],
         )
 
-    def load_from_json_file(self, model: Any, file_in: Path, **kwargs) -> T:
+    def load_json(
+        self,
+        model: T,
+        file_in: Path,
+        strict: bool | None = None,
+        context: dict[str, Any] | None = None,
+    ) -> T:
         start = perf_counter_ns()
-        results = model.parse_file(file_in, **kwargs)
+        with open(file=file_in, mode="rb") as file_fp:
+            results = model.model_validate_json(
+                file_fp.read(), strict=strict, context=context
+            )
         end = perf_counter_ns()
         logger.info(
             "Loaded %s from %s in %s seconds.\n\tCalled From:\n\t%s",

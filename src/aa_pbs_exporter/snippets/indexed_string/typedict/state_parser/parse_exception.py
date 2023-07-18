@@ -11,7 +11,7 @@
 from typing import Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
@@ -29,7 +29,7 @@ class SingleParserFail(ParseException):
         self,
         msg: str,
         parser: IndexedStringParserProtocol,
-        indexed_string: IndexedString,
+        indexed_string: IndexedStringDict,
         *args: object,
     ) -> None:
         super().__init__(msg, *args)
@@ -51,7 +51,7 @@ class ParseAllFail(ParseJobFail):
         self,
         msg: str,
         parsers: Sequence[IndexedStringParserProtocol],
-        indexed_string: IndexedString,
+        indexed_string: IndexedStringDict,
         *args: object,
     ) -> None:
         super().__init__(msg, *args)

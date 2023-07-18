@@ -11,7 +11,7 @@
 from typing import Any, Callable, Iterable, Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_indexed_strings import (
     parse_indexed_strings,
@@ -24,7 +24,7 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
 
 
 def parse_job(
-    indexed_strings: Iterable[IndexedString],
+    indexed_strings: Iterable[IndexedStringDict],
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]],
     result_handler: ResultHandlerProtocol,
     beginning_state: str = "start",

@@ -8,7 +8,7 @@ from aa_pbs_exporter.pbs_2022_01.translate.collect_raw import collect_raw
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
 )
-from tests.aa_pbs_exporter.pbs_2022_01.translate.resource_definitions import PARSED_1
+from tests.aa_pbs_exporter.resources.resource_definitions import PARSED_1
 from tests.aa_pbs_exporter.resources.helpers_3 import ResourceLocator
 
 

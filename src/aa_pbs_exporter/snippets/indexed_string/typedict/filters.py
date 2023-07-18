@@ -11,7 +11,7 @@
 from typing import Callable, Sequence
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedString,
+    IndexedStringDict,
 )
 
 
@@ -21,11 +21,11 @@ class SkipTillFirstMatch:
 
     """
 
-    def __init__(self, match_test: Callable[[IndexedString], bool]) -> None:
+    def __init__(self, match_test: Callable[[IndexedStringDict], bool]) -> None:
         self.match_test = match_test
         self.procede = False
 
-    def __call__(self, indexed_string: IndexedString) -> bool:
+    def __call__(self, indexed_string: IndexedStringDict) -> bool:
         if self.procede:
             return True
         if self.match_test(indexed_string):
@@ -37,29 +37,29 @@ class SkipTillFirstMatch:
 class MultipleTests:
     """Test for multiple conditions."""
 
-    def __init__(self, testers: Sequence[Callable[[IndexedString], bool]]) -> None:
-        self.testers: Sequence[Callable[[IndexedString], bool]] = list(testers)
+    def __init__(self, testers: Sequence[Callable[[IndexedStringDict], bool]]) -> None:
+        self.testers: Sequence[Callable[[IndexedStringDict], bool]] = list(testers)
 
-    def __call__(self, indexed_string: IndexedString) -> bool:
+    def __call__(self, indexed_string: IndexedStringDict) -> bool:
         return all((tester(indexed_string) for tester in self.testers))
 
 
-def is_numeric(indexed_string: IndexedString) -> bool:
+def is_numeric(indexed_string: IndexedStringDict) -> bool:
     """String can be a number."""
     return indexed_string["txt"].isnumeric()
 
 
-def is_whitespace(indexed_string: IndexedString) -> bool:
+def is_whitespace(indexed_string: IndexedStringDict) -> bool:
     """String contains only white space"""
     return indexed_string["txt"].isspace()
 
 
-def not_white_space(indexed_string: IndexedString) -> bool:
+def not_white_space(indexed_string: IndexedStringDict) -> bool:
     """String does not contain only white space."""
     return not is_whitespace(indexed_string)
 
 
-def pass_through(indexed_string: IndexedString) -> bool:
+def pass_through(indexed_string: IndexedStringDict) -> bool:
     """True for all strings."""
     _ = indexed_string
     return True
