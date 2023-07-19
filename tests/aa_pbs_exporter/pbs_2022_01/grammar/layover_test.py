@@ -11,7 +11,7 @@ Items = [
         txt="                MIA SONESTA MIAMI AIRPORT                   13054469000    11.27       −− −− −− −− −− −− −−",
         result={
             "layover_city": "MIA",
-            "hotel": ["SONESTA MIAMI AIRPORT"],
+            "hotel": "SONESTA MIAMI AIRPORT",
             "hotel_phone": "13054469000",
             "rest": "11.27",
             "calendar_entries": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
@@ -21,9 +21,27 @@ Items = [
         txt="                LHR PARK PLAZA WESTMINSTER BRIDGE LONDON    443334006112   24.00       −− −− −− −− −− −− −−",
         result={
             "layover_city": "LHR",
-            "hotel": ["PARK PLAZA WESTMINSTER BRIDGE LONDON"],
+            "hotel": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
             "hotel_phone": "443334006112",
             "rest": "24.00",
+            "calendar_entries": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
+        },
+    ),
+    GrammarTest(
+        txt="                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37",
+        result={
+            "layover_city": "JFK",
+            "hotel": "HOTEL INFO IN CCI/CREW PORTAL",
+            "rest": "19.37",
+            "calendar_entries": [],
+        },
+    ),
+    GrammarTest(
+        txt="                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37 −− −− −− −− −− −− −−",
+        result={
+            "layover_city": "JFK",
+            "hotel": "HOTEL INFO IN CCI/CREW PORTAL",
+            "rest": "19.37",
             "calendar_entries": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
         },
     ),

@@ -11,18 +11,30 @@ Items = [
         txt="               +PHL MARRIOTT OLD CITY                       12152386000",
         result={
             "layover_city": "PHL",
-            "hotel": ["MARRIOTT OLD CITY"],
+            "hotel": "MARRIOTT OLD CITY",
             "hotel_phone": "12152386000",
             "calendar_entries": [],
         },
     ),
     GrammarTest(
-        txt="               +PHL CAMBRIA HOTEL AND SUITES                12157325500",
+        txt="               +PHL CAMBRIA HOTEL AND SUITES                12157325500 −− −− −− −− −− −− −−",
         result={
             "layover_city": "PHL",
-            "hotel": ["CAMBRIA HOTEL AND SUITES"],
+            "hotel": "CAMBRIA HOTEL AND SUITES",
             "hotel_phone": "12157325500",
-            "calendar_entries": [],
+            "calendar_entries": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
+        },
+    ),
+    GrammarTest(
+        txt="               +PHL NO PHONE NO CALENDAR                ",
+        result={"layover_city": "PHL", "hotel": "NO PHONE NO CALENDAR"},
+    ),
+    GrammarTest(
+        txt="               +PHL NO PHONE, WITH CALENDAR                −− −− −− −− −− −− −−",
+        result={
+            "layover_city": "PHL",
+            "hotel": "NO PHONE, WITH CALENDAR",
+            "calendar_entries": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
         },
     ),
 ]

@@ -10,7 +10,7 @@ Items = [
     GrammarTest(
         txt="                    SIN FIN DE SERVICIOS                    3331223240",
         result={
-            "transportation": ["SIN FIN DE SERVICIOS"],
+            "transportation": "SIN FIN DE SERVICIOS",
             "phone": "3331223240",
             "calendar_entries": [],
         },
@@ -18,10 +18,21 @@ Items = [
     GrammarTest(
         txt="                    VIP TRANSPORTATION− OGG                 8088712702                 −− −− −−",
         result={
-            "transportation": ["VIP TRANSPORTATION− OGG"],
+            "transportation": "VIP TRANSPORTATION− OGG",
             "phone": "8088712702",
             "calendar_entries": ["−−", "−−", "−−"],
         },
+    ),
+    GrammarTest(
+        txt="                    This test has no phone number, but has a calendar                                  −− −− −−",
+        result={
+            "transportation": "This test has no phone number, but has a calendar",
+            "calendar_entries": ["−−", "−−", "−−"],
+        },
+    ),
+    GrammarTest(
+        txt="                    TRANS INFO IN CCI/CREW PORTAL",
+        result={"transportation": "TRANS INFO IN CCI/CREW PORTAL"},
     ),
 ]
 parser = grammar.Transportation

@@ -25,17 +25,10 @@ NUMERICAL_DAY = pp.MatchFirst(
     ]
 )
 CALENDAR_DAY = pp.MatchFirst([DASH_DAY, NUMERICAL_DAY])
-CALENDAR_LINE = pp.ZeroOrMore(pp.OneOrMore(CALENDAR_DAY))
+CALENDAR_LINE = pp.Opt(pp.OneOrMore(CALENDAR_DAY), default=[])
 CITY = pp.Word(pp.alphas, exact=3, as_keyword=True)
 
 
-# CALENDAR_ENTRY = pp.Or(
-#     [
-#         pp.Word(DASH_UNICODE, exact=2, as_keyword=True),
-#         pp.Word(pp.nums, exact=1, as_keyword=True),
-#         pp.Word(pp.nums, exact=2, as_keyword=True),
-#     ]
-# )
 DURATION = pp.Combine(pp.Word(pp.nums, min=1) + "." + pp.Word(pp.nums, exact=2))
 POSITIONS = pp.one_of("CA FO FB C RC", as_keyword=True)
 
@@ -45,12 +38,14 @@ def trim_name(s: str, loc: int, tokens: pp.ParseResults) -> str:
     return value.strip()
 
 
-BUSINESS_PHONE = pp.original_text_for(pp.SkipTo(PHONE_NUMBER)).set_parse_action(
-    trim_name
-)
-BUSINESS_CALENDAR = pp.original_text_for(pp.SkipTo(CALENDAR_LINE))
+BUSINESS_PHONE = pp.original_text_for(pp.SkipTo(PHONE_NUMBER))
+BUSINESS_PHONE.set_parse_action(trim_name)
+BUSINESS_CALENDAR = pp.original_text_for(pp.SkipTo(CALENDAR_DAY))
+BUSINESS_CALENDAR.set_parse_action(trim_name)
 BUSINESS_NONE = pp.original_text_for(pp.SkipTo(pp.string_end))
+BUSINESS_NONE.set_parse_action(trim_name)
 BUSINESS_DURATION = pp.original_text_for(pp.SkipTo(DURATION))
+BUSINESS_DURATION.set_parse_action(trim_name)
 
 
 PageHeader2 = (
@@ -92,9 +87,6 @@ TripHeader = (
     + pp.Word(pp.nums, min=1, as_keyword=True)("ops_count")
     + "OPS"
     + "POSN"
-    # + pp.OneOrMore(
-    #     pp.Word(pp.alphas, min=1, max=2, as_keyword=True), stop_on="MO"
-    # )("positions")
     + pp.OneOrMore(POSITIONS)("positions")
     + pp.Opt("ONLY")
     + pp.Opt(
@@ -107,9 +99,6 @@ TripHeader = (
         + pp.Suppress("QUALIFICATION"),
         default=list(),
     )("qualifications")
-    # + pp.Opt(pp.Literal("SPECIAL") + ("QUALIFICATION"), default="")(
-    #     "special_qualification"
-    # )
     + pp.MatchFirst(
         [
             CALENDAR_HEADER,
@@ -249,22 +238,25 @@ Matches:
 """
 
 
-Layover = (
+LayoverPhone = (
     pp.StringStart()
     + CITY("layover_city")
-    # + pp.original_text_for(
-    #     pp.OneOrMore(
-    #         pp.Word(pp.printables + PUNCT_UNICODE + DASH_UNICODE + ADDS_UNICODE),
-    #         stop_on=PHONE_NUMBER | DURATION,
-    #     )
-    # )("hotel")
-    # + pp.original_text_for(pp.SkipTo(PHONE_NUMBER | DURATION | pp.StringEnd()))("hotel")
-    + (BUSINESS_PHONE | BUSINESS_DURATION)("hotel")
-    + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
+    + BUSINESS_PHONE("hotel")
+    + PHONE_NUMBER("hotel_phone")
     + DURATION("rest")
     + CALENDAR_LINE("calendar_entries")
     + pp.StringEnd()
 )
+LayoverNoPhone = (
+    pp.StringStart()
+    + CITY("layover_city")
+    + pp.Opt(BUSINESS_DURATION("hotel"))
+    + DURATION("rest")
+    + CALENDAR_LINE("calendar_entries")
+    + pp.StringEnd()
+)
+
+Layover = pp.MatchFirst([LayoverPhone, LayoverNoPhone])
 """
 ```
 Matches:
@@ -273,26 +265,36 @@ Matches:
 ```
 """
 
-
-HotelAdditional = (
+HotelAdditionalPhone = (
     pp.StringStart()
     + pp.Literal("+")
     + CITY("layover_city")
     + pp.WordEnd()
-    # + pp.original_text_for(
-    #     pp.OneOrMore(
-    #         pp.Word(pp.printables + PUNCT_UNICODE + DASH_UNICODE + ADDS_UNICODE),
-    #         stop_on=PHONE_NUMBER | DURATION,
-    #     )
-    # )("hotel")
-    # + pp.original_text_for(pp.SkipTo(PHONE_NUMBER | CALENDAR_LINE | pp.StringEnd()))(
-    #     "hotel"
-    # )
-    # + pp.MatchFirst([BUSINESS_PHONE, BUSINESS_PHONE])("hotel")
-    + (BUSINESS_PHONE | BUSINESS_CALENDAR | BUSINESS_NONE)("hotel")
-    + pp.Opt(PHONE_NUMBER, default="")("hotel_phone")
+    + BUSINESS_PHONE("hotel")
+    + PHONE_NUMBER("hotel_phone")
     + CALENDAR_LINE("calendar_entries")
     + pp.StringEnd()
+)
+
+HotelAdditionalNoPhone = (
+    pp.StringStart()
+    + pp.Literal("+")
+    + CITY("layover_city")
+    + pp.WordEnd()
+    + BUSINESS_CALENDAR("hotel")
+    + CALENDAR_LINE("calendar_entries")
+    + pp.StringEnd()
+)
+HotelAdditionalNone = (
+    pp.StringStart()
+    + pp.Literal("+")
+    + CITY("layover_city")
+    + pp.WordEnd()
+    + BUSINESS_NONE("hotel")
+    + pp.StringEnd()
+)
+HotelAdditional = pp.MatchFirst(
+    [HotelAdditionalPhone, HotelAdditionalNoPhone, HotelAdditionalNone]
 )
 """
 Matches:
@@ -302,17 +304,26 @@ Matches:
 ```
 """
 
-
-Transportation = (
+TransportationPhone = (
     pp.StringStart()
     + pp.NotAny("+")
-    # + pp.original_text_for(
-    #     pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_LINE, pp.StringEnd()]))
-    # )("transportation")
-    + (BUSINESS_PHONE | BUSINESS_CALENDAR | BUSINESS_NONE)("transportation")
-    + pp.Opt(PHONE_NUMBER, default="")("phone")
+    + BUSINESS_PHONE("transportation")
+    + PHONE_NUMBER("phone")
     + CALENDAR_LINE("calendar_entries")
     + pp.StringEnd()
+)
+TransportationNoPhone = (
+    pp.StringStart()
+    + pp.NotAny("+")
+    + BUSINESS_CALENDAR("transportation")
+    + CALENDAR_LINE("calendar_entries")
+    + pp.StringEnd()
+)
+TransportationNone = (
+    pp.StringStart() + pp.NotAny("+") + BUSINESS_NONE("transportation") + pp.StringEnd()
+)
+Transportation = pp.MatchFirst(
+    [TransportationPhone, TransportationNoPhone, TransportationNone]
 )
 """
 Matches:
@@ -327,9 +338,6 @@ Matches:
 TransportationAdditional = (
     pp.StringStart()
     + pp.NotAny("+")
-    # + pp.original_text_for(
-    #     pp.SkipTo(pp.Or([PHONE_NUMBER, CALENDAR_LINE, pp.StringEnd()]))
-    # )("transportation")
     + (BUSINESS_PHONE | BUSINESS_CALENDAR | BUSINESS_NONE)("transportation")
     + pp.Opt(PHONE_NUMBER, default="")("phone")
     + CALENDAR_LINE("calendar_entries")
