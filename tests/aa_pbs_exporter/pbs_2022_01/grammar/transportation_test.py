@@ -5,7 +5,6 @@ import pytest
 from aa_pbs_exporter.pbs_2022_01.parser import grammar
 from tests.aa_pbs_exporter.resources.helpers_3 import GrammarTest
 
-
 Items = [
     GrammarTest(
         txt="                    SIN FIN DE SERVICIOS                    3331223240",
@@ -13,6 +12,14 @@ Items = [
             "transportation": "SIN FIN DE SERVICIOS",
             "phone": "3331223240",
             "calendar_entries": [],
+        },
+    ),
+    GrammarTest(
+        txt="                    COMET CAR HIRE (CCH) LTD                442088979984               \u2212\u2212 \u2212\u2212 \u2212\u2212\n",
+        result={
+            "transportation": "COMET CAR HIRE (CCH) LTD",
+            "phone": "442088979984",
+            "calendar_entries": ["−−", "−−", "−−"],
         },
     ),
     GrammarTest(

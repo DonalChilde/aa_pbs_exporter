@@ -436,7 +436,7 @@ class Transportation(PyparsingParser):
         result_dict = self.get_result(indexed_string=indexed_string)
         parsed_data = raw_p.Transportation(
             name=result_dict.get("transportation", ""),
-            phone=" ".join(result_dict.get("transportation_phone", "")),
+            phone=result_dict.get("phone", ""),
             calendar=result_dict.get("calendar_entries", []),
         )
         return ParseResult(
@@ -463,7 +463,7 @@ class TransportationAdditional(PyparsingParser):
         try:
             parsed_data = raw_p.TransportationAdditional(
                 name=result_dict.get("transportation", ""),
-                phone=" ".join(result_dict.get("transportation_phone", "")),
+                phone=result_dict.get("transportation_phone", ""),
                 calendar=result_dict.get("calendar_entries", []),
             )
         except KeyError as error:

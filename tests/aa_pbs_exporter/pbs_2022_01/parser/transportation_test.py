@@ -19,7 +19,7 @@ Items = [
             "parse_ident": "Transportation",
             "parsed_data": {
                 "name": "SIN FIN DE SERVICIOS",
-                "phone": "",
+                "phone": "3331223240",
                 "calendar": [],
             },
             "source": {
@@ -37,7 +37,7 @@ Items = [
             "parse_ident": "Transportation",
             "parsed_data": {
                 "name": "VIP TRANSPORTATION− OGG",
-                "phone": "",
+                "phone": "8088712702",
                 "calendar": ["−−", "−−", "−−"],
             },
             "source": {
@@ -46,20 +46,24 @@ Items = [
             },
         },
     ),
-    # ParserTest2(
-    #     idx_str=IndexedStringDict(
-    #         idx=2,
-    #         txt="                                                                                      −− −− −−",
-    #     ),
-    #     result={
-    #         "parse_ident": "Transportation",
-    #         "parsed_data": {"name": [""], "phone": "", "calendar": ["−−", "−−", "−−"]},
-    #         "source": {
-    #             "idx": 2,
-    #             "txt": "                                                                                      −− −− −−",
-    #         },
-    #     },
-    # ),
+    ParserTest2(
+        idx_str=IndexedStringDict(
+            idx=2,
+            txt="                    COMET CAR HIRE (CCH) LTD                442088979984               \u2212\u2212 \u2212\u2212 \u2212\u2212\n",
+        ),
+        result={
+            "parse_ident": "Transportation",
+            "parsed_data": {
+                "name": "COMET CAR HIRE (CCH) LTD",
+                "phone": "442088979984",
+                "calendar": ["−−", "−−", "−−"],
+            },
+            "source": {
+                "idx": 2,
+                "txt": "                    COMET CAR HIRE (CCH) LTD                442088979984               −− −− −−\n",
+            },
+        },
+    ),
 ]
 parser = parsers.Transportation()
 
