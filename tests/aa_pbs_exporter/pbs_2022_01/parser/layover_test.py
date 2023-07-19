@@ -50,6 +50,26 @@ Items = [
             },
         },
     ),
+    ParserTest2(
+        idx_str=IndexedStringDict(
+            idx=2,
+            txt="                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37\n",
+        ),
+        result={
+            "parse_ident": "Layover",
+            "parsed_data": {
+                "layover_city": "JFK",
+                "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                "phone": "",
+                "rest": "19.37",
+                "calendar": [],
+            },
+            "source": {
+                "idx": 2,
+                "txt": "                JFK HOTEL INFO IN CCI/CREW PORTAL                          19.37\n",
+            },
+        },
+    ),
 ]
 parser = parsers.Layover()
 
