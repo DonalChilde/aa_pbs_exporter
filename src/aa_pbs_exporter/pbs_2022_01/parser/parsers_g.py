@@ -208,6 +208,7 @@ class TripHeader(PyparsingParser):
         )
 
 
+# TODO is this parser neeed?
 class PriorMonthDeadhead(IndexedStringParser):
     def __init__(self) -> None:
         super().__init__(self.__class__.__name__)
@@ -215,7 +216,7 @@ class PriorMonthDeadhead(IndexedStringParser):
     def parse(
         self,
         indexed_string: IndexedStringDict,
-        ctx: dict[str, Any] | None,
+        ctx: dict[str, Any] | None = None,
         **kwargs,
     ) -> ParseResult:
         _ = ctx, kwargs
