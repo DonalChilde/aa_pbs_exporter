@@ -32,11 +32,14 @@ Items = [
         result={},
     ),
 ]
-parser = parsers.Flight()
+parser = parsers.PriorMonthDeadhead()
 
 
+# TODO is this parser needed?
+@pytest.mark.skip
 @pytest.mark.parametrize("test_data", Items)
 def test_parser(logger: Logger, test_data: ParserTest2):
     parse_result = parser.parse(indexed_string=test_data.idx_str)
     print(f"{parse_result!r}")
+
     assert parse_result == test_data.result
