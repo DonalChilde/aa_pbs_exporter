@@ -19,7 +19,7 @@ Items = [
             "parse_ident": "HotelAdditional",
             "parsed_data": {
                 "layover_city": "PHL",
-                "name": ["MARRIOTT OLD CITY"],
+                "name": "MARRIOTT OLD CITY",
                 "phone": "12152386000",
                 "calendar": [],
             },
@@ -38,7 +38,7 @@ Items = [
             "parse_ident": "HotelAdditional",
             "parsed_data": {
                 "layover_city": "PHL",
-                "name": ["CAMBRIA HOTEL AND SUITES"],
+                "name": "CAMBRIA HOTEL AND SUITES",
                 "phone": "12157325500",
                 "calendar": [],
             },

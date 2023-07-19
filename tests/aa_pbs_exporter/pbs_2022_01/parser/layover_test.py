@@ -19,7 +19,7 @@ Items = [
             "parse_ident": "Layover",
             "parsed_data": {
                 "layover_city": "MIA",
-                "name": ["SONESTA MIAMI AIRPORT"],
+                "name": "SONESTA MIAMI AIRPORT",
                 "phone": "13054469000",
                 "rest": "11.27",
                 "calendar": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],
@@ -39,7 +39,7 @@ Items = [
             "parse_ident": "Layover",
             "parsed_data": {
                 "layover_city": "LHR",
-                "name": ["PARK PLAZA WESTMINSTER BRIDGE LONDON"],
+                "name": "PARK PLAZA WESTMINSTER BRIDGE LONDON",
                 "phone": "443334006112",
                 "rest": "24.00",
                 "calendar": ["−−", "−−", "−−", "−−", "−−", "−−", "−−"],

@@ -18,7 +18,7 @@ Items = [
         result={
             "parse_ident": "Transportation",
             "parsed_data": {
-                "name": ["SIN FIN DE SERVICIOS"],
+                "name": "SIN FIN DE SERVICIOS",
                 "phone": "",
                 "calendar": [],
             },
@@ -36,7 +36,7 @@ Items = [
         result={
             "parse_ident": "Transportation",
             "parsed_data": {
-                "name": ["VIP TRANSPORTATION− OGG"],
+                "name": "VIP TRANSPORTATION− OGG",
                 "phone": "",
                 "calendar": ["−−", "−−", "−−"],
             },
