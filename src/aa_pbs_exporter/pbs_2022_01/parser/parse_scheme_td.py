@@ -1,6 +1,6 @@
 from typing import Any, Dict, Sequence
 
-from aa_pbs_exporter.pbs_2022_01.parser import parsers_td as parsers
+from aa_pbs_exporter.pbs_2022_01.parser import parsers_g as parsers
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     IndexedStringParserProtocol,
 )
