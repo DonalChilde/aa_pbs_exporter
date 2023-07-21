@@ -6,7 +6,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_pydantic import SerializePydantic
 from aa_pbs_exporter.pbs_2022_01.models import compact
 from aa_pbs_exporter.pbs_2022_01.models import raw_collected as raw
-from aa_pbs_exporter.pbs_2022_01.validate.validate_compact_td import (
+from aa_pbs_exporter.pbs_2022_01.validate.compact import (
     validate_compact_bid_package,
 )
 from tests.aa_pbs_exporter.resources.resource_definitions import COLLECTED_1, COMPACT_1
