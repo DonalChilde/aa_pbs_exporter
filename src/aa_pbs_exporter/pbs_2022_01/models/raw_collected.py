@@ -1,4 +1,5 @@
-from typing import Any, Iterator, TypedDict
+from collections.abc import Generator
+from typing import Any, TypedDict
 from uuid import UUID
 
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
@@ -63,9 +64,8 @@ class PackageBrowser:
             self._lookup[dutyperiod["uuid"]] = dutyperiod
         for flight in self.flights(None):
             self._lookup[flight["uuid"]] = flight
-        for layover in self.layovers(None):
-            if layover is not None:
-                self._lookup[layover["uuid"]] = layover
+        for layover in self.layovers():
+            self._lookup[layover["uuid"]] = layover
 
     def lookup(self, uuid: UUID):
         # TODO catch missing uuids
@@ -73,13 +73,11 @@ class PackageBrowser:
             self._init_lookup()
         return self._lookup[str(uuid)]
 
-    def pages(
-        self,
-    ) -> Iterator[Page]:
+    def pages(self) -> Generator[Page, None, None]:
         for page in self.package["pages"]:
             yield page
 
-    def trips(self, page: Page | None) -> Iterator[Trip]:
+    def trips(self, page: Page | None) -> Generator[Trip, None, None]:
         if page is None:
             for page_a in self.pages():
                 for trip in page_a["trips"]:
@@ -88,7 +86,7 @@ class PackageBrowser:
             for trip in page["trips"]:
                 yield trip
 
-    def dutyperiods(self, trip: Trip | None) -> Iterator[DutyPeriod]:
+    def dutyperiods(self, trip: Trip | None) -> Generator[DutyPeriod, None, None]:
         if trip is None:
             for trip_a in self.trips(None):
                 for dutyperiod in trip_a["dutyperiods"]:
@@ -97,7 +95,7 @@ class PackageBrowser:
             for dutyperiod in trip["dutyperiods"]:
                 yield dutyperiod
 
-    def flights(self, dutyperiod: DutyPeriod | None) -> Iterator[Flight]:
+    def flights(self, dutyperiod: DutyPeriod | None) -> Generator[Flight, None, None]:
         if dutyperiod is None:
             for dutyperiod_a in self.dutyperiods(None):
                 for flight in dutyperiod_a["flights"]:
@@ -106,9 +104,9 @@ class PackageBrowser:
             for flight in dutyperiod["flights"]:
                 yield flight
 
-    def layovers(self, dutyperiod: DutyPeriod | None) -> Iterator[Layover | None]:
-        if dutyperiod is None:
-            for dutyperiod_a in self.dutyperiods(None):
-                yield dutyperiod_a.get("layover", None)
-        else:
-            yield dutyperiod.get("layover", None)
+    def layovers(self) -> Generator[Layover, None, None]:
+        for dutyperiod_a in self.dutyperiods(None):
+            layover = dutyperiod_a.get("layover", None)
+            if layover is None:
+                continue
+            yield layover
