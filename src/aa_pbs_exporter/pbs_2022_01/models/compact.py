@@ -5,17 +5,17 @@ uuids match the source raw model uuids.
 """
 
 import logging
-from datetime import date, time, timedelta
+from collections.abc import Generator
+from datetime import date, timedelta
 from pathlib import Path
-from typing import Iterable
+from typing import Any
 from uuid import UUID
 
 from pydantic import BaseModel
 
-from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
-from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
-from aa_pbs_exporter.snippets.timers import timers
 from aa_pbs_exporter.pbs_2022_01.helpers import instant_time as instant
+from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile
+from aa_pbs_exporter.snippets.timers import timers
 
 logger = logging.getLogger(__name__)
 time_logger = timers.TimeLogger(logger=logger, level=logging.INFO)
@@ -84,18 +84,6 @@ class DutyPeriod(BaseModel):
     layover: Layover | None
     flights: list[Flight]
 
-    def sum_block(self) -> timedelta:
-        total = timedelta()
-        for flight in self.flights:
-            total += flight.block
-        return total
-
-    def sum_synth(self) -> timedelta:
-        total = timedelta()
-        for flight in self.flights:
-            total += flight.synth
-        return total
-
 
 class Trip(BaseModel):
     uuid: UUID
@@ -109,12 +97,6 @@ class Trip(BaseModel):
     tafb: timedelta
     dutyperiods: list[DutyPeriod]
     start_dates: list[date]
-
-    def sum_block(self) -> timedelta:
-        total = timedelta()
-        for dutyperiod in self.dutyperiods:
-            total += dutyperiod.block
-        return total
 
 
 class Page(BaseModel):
@@ -136,23 +118,6 @@ class BidPackage(BaseModel):
     source: HashedFile | None
     pages: list[Page]
 
-    def walk_trips(self) -> Iterable[Trip]:
-        for page in self.pages:
-            for trip in page.trips:
-                yield trip
-
-    def default_file_name(self) -> str:
-        return (
-            f"{self.pages[0].start}_{self.pages[0].end}_{self.pages[0].base}"
-            f"_compact_{self.uuid}.json"
-        )
-
-    @classmethod
-    def default_debug_file(cls, debug_dir: Path | None, name: str) -> Path | None:
-        if debug_dir is None:
-            return None
-        return debug_dir / f"{name}_compact-debug.txt"
-
     def __eq__(self, __value: object) -> bool:
         if isinstance(__value, BidPackage):
             if self.source != __value.source:
@@ -161,19 +126,76 @@ class BidPackage(BaseModel):
         return super().__eq__(__value)
 
 
-@timers.timer_ns(time_logger)
-def load_compact(file_in: Path) -> BidPackage:
-    bid_package = BidPackage.parse_file(file_in)
-    return bid_package
+class PackageBrowser:
+    def __init__(self, package: BidPackage) -> None:
+        self.package = package
+        self._lookup: dict[str, Any] = {}
 
+    def _init_lookup(self):
+        for page in self.pages():
+            self._lookup[str(page.uuid)] = page
+        for trip in self.trips(None):
+            self._lookup[str(trip.uuid)] = trip
+        for dutyperiod in self.dutyperiods(None):
+            self._lookup[str(dutyperiod.uuid)] = dutyperiod
+        for flight in self.flights(None):
+            self._lookup[str(flight.uuid)] = flight
+        for layover in self.layovers():
+            if layover is not None:
+                self._lookup[str(layover.uuid)] = layover
 
-@timers.timer_ns(time_logger)
-def save_compact(
-    save_dir: Path, file_name: str | None, overwrite: bool, bid_package: BidPackage
-):
-    if file_name is None:
-        file_out = save_dir / bid_package.default_file_name()
-    else:
-        file_out = save_dir / file_name
-    validate_file_out(file_out, overwrite=overwrite)
-    file_out.write_text(bid_package.json(indent=2))
+    def lookup(self, uuid: UUID):
+        # TODO catch missing uuids
+        if not self._lookup:
+            self._init_lookup()
+        return self._lookup[str(uuid)]
+
+    @classmethod
+    def default_file_name(cls, bid_package: BidPackage) -> str:
+        return (
+            f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
+            f"{bid_package.pages[0].base}_compact_{bid_package.uuid}.json"
+        )
+
+    @classmethod
+    def default_debug_file(cls, debug_dir: Path | None, name: str) -> Path | None:
+        if debug_dir is None:
+            return None
+        return debug_dir / f"{name}_compact-debug.txt"
+
+    def pages(self) -> Generator[Page, None, None]:
+        for page in self.package.pages:
+            yield page
+
+    def trips(self, page: Page | None) -> Generator[Trip, None, None]:
+        if page is None:
+            for page_a in self.pages():
+                for trip_a in page_a.trips:
+                    yield trip_a
+        else:
+            for trip in page.trips:
+                yield trip
+
+    def dutyperiods(self, trip: Trip | None) -> Generator[DutyPeriod, None, None]:
+        if trip is None:
+            for trip_a in self.trips(None):
+                for dutyperiod in trip_a.dutyperiods:
+                    yield dutyperiod
+        else:
+            for dutyperiod in trip.dutyperiods:
+                yield dutyperiod
+
+    def flights(self, dutyperiod: DutyPeriod | None) -> Generator[Flight, None, None]:
+        if dutyperiod is None:
+            for dutyperiod_a in self.dutyperiods(None):
+                for flight in dutyperiod_a.flights:
+                    yield flight
+        else:
+            for flight in dutyperiod.flights:
+                yield flight
+
+    def layovers(self) -> Generator[Layover, None, None]:
+        for dutyperiod in self.dutyperiods(None):
+            if dutyperiod.layover is None:
+                continue
+            yield dutyperiod.layover
