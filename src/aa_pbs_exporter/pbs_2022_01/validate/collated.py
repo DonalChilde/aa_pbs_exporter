@@ -1,3 +1,11 @@
+class CollatedValidator:
+    pass
+
+
+def validate_collated_bid_package():
+    pass
+
+
 # from io import TextIOWrapper
 # import logging
 

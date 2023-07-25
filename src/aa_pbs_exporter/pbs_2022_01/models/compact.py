@@ -154,14 +154,19 @@ class PackageBrowser:
     def default_file_name(cls, bid_package: BidPackage) -> str:
         return (
             f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
-            f"{bid_package.pages[0].base}_compact_{bid_package.uuid}.json"
+            f"{bid_package.pages[0].base}_{bid_package.uuid}_compact.json"
         )
 
     @classmethod
-    def default_debug_file(cls, debug_dir: Path | None, name: str) -> Path | None:
+    def default_debug_file(
+        cls, debug_dir: Path | None, bid_package: BidPackage
+    ) -> Path | None:
         if debug_dir is None:
             return None
-        return debug_dir / f"{name}_compact-debug.txt"
+        return Path(
+            f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
+            f"{bid_package.pages[0].base}_{bid_package.uuid}_compact-debug.txt"
+        )
 
     def pages(self) -> Generator[Page, None, None]:
         for page in self.package.pages:

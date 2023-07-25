@@ -1,12 +1,14 @@
 from datetime import timedelta
 from io import TextIOWrapper
 from pathlib import Path
+from time import perf_counter_ns
 from typing import Self, cast
+from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.models import compact
-from aa_pbs_exporter.pbs_2022_01.models import raw_collected as raw_c
-from aa_pbs_exporter.pbs_2022_01.models import raw_parsed as raw_p
+from aa_pbs_exporter.pbs_2022_01.models import collated as collated
+from aa_pbs_exporter.pbs_2022_01.models import parsed as parsed
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
 
@@ -21,14 +23,14 @@ TODO
 """
 
 
-class ValidateCompact:
+class CompactValidator:
     def __init__(
         self,
         debug_file: Path | None = None,
     ) -> None:
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
-        self.browser: raw_c.PackageBrowser
+        self.browser: collated.PackageBrowser
         self.checks = Checks(debug_fp=None)
 
     def __enter__(self) -> Self:
@@ -49,17 +51,22 @@ class ValidateCompact:
 
     def validate(
         self,
-        collected_package: raw_c.BidPackage,
+        collected_package: collated.BidPackage,
         compact_package: compact.BidPackage,
     ):
-        self.browser = raw_c.PackageBrowser(collected_package)
+        start = perf_counter_ns()
+        self.browser = collated.PackageBrowser(collected_package)
         self.validate_package(
             collected_package=collected_package, compact_package=compact_package
+        )
+        end = perf_counter_ns()
+        self.debug_write(
+            f"Validation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
         )
 
     def validate_package(
         self,
-        collected_package: raw_c.BidPackage,
+        collected_package: collated.BidPackage,
         compact_package: compact.BidPackage,
     ):
         self.debug_write(
@@ -78,7 +85,7 @@ class ValidateCompact:
 
     def validate_page(
         self,
-        collected_page: raw_c.Page,
+        collected_page: collated.Page,
         compact_page: compact.Page,
     ):
         self.checks.trips_on_page(compact_page=compact_page)
@@ -93,7 +100,7 @@ class ValidateCompact:
 
     def validate_trip(
         self,
-        collected_trip: raw_c.Trip,
+        collected_trip: collated.Trip,
         compact_trip: compact.Trip,
     ):
         self.checks.ops_vs_date_count(
@@ -115,7 +122,7 @@ class ValidateCompact:
 
     def validate_dutyperiod(
         self,
-        collected_dutyperiod: raw_c.DutyPeriod,
+        collected_dutyperiod: collated.DutyPeriod,
         compact_dutyperiod: compact.DutyPeriod,
     ):
         self.checks.dutyperiod_block(compact_dutyperiod=compact_dutyperiod)
@@ -138,24 +145,24 @@ class ValidateCompact:
             )
 
     def validate_flight(
-        self, collected_flight: raw_c.Flight, compact_flight: compact.Flight
+        self, collected_flight: collated.Flight, compact_flight: compact.Flight
     ):
         pass
 
     def validate_layover(
         self,
-        collected_layover: raw_c.Layover | None,
+        collected_layover: collated.Layover | None,
         compact_layover: compact.Layover | None,
     ):
         pass
 
 
 def validate_compact_bid_package(
-    raw_bid_package: raw_c.BidPackage,
+    raw_bid_package: collated.BidPackage,
     compact_bid_package: compact.BidPackage,
     debug_file: Path | None = None,
 ):
-    with ValidateCompact(debug_file=debug_file) as validator:
+    with CompactValidator(debug_file=debug_file) as validator:
         validator.validate(
             collected_package=raw_bid_package, compact_package=compact_bid_package
         )
@@ -169,8 +176,10 @@ class Checks:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
-    def ops_vs_date_count(self, collected_trip: raw_c.Trip, compact_trip: compact.Trip):
-        header_data = cast(raw_p.TripHeader, collected_trip["header"]["parsed_data"])
+    def ops_vs_date_count(
+        self, collected_trip: collated.Trip, compact_trip: compact.Trip
+    ):
+        header_data = cast(parsed.TripHeader, collected_trip["header"]["parsed_data"])
         ops = int(header_data["ops_count"])
         date_count = len(compact_trip.start_dates)
         if ops != date_count:

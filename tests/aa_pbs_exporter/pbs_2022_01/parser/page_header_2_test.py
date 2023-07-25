@@ -2,7 +2,7 @@ from logging import Logger
 
 import pytest
 
-from aa_pbs_exporter.pbs_2022_01.parser import parsers_g as parsers
+from aa_pbs_exporter.pbs_2022_01.parser import parsers as parsers
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
     IndexedStringDict,
 )

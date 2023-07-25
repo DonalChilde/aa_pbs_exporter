@@ -1,22 +1,18 @@
 from uuid import UUID, uuid5
+
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
+from aa_pbs_exporter.pbs_2022_01.models import collated
 from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
     IndexedStringDict,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
 )
-from aa_pbs_exporter.pbs_2022_01.models import raw_collected as rc
 
 
-def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
-    #         if self.source:
-    #             uuid_seed = self.source.file_hash
-    #         else:
-    #             uuid_seed = "None"
-    #         return uuid5(BIDPACKAGE_DNS, uuid_seed)
+def collate_parse_results(parse_results: CollectedParseResults) -> collated.BidPackage:
     uuid = uuid5(PARSER_DNS, repr(parse_results["kwargs"]))
-    bid_package = rc.BidPackage(
+    bid_package = collated.BidPackage(
         uuid=str(uuid), metadata=parse_results["kwargs"], pages=[]
     )
     for parse_result in parse_results["data"]:
@@ -24,7 +20,9 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
         match value:
             case "PageHeader1":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                page = rc.Page(uuid=str(uuid), page_header_1=parse_result, trips=[])
+                page = collated.Page(
+                    uuid=str(uuid), page_header_1=parse_result, trips=[]
+                )
                 bid_package["pages"].append(page)
             case "PageHeader2":
                 bid_package["pages"][-1]["page_header_2"] = parse_result
@@ -34,7 +32,7 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 bid_package["pages"][-1]["base_equipment"] = parse_result
             case "TripHeader":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                trip = rc.Trip(
+                trip = collated.Trip(
                     uuid=str(uuid),
                     header=parse_result,
                     dutyperiods=[],
@@ -43,7 +41,7 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 bid_package["pages"][-1]["trips"].append(trip)
             case "PriorMonthDeadhead":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                trip = rc.Trip(
+                trip = collated.Trip(
                     uuid=str(uuid),
                     header=parse_result,
                     dutyperiods=[],
@@ -52,13 +50,13 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 bid_package["pages"][-1]["trips"].append(trip)
             case "DutyPeriodReport":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                dutyperiod = rc.DutyPeriod(
+                dutyperiod = collated.DutyPeriod(
                     uuid=str(uuid), report=parse_result, flights=[]
                 )
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"].append(dutyperiod)
             case "Flight":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                flight = rc.Flight(uuid=str(uuid), flight=parse_result)
+                flight = collated.Flight(uuid=str(uuid), flight=parse_result)
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
                     "flights"
                 ].append(flight)
@@ -68,7 +66,7 @@ def collect_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
                 ] = parse_result
             case "Layover":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
-                layover = rc.Layover(
+                layover = collated.Layover(
                     uuid=str(uuid), layover=parse_result, hotel_info=[]
                 )
                 bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
@@ -105,7 +103,9 @@ def make_uuid5(
     return uuid5(ns_uuid, f"{self.idx}: {self.txt!r}")
 
 
-def translate_parsed_to_raw(parse_results: CollectedParseResults) -> rc.BidPackage:
+def translate_parsed_to_raw(
+    parse_results: CollectedParseResults,
+) -> collated.BidPackage:
     """This is the entry point."""
-    bid_package = collect_raw(parse_results=parse_results)
+    bid_package = collate_parse_results(parse_results=parse_results)
     return bid_package

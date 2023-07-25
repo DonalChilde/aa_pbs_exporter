@@ -6,16 +6,14 @@ from pathlib import Path
 from typing import Callable, Self, Sequence, Tuple, cast
 from uuid import UUID, uuid5
 
-from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS, validate
+from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
+from aa_pbs_exporter.pbs_2022_01.helpers import instant_time as instant
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_month_day import complete_month_day
 from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.tz_from_iata import tz_from_iata
-from aa_pbs_exporter.pbs_2022_01.models import compact, common
-from aa_pbs_exporter.pbs_2022_01.models import raw_parsed as raw_p
-from aa_pbs_exporter.pbs_2022_01.models import raw_collected as raw_c
-from aa_pbs_exporter.pbs_2022_01.helpers import instant_time as instant
+from aa_pbs_exporter.pbs_2022_01.models import collated, common, compact, parsed
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
@@ -39,16 +37,14 @@ STATUS = "raw.translation.status"
 DEBUG = "raw.translation.debug"
 
 
-class CollectedToCompact:
+class CollatedToCompact:
     def __init__(
         self,
         tz_lookup: Callable[[str], str],
-        validator: validate.ValidateCompact | None,
         debug_file: Path | None = None,
     ) -> None:
         self.tz_lookup = tz_lookup
         self.compact_bid_package: compact.BidPackage | None = None
-        self.validator = validator
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
         self.hbt_tz_name: str = ""
@@ -57,8 +53,6 @@ class CollectedToCompact:
         if self.debug_file is not None:
             validate_file_out(self.debug_file, overwrite=True)
             self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
-            if self.validator is not None:
-                self.validator.debug_fp = self.debug_fp
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -73,16 +67,18 @@ class CollectedToCompact:
         source = cast(HashedFileDict, raw_source)
         return common.HashedFile(**source)
 
-    def translate(self, collected_bid_package: raw_c.BidPackage) -> compact.BidPackage:
+    def translate(
+        self, collated_bid_package: collated.BidPackage
+    ) -> compact.BidPackage:
         start = time.perf_counter_ns()
         self.debug_write(
-            f"********** Translating from collected to compact. uuid:{collected_bid_package['uuid']} **********",
+            f"********** Translating from collated to compact. uuid:{collated_bid_package['uuid']} **********",
             Level.PKG,
         )
-        first_page = collected_bid_package["pages"][0]
-        page_footer = cast(raw_p.PageFooter, first_page["page_footer"]["parsed_data"])
+        first_page = collated_bid_package["pages"][0]
+        page_footer = cast(parsed.PageFooter, first_page["page_footer"]["parsed_data"])
         self.hbt_tz_name = self.tz_lookup(page_footer["base"])
-        raw_source: dict[str, str] | None = collected_bid_package["metadata"].get(
+        raw_source: dict[str, str] | None = collated_bid_package["metadata"].get(
             "source", None
         )
         if raw_source is None:
@@ -90,15 +86,15 @@ class CollectedToCompact:
         else:
             source = self.translate_source(raw_source)
         compact_bid = compact.BidPackage(
-            uuid=UUID(collected_bid_package["uuid"]), source=source, pages=[]
+            uuid=UUID(collated_bid_package["uuid"]), source=source, pages=[]
         )
-        for page_idx, raw_page in enumerate(collected_bid_package["pages"], start=1):
+        for page_idx, raw_page in enumerate(collated_bid_package["pages"], start=1):
             self.debug_write(
                 f"Translating page {raw_page['page_footer']['parsed_data']['page']} "
-                f"{page_idx} of {len(collected_bid_package['pages'])}",
+                f"{page_idx} of {len(collated_bid_package['pages'])}",
                 Level.PAGE,
             )
-            compact_page = self.translate_page(collected_page=raw_page)
+            compact_page = self.translate_page(collated_page=raw_page)
             compact_bid.pages.append(compact_page)
 
         end = time.perf_counter_ns()
@@ -107,12 +103,12 @@ class CollectedToCompact:
         )
         return compact_bid
 
-    def translate_page(self, collected_page: raw_c.Page) -> compact.Page:
+    def translate_page(self, collated_page: collated.Page) -> compact.Page:
         page_header_2 = cast(
-            raw_p.PageHeader2, collected_page["page_header_2"]["parsed_data"]
+            parsed.PageHeader2, collated_page["page_header_2"]["parsed_data"]
         )
         page_footer = cast(
-            raw_p.PageFooter, collected_page["page_footer"]["parsed_data"]
+            parsed.PageFooter, collated_page["page_footer"]["parsed_data"]
         )
         effective = datetime.strptime(page_footer["effective"], DATE).date()
         start_struct = time.strptime(page_header_2["from_date"], MONTH_DAY)
@@ -131,9 +127,9 @@ class CollectedToCompact:
             Level.PAGE + 1,
         )
         valid_dates = list(date_range(start, end))
-        trips = self.translate_trips(collected_page["trips"], valid_dates=valid_dates)
+        trips = self.translate_trips(collated_page["trips"], valid_dates=valid_dates)
         compact_page = compact.Page(
-            uuid=UUID(collected_page["uuid"]),
+            uuid=UUID(collated_page["uuid"]),
             base=page_footer["base"],
             satellite_base=page_footer["satelite_base"],
             equipment=page_footer["equipment"],
@@ -148,14 +144,14 @@ class CollectedToCompact:
         return compact_page
 
     def translate_trips(
-        self, collected_trips: Sequence[raw_c.Trip], valid_dates: Sequence[date]
+        self, collated_trips: Sequence[collated.Trip], valid_dates: Sequence[date]
     ) -> list[compact.Trip]:
         trips: list[compact.Trip] = []
-        for trip_idx, trip in enumerate(collected_trips, start=1):
+        for trip_idx, trip in enumerate(collated_trips, start=1):
             trip_number = trip["header"]["parsed_data"]["number"]
             self.debug_write(
                 f"Translating trip {trip_number} "
-                f"{trip_idx} of {len(collected_trips)}"
+                f"{trip_idx} of {len(collated_trips)}"
                 f"uuid: {trip['uuid']}",
                 Level.TRIP,
             )
@@ -166,23 +162,23 @@ class CollectedToCompact:
                 )
                 continue
             trips.append(
-                self.translate_trip(collected_trip=trip, valid_dates=valid_dates)
+                self.translate_trip(collated_trip=trip, valid_dates=valid_dates)
             )
         return trips
 
     def translate_trip(
         self,
-        collected_trip: raw_c.Trip,
+        collated_trip: collated.Trip,
         valid_dates: Sequence[date],
     ) -> compact.Trip:
-        footer = cast(raw_p.TripFooter, collected_trip["footer"]["parsed_data"])
-        header = cast(raw_p.TripHeader, collected_trip["header"]["parsed_data"])
-        dutyperiods = self.translate_dutyperiods(collected_trip["dutyperiods"])
+        footer = cast(parsed.TripFooter, collated_trip["footer"]["parsed_data"])
+        header = cast(parsed.TripHeader, collated_trip["header"]["parsed_data"])
+        dutyperiods = self.translate_dutyperiods(collated_trip["dutyperiods"])
         start_dates = self.collect_start_dates(
-            valid_dates=valid_dates, collected_trip=collected_trip
+            valid_dates=valid_dates, collated_trip=collated_trip
         )
         compact_trip = compact.Trip(
-            uuid=UUID(collected_trip["uuid"]),
+            uuid=UUID(collated_trip["uuid"]),
             number=header["number"],
             positions=header["positions"].split(),
             operations=header["operations"],
@@ -200,38 +196,38 @@ class CollectedToCompact:
 
     def translate_dutyperiods(
         self,
-        collected_dutyperiods: Sequence[raw_c.DutyPeriod],
+        collated_dutyperiods: Sequence[collated.DutyPeriod],
     ) -> list[compact.DutyPeriod]:
         compact_dutyperiods: list[compact.DutyPeriod] = []
-        for dp_idx, dutyperiod in enumerate(collected_dutyperiods, start=1):
+        for dp_idx, dutyperiod in enumerate(collated_dutyperiods, start=1):
             self.debug_write(
-                f"Translating dutyperiod {dp_idx} of {len(collected_dutyperiods)} "
+                f"Translating dutyperiod {dp_idx} of {len(collated_dutyperiods)} "
                 f"uuid: {dutyperiod['uuid']}",
                 Level.DP,
             )
             compact_dutyperiod = self.translate_dutyperiod(
-                collected_dutyperiod=dutyperiod, dp_idx=dp_idx
+                collated_dutyperiod=dutyperiod, dp_idx=dp_idx
             )
             compact_dutyperiods.append(compact_dutyperiod)
         return compact_dutyperiods
 
     def translate_dutyperiod(
         self,
-        collected_dutyperiod: raw_c.DutyPeriod,
+        collated_dutyperiod: collated.DutyPeriod,
         dp_idx: int,
     ) -> compact.DutyPeriod:
         report = cast(
-            raw_p.DutyPeriodReport, collected_dutyperiod["report"]["parsed_data"]
+            parsed.DutyPeriodReport, collated_dutyperiod["report"]["parsed_data"]
         )
         release = cast(
-            raw_p.DutyPeriodRelease, collected_dutyperiod["release"]["parsed_data"]
+            parsed.DutyPeriodRelease, collated_dutyperiod["release"]["parsed_data"]
         )
 
         first_flight = cast(
-            raw_p.Flight, collected_dutyperiod["flights"][0]["flight"]["parsed_data"]
+            parsed.Flight, collated_dutyperiod["flights"][0]["flight"]["parsed_data"]
         )
         last_flight = cast(
-            raw_p.Flight, collected_dutyperiod["flights"][-1]["flight"]["parsed_data"]
+            parsed.Flight, collated_dutyperiod["flights"][-1]["flight"]["parsed_data"]
         )
         report_station = first_flight["departure_station"]
         release_station = last_flight["arrival_station"]
@@ -241,14 +237,14 @@ class CollectedToCompact:
         release_time = self.split_times(
             release["release"], release_station, self.hbt_tz_name
         )
-        flights = self.translate_flights(collected_dutyperiod["flights"], dp_idx)
-        raw_layover = collected_dutyperiod.get("layover", None)
+        flights = self.translate_flights(collated_dutyperiod["flights"], dp_idx)
+        raw_layover = collated_dutyperiod.get("layover", None)
         if raw_layover is None:
             layover = None
         else:
             layover = self.translate_layover(raw_layover)
         compact_dutyperiod = compact.DutyPeriod(
-            uuid=UUID(collected_dutyperiod["uuid"]),
+            uuid=UUID(collated_dutyperiod["uuid"]),
             idx=dp_idx,
             report=report_time,
             report_station=report_station,
@@ -269,27 +265,27 @@ class CollectedToCompact:
         return compact_dutyperiod
 
     def translate_flights(
-        self, collected_flights: list[raw_c.Flight], dp_idx: int
+        self, collated_flights: list[collated.Flight], dp_idx: int
     ) -> list[compact.Flight]:
         compact_flights: list[compact.Flight] = []
-        for flt_idx, collected_flight in enumerate(collected_flights, start=1):
+        for flt_idx, collated_flight in enumerate(collated_flights, start=1):
             self.debug_write(
-                f"Translating flight {collected_flight['flight']['parsed_data']['flight_number']} "
-                f"{flt_idx} of {len(collected_flights)}"
-                f"uuid: {collected_flight['uuid']}",
+                f"Translating flight {collated_flight['flight']['parsed_data']['flight_number']} "
+                f"{flt_idx} of {len(collated_flights)}"
+                f"uuid: {collated_flight['uuid']}",
                 Level.FLT,
             )
-            compact_flight = self.translate_flight(collected_flight, dp_idx, flt_idx)
+            compact_flight = self.translate_flight(collated_flight, dp_idx, flt_idx)
             compact_flights.append(compact_flight)
         return compact_flights
 
     def translate_flight(
         self,
-        collected_flight: raw_c.Flight,
+        collated_flight: collated.Flight,
         dp_idx: int,
         idx: int,
     ) -> compact.Flight:
-        flight = cast(raw_p.Flight, collected_flight["flight"]["parsed_data"])
+        flight = cast(parsed.Flight, collated_flight["flight"]["parsed_data"])
         departure_station = flight["departure_station"]
         arrival_station = flight["arrival_station"]
         departure = self.split_times(
@@ -299,7 +295,7 @@ class CollectedToCompact:
             flight["arrival_time"], arrival_station, self.hbt_tz_name
         )
         compact_flight = compact.Flight(
-            uuid=UUID(collected_flight["uuid"]),
+            uuid=UUID(collated_flight["uuid"]),
             dp_idx=dp_idx,
             idx=idx,
             dep_arr_day=flight["dep_arr_day"],
@@ -318,21 +314,21 @@ class CollectedToCompact:
         )
         return compact_flight
 
-    def translate_layover(self, collected_layover: raw_c.Layover) -> compact.Layover:
-        layover = cast(raw_p.Layover, collected_layover["layover"]["parsed_data"])
+    def translate_layover(self, collated_layover: collated.Layover) -> compact.Layover:
+        layover = cast(parsed.Layover, collated_layover["layover"]["parsed_data"])
         compact_layover = compact.Layover(
-            uuid=UUID(collected_layover["uuid"]),
+            uuid=UUID(collated_layover["uuid"]),
             odl=parse_duration(DURATION_PATTERN, layover["rest"]).to_timedelta(),
             city=layover["layover_city"],
-            hotel_info=self.translate_hotel_info(collected_layover=collected_layover),
+            hotel_info=self.translate_hotel_info(collated_layover=collated_layover),
         )
         return compact_layover
 
     def translate_hotel_info(
-        self, collected_layover: raw_c.Layover
+        self, collated_layover: collated.Layover
     ) -> list[compact.HotelInfo]:
-        layover = cast(raw_p.Layover, collected_layover["layover"]["parsed_data"])
-        uuid = uuid5(PARSER_DNS, collected_layover["uuid"])
+        layover = cast(parsed.Layover, collated_layover["layover"]["parsed_data"])
+        uuid = uuid5(PARSER_DNS, collated_layover["uuid"])
         hotel = compact.Hotel(
             uuid=uuid,
             name=layover["name"],
@@ -340,22 +336,22 @@ class CollectedToCompact:
         )
         hotel_infos: list[compact.HotelInfo] = []
         hotel_infos.append(compact.HotelInfo(hotel=hotel, transportation=[]))
-        for result in collected_layover["hotel_info"]:
+        for result in collated_layover["hotel_info"]:
             uuid = uuid5(PARSER_DNS, repr(result["source"]))
             if result["parse_ident"] == "Transportation":
-                data = cast(raw_p.Transportation, result["parsed_data"])
+                data = cast(parsed.Transportation, result["parsed_data"])
                 transportation = compact.Transportation(
                     uuid=uuid, name=data["name"], phone=data["phone"]
                 )
                 hotel_infos[-1].transportation.append(transportation)
             if result["parse_ident"] == "TransportationAdditional":
-                data = cast(raw_p.TransportationAdditional, result["parsed_data"])
+                data = cast(parsed.TransportationAdditional, result["parsed_data"])
                 transportation = compact.Transportation(
                     uuid=uuid, name=data["name"], phone=data["phone"]
                 )
                 hotel_infos[-1].transportation.append(transportation)
             if result["parse_ident"] == "HotelAdditional":
-                data = cast(raw_p.HotelAdditional, result["parsed_data"])
+                data = cast(parsed.HotelAdditional, result["parsed_data"])
                 hotel = compact.Hotel(uuid=uuid, name=data["name"], phone=data["phone"])
                 hotel_infos.append(compact.HotelInfo(hotel=hotel, transportation=[]))
         return hotel_infos
@@ -381,50 +377,44 @@ class CollectedToCompact:
     def collect_start_dates(
         self,
         valid_dates: Sequence[date],
-        collected_trip: raw_c.Trip,
+        collated_trip: collated.Trip,
     ) -> list[date]:
         # TODO consider moving the collection of calendar entries here?
-        if not len(collected_trip["calendar_entries"]) == len(valid_dates):
+        if not len(collated_trip["calendar_entries"]) == len(valid_dates):
             self.debug_write(
-                f"Count of calendar_entries: {len(collected_trip['calendar_entries'])} "
+                f"Count of calendar_entries: {len(collated_trip['calendar_entries'])} "
                 f"does not match valid_dates: {len(valid_dates)}. "
-                f"uuid: {collected_trip['uuid']}",
+                f"uuid: {collated_trip['uuid']}",
                 Level.TRIP + 1,
             )
         start_dates: list[date] = []
-        days = self.collect_start_days(collected_trip=collected_trip)
+        days = self.collect_start_days(collated_trip=collated_trip)
         for day in days:
             start_date = valid_dates[day[0]]
             if day[1] != start_date.day:
                 self.debug_write(
                     f"Partial date: {day!r} does not match day of date: "
                     f"{start_date.isoformat()}. "
-                    f"uuid:{collected_trip['uuid']}",
+                    f"uuid:{collated_trip['uuid']}",
                     Level.TRIP + 1,
                 )
             start_dates.append(start_date)
         return start_dates
 
-    def collect_start_days(self, collected_trip: raw_c.Trip) -> list[Tuple[int, int]]:
+    def collect_start_days(self, collated_trip: collated.Trip) -> list[Tuple[int, int]]:
         indexed_days = list(
             index_and_filter_strings(
-                strings=collected_trip["calendar_entries"], string_filter=is_numeric
+                strings=collated_trip["calendar_entries"], string_filter=is_numeric
             )
         )
         return [(x.idx, int(x.txt)) for x in indexed_days]
 
 
-def translate_collected_to_compact(
-    collected_bid_package: raw_c.BidPackage, debug_file: Path
+def translate_collated_to_compact(
+    collated_bid_package: collated.BidPackage, debug_file: Path
 ) -> compact.BidPackage:
-    validator = None
-    with CollectedToCompact(
-        tz_lookup=tz_from_iata, validator=validator, debug_file=debug_file
-    ) as translator:
+    with CollatedToCompact(tz_lookup=tz_from_iata, debug_file=debug_file) as translator:
         compact_bid_package = translator.translate(
-            collected_bid_package=collected_bid_package
+            collated_bid_package=collated_bid_package
         )
     return compact_bid_package
-
-
-# TODO separate validator, use uuid to match objects.

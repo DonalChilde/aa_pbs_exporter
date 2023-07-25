@@ -5,7 +5,7 @@ from pathlib import Path
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_pydantic import SerializePydantic
 from aa_pbs_exporter.pbs_2022_01.models import compact
-from aa_pbs_exporter.pbs_2022_01.models import raw_collected as raw
+from aa_pbs_exporter.pbs_2022_01.models import collated as raw
 from aa_pbs_exporter.pbs_2022_01.validate.compact import (
     validate_compact_bid_package,
 )

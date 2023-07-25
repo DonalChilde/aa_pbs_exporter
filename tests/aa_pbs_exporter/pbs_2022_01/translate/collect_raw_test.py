@@ -3,8 +3,10 @@ from logging import Logger
 from pathlib import Path
 
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
-from aa_pbs_exporter.pbs_2022_01.models.raw_collected import BidPackage
-from aa_pbs_exporter.pbs_2022_01.translate.collect_raw import collect_raw
+from aa_pbs_exporter.pbs_2022_01.models.collated import BidPackage
+from aa_pbs_exporter.pbs_2022_01.translate.collate_parse_results import (
+    collate_parse_results,
+)
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
 )
@@ -24,7 +26,7 @@ def test_collect_raw(test_app_data_dir: Path, logger: Logger):
             f"{__package__}.resources.collected", f"{output_path.name}"
         )
     output_serializer = SerializeJson[BidPackage]("BidPackage")
-    bid_package = collect_raw(parse_results=parse_results)
+    bid_package = collate_parse_results(parse_results=parse_results)
     output_serializer.save_as_json(output_path, bid_package)
     expected_serializer = SerializeJson[BidPackage]("collected.BidPackage")
     with resources.as_file(expected_res.file_resource()) as expected_path:

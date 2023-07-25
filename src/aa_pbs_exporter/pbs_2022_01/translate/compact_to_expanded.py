@@ -7,7 +7,6 @@ from uuid import uuid5
 from zoneinfo import ZoneInfo
 from time import perf_counter_ns
 
-from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
@@ -26,11 +25,8 @@ DEBUG = "compact.translation.debug"
 class CompactToExpanded:
     def __init__(
         self,
-        validator: validate.ExpandedValidator | None,
         debug_file: Path | None = None,
     ) -> None:
-        self.validator = validator
-
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
 
@@ -38,8 +34,7 @@ class CompactToExpanded:
         if self.debug_file is not None:
             validate_file_out(self.debug_file, overwrite=True)
             self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
-            if self.validator is not None:
-                self.validator.debug_fp = self.debug_fp
+
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -87,13 +82,7 @@ class CompactToExpanded:
         self.debug_write(
             f"Translation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
         )
-        if self.validator is not None:
-            start = perf_counter_ns()
-            self.validator.validate(compact_bid_package, expanded_bid_package, ctx)
-            end = perf_counter_ns()
-            self.debug_write(
-                f"Validation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
-            )
+
         return expanded_bid_package
 
     def expand_dutyperiods(
@@ -384,8 +373,7 @@ def translate_compact_to_expanded(
     compact_package: compact.BidPackage,
     debug_file: Path | None = None,
 ):
-    validator = validate.ExpandedValidator()
-    with CompactToExpanded(validator=validator, debug_file=debug_file) as translator:
+    with CompactToExpanded(debug_file=debug_file) as translator:
         expanded_package = translator.translate(compact_package)
     return expanded_package
 
