@@ -24,7 +24,7 @@ class SerializeJson(Generic[T]):
         super().__init__()
         self.data_type_name = data_type_name
 
-    def save_as_json(
+    def save_json(
         self,
         file_out: Path,
         data: T,
@@ -44,7 +44,7 @@ class SerializeJson(Generic[T]):
             traceback.format_stack()[-2],
         )
 
-    def load_from_json_file(self, file_in: Path) -> T:
+    def load_json(self, file_in: Path) -> T:
         start = perf_counter_ns()
         with open(file_in, mode="rb") as file_fp:
             results = json.load(file_fp)

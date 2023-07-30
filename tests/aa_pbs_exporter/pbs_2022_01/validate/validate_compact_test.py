@@ -18,7 +18,7 @@ def test_compact_validation(test_app_data_dir: Path, logger: Logger):
     output_path = test_app_data_dir / "validate-compact"
     with resources.as_file(raw_bid_package_res.file_resource()) as raw_path:
         raw_loader = SerializeJson[raw.BidPackage]("BidPackage")
-        raw_bid_package = raw_loader.load_from_json_file(raw_path)
+        raw_bid_package = raw_loader.load_json(raw_path)
         debug_path = output_path / f"{raw_path.stem}-validate-debug.txt"
     with resources.as_file(compact_bid_package_res.file_resource()) as compact_path:
         compact_loader = SerializePydantic[compact.BidPackage]()

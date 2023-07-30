@@ -1,7 +1,9 @@
 from collections.abc import Generator
+from pathlib import Path
 from typing import Any, TypedDict
 from uuid import UUID
 
+from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     ParseResult,
 )
@@ -110,3 +112,18 @@ class PackageBrowser:
             if layover is None:
                 continue
             yield layover
+
+
+def save_json(
+    file_out: Path, bid_package: BidPackage, overwrite: bool = False, indent: int = 2
+):
+    serializer = SerializeJson[BidPackage](data_type_name="collated.BidPackage")
+    serializer.save_json(
+        file_out=file_out, data=bid_package, overwrite=overwrite, indent=indent
+    )
+
+
+def load_json(file_in: Path) -> BidPackage:
+    serializer = SerializeJson[BidPackage](data_type_name="collated.BidPackage")
+    data = serializer.load_json(file_in=file_in)
+    return data

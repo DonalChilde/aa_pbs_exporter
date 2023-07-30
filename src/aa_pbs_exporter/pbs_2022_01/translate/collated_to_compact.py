@@ -52,7 +52,7 @@ class CollatedToCompact:
     def __enter__(self) -> Self:
         if self.debug_file is not None:
             validate_file_out(self.debug_file, overwrite=True)
-            self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
+            self.debug_fp = open(self.debug_file, mode="a", encoding="utf-8")
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -411,7 +411,7 @@ class CollatedToCompact:
 
 
 def translate_collated_to_compact(
-    collated_bid_package: collated.BidPackage, debug_file: Path
+    collated_bid_package: collated.BidPackage, debug_file: Path | None
 ) -> compact.BidPackage:
     with CollatedToCompact(tz_lookup=tz_from_iata, debug_file=debug_file) as translator:
         compact_bid_package = translator.translate(

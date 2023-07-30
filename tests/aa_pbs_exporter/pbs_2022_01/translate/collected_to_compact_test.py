@@ -18,7 +18,7 @@ def test_collected_to_compact(test_app_data_dir: Path, logger: Logger):
     output_path = test_app_data_dir / "translate" / "collected-to-compact"
     with resources.as_file(input_resource.file_resource()) as input_path:
         loader = SerializeJson[BidPackage]("BidPackage")
-        input_data = loader.load_from_json_file(input_path)
+        input_data = loader.load_json(input_path)
         debug_path = output_path / f"{input_path.stem}-compact-debug.txt"
         compact_path = output_path / f"{input_path.stem}-compact.json"
     compact_bid = translate_collated_to_compact(

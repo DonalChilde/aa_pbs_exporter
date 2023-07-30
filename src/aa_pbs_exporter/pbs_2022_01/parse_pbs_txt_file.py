@@ -4,7 +4,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.compact_pbs_file import compact_pbs_obj
 from aa_pbs_exporter.pbs_2022_01.helpers.expand_pbs_file import expand_pbs_object
 from aa_pbs_exporter.pbs_2022_01.parser.parse_manager import file_parse_manager
 from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_file import parse_pbs_file
-from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, raw
+from aa_pbs_exporter.pbs_2022_01.models import compact, expanded, collated
 
 
 def parse_pbs_txt_file(

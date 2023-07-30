@@ -29,7 +29,7 @@ class ParseResult(TypedDict):
 
 
 class CollectedParseResults(TypedDict):
-    kwargs: dict[str, Any]
+    metadata: dict[str, Any]
     data: list[ParseResult]
 
 
@@ -71,7 +71,7 @@ class IndexedStringParserProtocol(Protocol):
 class ResultHandlerProtocol(Protocol):
     """Do something with a parse result."""
 
-    data: CollectedParseResults | None
+    collected_results: CollectedParseResults
 
     def __enter__(self):
         raise NotImplementedError

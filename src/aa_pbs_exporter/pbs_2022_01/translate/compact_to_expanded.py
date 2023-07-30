@@ -33,7 +33,7 @@ class CompactToExpanded:
     def __enter__(self) -> Self:
         if self.debug_file is not None:
             validate_file_out(self.debug_file, overwrite=True)
-            self.debug_fp = open(self.debug_file, mode="w", encoding="utf-8")
+            self.debug_fp = open(self.debug_file, mode="a", encoding="utf-8")
 
         return self
 

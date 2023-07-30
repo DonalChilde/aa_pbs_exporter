@@ -80,7 +80,7 @@ def parse_pbs_txt_file(
         debug_file=debug_file,
         job_name=job_name,
         parser_lookup=parser_lookup,
-        indexer=INDEXER,
+        indexer=Indexer(sieve=pbs_data_filter(), index_start=1),
     )
 
     result["metadata"].update(local_metadata)

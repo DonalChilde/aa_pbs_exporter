@@ -5,11 +5,12 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-02-28T08:31:08-07:00            #
-# Last Modified: 2023-07-03T14:06:33.789233+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
 from dataclasses import dataclass
+from hashlib import md5
 from pathlib import Path
 from typing import TYPE_CHECKING, BinaryIO, Callable, Protocol, TypedDict
 
@@ -93,7 +94,7 @@ def hashed_file_result_factory(
 
 def make_hashed_file(
     file_path: Path,
-    hasher: "_Hash",
+    hasher: "_Hash" = md5(),
     block_size: int = 2**10 * 64,
     result_factory: Callable[
         [Path, str, str], HashedFileProtocol
@@ -104,7 +105,7 @@ def make_hashed_file(
 
 
 def make_hashed_file_dict(
-    file_path: Path, hasher: "_Hash", block_size: int = 2**10 * 64
+    file_path: Path, hasher: "_Hash" = md5(), block_size: int = 2**10 * 64
 ) -> HashedFileDict:
     hash_str = hash_file(file_path=file_path, hasher=hasher, block_size=block_size)
     return {

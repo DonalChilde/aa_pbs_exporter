@@ -13,6 +13,7 @@ from typing import Any
 from uuid import UUID
 
 from pydantic import BaseModel
+from aa_pbs_exporter.pbs_2022_01.helpers.serialize_pydantic import SerializePydantic
 
 from aa_pbs_exporter.pbs_2022_01.models.common import HashedFile, Instant
 from aa_pbs_exporter.snippets.timers import timers
@@ -238,3 +239,27 @@ class PackageBrowser:
             if dutyperiod.layover is None:
                 continue
             yield dutyperiod.layover
+
+
+def save_json(
+    file_out: Path,
+    bid_package: BidPackage,
+    overwrite: bool = False,
+    indent: int = 2,
+):
+    serializer = SerializePydantic[BidPackage]()
+    serializer.save_json(
+        file_out=file_out, data=bid_package, overwrite=overwrite, indent=indent
+    )
+
+
+def load_json(
+    file_in: Path,
+    strict: bool | None = None,
+    context: dict[str, Any] | None = None,
+) -> BidPackage:
+    serializer = SerializePydantic[BidPackage]()
+    data = serializer.load_json(
+        file_in=file_in, model=BidPackage, strict=strict, context=context
+    )
+    return data

@@ -1,8 +1,11 @@
+from pathlib import Path
+
+
 class CollatedValidator:
     pass
 
 
-def validate_collated_bid_package():
+def validate_collated_bid_package(bid_package, debug_file: Path | None):
     pass
 
 

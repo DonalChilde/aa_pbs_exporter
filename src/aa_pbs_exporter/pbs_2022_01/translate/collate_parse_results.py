@@ -11,9 +11,9 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
 
 
 def collate_parse_results(parse_results: CollectedParseResults) -> collated.BidPackage:
-    uuid = uuid5(PARSER_DNS, repr(parse_results["kwargs"]))
+    uuid = uuid5(PARSER_DNS, repr(parse_results["metadata"]))
     bid_package = collated.BidPackage(
-        uuid=str(uuid), metadata=parse_results["kwargs"], pages=[]
+        uuid=str(uuid), metadata=parse_results["metadata"], pages=[]
     )
     for parse_result in parse_results["data"]:
         value = parse_result["parse_ident"]

@@ -54,8 +54,8 @@ class ParserTest:
     expected_data: ResourceLocator
     name: str
     category: str
-    parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]]
-    indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]]
+    # parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]]
+    # indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]]
 
 
 def hashed_file_from_resource(
