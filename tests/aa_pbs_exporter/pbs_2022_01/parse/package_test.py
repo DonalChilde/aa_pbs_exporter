@@ -2,14 +2,14 @@ from importlib import resources
 from logging import Logger
 from pathlib import Path
 
+import pytest
+
 from aa_pbs_exporter.pbs_2022_01.api import (
+    load_parse_results,
     parse_pbs_txt_file,
     save_parse_results,
-    load_parse_results,
 )
-
-from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser import serialize
-
+from tests.aa_pbs_exporter.resources import RESOURCE_PATH
 from tests.aa_pbs_exporter.resources.helpers_3 import (
     ResourceLocator,
     hashed_file_from_resource,
@@ -18,18 +18,18 @@ from tests.aa_pbs_exporter.resources.helpers_3 import (
 SERIALIZE_ONLY = False
 
 
+@pytest.mark.slow
 def test_small_package(test_app_data_dir: Path, logger: Logger):
-    output_path = test_app_data_dir / "full_package"
+    category = "bid_package"
     file_stem = "PBS_DCA_May_2022_20220408124308"
     job_name = "PBS_DCA_May_2022"
 
+    output_path = test_app_data_dir / category
     json_path = output_path / f"{file_stem}-parsed.json"
     debug_path = output_path / f"{file_stem}.parsed-debug.txt"
-    input_resource = ResourceLocator(
-        f"{__package__}.resources.full_package", f"{file_stem}.txt"
-    )
+    input_resource = ResourceLocator(f"{RESOURCE_PATH}.{category}", f"{file_stem}.txt")
     expected_resource = ResourceLocator(
-        f"{__package__}.resources.full_package", f"{file_stem}-parsed.json"
+        f"{RESOURCE_PATH}.{category}", f"{file_stem}-parsed.json"
     )
     hashed_file = hashed_file_from_resource(input_resource)
     with resources.as_file(input_resource.file_resource()) as file_in:
@@ -47,18 +47,18 @@ def test_small_package(test_app_data_dir: Path, logger: Logger):
         # assert False
 
 
+@pytest.mark.slow
 def test_large_package(test_app_data_dir: Path, logger: Logger):
-    output_path = test_app_data_dir / "full_package"
+    category = "bid_package"
     file_stem = "PBS_DFW_May_2022_20220408124407"
     job_name = "PBS_DFW_May_2022"
 
+    output_path = test_app_data_dir / category
     json_path = output_path / f"{file_stem}-parsed.json"
     debug_path = output_path / f"{file_stem}.parsed-debug.txt"
-    input_resource = ResourceLocator(
-        f"{__package__}.resources.full_package", f"{file_stem}.txt"
-    )
+    input_resource = ResourceLocator(f"{RESOURCE_PATH}.{category}", f"{file_stem}.txt")
     expected_resource = ResourceLocator(
-        f"{__package__}.resources.full_package", f"{file_stem}-parsed.json"
+        f"{RESOURCE_PATH}.{category}", f"{file_stem}-parsed.json"
     )
     hashed_file = hashed_file_from_resource(input_resource)
     with resources.as_file(input_resource.file_resource()) as file_in:

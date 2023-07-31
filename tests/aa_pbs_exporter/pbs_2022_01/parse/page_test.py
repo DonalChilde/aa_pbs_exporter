@@ -12,6 +12,7 @@ from aa_pbs_exporter.pbs_2022_01.api import (
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
     ParseException,
 )
+from tests.aa_pbs_exporter.resources import RESOURCE_PATH
 from tests.aa_pbs_exporter.resources.helpers_3 import (
     ParserTest,
     ResourceLocator,
@@ -19,47 +20,19 @@ from tests.aa_pbs_exporter.resources.helpers_3 import (
 )
 
 SERIALIZE_ONLY = False
-RESOURCE_DIR = f"{__package__}.resources.page"
-
-PAGE_TEST_DATA = [
-    ParserTest(
-        input_data=ResourceLocator(RESOURCE_DIR, "OnePage_one_page.txt"),
-        result_data="",
-        expected_data=ResourceLocator(RESOURCE_DIR, "OnePage_one_page.json"),
-        name="OnePage",
-        category="page",
-    ),
-    ParserTest(
-        input_data=ResourceLocator(RESOURCE_DIR, "ThreePages_three_pages.txt"),
-        result_data="",
-        expected_data=ResourceLocator(RESOURCE_DIR, "ThreePages_three_pages.json"),
-        name="ThreePages",
-        category="page",
-    ),
-]
-PAGE_FAIL_TEST_DATA = [
-    ParserTest(
-        input_data=ResourceLocator(RESOURCE_DIR, "fail.txt"),
-        result_data="",
-        expected_data=ResourceLocator(RESOURCE_DIR, "ThreePages_three_pages.json"),
-        name="ThreePages",
-        category="page",
-    ),
-]
 
 
 def test_one_page(test_app_data_dir: Path, logger: Logger):
-    output_path = test_app_data_dir / "page"
+    category = "page"
     file_stem = "one_page"
     job_name = "One Page"
 
+    output_path = test_app_data_dir / category
     json_path = output_path / f"{file_stem}-parsed.json"
     debug_path = output_path / f"{file_stem}.parsed-debug.txt"
-    input_resource = ResourceLocator(
-        f"{__package__}.resources.page", f"{file_stem}.txt"
-    )
+    input_resource = ResourceLocator(f"{RESOURCE_PATH}.{category}", f"{file_stem}.txt")
     expected_resource = ResourceLocator(
-        f"{__package__}.resources.page", f"{file_stem}-parsed.json"
+        f"{RESOURCE_PATH}.{category}", f"{file_stem}-parsed.json"
     )
     hashed_file = hashed_file_from_resource(input_resource)
     with resources.as_file(input_resource.file_resource()) as file_in:
@@ -78,17 +51,16 @@ def test_one_page(test_app_data_dir: Path, logger: Logger):
 
 
 def test_three_pages(test_app_data_dir: Path, logger: Logger):
-    output_path = test_app_data_dir / "page"
+    category = "page"
     file_stem = "three_pages"
     job_name = "Three Pages"
 
+    output_path = test_app_data_dir / category
     json_path = output_path / f"{file_stem}-parsed.json"
     debug_path = output_path / f"{file_stem}.parsed-debug.txt"
-    input_resource = ResourceLocator(
-        f"{__package__}.resources.page", f"{file_stem}.txt"
-    )
+    input_resource = ResourceLocator(f"{RESOURCE_PATH}.{category}", f"{file_stem}.txt")
     expected_resource = ResourceLocator(
-        f"{__package__}.resources.page", f"{file_stem}-parsed.json"
+        f"{RESOURCE_PATH}.{category}", f"{file_stem}-parsed.json"
     )
     hashed_file = hashed_file_from_resource(input_resource)
     with resources.as_file(input_resource.file_resource()) as file_in:
@@ -107,17 +79,16 @@ def test_three_pages(test_app_data_dir: Path, logger: Logger):
 
 
 def test_fail(test_app_data_dir: Path, logger: Logger):
-    output_path = test_app_data_dir / "page"
+    category = "page"
     file_stem = "fail"
+    job_name = "Parse Fail"
+
+    output_path = test_app_data_dir / category
     json_path = output_path / f"{file_stem}-parsed.json"
     debug_path = output_path / f"{file_stem}.parsed-debug.txt"
-    job_name = "Parse Fail"
-    input_resource = ResourceLocator(
-        f"{__package__}.resources.page", f"{file_stem}.txt"
-    )
-    # expected_resource = ResourceLocator(
-    #     f"{__package__}.resources.page", f"{file_stem}-parsed.json"
-    # )
+
+    input_resource = ResourceLocator(f"{RESOURCE_PATH}.{category}", f"{file_stem}.txt")
+
     hashed_file = hashed_file_from_resource(input_resource)
     with resources.as_file(input_resource.file_resource()) as file_in:
         with pytest.raises(ParseException):
