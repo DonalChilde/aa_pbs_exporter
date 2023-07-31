@@ -2,6 +2,9 @@ from pathlib import Path
 from typing import Any, Callable, Protocol, Sequence
 
 
+# TODO Make snippet
+
+
 class DataForTestingProtocol(Protocol):
     name: str
     description: str

@@ -45,8 +45,8 @@ def parse_scheme() -> Dict[str, Sequence[IndexedStringParserProtocol]]:
             parsers.TripFooter(),
         ],
         "Layover": [
-            parsers.Transportation(),
             parsers.DutyPeriodReport(),
+            parsers.Transportation(),
             parsers.HotelAdditional(),
         ],
         "Transportation": [

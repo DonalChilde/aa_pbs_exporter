@@ -44,15 +44,20 @@ def parse_job(
         print(f"Beginning parse job {job_name}", file=debug_fp)
         print(f"{result_handler.collected_results!r}", file=debug_fp)
     start = perf_counter_ns()
-    for parse_result in parse_indexed_strings(
-        indexed_strings=indexed_strings,
-        parser_lookup=parser_lookup,
-        beginning_state=beginning_state,
-        ctx=ctx,
-    ):
+    try:
+        for parse_result in parse_indexed_strings(
+            indexed_strings=indexed_strings,
+            parser_lookup=parser_lookup,
+            beginning_state=beginning_state,
+            ctx=ctx,
+        ):
+            if debug_out:
+                print(f"{parse_result!r}", file=debug_fp)
+            result_handler.handle_result(parse_result=parse_result, ctx=ctx)
+    except Exception as error:
         if debug_out:
-            print(f"{parse_result!r}", file=debug_fp)
-        result_handler.handle_result(parse_result=parse_result, ctx=ctx)
+            print(f"{error!s}", file=debug_fp)
+            raise error
     end = perf_counter_ns()
     msg = f"{job_name} complete in {nanos_to_seconds(start,end)} seconds."
     if debug_out:

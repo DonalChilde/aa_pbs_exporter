@@ -17,6 +17,7 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_exception import (
     ParseException,
     ParseJobFail,
+    ParseAllFail,
 )
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_indexed_string import (
     parse_indexed_string,
@@ -59,20 +60,32 @@ def parse_indexed_strings(
         The parse result, which contains the new state, and any parsed data.
     """
     current_state = beginning_state
+    made_an_attempt: bool = False
     for indexed_string in indexed_strings:
+        made_an_attempt = True
         try:
             parse_result = parse_indexed_string(
                 indexed_string=indexed_string,
                 parsers=parser_lookup(current_state),
                 ctx=ctx,
+                debug_info=f"current_state={current_state}",
             )
             current_state = parse_result["parse_ident"]
             yield parse_result
-        except ParseJobFail as error:
-            # TODO refine this message
+        except ParseAllFail as error:
+            # All the provided parsers failed to match.
             logger.error("%s", error)
+            raise error
+        except ParseJobFail as error:
+            # This is started from individual parser
             raise error
         except ParseException as error:
-            # TODO unexpected exception, should be ParseAllFail....
+            # unexpected exception
             logger.error("%s", error)
             raise error
+    if not made_an_attempt:
+        failed_attempt = ParseJobFail(
+            "No IndexedStrings provided to this parse attempt."
+        )
+        logger.error("%s", failed_attempt)
+        raise failed_attempt

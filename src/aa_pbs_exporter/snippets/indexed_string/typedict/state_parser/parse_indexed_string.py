@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2023-04-16T09:11:27-07:00            #
-# Last Modified: 2023-06-26T23:11:51.057307+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 import logging
@@ -32,6 +32,7 @@ def parse_indexed_string(
     indexed_string: IndexedStringDict,
     parsers: Sequence[IndexedStringParserProtocol],
     ctx: dict[str, Any] | None,
+    debug_info: str = "",
 ) -> ParseResult:
     """
     Parse an indexed string based on a list of possible parsers.
@@ -59,16 +60,18 @@ def parse_indexed_string(
             return parse_result
         except SingleParserFail as error:
             logger.debug(
-                "\n\tFAILED %r->%r\n\t%r",
+                "\n\tFAILED %r->%r\n\t%r\n\tDebug Info:%r",
                 error.parser.__class__.__name__,
                 error.indexed_string,
                 error,
+                debug_info,
             )
         except ParseJobFail as error:
-            logger.error("Parse Job failed %s", error)
+            logger.error("Parse Job failed %s Debug Info:%r", error, debug_info)
             raise error
     raise ParseAllFail(
-        f"No parser found for {indexed_string!r}\nTried {parsers!r}",
+        f"No parser found for \n\tindexed_string={indexed_string!r}"
+        f"\n\tTried {parsers!r}\n\tDebug Info:{debug_info}",
         parsers=parsers,
         indexed_string=indexed_string,
     )

@@ -26,11 +26,15 @@ def parse_text_file(
     debug_file: Path | None,
     job_name: str,
     parser_lookup: Callable[[str], Sequence[IndexedStringParserProtocol]],
-    indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]] = Indexer(),
+    indexer: Callable[[Iterable[str]], Iterable[IndexedStringDict]] | None = None,
     ctx: dict[str, Any] | None = None,
-    result_handler: ResultHandlerProtocol = CollectResults(),
+    result_handler: ResultHandlerProtocol | None = None,
     debug_out: bool = True,
 ) -> CollectedParseResults:
+    if indexer is None:
+        indexer = Indexer()
+    if result_handler is None:
+        result_handler = CollectResults()
     if debug_file is None:
         debug_cm: nullcontext[None] | TextIOWrapper = nullcontext()
     else:
