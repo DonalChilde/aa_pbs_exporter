@@ -41,7 +41,13 @@ Items = [
         txt="                    TRANS INFO IN CCI/CREW PORTAL",
         result={"transportation": "TRANS INFO IN CCI/CREW PORTAL"},
     ),
+    GrammarTest(
+        txt="                    SHUTTLE                                                            30 −− −−",
+        result={"transportation": "SHUTTLE", "calendar_entries": ["30", "−−", "−−"]},
+    ),
 ]
+
+
 parser = grammar.Transportation
 
 
