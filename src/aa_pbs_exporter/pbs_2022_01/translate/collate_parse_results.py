@@ -9,6 +9,8 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
     CollectedParseResults,
 )
 
+# TODO refactor to include debug file, capture exceptions to debug
+
 
 def collate_parse_results(parse_results: CollectedParseResults) -> collated.BidPackage:
     uuid = uuid5(PARSER_DNS, repr(parse_results["metadata"]))
@@ -53,41 +55,48 @@ def collate_parse_results(parse_results: CollectedParseResults) -> collated.BidP
                 dutyperiod = collated.DutyPeriod(
                     uuid=str(uuid), report=parse_result, flights=[]
                 )
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"].append(dutyperiod)
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"].append(dutyperiod)
+
             case "Flight":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
                 flight = collated.Flight(uuid=str(uuid), flight=parse_result)
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
-                    "flights"
-                ].append(flight)
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["flights"].append(flight)
             case "DutyPeriodRelease":
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
-                    "release"
-                ] = parse_result
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["release"] = parse_result
             case "Layover":
                 uuid = uuid5(PARSER_DNS, repr(parse_result["source"]))
                 layover = collated.Layover(
                     uuid=str(uuid), layover=parse_result, hotel_info=[]
                 )
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1][
-                    "layover"
-                ] = layover
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["layover"] = layover
             case "HotelAdditional":
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1]["layover"][
-                    "hotel_info"
-                ].append(parse_result)
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["layover"]["hotel_info"].append(parse_result)
             case "Transportation":
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1]["layover"][
-                    "hotel_info"
-                ].append(parse_result)
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["layover"]["hotel_info"].append(parse_result)
             case "TransportationAdditional":
-                bid_package["pages"][-1]["trips"][-1]["dutyperiods"][-1]["layover"][
-                    "hotel_info"
-                ].append(parse_result)
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["dutyperiods"][-1]["layover"]["hotel_info"].append(parse_result)
             case "CalendarOnly":
-                bid_package["pages"][-1]["trips"][-1]["calendar_only"] = parse_result
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["calendar_only"] = parse_result
             case "TripFooter":
-                bid_package["pages"][-1]["trips"][-1]["footer"] = parse_result
+                trip = bid_package["pages"][-1]["trips"][-1]
+                trip["calendar_entries"].extend(parse_result["parsed_data"]["calendar"])
+                trip["footer"] = parse_result
             case "TripSeparator":
                 pass
             case "PageFooter":
