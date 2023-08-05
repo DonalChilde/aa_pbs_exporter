@@ -5,6 +5,7 @@ from pathlib import Path
 from time import perf_counter_ns
 import traceback
 from typing import Self, cast
+from uuid import UUID
 
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
@@ -13,6 +14,7 @@ from aa_pbs_exporter.pbs_2022_01.models import compact
 from aa_pbs_exporter.pbs_2022_01.models import parsed
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
+from aa_pbs_exporter.pbs_2022_01.validate.validation_error import ValidationError
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -39,6 +41,7 @@ class CompactValidator:
         self.debug_fp: TextIOWrapper | None = None
         self.browser: collated.PackageBrowser
         self.checks = Checks(debug_fp=None)
+        self.validation_errors: list[ValidationError] = []
 
     def __enter__(self) -> Self:
         if self.debug_file is not None:
@@ -49,12 +52,20 @@ class CompactValidator:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        self.validation_errors.extend(self.checks.validation_errors)
+        self.debug_write(f"Found {len(self.validation_errors)} errors.")
+        self.debug_write("\n".join([str(x) for x in self.validation_errors]), 0)
         if self.debug_fp is not None:
             self.debug_fp.close()
 
     def debug_write(self, value: str, indent_level: int = 0):
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
+
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = ValidationError(msg=msg, uuid=uuid)
+        self.validation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
 
     def validate(
         self,
@@ -67,7 +78,7 @@ class CompactValidator:
             )
         except Exception as error:
             logger.exception("Unexpected error during validation.")
-            self.debug_write("".join(traceback.format_exception(error)), 0)
+            self.report_error("".join(traceback.format_exception(error)), uuid=None)
             raise error
 
     def _validate(
@@ -192,10 +203,16 @@ def validate_compact_bid_package(
 class Checks:
     def __init__(self, debug_fp: TextIOWrapper | None = None) -> None:
         self.debug_fp = debug_fp
+        self.validation_errors: list[ValidationError] = []
 
     def debug_write(self, value: str, indent_level: int = 0):
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
+
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = ValidationError(msg=msg, uuid=uuid)
+        self.validation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
 
     def ops_vs_date_count(
         self, collected_trip: collated.Trip, compact_trip: compact.Trip
@@ -204,121 +221,112 @@ class Checks:
         ops = int(header_data["ops_count"])
         date_count = len(compact_trip.start_dates)
         if ops != date_count:
-            self.debug_write(
+            msg = (
                 f"Ops count for raw trips {ops} "
                 f"does not match start date count {date_count} "
                 f"for compact trip {compact_trip.number}. "
-                f"uuid: {compact_trip.uuid}",
-                Level.TRIP + 1,
             )
+            self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
 
     def trips_on_page(
         self,
         compact_page: compact.Page,
     ):
         if len(compact_page.trips) < 1:
-            self.debug_write(
+            msg = (
                 f"No trips found on compact page ref={compact_page.number}. "
-                f"Were they all prior month trips? uuid: {compact_page.uuid}",
-                Level.PAGE + 1,
+                "Were they all prior month trips?"
             )
+            self.report_error(msg, compact_page.uuid, Level.PAGE + 1)
 
     def trip_block_time(self, compact_trip: compact.Trip):
         sum_block = timedelta()
         for dutyperiod in compact_trip.dutyperiods:
             sum_block += dutyperiod.block
         if sum_block != compact_trip.block:
-            self.debug_write(
+            msg = (
                 f"Sum of block {sum_block} does not match parsed "
                 f"block {compact_trip.block} "
-                f"for compact trip {compact_trip.number}. "
-                f"uuid: {compact_trip.uuid}",
-                Level.TRIP + 1,
+                f"for compact trip {compact_trip.number}."
             )
+            self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
 
     def trip_total_pay(self, compact_trip: compact.Trip):
         sum_total_pay = compact_trip.synth + compact_trip.block
         if sum_total_pay != compact_trip.total_pay:
-            self.debug_write(
+            msg = (
                 f"Sum of synth and block ({compact_trip.synth} + {compact_trip.block} "
                 f"= {sum_total_pay}) "
                 f"does not match parsed total pay {compact_trip.total_pay} "
                 f"for compact trip {compact_trip.number}. "
-                f"uuid: {compact_trip.uuid}",
-                Level.TRIP + 1,
             )
+            self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
 
     def trip_positions(self, compact_trip: compact.Trip):
         if not compact_trip.positions:
-            self.debug_write(
-                f"No positions found "
-                f"for compact trip {compact_trip.number}. "
-                f"uuid: {compact_trip.uuid}",
-                Level.TRIP + 1,
-            )
+            msg = f"No positions found " f"for compact trip {compact_trip.number}. "
+            self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
 
     def layover_present(self, compact_trip: compact.Trip):
         last_index = len(compact_trip.dutyperiods) - 1
         for idx, dutyperiod in enumerate(compact_trip.dutyperiods):
             if dutyperiod.layover is None and not idx == last_index:
-                self.debug_write(
+                msg = (
                     f"Layover missing from compact trip {compact_trip.number}, "
                     f"dutyperiod:{idx+1}"
-                    f"uuid: {compact_trip.uuid}",
-                    Level.TRIP + 1,
                 )
+                self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
+
         if compact_trip.dutyperiods[last_index].layover is not None:
-            self.debug_write(
+            msg = (
                 f"The layover for the last dutyperiod of compact trip "
-                f"{compact_trip.number} is not None.",
-                Level.TRIP + 1,
+                f"{compact_trip.number} is not None."
             )
+            self.report_error(msg, compact_trip.uuid, Level.TRIP + 1)
 
     def dutyperiod_index(self, compact_trip: compact.Trip):
         for dp_idx, dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
             if dp_idx != dutyperiod.idx:
-                self.debug_write(
+                msg = (
                     f"Code idx {dp_idx} does not match parsed dutyperiod index "
                     f"{dutyperiod.idx}. "
-                    f"uuid:{dutyperiod.uuid}",
-                    Level.DP + 1,
                 )
+                self.report_error(msg, dutyperiod.uuid, Level.DP + 1)
+
             for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
                 if dp_idx != flight.dp_idx:
-                    self.debug_write(
+                    msg = (
                         f"Code idx {flt_idx} does not match parsed dutyperiod idx for "
                         f"flight index {flight.dp_idx}. "
-                        f"uuid:{flight.uuid}",
-                        Level.FLT + 1,
                     )
+                    self.report_error(msg, flight.uuid, Level.FLT + 1)
+
                 if flt_idx != flight.idx:
-                    self.debug_write(
-                        f"Code idx {flt_idx} does not match parsed flight idx {flight.idx}. "
-                        f"uuid:{flight.uuid}",
-                        Level.FLT + 1,
+                    msg = (
+                        f"Code idx {flt_idx} does not match parsed "
+                        "flight idx {flight.idx}. "
                     )
+                    self.report_error(msg, flight.uuid, Level.FLT + 1)
 
     def dutyperiod_block(self, compact_dutyperiod: compact.DutyPeriod):
         sum_block = timedelta()
         for flight in compact_dutyperiod.flights:
             sum_block += flight.block
         if sum_block != compact_dutyperiod.block:
-            self.debug_write(
+            msg = (
                 f"Sum of block {sum_block} does not match parsed "
                 f"block {compact_dutyperiod.block} for compact dutyperiod. "
                 f"dp_idx={compact_dutyperiod.idx} "
-                f"uuid: {compact_dutyperiod.uuid}",
-                Level.DP + 1,
             )
+            self.report_error(msg, compact_dutyperiod.uuid, Level.DP + 1)
 
     def dutyperiod_total_pay(self, compact_dutyperiod: compact.DutyPeriod):
         sum_total_pay = compact_dutyperiod.synth + compact_dutyperiod.block
         if sum_total_pay != compact_dutyperiod.total_pay:
-            self.debug_write(
+            msg = (
                 f"Sum of synth and block ({compact_dutyperiod.synth} + "
                 f"{compact_dutyperiod.block} = {sum_total_pay}) "
                 f"Does not match parsed total {compact_dutyperiod.total_pay} "
                 f"dp_idx={compact_dutyperiod.idx} "
-                f"uuid: {compact_dutyperiod.uuid}",
-                Level.DP + 1,
             )
+            self.report_error(msg, compact_dutyperiod.uuid, Level.DP + 1)
