@@ -6,6 +6,7 @@ class CollatedValidator:
 
 
 def validate_collated_bid_package(bid_package, debug_file: Path | None):
+    # TODO compare calendar entries that are mumbers, with ops count
     pass
 
 

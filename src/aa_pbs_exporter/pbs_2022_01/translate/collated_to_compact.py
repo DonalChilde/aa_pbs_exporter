@@ -5,6 +5,7 @@ from io import TextIOWrapper
 from pathlib import Path
 from typing import Callable, Self, Sequence, Tuple, cast
 from uuid import UUID, uuid5
+import traceback
 
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
@@ -68,6 +69,16 @@ class CollatedToCompact:
         return common.HashedFile(**source)
 
     def translate(
+        self, collated_bid_package: collated.BidPackage
+    ) -> compact.BidPackage:
+        try:
+            return self._translate(collated_bid_package=collated_bid_package)
+        except Exception as error:
+            logger.exception("Unexpected error during translation.")
+            self.debug_write("".join(traceback.format_exception(error)), 0)
+            raise error
+
+    def _translate(
         self, collated_bid_package: collated.BidPackage
     ) -> compact.BidPackage:
         start = time.perf_counter_ns()

@@ -18,7 +18,7 @@ Items = [
         result={
             "parse_ident": "TransportationAdditional",
             "parsed_data": {
-                "name": ["SKY TRANSPORTATION SERVICE, LLC"],
+                "name": "SKY TRANSPORTATION SERVICE, LLC",
                 "phone": "",
                 "calendar": [],
             },
@@ -35,7 +35,7 @@ Items = [
         ),
         result={
             "parse_ident": "TransportationAdditional",
-            "parsed_data": {"name": ["DESERT COACH"], "phone": "", "calendar": []},
+            "parsed_data": {"name": "DESERT COACH", "phone": "", "calendar": []},
             "source": {
                 "idx": 1,
                 "txt": "                    DESERT COACH                            6022866161                    ",

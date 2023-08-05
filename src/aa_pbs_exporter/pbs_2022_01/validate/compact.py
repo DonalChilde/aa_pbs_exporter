@@ -15,11 +15,14 @@ from aa_pbs_exporter.snippets.string.indent import indent
 """
 TODO
 
-  - move validations over from old code
-  - make raw-collected names consistent
-  - Make browser for compact and expanded models
-  - add a reference to the compact browser
-  - refactor validate namespace to remove excess validates
+  - Add validation error counter/tracker
+  - some how track current location for output in validation error message
+    - eg. page\n\ttrip\n\tdutyperiod.
+    - store them in class var? self.page_loc,self.trip_loc?
+    - functions to return consistant location messages for reuse in trans and validation
+    - only generate location message when there is an error?
+    
+  
 """
 
 

@@ -47,3 +47,39 @@ def test_compact_one_page(test_app_data_dir: Path, logger: Logger):
         file_stem=file_stem,
         page_count=page_count,
     )
+
+
+def test_compact_three_pages(test_app_data_dir: Path, logger: Logger):
+    file_stem: str = "three_pages"
+    page_count = 1
+
+    worker_compact(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        page_count=page_count,
+    )
+
+
+def test_compact_small_package(test_app_data_dir: Path, logger: Logger):
+    file_stem: str = "PBS_DCA_May_2022_20220408124308"
+    page_count = 1
+
+    worker_compact(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        page_count=page_count,
+    )
+
+
+def test_compact_large_package(test_app_data_dir: Path, logger: Logger):
+    file_stem: str = "PBS_DFW_May_2022_20220408124407"
+    page_count = 1
+
+    worker_compact(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        page_count=page_count,
+    )

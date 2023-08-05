@@ -335,13 +335,8 @@ Matches:
 """
 
 
-TransportationAdditional = (
-    pp.StringStart()
-    + pp.NotAny("+")
-    + (BUSINESS_PHONE | BUSINESS_CALENDAR | BUSINESS_NONE)("transportation")
-    + pp.Opt(PHONE_NUMBER, default="")("phone")
-    + CALENDAR_LINE("calendar_entries")
-    + pp.StringEnd()
+TransportationAdditional = pp.MatchFirst(
+    [TransportationPhone, TransportationNoPhone, TransportationNone]
 )
 """
 Matches:

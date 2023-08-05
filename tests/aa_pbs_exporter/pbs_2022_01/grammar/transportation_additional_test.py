@@ -10,7 +10,7 @@ Items = [
     GrammarTest(
         txt="                    SKY TRANSPORTATION SERVICE, LLC         8566169633",
         result={
-            "transportation": ["SKY TRANSPORTATION SERVICE, LLC"],
+            "transportation": "SKY TRANSPORTATION SERVICE, LLC",
             "phone": "8566169633",
             "calendar_entries": [],
         },
@@ -18,7 +18,7 @@ Items = [
     GrammarTest(
         txt="                    DESERT COACH                            6022866161                    ",
         result={
-            "transportation": ["DESERT COACH"],
+            "transportation": "DESERT COACH",
             "phone": "6022866161",
             "calendar_entries": [],
         },
