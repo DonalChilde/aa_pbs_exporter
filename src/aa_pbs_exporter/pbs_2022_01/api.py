@@ -7,7 +7,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
 from aa_pbs_exporter.pbs_2022_01.models import collated, compact, expanded
 from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme import parser_lookup
 from aa_pbs_exporter.pbs_2022_01.translate import (
-    collate_parse_results,
+    translate_parsed_to_collated,
     translate_collated_to_compact,
     translate_compact_to_expanded,
 )
@@ -88,29 +88,35 @@ def parse_pbs_txt_file(
 
 
 def parsed_to_collated(
-    data: CollectedParseResults, debug_file: Path | None
+    parse_results: CollectedParseResults, debug_file: Path | None
 ) -> collated.BidPackage:
-    result = collate_parse_results(parse_results=data)
+    result = translate_parsed_to_collated(
+        parse_results=parse_results, debug_file=debug_file
+    )
     return result
 
 
 def collated_to_compact(
-    data: collated.BidPackage, debug_file: Path | None
+    bid_package: collated.BidPackage, debug_file: Path | None
 ) -> compact.BidPackage:
     result = translate_collated_to_compact(
-        collated_bid_package=data, debug_file=debug_file
+        collated_bid_package=bid_package, debug_file=debug_file
     )
     validate_compact_bid_package(
-        raw_bid_package=data, compact_bid_package=result, debug_file=debug_file
+        raw_bid_package=bid_package, compact_bid_package=result, debug_file=debug_file
     )
     return result
 
 
 def compact_to_expanded(
-    data: compact.BidPackage, debug_file: Path | None
+    bid_package: compact.BidPackage, debug_file: Path | None
 ) -> expanded.BidPackage:
-    result = translate_compact_to_expanded(compact_package=data, debug_file=debug_file)
+    result = translate_compact_to_expanded(
+        compact_package=bid_package, debug_file=debug_file
+    )
     validate_expanded_bid_package(
-        compact_bid_package=data, expanded_bid_package=result, debug_file=debug_file
+        compact_bid_package=bid_package,
+        expanded_bid_package=result,
+        debug_file=debug_file,
     )
     return result

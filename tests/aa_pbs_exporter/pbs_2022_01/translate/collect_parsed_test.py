@@ -4,14 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
-from aa_pbs_exporter.pbs_2022_01.models.collated import BidPackage
-from aa_pbs_exporter.pbs_2022_01.translate.collate_parse_results import (
-    collate_parse_results,
-)
-from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
-    CollectedParseResults,
-)
+from aa_pbs_exporter.pbs_2022_01 import api
 from tests.aa_pbs_exporter.resources import RESOURCE_PATH
 from tests.aa_pbs_exporter.resources.helpers_3 import ResourceLocator
 
@@ -20,20 +13,22 @@ def worker_collect(
     test_app_data_dir: Path, logger: Logger, file_stem: str, page_count: int
 ):
     _ = logger
+    output_dir = test_app_data_dir / "collect_parsed"
     input_res = ResourceLocator(f"{RESOURCE_PATH}.parsed", f"{file_stem}-parsed.json")
-    output_path = test_app_data_dir / "collect_parsed" / f"{file_stem}-collected.json"
+    output_file = output_dir / f"{file_stem}-collected.json"
+    debug_file = output_dir / f"{file_stem}-collected-debug.txt"
     expected_res = ResourceLocator(
         f"{RESOURCE_PATH}.collected", f"{file_stem}-collected.json"
     )
-    input_serializer = SerializeJson[CollectedParseResults]("CollectedParseResults")
-    expected_serializer = SerializeJson[BidPackage]("collected.BidPackage")
-    output_serializer = SerializeJson[BidPackage]("BidPackage")
+
     with resources.as_file(input_res.file_resource()) as input_path:
-        parse_results = input_serializer.load_json(input_path)
-    bid_package = collate_parse_results(parse_results=parse_results)
-    output_serializer.save_json(output_path, bid_package)
+        parse_results = api.load_parse_results(input_path)
+    bid_package = api.parsed_to_collated(
+        parse_results=parse_results, debug_file=debug_file
+    )
+    api.save_collated(output_file, bid_package)
     with resources.as_file(expected_res.file_resource()) as expected_path:
-        expected = expected_serializer.load_json(expected_path)
+        expected = api.load_collated(expected_path)
     assert expected == bid_package
     assert len(bid_package["pages"]) == page_count
 

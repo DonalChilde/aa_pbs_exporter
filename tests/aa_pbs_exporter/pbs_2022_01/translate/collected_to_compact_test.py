@@ -26,7 +26,7 @@ def worker_compact(
     with resources.as_file(input_res.file_resource()) as input_path:
         collated_parse_results = api.load_collated(file_in=input_path)
     compact_bid_package = api.collated_to_compact(
-        data=collated_parse_results, debug_file=debug_file
+        bid_package=collated_parse_results, debug_file=debug_file
     )
     api.save_compact(file_out=output_file, bid_package=compact_bid_package)
 
