@@ -2,6 +2,7 @@ from io import TextIOWrapper
 import logging
 from datetime import datetime, time, timedelta, timezone
 from pathlib import Path
+import traceback
 from typing import Self, Sequence
 from uuid import uuid5
 from zoneinfo import ZoneInfo
@@ -46,6 +47,18 @@ class CompactToExpanded:
             print(indent(value, indent_level), file=self.debug_fp)
 
     def translate(
+        self,
+        compact_bid_package: compact.BidPackage,
+        ctx: dict | None = None,
+    ) -> expanded.BidPackage:
+        try:
+            return self._translate(compact_bid_package=compact_bid_package, ctx=ctx)
+        except Exception as error:
+            logger.exception("Unexpected error during translation.")
+            self.debug_write("".join(traceback.format_exception(error)), 0)
+            raise error
+
+    def _translate(
         self,
         compact_bid_package: compact.BidPackage,
         ctx: dict | None = None,

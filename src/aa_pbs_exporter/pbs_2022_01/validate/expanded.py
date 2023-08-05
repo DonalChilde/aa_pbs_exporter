@@ -3,6 +3,7 @@ from datetime import timedelta
 from io import TextIOWrapper
 from pathlib import Path
 from time import perf_counter_ns
+import traceback
 from typing import Self
 
 from aa_pbs_exporter.pbs_2022_01.helpers.compare_time import compare_time
@@ -55,6 +56,18 @@ class ExpandedValidator:
         compact_bid: compact.BidPackage,
         expanded_bid: expanded.BidPackage,
     ):
+        try:
+            return self._validate(compact_bid=compact_bid, expanded_bid=expanded_bid)
+        except Exception as error:
+            logger.exception("Unexpected error during translation.")
+            self.debug_write("".join(traceback.format_exception(error)), 0)
+            raise error
+
+    def _validate(
+        self,
+        compact_bid: compact.BidPackage,
+        expanded_bid: expanded.BidPackage,
+    ):
         start = perf_counter_ns()
         self.compact_browser = compact.PackageBrowser(package=compact_bid)
         self.expanded_browser = expanded.PackageBrowser(expanded_bid)
@@ -63,47 +76,6 @@ class ExpandedValidator:
         self.debug_write(
             f"Validation complete in {elapsed.nanos_to_seconds(start,end):4f} seconds."
         )
-        # page_lookup = {x.uuid: x for x in compact_bid.pages}
-        # page_count = len(expanded_bid.pages)
-        # for page_idx, page in enumerate(expanded_bid.pages, start=1):
-        #     self.debug_write(
-        #         f"Validating page {page.number}, {page_idx} of {page_count}",
-        #         Level.PAGE,
-        #     )
-        #     compact_page = page_lookup[page.uuid]
-        #     self.validate_page(compact_page, page)
-        #     trip_lookup = {x.uuid: x for x in compact_page.trips}
-        #     trip_count = len(page.trips)
-        #     for trip_idx, trip in enumerate(page.trips, start=1):
-        #         self.debug_write(
-        #             f"Validating trip {trip.number}, {trip_idx} of {trip_count} on page "
-        #             f"{page.number}, start={trip.start}",
-        #             Level.TRIP,
-        #         )
-        #         compact_trip = trip_lookup[trip.compact_uuid]
-        #         self.validate_trip(compact_trip, trip)
-        #         dutyperiod_lookup = {x.uuid: x for x in compact_trip.dutyperiods}
-        #         dp_count = len(trip.dutyperiods)
-        #         for dp_idx, dutyperiod in enumerate(trip.dutyperiods, start=1):
-        #             self.debug_write(
-        #                 f"Validating dutyperiod {dp_idx} of {dp_count} for trip "
-        #                 f"{trip.number}",
-        #                 Level.DP,
-        #             )
-        #             compact_dutyperiod = dutyperiod_lookup[dutyperiod.compact_uuid]
-        #             self.validate_dutyperiod(
-        #                 compact_dutyperiod, dutyperiod, trip.number
-        #             )
-        #             flight_lookup = {x.uuid: x for x in compact_dutyperiod.flights}
-        #             flight_count = len(dutyperiod.flights)
-        #             for flt_idx, flight in enumerate(dutyperiod.flights, start=1):
-        #                 self.debug_write(
-        #                     f"Validating flight {flight.number}, {flt_idx} of "
-        #                     f"{flight_count}",
-        #                     Level.FLT,
-        #                 )
-        #                 compact_flight = flight_lookup[flight.compact_uuid]
-        #                 self.validate_flight(compact_flight, flight, trip.number)
 
     def validate_bid_package(
         self,

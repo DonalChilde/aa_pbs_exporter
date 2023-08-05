@@ -1,17 +1,21 @@
+import logging
 from datetime import timedelta
 from io import TextIOWrapper
 from pathlib import Path
 from time import perf_counter_ns
+import traceback
 from typing import Self, cast
-from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 
+from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.models import compact
 from aa_pbs_exporter.pbs_2022_01.models import collated as collated
+from aa_pbs_exporter.pbs_2022_01.models import compact
 from aa_pbs_exporter.pbs_2022_01.models import parsed as parsed
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
 
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 """
 TODO
 
@@ -53,6 +57,20 @@ class CompactValidator:
             print(indent(value, indent_level), file=self.debug_fp)
 
     def validate(
+        self,
+        collated_package: collated.BidPackage,
+        compact_package: compact.BidPackage,
+    ):
+        try:
+            return self._validate(
+                collected_package=collated_package, compact_package=compact_package
+            )
+        except Exception as error:
+            logger.exception("Unexpected error during validation.")
+            self.debug_write("".join(traceback.format_exception(error)), 0)
+            raise error
+
+    def _validate(
         self,
         collected_package: collated.BidPackage,
         compact_package: compact.BidPackage,
@@ -167,7 +185,7 @@ def validate_compact_bid_package(
 ):
     with CompactValidator(debug_file=debug_file) as validator:
         validator.validate(
-            collected_package=raw_bid_package, compact_package=compact_bid_package
+            collated_package=raw_bid_package, compact_package=compact_bid_package
         )
 
 
