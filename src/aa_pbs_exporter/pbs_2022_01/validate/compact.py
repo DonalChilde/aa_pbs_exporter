@@ -8,9 +8,9 @@ from typing import Self, cast
 
 from aa_pbs_exporter.pbs_2022_01.helpers import elapsed
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
-from aa_pbs_exporter.pbs_2022_01.models import collated as collated
+from aa_pbs_exporter.pbs_2022_01.models import collated
 from aa_pbs_exporter.pbs_2022_01.models import compact
-from aa_pbs_exporter.pbs_2022_01.models import parsed as parsed
+from aa_pbs_exporter.pbs_2022_01.models import parsed
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
 

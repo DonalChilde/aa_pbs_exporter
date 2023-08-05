@@ -1,13 +1,78 @@
+from io import TextIOWrapper
 from pathlib import Path
+import traceback
+from typing import Self
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
+from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
+    CollectedParseResults,
+)
+from aa_pbs_exporter.pbs_2022_01.models import collated
+
+from aa_pbs_exporter.snippets.string.indent import indent
+import logging
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 class CollatedValidator:
-    pass
+    def __init__(
+        self,
+        debug_file: Path | None = None,
+    ) -> None:
+        self.debug_file = debug_file
+        self.debug_fp: TextIOWrapper | None = None
+        self.checks = Checks(debug_fp=None)
+
+    def __enter__(self) -> Self:
+        if self.debug_file is not None:
+            validate_file_out(self.debug_file, overwrite=True)
+            self.debug_fp = open(self.debug_file, mode="a", encoding="utf-8")
+            self.checks.debug_fp = self.debug_fp
+
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.debug_fp is not None:
+            self.debug_fp.close()
+
+    def debug_write(self, value: str, indent_level: int = 0):
+        if self.debug_fp is not None:
+            print(indent(value, indent_level), file=self.debug_fp)
+
+    def validate(
+        self, parse_results: CollectedParseResults, bid_package: collated.BidPackage
+    ):
+        try:
+            return self._validate(parse_results=parse_results, bid_package=bid_package)
+        except Exception as error:
+            logger.exception("Unexpected error during validation.")
+            self.debug_write("".join(traceback.format_exception(error)), 0)
+            raise error
+
+    def _validate(
+        self, parse_results: CollectedParseResults, bid_package: collated.BidPackage
+    ):
+        pass
 
 
-def validate_collated_bid_package(bid_package, debug_file: Path | None):
+class Checks:
+    def __init__(self, debug_fp: TextIOWrapper | None = None) -> None:
+        self.debug_fp = debug_fp
+
+    def debug_write(self, value: str, indent_level: int = 0):
+        if self.debug_fp is not None:
+            print(indent(value, indent_level), file=self.debug_fp)
+
+
+def validate_collated_bid_package(
+    parse_results: CollectedParseResults,
+    bid_package: collated.BidPackage,
+    debug_file: Path | None,
+):
     # TODO compare calendar entries that are mumbers, with ops count
-    pass
+    with CollatedValidator(debug_file=debug_file) as validator:
+        validator.validate(parse_results=parse_results, bid_package=bid_package)
 
 
 # from io import TextIOWrapper

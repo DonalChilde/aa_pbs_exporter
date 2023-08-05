@@ -14,6 +14,7 @@ from aa_pbs_exporter.pbs_2022_01.translate import (
 from aa_pbs_exporter.pbs_2022_01.validate import (
     validate_compact_bid_package,
     validate_expanded_bid_package,
+    validate_collated_bid_package,
 )
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file_dict
 from aa_pbs_exporter.snippets.indexed_string.typedict.index_strings import Indexer
@@ -90,33 +91,40 @@ def parse_pbs_txt_file(
 def parsed_to_collated(
     parse_results: CollectedParseResults, debug_file: Path | None
 ) -> collated.BidPackage:
-    result = translate_parsed_to_collated(
+    collated_bid_package = translate_parsed_to_collated(
         parse_results=parse_results, debug_file=debug_file
     )
-    return result
+    validate_collated_bid_package(
+        parse_results=parse_results,
+        bid_package=collated_bid_package,
+        debug_file=debug_file,
+    )
+    return collated_bid_package
 
 
 def collated_to_compact(
     bid_package: collated.BidPackage, debug_file: Path | None
 ) -> compact.BidPackage:
-    result = translate_collated_to_compact(
+    compact_bid_package = translate_collated_to_compact(
         collated_bid_package=bid_package, debug_file=debug_file
     )
     validate_compact_bid_package(
-        raw_bid_package=bid_package, compact_bid_package=result, debug_file=debug_file
+        raw_bid_package=bid_package,
+        compact_bid_package=compact_bid_package,
+        debug_file=debug_file,
     )
-    return result
+    return compact_bid_package
 
 
 def compact_to_expanded(
     bid_package: compact.BidPackage, debug_file: Path | None
 ) -> expanded.BidPackage:
-    result = translate_compact_to_expanded(
+    expanded_bid_package = translate_compact_to_expanded(
         compact_package=bid_package, debug_file=debug_file
     )
     validate_expanded_bid_package(
         compact_bid_package=bid_package,
-        expanded_bid_package=result,
+        expanded_bid_package=expanded_bid_package,
         debug_file=debug_file,
     )
-    return result
+    return expanded_bid_package
