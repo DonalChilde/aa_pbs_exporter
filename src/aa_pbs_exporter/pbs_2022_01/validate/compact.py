@@ -52,7 +52,6 @@ class CompactValidator:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.validation_errors.extend(self.checks.validation_errors)
         self.debug_write(f"Found {len(self.validation_errors)} errors.")
         self.debug_write("\n".join([str(x) for x in self.validation_errors]), 0)
         if self.debug_fp is not None:
@@ -71,11 +70,13 @@ class CompactValidator:
         self,
         collated_package: collated.BidPackage,
         compact_package: compact.BidPackage,
-    ):
+    ) -> list[ValidationError]:
         try:
-            return self._validate(
+            self._validate(
                 collected_package=collated_package, compact_package=compact_package
             )
+            self.validation_errors.extend(self.checks.validation_errors)
+            return self.validation_errors
         except Exception as error:
             logger.exception("Unexpected error during validation.")
             self.report_error("".join(traceback.format_exception(error)), uuid=None)

@@ -2,6 +2,7 @@ from io import TextIOWrapper
 from pathlib import Path
 import traceback
 from typing import Self
+from aa_pbs_exporter.pbs_2022_01.validate.validation_error import ValidationError
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
@@ -23,6 +24,7 @@ class CollatedValidator:
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
         self.checks = Checks(debug_fp=None)
+        self.validation_errors: list[ValidationError] = []
 
     def __enter__(self) -> Self:
         if self.debug_file is not None:
@@ -42,9 +44,11 @@ class CollatedValidator:
 
     def validate(
         self, parse_results: CollectedParseResults, bid_package: collated.BidPackage
-    ):
+    ) -> list[ValidationError]:
         try:
-            return self._validate(parse_results=parse_results, bid_package=bid_package)
+            self._validate(parse_results=parse_results, bid_package=bid_package)
+            self.validation_errors.extend(self.checks.validation_errors)
+            return self.validation_errors
         except Exception as error:
             logger.exception("Unexpected error during validation.")
             self.debug_write("".join(traceback.format_exception(error)), 0)
@@ -59,6 +63,7 @@ class CollatedValidator:
 class Checks:
     def __init__(self, debug_fp: TextIOWrapper | None = None) -> None:
         self.debug_fp = debug_fp
+        self.validation_errors: list[ValidationError] = []
 
     def debug_write(self, value: str, indent_level: int = 0):
         if self.debug_fp is not None:
