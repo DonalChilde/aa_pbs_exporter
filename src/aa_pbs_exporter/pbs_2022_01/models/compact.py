@@ -207,6 +207,11 @@ class PackageBrowser:
             yield dutyperiod.layover
 
 
+class Stats:
+    # TODO usd this class to generate stats
+    pass
+
+
 def save_json(
     file_out: Path,
     bid_package: BidPackage,
