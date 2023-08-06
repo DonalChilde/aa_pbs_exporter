@@ -72,6 +72,18 @@ def test_three_pages(test_app_data_dir: Path, logger: Logger):
     )
 
 
+def test_transportation_no_phone(test_app_data_dir: Path, logger: Logger):
+    file_stem = "transportation_no_phone"
+    job_name = "transportation_no_phone"
+
+    worker_parse(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        job_name=job_name,
+    )
+
+
 @pytest.mark.slow
 def test_small_package(test_app_data_dir: Path, logger: Logger):
     file_stem = "PBS_DCA_May_2022_20220408124308"

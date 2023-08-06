@@ -1,0 +1,3145 @@
+{
+  "uuid": "62225fd5-1b0f-5632-b177-373e532bb2e8",
+  "source": {
+    "file_path": "tests.aa_pbs_exporter.resources.extracted_txt.three_pages.txt",
+    "file_hash": "a5388552d240dd2d9961ea64b01c3124",
+    "hash_method": "md5"
+  },
+  "pages": [
+    {
+      "uuid": "434e6717-8a79-5edf-bc05-95a929c91232",
+      "base": "MIA",
+      "satellite_base": "",
+      "equipment": "777",
+      "division": "INTL",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "5ee569b7-5e0e-5490-b11f-cf92c0359249",
+          "number": "952",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT11280S",
+          "synth": "PT10320S",
+          "total_pay": "PT21600S",
+          "tafb": "PT35520S",
+          "dutyperiods": [
+            {
+              "uuid": "28fea612-e695-566b-84ee-509a43ba7ba3",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11280S",
+              "synth": "PT10320S",
+              "total_pay": "PT21600S",
+              "duty": "PT35520S",
+              "flight_duty": "PT14880S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "55ab3bea-4440-5284-9ab4-bca73f7912e5",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT8520S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "2fd5bff5-165a-500b-826a-69d591995368",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-09",
+            "2022-05-10"
+          ]
+        },
+        {
+          "uuid": "5047c46e-f825-5324-b61a-a57716146ab1",
+          "number": "953",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT11280S",
+          "synth": "PT10320S",
+          "total_pay": "PT21600S",
+          "tafb": "PT35520S",
+          "dutyperiods": [
+            {
+              "uuid": "5ae6fb4d-1dab-581e-bd85-d508e7b645b2",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11280S",
+              "synth": "PT10320S",
+              "total_pay": "PT21600S",
+              "duty": "PT35520S",
+              "flight_duty": "PT14880S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "24caf92c-dd04-56b9-bd7b-b656a7acd6a3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT8520S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "301bd6a7-27ac-57bc-8000-a099f15da4a1",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-12",
+            "2022-05-13"
+          ]
+        },
+        {
+          "uuid": "6b0dbdf5-22d1-5f23-8039-d997918f5f97",
+          "number": "954",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT11280S",
+          "synth": "PT10320S",
+          "total_pay": "PT21600S",
+          "tafb": "PT35520S",
+          "dutyperiods": [
+            {
+              "uuid": "0010279b-99ef-55c2-bf88-34b342ae8754",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11280S",
+              "synth": "PT10320S",
+              "total_pay": "PT21600S",
+              "duty": "PT35520S",
+              "flight_duty": "PT14880S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "cd171bf9-916b-5cf6-af45-9eeaa88905e2",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT8520S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "fe7dd6d7-1fd0-5ec9-ae9b-cce2f3c2aa0e",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-17",
+            "2022-05-18",
+            "2022-05-21"
+          ]
+        },
+        {
+          "uuid": "c808ecf2-f3d4-5d99-9e00-61c94874e7f3",
+          "number": "955",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21180S",
+          "synth": "PT17640S",
+          "total_pay": "PT38820S",
+          "tafb": "P1DT49500S",
+          "dutyperiods": [
+            {
+              "uuid": "1fd7d41b-376e-5b93-b5ef-b398e5e2699e",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "DFW",
+              "block": "PT11280S",
+              "synth": "PT0S",
+              "total_pay": "PT11280S",
+              "duty": "PT16680S",
+              "flight_duty": "PT14880S",
+              "layover": {
+                "uuid": "0c5f8586-17a8-5157-92c7-31a72cf1f93b",
+                "odl": "P1DT17520S",
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "e1ff5531-cc5e-55b0-822f-3267e3373857",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "c691177d-d8ba-5353-a6da-4e384ac3e3ed",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "925b372a-8836-53a1-b9b2-116c6ad954b3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "c644bde5-cb3c-5208-aa8e-7ba26ba76c2d",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT9900S",
+              "synth": "PT0S",
+              "total_pay": "PT9900S",
+              "duty": "PT15300S",
+              "flight_duty": "PT13500S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "3e252546-db4f-5c15-9ee0-369d95f93ed7",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "1536",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT9900S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-22",
+            "2022-05-23",
+            "2022-05-25",
+            "2022-05-26",
+            "2022-05-28"
+          ]
+        },
+        {
+          "uuid": "5b834892-c70e-529a-960a-592bc9e1ca47",
+          "number": "956",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT11280S",
+          "synth": "PT10320S",
+          "total_pay": "PT21600S",
+          "tafb": "PT35520S",
+          "dutyperiods": [
+            {
+              "uuid": "6c51fe28-ce2a-5b57-bee9-4206428da3cd",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11280S",
+              "synth": "PT10320S",
+              "total_pay": "PT21600S",
+              "duty": "PT35520S",
+              "flight_duty": "PT14880S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "d078017b-6ad1-57dc-a493-b200d01f1479",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT8520S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "5179d226-5854-5458-ab2b-777347f7bf1b",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-24",
+            "2022-05-29"
+          ]
+        },
+        {
+          "uuid": "389b391b-0a2d-5c2a-8e1c-c6a741e6dbea",
+          "number": "957",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21180S",
+          "synth": "PT17640S",
+          "total_pay": "PT38820S",
+          "tafb": "P1DT49500S",
+          "dutyperiods": [
+            {
+              "uuid": "791a1afd-202c-52d7-9771-e006e989873c",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "DFW",
+              "block": "PT11280S",
+              "synth": "PT0S",
+              "total_pay": "PT11280S",
+              "duty": "PT16680S",
+              "flight_duty": "PT14880S",
+              "layover": {
+                "uuid": "bd1b48b5-f6fc-546c-8f57-ab8841bdacf9",
+                "odl": "P1DT17520S",
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "15b08307-7f0b-5061-8891-35421465c836",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "4114bcf2-8639-5dc5-a6f8-48e5eb2e1065",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "bd28cfad-d6d7-5722-bd54-e8b846867f59",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "1470258f-0c15-5602-8331-3e5e1096711c",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT9900S",
+              "synth": "PT0S",
+              "total_pay": "PT9900S",
+              "duty": "PT15300S",
+              "flight_duty": "PT13500S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "e23646e2-4993-50a7-b5c0-f4cc8195627c",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "1536",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT9900S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-30",
+            "2022-06-01"
+          ]
+        },
+        {
+          "uuid": "a05dffb7-7cf5-5bb1-811c-85a5ad3438d7",
+          "number": "958",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT30840S",
+          "synth": "PT10320S",
+          "total_pay": "PT41160S",
+          "tafb": "P1DT31020S",
+          "dutyperiods": [
+            {
+              "uuid": "0e1e8354-f999-5773-9688-6aab4d73702f",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20280S",
+              "synth": "PT0S",
+              "total_pay": "PT20280S",
+              "duty": "PT25680S",
+              "flight_duty": "PT23880S",
+              "layover": {
+                "uuid": "bcea977d-8d0a-5be0-80ec-9c4e19071a29",
+                "odl": "PT59820S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "b96a0b7f-ee3b-54d4-8638-480bcc795a1d",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "29af1462-9651-5689-89e5-65d7b9046fc4",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "c7ed8f17-3bcb-537e-8acc-98d7dc6840c7",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "82",
+                  "number": "1606",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "f0780a71-168b-5027-8786-23951a9b1270",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT10560S",
+              "synth": "PT10320S",
+              "total_pay": "PT20880S",
+              "duty": "PT31920S",
+              "flight_duty": "PT14160S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "28cba782-3621-58b9-88a8-5ad4c9a201fb",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "459",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT5640S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "af82066f-9536-5997-81fb-8a09c08517a8",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-21",
+            "2022-05-22"
+          ]
+        },
+        {
+          "uuid": "216b9423-b28f-587b-87d8-07b6177a0385",
+          "number": "959",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT30840S",
+          "synth": "PT10320S",
+          "total_pay": "PT41160S",
+          "tafb": "P1DT31020S",
+          "dutyperiods": [
+            {
+              "uuid": "e2234b7b-5249-59b0-bec4-0cfffb4d99d1",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20280S",
+              "synth": "PT0S",
+              "total_pay": "PT20280S",
+              "duty": "PT25680S",
+              "flight_duty": "PT23880S",
+              "layover": {
+                "uuid": "0af61165-6e6b-504b-b382-aa50b17d8b45",
+                "odl": "PT59820S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "0c78f51a-669b-5cd7-9397-b5e9b5b3803a",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "093fc4b7-ef7e-508f-b70a-8b4c2b3738a2",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "5f79fb4a-e65a-554d-9092-1d1c9b341d06",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "82",
+                  "number": "1606",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "1acc5fac-5757-5533-be74-901199deaf8c",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT10560S",
+              "synth": "PT10320S",
+              "total_pay": "PT20880S",
+              "duty": "PT31920S",
+              "flight_duty": "PT14160S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "aa010c4c-251f-521f-b344-9d09996010d1",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "459",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT5640S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "baad607a-916e-526e-8401-1a8520436a15",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-24",
+            "2022-05-25",
+            "2022-05-27",
+            "2022-05-29",
+            "2022-05-30"
+          ]
+        }
+      ],
+      "number": "1419"
+    },
+    {
+      "uuid": "7bba3f44-7062-53bb-bf5f-6f58e85a0252",
+      "base": "MIA",
+      "satellite_base": "",
+      "equipment": "777",
+      "division": "INTL",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "a04cc6c4-106f-58b2-90fb-23aeb74e39a9",
+          "number": "1002",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT37860S",
+          "synth": "PT18840S",
+          "total_pay": "PT56700S",
+          "tafb": "P1DT48600S",
+          "dutyperiods": [
+            {
+              "uuid": "a577cff6-cb7e-5911-9f2c-d4f0713ae873",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "16:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "16:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "20:09:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "23:09:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20340S",
+              "synth": "PT0S",
+              "total_pay": "PT20340S",
+              "duty": "PT25740S",
+              "flight_duty": "PT23940S",
+              "layover": {
+                "uuid": "41e9b85c-0576-5505-adca-3684a2e90248",
+                "odl": "PT86340S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "10d307f8-96bf-556d-bb24-7c4414bb3658",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "7fa4e373-e9f3-5170-ba0c-0d586b66299c",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "0b3e2c9a-850a-5759-87cc-a0ad4fc36ce8",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "446",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "17:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "17:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "19:39:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "22:39:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20340S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "cf59a074-a95d-5470-a7aa-543c06db5a6d",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "20:08:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "23:08:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "05:30:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "05:30:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT17520S",
+              "synth": "PT0S",
+              "total_pay": "PT17520S",
+              "duty": "PT22920S",
+              "flight_duty": "PT21120S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "03ef215b-838d-505e-b8af-c9ef361f2a46",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "83",
+                  "number": "340",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "21:08:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "00:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "05:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "05:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT17520S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-02"
+          ]
+        },
+        {
+          "uuid": "6610c7d5-77b6-55a2-b202-80776336119f",
+          "number": "1003",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21840S",
+          "synth": "PT15960S",
+          "total_pay": "PT37800S",
+          "tafb": "PT72360S",
+          "dutyperiods": [
+            {
+              "uuid": "bcdd59a9-8461-5efc-aee7-d95316c2386a",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "16:33:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "16:33:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "20:58:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "20:58:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "JFK",
+              "block": "PT10500S",
+              "synth": "PT0S",
+              "total_pay": "PT10500S",
+              "duty": "PT15900S",
+              "flight_duty": "PT14100S",
+              "layover": {
+                "uuid": "324e8dd0-c68a-5797-b833-4849cc16e8de",
+                "odl": "PT39720S",
+                "city": "JFK",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "a237e23a-1cc0-58e7-9967-6f48cc2ba36c",
+                      "name": "JFK CTD MARRIOTT",
+                      "phone": "17188482121"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "b49a3340-d332-5f29-8be0-5bbe65d07665",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "efdb133e-590b-5533-8b95-b735a57b6cca",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "2174",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "17:33:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "17:33:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "JFK",
+                  "arrival": {
+                    "lcl": {
+                      "time": "20:28:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "20:28:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10500S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "aa8d9201-9102-557e-b422-ba87bcdc7233",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "08:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "08:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "JFK",
+              "release": {
+                "lcl": {
+                  "time": "12:39:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "12:39:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11340S",
+              "synth": "PT0S",
+              "total_pay": "PT11340S",
+              "duty": "PT16740S",
+              "flight_duty": "PT14940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "a6f1adf7-988d-5321-953a-92b32927c7dd",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "554",
+                  "deadhead": false,
+                  "departure_station": "JFK",
+                  "departure": {
+                    "lcl": {
+                      "time": "09:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "09:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:09:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "12:09:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11340S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-04"
+          ]
+        },
+        {
+          "uuid": "38048463-2c92-5793-a4e9-2c213931c8d6",
+          "number": "1004",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT17520S",
+          "synth": "PT20280S",
+          "total_pay": "PT37800S",
+          "tafb": "P1DT44700S",
+          "dutyperiods": [
+            {
+              "uuid": "952d8088-0d8f-5a30-b486-52227e42d942",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:20:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:20:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "13:57:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "13:57:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "CLT",
+              "block": "PT7620S",
+              "synth": "PT0S",
+              "total_pay": "PT7620S",
+              "duty": "PT13020S",
+              "flight_duty": "PT11220S",
+              "layover": {
+                "uuid": "fa06eba2-91c2-5a36-af16-1e33157736bb",
+                "odl": "PT82680S",
+                "city": "CLT",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "be865f49-a1c0-577a-a1f2-e3d14480e6bd",
+                      "name": "DOUBLETREE DOWNTOWN",
+                      "phone": "17043470070"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "85ab4a9c-c5a4-5b66-94cc-8e616f48b705",
+                        "name": "EXECUTIVE CAR",
+                        "phone": "7045252191"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "27a2e7a1-355b-519d-9ef7-23432768dc0d",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "2870",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:20:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:20:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:27:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "13:27:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT7620S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "ab56d745-bd2a-55b7-8beb-ffea33f59004",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "12:55:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "12:55:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "CLT",
+              "release": {
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT9900S",
+              "synth": "PT10440S",
+              "total_pay": "PT20340S",
+              "duty": "PT35400S",
+              "flight_duty": "PT33600S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "096a5e1d-988d-557b-815a-047cedb9cc01",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "553",
+                  "deadhead": true,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": {
+                      "time": "13:25:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "13:25:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "15:19:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "16:19:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10440S",
+                  "ground": "PT11460S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "4a9ef4b3-d6cd-5682-a8fd-f4cc97be2f2d",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "1536",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT9900S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-05"
+          ]
+        }
+      ],
+      "number": "1422"
+    },
+    {
+      "uuid": "fb9d03e1-83a8-5589-b1cb-e2ef5277455e",
+      "base": "MIA",
+      "satellite_base": "",
+      "equipment": "777",
+      "division": "INTL",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "c00f8c5a-0dd8-5fa0-9f6c-9de295d6b765",
+          "number": "1005",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT8220S",
+          "synth": "PT10680S",
+          "total_pay": "PT18900S",
+          "tafb": "PT29100S",
+          "dutyperiods": [
+            {
+              "uuid": "0a16b51f-9c59-5818-aa9f-cd2196a8a461",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "11:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "11:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "19:20:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "19:20:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT8220S",
+              "synth": "PT7260S",
+              "total_pay": "PT15480S",
+              "duty": "PT29100S",
+              "flight_duty": "PT11820S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "9f1f22eb-f2a6-50dd-9ef5-15e60e87a4ba",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "435",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "12:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "12:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "lcl": {
+                      "time": "14:32:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "14:32:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT8220S",
+                  "synth": "PT0S",
+                  "ground": "PT8220S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "40fd6f6d-200f-5525-a87d-caf8644c1918",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "45",
+                  "number": "2358",
+                  "deadhead": true,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "lcl": {
+                      "time": "16:49:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "16:49:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:50:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:50:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT7260S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-05"
+          ]
+        },
+        {
+          "uuid": "e104d5c0-a52c-547a-842a-6eba70908ab4",
+          "number": "1006",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21420S",
+          "synth": "PT16380S",
+          "total_pay": "PT37800S",
+          "tafb": "P1DT44340S",
+          "dutyperiods": [
+            {
+              "uuid": "d5eb2525-a52b-55b6-a93e-31cc30ceefc7",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "DFW",
+              "block": "PT11280S",
+              "synth": "PT0S",
+              "total_pay": "PT11280S",
+              "duty": "PT16680S",
+              "flight_duty": "PT14880S",
+              "layover": {
+                "uuid": "1853ce57-a5d9-51d9-9810-f1cf82ca76d4",
+                "odl": "P1DT12120S",
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "3ac7e127-321c-5ef1-a768-bbbeaaea03f4",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "25432bec-8fd1-5126-955f-817809b505c0",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "8f8896eb-d9fb-5ce2-aa08-f366d491ff11",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "4561c819-5a2f-5290-8b24-271504f984c9",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "16:00:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "17:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": {
+                  "time": "21:19:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "21:19:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT10140S",
+              "synth": "PT0S",
+              "total_pay": "PT10140S",
+              "duty": "PT15540S",
+              "flight_duty": "PT13740S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "ab80be19-a459-58ad-a5b4-a770d4f19f20",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "1536",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "17:00:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "18:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "20:49:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "20:49:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10140S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-06"
+          ]
+        },
+        {
+          "uuid": "0c841350-961e-5aaf-8a6a-1fd857b1d981",
+          "number": "1007",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT11280S",
+          "synth": "PT10320S",
+          "total_pay": "PT21600S",
+          "tafb": "PT35520S",
+          "dutyperiods": [
+            {
+              "uuid": "cdbfd425-d0de-5228-b8fb-a08a002e462d",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT11280S",
+              "synth": "PT10320S",
+              "total_pay": "PT21600S",
+              "duty": "PT35520S",
+              "flight_duty": "PT14880S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "0240ac22-882e-561b-bd30-96b94a694dbf",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT8520S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "010695bc-91bb-5b0f-9e9d-b84ee773f973",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-07"
+          ]
+        },
+        {
+          "uuid": "4f5364bf-6d15-5135-948c-4db3d1417291",
+          "number": "1008",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT30840S",
+          "synth": "PT10320S",
+          "total_pay": "PT41160S",
+          "tafb": "P1DT31020S",
+          "dutyperiods": [
+            {
+              "uuid": "d2629d26-e1d1-575a-976d-6806372db223",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20280S",
+              "synth": "PT0S",
+              "total_pay": "PT20280S",
+              "duty": "PT25680S",
+              "flight_duty": "PT23880S",
+              "layover": {
+                "uuid": "3f556b49-8483-5e6a-8975-1e9304fa136b",
+                "odl": "PT59820S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "343cc602-2868-52dc-bcb6-acdbd8f49345",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "2b677b87-4958-5070-876e-58af328db58c",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "1b53be64-5313-56e5-8c1d-cf07f86a6a03",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "82",
+                  "number": "1606",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "e88631a7-6fd2-582f-9f8f-b151d7f59a51",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT10560S",
+              "synth": "PT10320S",
+              "total_pay": "PT20880S",
+              "duty": "PT31920S",
+              "flight_duty": "PT14160S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "981a6a99-dded-509f-9b7e-d9ab04f8bf53",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "459",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT5640S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "83d2c98d-18c7-5dcf-a62e-16e6de94f41c",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-07"
+          ]
+        },
+        {
+          "uuid": "27e7ee1b-e50e-568d-8bd0-05ea5e786aed",
+          "number": "1009",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21180S",
+          "synth": "PT17640S",
+          "total_pay": "PT38820S",
+          "tafb": "P1DT49500S",
+          "dutyperiods": [
+            {
+              "uuid": "08a88e24-4d42-565f-b377-041218480675",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "09:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "12:38:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "13:38:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "DFW",
+              "block": "PT11280S",
+              "synth": "PT0S",
+              "total_pay": "PT11280S",
+              "duty": "PT16680S",
+              "flight_duty": "PT14880S",
+              "layover": {
+                "uuid": "b97572d5-77f8-5bf9-ac16-34afb8068b37",
+                "odl": "P1DT17520S",
+                "city": "DFW",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "bd7fa080-18b0-5a55-9697-a86dbedb1b3f",
+                      "name": "COURTYARD BLACKSTONE FTW",
+                      "phone": "18178858700"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "28c991fa-b226-5223-a011-d35938388a0e",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "9f579d60-74e1-504f-917e-7c158368312e",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "83",
+                  "number": "1744",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "10:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:08:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:08:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT11280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "9f0e3864-59f9-59a5-bf44-d8f3aadd2387",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "17:30:00",
+                  "tz_name": "America/Chicago"
+                },
+                "hbt": {
+                  "time": "18:30:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "DFW",
+              "release": {
+                "lcl": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "22:45:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT9900S",
+              "synth": "PT0S",
+              "total_pay": "PT9900S",
+              "duty": "PT15300S",
+              "flight_duty": "PT13500S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "e5b60d12-7a76-5dc6-bfc8-0e165a10586a",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "1536",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "18:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "19:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "22:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT9900S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-08"
+          ]
+        },
+        {
+          "uuid": "8915b7f7-7ffd-5e7d-ac2a-8802b56d583d",
+          "number": "1010",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT37620S",
+          "synth": "PT19080S",
+          "total_pay": "PT56700S",
+          "tafb": "P1DT77040S",
+          "dutyperiods": [
+            {
+              "uuid": "2b6b2e69-312b-5355-8e33-bd4d166c4d38",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20280S",
+              "synth": "PT0S",
+              "total_pay": "PT20280S",
+              "duty": "PT25680S",
+              "flight_duty": "PT23880S",
+              "layover": {
+                "uuid": "d759dcfc-a317-5121-b315-2049734f276d",
+                "odl": "P1DT28620S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "0ac123d6-8fe0-5699-8c90-1c82b1aef719",
+                      "name": "RENAISSANCE LONG BEACH",
+                      "phone": "5624375900"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "95af046f-e62c-5c73-b0ff-7bbdb3c4b59a",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "10e55715-71ad-5c4f-a4f6-ae49454f4ea5",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "82",
+                  "number": "1606",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "28fb7752-c3a1-5dd9-a39d-da6215e2ab8d",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "22:20:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "01:20:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "07:39:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "07:39:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT17340S",
+              "synth": "PT0S",
+              "total_pay": "PT17340S",
+              "duty": "PT22740S",
+              "flight_duty": "PT20940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "ea6b8e3d-4a82-514e-9376-fe2e90b5622e",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/3",
+                  "eq_code": "82",
+                  "number": "780",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "23:20:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "02:20:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "D",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "07:09:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "07:09:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT17340S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-08"
+          ]
+        },
+        {
+          "uuid": "81c7d9b0-33cd-58cc-8bfc-e6ec5aded53a",
+          "number": "1011",
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT30840S",
+          "synth": "PT10320S",
+          "total_pay": "PT41160S",
+          "tafb": "P1DT31020S",
+          "dutyperiods": [
+            {
+              "uuid": "18d18e63-deca-5870-ba85-546ff72bdd72",
+              "idx": 1,
+              "report": {
+                "lcl": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "10:15:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "MIA",
+              "release": {
+                "lcl": {
+                  "time": "14:23:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "17:23:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "LAX",
+              "block": "PT20280S",
+              "synth": "PT0S",
+              "total_pay": "PT20280S",
+              "duty": "PT25680S",
+              "flight_duty": "PT23880S",
+              "layover": {
+                "uuid": "9395b995-86c3-5ddc-b03c-ecf7b91ea9ed",
+                "odl": "PT59820S",
+                "city": "LAX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "eee17290-b6f0-5dbd-8f0a-9beea0068a0a",
+                      "name": "THE AYRES",
+                      "phone": "13105360400"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "27228425-0d2d-5f1e-babc-76ade4f252cf",
+                        "name": "SKYHOP GLOBAL",
+                        "phone": "9544000412"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "47137f45-6c2d-5951-9d02-7a39aee1715e",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "82",
+                  "number": "1606",
+                  "deadhead": false,
+                  "departure_station": "MIA",
+                  "departure": {
+                    "lcl": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "11:15:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "lcl": {
+                      "time": "13:53:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "16:53:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT20280S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "75c99d43-3742-580d-bd13-f1358b5b86e1",
+              "idx": 2,
+              "report": {
+                "lcl": {
+                  "time": "07:00:00",
+                  "tz_name": "America/Los_Angeles"
+                },
+                "hbt": {
+                  "time": "10:00:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "report_station": "LAX",
+              "release": {
+                "lcl": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                },
+                "hbt": {
+                  "time": "18:52:00",
+                  "tz_name": "America/New_York"
+                }
+              },
+              "release_station": "MIA",
+              "block": "PT10560S",
+              "synth": "PT10320S",
+              "total_pay": "PT20880S",
+              "duty": "PT31920S",
+              "flight_duty": "PT14160S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "b1e2bbdc-d43c-5a22-b08a-51e0fd962391",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "83",
+                  "number": "459",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "lcl": {
+                      "time": "08:00:00",
+                      "tz_name": "America/Los_Angeles"
+                    },
+                    "hbt": {
+                      "time": "11:00:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "lcl": {
+                      "time": "12:56:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "13:56:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT5640S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "baa91313-ce0f-592f-b1b7-063caaab5b0b",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "26",
+                  "number": "671",
+                  "deadhead": true,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "lcl": {
+                      "time": "14:30:00",
+                      "tz_name": "America/Chicago"
+                    },
+                    "hbt": {
+                      "time": "15:30:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "meal": "",
+                  "arrival_station": "MIA",
+                  "arrival": {
+                    "lcl": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    },
+                    "hbt": {
+                      "time": "18:22:00",
+                      "tz_name": "America/New_York"
+                    }
+                  },
+                  "block": "PT0S",
+                  "synth": "PT10320S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ],
+          "start_dates": [
+            "2022-05-10"
+          ]
+        }
+      ],
+      "number": "1423"
+    }
+  ]
+}

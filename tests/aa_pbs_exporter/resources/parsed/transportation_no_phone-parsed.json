@@ -1,0 +1,2516 @@
+{
+  "metadata": {
+    "source": {
+      "file_path": "tests.aa_pbs_exporter.resources.extracted_txt.transportation_no_phone.txt",
+      "file_hash": "a85693b97d57964d01dcc8a3c8d9b3ed",
+      "hash_method": "md5"
+    }
+  },
+  "data": [
+    {
+      "parse_ident": "PageHeader1",
+      "parsed_data": {},
+      "source": {
+        "idx": 1,
+        "txt": "\f   DAY          \u2212\u2212DEPARTURE\u2212\u2212    \u2212\u2212\u2212ARRIVAL\u2212\u2212\u2212                GRND/        REST/\n"
+      }
+    },
+    {
+      "parse_ident": "PageHeader2",
+      "parsed_data": {
+        "from_date": "05/02",
+        "to_date": "06/01"
+      },
+      "source": {
+        "idx": 2,
+        "txt": "DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02\u221206/01\n"
+      }
+    },
+    {
+      "parse_ident": "HeaderSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 3,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "17693",
+        "ops_count": "1",
+        "positions": "CA FO",
+        "operations": "",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 4,
+        "txt": "SEQ 17693   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0731/0731",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 5,
+        "txt": "                RPT 0731/0731                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "63",
+        "flight_number": "397",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0831/0831",
+        "meal": "",
+        "arrival_station": "PHL",
+        "arrival_time": "1245/1145",
+        "block": "3.14",
+        "synth": "0.00",
+        "ground": "3.15",
+        "equipment_change": "X",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 6,
+        "txt": "1  1/1 63  397  DFW 0831/0831    PHL 1245/1145   3.14          3.15X                   \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "63",
+        "flight_number": "1886",
+        "deadhead": "",
+        "departure_station": "PHL",
+        "departure_time": "1600/1500",
+        "meal": "L",
+        "arrival_station": "LAS",
+        "arrival_time": "1814/2014",
+        "block": "5.14",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 7,
+        "txt": "1  1/1 63 1886  PHL 1600/1500  L LAS 1814/2014   5.14                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1829/2029",
+        "block": "8.28",
+        "synth": "0.00",
+        "total_pay": "8.28",
+        "duty": "12.58",
+        "flight_duty": "12.43",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 8,
+        "txt": "                                 RLS 1829/2029   8.28   0.00   8.28  12.58       12.43 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "LAS",
+        "name": "HYATT PLACE LAS VEGAS AT SILVERTON VILL",
+        "phone": "7025756201",
+        "rest": "12.16",
+        "calendar": [
+          "30",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 9,
+        "txt": "                LAS HYATT PLACE LAS VEGAS AT SILVERTON VILL 7025756201     12.16       30 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "WORLDWIDE FLIGHT SERVICES",
+        "phone": "7025912180",
+        "calendar": []
+      },
+      "source": {
+        "idx": 10,
+        "txt": "                    WORLDWIDE FLIGHT SERVICES               7025912180\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0645/0845",
+        "calendar": []
+      },
+      "source": {
+        "idx": 11,
+        "txt": "                RPT 0645/0845\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "63",
+        "flight_number": "654",
+        "deadhead": "",
+        "departure_station": "LAS",
+        "departure_time": "0745/0945",
+        "meal": "B",
+        "arrival_station": "DFW",
+        "arrival_time": "1228/1228",
+        "block": "2.43",
+        "synth": "0.00",
+        "ground": "2.51",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 12,
+        "txt": "2  2/2 63  654  LAS 0745/0945  B DFW 1228/1228   2.43          2.51X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "64",
+        "flight_number": "2223",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1519/1519",
+        "meal": "",
+        "arrival_station": "ORD",
+        "arrival_time": "1745/1745",
+        "block": "2.26",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 13,
+        "txt": "2  2/2 64 2223  DFW 1519/1519    ORD 1745/1745   2.26\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1800/1800",
+        "block": "5.09",
+        "synth": "0.00",
+        "total_pay": "5.09",
+        "duty": "9.15",
+        "flight_duty": "9.00",
+        "calendar": []
+      },
+      "source": {
+        "idx": 14,
+        "txt": "                                 RLS 1800/1800   5.09   0.00   5.09   9.15        9.00\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "ORD",
+        "name": "HILTON O\u2019HARE AIRPORT",
+        "phone": "17736868000",
+        "rest": "12.03",
+        "calendar": []
+      },
+      "source": {
+        "idx": 15,
+        "txt": "                ORD HILTON O\u2019HARE AIRPORT                   17736868000    12.03\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 16,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0603/0603",
+        "calendar": []
+      },
+      "source": {
+        "idx": 17,
+        "txt": "                RPT 0603/0603\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "92",
+        "flight_number": "1872",
+        "deadhead": "",
+        "departure_station": "ORD",
+        "departure_time": "0703/0703",
+        "meal": "B",
+        "arrival_station": "EWR",
+        "arrival_time": "1010/0910",
+        "block": "2.07",
+        "synth": "0.00",
+        "ground": "0.40",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 18,
+        "txt": "3  3/3 92 1872  ORD 0703/0703  B EWR 1010/0910   2.07          0.40\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "92",
+        "flight_number": "1872",
+        "deadhead": "",
+        "departure_station": "EWR",
+        "departure_time": "1050/0950",
+        "meal": "L",
+        "arrival_station": "ORD",
+        "arrival_time": "1235/1235",
+        "block": "2.45",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 19,
+        "txt": "3  3/3 92 1872  EWR 1050/0950  L ORD 1235/1235   2.45\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1250/1250",
+        "block": "4.52",
+        "synth": "0.00",
+        "total_pay": "4.52",
+        "duty": "6.47",
+        "flight_duty": "6.32",
+        "calendar": []
+      },
+      "source": {
+        "idx": 20,
+        "txt": "                                 RLS 1250/1250   4.52   0.00   4.52   6.47        6.32\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "ORD",
+        "name": "CHICAGO MARRIOTT DOWNTOWN MAGNIFICENT M",
+        "phone": "3128360100",
+        "rest": "18.40",
+        "calendar": []
+      },
+      "source": {
+        "idx": 21,
+        "txt": "                ORD CHICAGO MARRIOTT DOWNTOWN MAGNIFICENT M 3128360100     18.40\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "EMPIRE LIMO",
+        "phone": "7737770300",
+        "calendar": []
+      },
+      "source": {
+        "idx": 22,
+        "txt": "                    EMPIRE LIMO                             7737770300\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0730/0730",
+        "calendar": []
+      },
+      "source": {
+        "idx": 23,
+        "txt": "                RPT 0730/0730\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "64",
+        "flight_number": "2882",
+        "deadhead": "",
+        "departure_station": "ORD",
+        "departure_time": "0830/0830",
+        "meal": "L",
+        "arrival_station": "LAX",
+        "arrival_time": "1057/1257",
+        "block": "4.27",
+        "synth": "0.00",
+        "ground": "1.38",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 24,
+        "txt": "4  4/4 64 2882  ORD 0830/0830  L LAX 1057/1257   4.27          1.38X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "26",
+        "flight_number": "2318",
+        "deadhead": "",
+        "departure_station": "LAX",
+        "departure_time": "1235/1435",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "1736/1736",
+        "block": "3.01",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 25,
+        "txt": "4  4/4 26 2318  LAX 1235/1435    DFW 1736/1736   3.01\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1751/1751",
+        "block": "7.28",
+        "synth": "0.00",
+        "total_pay": "7.28",
+        "duty": "10.21",
+        "flight_duty": "10.06",
+        "calendar": []
+      },
+      "source": {
+        "idx": 26,
+        "txt": "                                 RLS 1751/1751   7.28   0.00   7.28  10.21       10.06\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "25.57",
+        "synth": "0.00",
+        "total_pay": "25.57",
+        "tafb": "82.20",
+        "calendar": []
+      },
+      "source": {
+        "idx": 27,
+        "txt": "TTL                                             25.57   0.00  25.57        82.20\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 28,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "17694",
+        "ops_count": "1",
+        "positions": "CA FO",
+        "operations": "",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 29,
+        "txt": "SEQ 17694   1 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0735/0735",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 30,
+        "txt": "                RPT 0735/0735                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "63",
+        "flight_number": "514",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0835/0835",
+        "meal": "",
+        "arrival_station": "CLT",
+        "arrival_time": "1207/1107",
+        "block": "2.32",
+        "synth": "0.00",
+        "ground": "2.33",
+        "equipment_change": "X",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 31,
+        "txt": "1  1/1 63  514  DFW 0835/0835    CLT 1207/1107   2.32          2.33X                   \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "63",
+        "flight_number": "1603",
+        "deadhead": "",
+        "departure_station": "CLT",
+        "departure_time": "1440/1340",
+        "meal": "L",
+        "arrival_station": "SAN",
+        "arrival_time": "1638/1838",
+        "block": "4.58",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 32,
+        "txt": "1  1/1 63 1603  CLT 1440/1340  L SAN 1638/1838   4.58                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1653/1853",
+        "block": "7.30",
+        "synth": "0.00",
+        "total_pay": "7.30",
+        "duty": "11.18",
+        "flight_duty": "11.03",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 33,
+        "txt": "                                 RLS 1653/1853   7.30   0.00   7.30  11.18       11.03 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "SAN",
+        "name": "WESTGATE HOTEL",
+        "phone": "16192381818",
+        "rest": "18.55",
+        "calendar": [
+          "30",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 34,
+        "txt": "                SAN WESTGATE HOTEL                          16192381818    18.55       30 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 35,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "1148/1348",
+        "calendar": []
+      },
+      "source": {
+        "idx": 36,
+        "txt": "                RPT 1148/1348\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "63",
+        "flight_number": "1955",
+        "deadhead": "",
+        "departure_station": "SAN",
+        "departure_time": "1248/1448",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "1746/1746",
+        "block": "2.58",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 37,
+        "txt": "2  2/2 63 1955  SAN 1248/1448    DFW 1746/1746   2.58\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1801/1801",
+        "block": "2.58",
+        "synth": "0.00",
+        "total_pay": "2.58",
+        "duty": "4.13",
+        "flight_duty": "3.58",
+        "calendar": []
+      },
+      "source": {
+        "idx": 38,
+        "txt": "                                 RLS 1801/1801   2.58   0.00   2.58   4.13        3.58\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "10.28",
+        "synth": "0.02",
+        "total_pay": "10.30",
+        "tafb": "34.26",
+        "calendar": []
+      },
+      "source": {
+        "idx": 39,
+        "txt": "TTL                                             10.28   0.02  10.30        34.26\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 40,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "17695",
+        "ops_count": "1",
+        "positions": "CA FO",
+        "operations": "SPANISH",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 41,
+        "txt": "SEQ 17695   1 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0744/0744",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 42,
+        "txt": "                RPT 0744/0744                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "91",
+        "flight_number": "1263",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0844/0844",
+        "meal": "",
+        "arrival_station": "BJX",
+        "arrival_time": "1112/1112",
+        "block": "2.28",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 43,
+        "txt": "1  1/1 91 1263  DFW 0844/0844    BJX 1112/1112   2.28                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1127/1127",
+        "block": "2.28",
+        "synth": "0.00",
+        "total_pay": "2.28",
+        "duty": "3.43",
+        "flight_duty": "3.28",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 44,
+        "txt": "                                 RLS 1127/1127   2.28   0.00   2.28   3.43        3.28 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "BJX",
+        "name": "RADISSON POLIFORUM PLAZA LEON",
+        "phone": "524777100022",
+        "rest": "17.48",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 45,
+        "txt": "                BJX RADISSON POLIFORUM PLAZA LEON           524777100022   17.48       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": [
+          "30",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 46,
+        "txt": "                    SHUTTLE                                                            30 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0515/0515",
+        "calendar": []
+      },
+      "source": {
+        "idx": 47,
+        "txt": "                RPT 0515/0515\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "91",
+        "flight_number": "2263",
+        "deadhead": "",
+        "departure_station": "BJX",
+        "departure_time": "0615/0615",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "0852/0852",
+        "block": "2.37",
+        "synth": "0.00",
+        "ground": "1.37",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 48,
+        "txt": "2  2/2 91 2263  BJX 0615/0615    DFW 0852/0852   2.37          1.37X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "2838",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1029/1029",
+        "meal": "B",
+        "arrival_station": "LIT",
+        "arrival_time": "1141/1141",
+        "block": "1.12",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 49,
+        "txt": "2  2/2 92 2838  DFW 1029/1029  B LIT 1141/1141   1.12\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1156/1156",
+        "block": "3.49",
+        "synth": "0.00",
+        "total_pay": "3.49",
+        "duty": "6.41",
+        "flight_duty": "6.26",
+        "calendar": []
+      },
+      "source": {
+        "idx": 50,
+        "txt": "                                 RLS 1156/1156   3.49   0.00   3.49   6.41        6.26\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "LIT",
+        "name": "LITTLE ROCK MARRIOTT",
+        "phone": "5019064000",
+        "rest": "18.08",
+        "calendar": []
+      },
+      "source": {
+        "idx": 51,
+        "txt": "                LIT LITTLE ROCK MARRIOTT                    5019064000     18.08\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 52,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0604/0604",
+        "calendar": []
+      },
+      "source": {
+        "idx": 53,
+        "txt": "                RPT 0604/0604\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "63",
+        "flight_number": "1772",
+        "deadhead": "",
+        "departure_station": "LIT",
+        "departure_time": "0704/0704",
+        "meal": "B",
+        "arrival_station": "CLT",
+        "arrival_time": "1006/0906",
+        "block": "2.02",
+        "synth": "0.00",
+        "ground": "1.39",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 54,
+        "txt": "3  3/3 63 1772  LIT 0704/0704  B CLT 1006/0906   2.02          1.39X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "63",
+        "flight_number": "2651",
+        "deadhead": "",
+        "departure_station": "CLT",
+        "departure_time": "1145/1045",
+        "meal": "L",
+        "arrival_station": "SFO",
+        "arrival_time": "1427/1627",
+        "block": "5.42",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 55,
+        "txt": "3  3/3 63 2651  CLT 1145/1045  L SFO 1427/1627   5.42\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1442/1642",
+        "block": "7.44",
+        "synth": "0.00",
+        "total_pay": "7.44",
+        "duty": "10.38",
+        "flight_duty": "10.23",
+        "calendar": []
+      },
+      "source": {
+        "idx": 56,
+        "txt": "                                 RLS 1442/1642   7.44   0.00   7.44  10.38       10.23\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "SFO",
+        "name": "WESTIN SFO AIRPORT",
+        "phone": "16506923500",
+        "rest": "14.18",
+        "calendar": []
+      },
+      "source": {
+        "idx": 57,
+        "txt": "                SFO WESTIN SFO AIRPORT                      16506923500    14.18\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 58,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0500/0700",
+        "calendar": []
+      },
+      "source": {
+        "idx": 59,
+        "txt": "                RPT 0500/0700\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "64",
+        "flight_number": "1198",
+        "deadhead": "",
+        "departure_station": "SFO",
+        "departure_time": "0600/0800",
+        "meal": "B",
+        "arrival_station": "DFW",
+        "arrival_time": "1134/1134",
+        "block": "3.34",
+        "synth": "0.00",
+        "ground": "1.11",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 60,
+        "txt": "4  4/4 64 1198  SFO 0600/0800  B DFW 1134/1134   3.34          1.11\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "64",
+        "flight_number": "1321",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1245/1245",
+        "meal": "L",
+        "arrival_station": "DEN",
+        "arrival_time": "1349/1449",
+        "block": "2.04",
+        "synth": "0.00",
+        "ground": "0.54",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 61,
+        "txt": "4  4/4 64 1321  DFW 1245/1245  L DEN 1349/1449   2.04          0.54\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "64",
+        "flight_number": "1321",
+        "deadhead": "",
+        "departure_station": "DEN",
+        "departure_time": "1443/1543",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "1749/1749",
+        "block": "2.06",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 62,
+        "txt": "4  4/4 64 1321  DEN 1443/1543    DFW 1749/1749   2.06\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1804/1804",
+        "block": "7.44",
+        "synth": "0.00",
+        "total_pay": "7.44",
+        "duty": "11.04",
+        "flight_duty": "10.49",
+        "calendar": []
+      },
+      "source": {
+        "idx": 63,
+        "txt": "                                 RLS 1804/1804   7.44   0.00   7.44  11.04       10.49\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "21.45",
+        "synth": "1.46",
+        "total_pay": "23.31",
+        "tafb": "82.20",
+        "calendar": []
+      },
+      "source": {
+        "idx": 64,
+        "txt": "TTL                                             21.45   1.46  23.31        82.20\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 65,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "PageFooter",
+      "parsed_data": {
+        "issued": "08APR2022",
+        "effective": "02MAY2022",
+        "base": "DFW",
+        "satelite_base": "",
+        "equipment": "320",
+        "division": "DOM",
+        "page": "587"
+      },
+      "source": {
+        "idx": 67,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               DFW 320  DOM                              PAGE   587\n"
+      }
+    },
+    {
+      "parse_ident": "PageHeader1",
+      "parsed_data": {},
+      "source": {
+        "idx": 69,
+        "txt": "\f   DAY          \u2212\u2212DEPARTURE\u2212\u2212    \u2212\u2212\u2212ARRIVAL\u2212\u2212\u2212                GRND/        REST/\n"
+      }
+    },
+    {
+      "parse_ident": "PageHeader2",
+      "parsed_data": {
+        "from_date": "05/02",
+        "to_date": "06/01"
+      },
+      "source": {
+        "idx": 70,
+        "txt": "DP D/A EQ FLT#  STA DLCL/DHBT ML STA ALCL/AHBT  BLOCK  SYNTH   TPAY   DUTY  TAFB   FDP CALENDAR 05/02\u221206/01\n"
+      }
+    },
+    {
+      "parse_ident": "HeaderSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 71,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "16436",
+        "ops_count": "2",
+        "positions": "CA FO",
+        "operations": "SPANISH",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 72,
+        "txt": "SEQ 16436   2 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0744/0744",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 73,
+        "txt": "                RPT 0744/0744                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "91",
+        "flight_number": "1263",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0844/0844",
+        "meal": "",
+        "arrival_station": "BJX",
+        "arrival_time": "1112/1112",
+        "block": "2.28",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "11",
+          "12",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 74,
+        "txt": "1  1/1 91 1263  DFW 0844/0844    BJX 1112/1112   2.28                                  \u2212\u2212 \u2212\u2212 11 12 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1127/1127",
+        "block": "2.28",
+        "synth": "0.00",
+        "total_pay": "2.28",
+        "duty": "3.43",
+        "flight_duty": "3.28",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 75,
+        "txt": "                                 RLS 1127/1127   2.28   0.00   2.28   3.43        3.28 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "BJX",
+        "name": "RADISSON POLIFORUM PLAZA LEON",
+        "phone": "524777100022",
+        "rest": "17.48",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 76,
+        "txt": "                BJX RADISSON POLIFORUM PLAZA LEON           524777100022   17.48       \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 77,
+        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0515/0515",
+        "calendar": []
+      },
+      "source": {
+        "idx": 78,
+        "txt": "                RPT 0515/0515\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "91",
+        "flight_number": "2263",
+        "deadhead": "",
+        "departure_station": "BJX",
+        "departure_time": "0615/0615",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "0852/0852",
+        "block": "2.37",
+        "synth": "0.00",
+        "ground": "1.47",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 79,
+        "txt": "2  2/2 91 2263  BJX 0615/0615    DFW 0852/0852   2.37          1.47X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "1355",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1039/1039",
+        "meal": "L",
+        "arrival_station": "CUU",
+        "arrival_time": "1136/1236",
+        "block": "1.57",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 80,
+        "txt": "2  2/2 92 1355  DFW 1039/1039  L CUU 1136/1236   1.57\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1151/1251",
+        "block": "4.34",
+        "synth": "0.00",
+        "total_pay": "4.34",
+        "duty": "7.36",
+        "flight_duty": "7.21",
+        "calendar": []
+      },
+      "source": {
+        "idx": 81,
+        "txt": "                                 RLS 1151/1251   4.34   0.00   4.34   7.36        7.21\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "CUU",
+        "name": "HOTEL INFO IN CCI/CREW PORTAL",
+        "phone": "",
+        "rest": "16.59",
+        "calendar": []
+      },
+      "source": {
+        "idx": 82,
+        "txt": "                CUU HOTEL INFO IN CCI/CREW PORTAL                          16.59\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "TRANS INFO IN CCI/CREW PORTAL",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 83,
+        "txt": "                    TRANS INFO IN CCI/CREW PORTAL\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0450/0550",
+        "calendar": []
+      },
+      "source": {
+        "idx": 84,
+        "txt": "                RPT 0450/0550\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "91",
+        "flight_number": "1076",
+        "deadhead": "",
+        "departure_station": "CUU",
+        "departure_time": "0550/0650",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "0852/0852",
+        "block": "2.02",
+        "synth": "0.00",
+        "ground": "1.35",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 85,
+        "txt": "3  3/3 91 1076  CUU 0550/0650    DFW 0852/0852   2.02          1.35X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "29",
+        "flight_number": "1273",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1027/1027",
+        "meal": "L",
+        "arrival_station": "SDF",
+        "arrival_time": "1328/1228",
+        "block": "2.01",
+        "synth": "0.00",
+        "ground": "0.50",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 86,
+        "txt": "3  3/3 29 1273  DFW 1027/1027  L SDF 1328/1228   2.01          0.50\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "29",
+        "flight_number": "1273",
+        "deadhead": "",
+        "departure_station": "SDF",
+        "departure_time": "1418/1318",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "1549/1549",
+        "block": "2.31",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 87,
+        "txt": "3  3/3 29 1273  SDF 1418/1318    DFW 1549/1549   2.31\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1604/1604",
+        "block": "6.34",
+        "synth": "0.00",
+        "total_pay": "6.34",
+        "duty": "10.14",
+        "flight_duty": "9.59",
+        "calendar": []
+      },
+      "source": {
+        "idx": 88,
+        "txt": "                                 RLS 1604/1604   6.34   0.00   6.34  10.14        9.59\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "13.36",
+        "synth": "2.29",
+        "total_pay": "16.05",
+        "tafb": "56.20",
+        "calendar": []
+      },
+      "source": {
+        "idx": 89,
+        "txt": "TTL                                             13.36   2.29  16.05        56.20\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 90,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "16437",
+        "ops_count": "5",
+        "positions": "CA FO",
+        "operations": "SPANISH",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 91,
+        "txt": "SEQ 16437   5 OPS   POSN CA FO                SPANISH OPERATION                        MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0744/0744",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 92,
+        "txt": "                RPT 0744/0744                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "91",
+        "flight_number": "1263",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0844/0844",
+        "meal": "",
+        "arrival_station": "BJX",
+        "arrival_time": "1112/1112",
+        "block": "2.28",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 93,
+        "txt": "1  1/1 91 1263  DFW 0844/0844    BJX 1112/1112   2.28                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1127/1127",
+        "block": "2.28",
+        "synth": "0.00",
+        "total_pay": "2.28",
+        "duty": "3.43",
+        "flight_duty": "3.28",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 94,
+        "txt": "                                 RLS 1127/1127   2.28   0.00   2.28   3.43        3.28 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "BJX",
+        "name": "RADISSON POLIFORUM PLAZA LEON",
+        "phone": "524777100022",
+        "rest": "17.48",
+        "calendar": [
+          "23",
+          "\u2212\u2212",
+          "25",
+          "26",
+          "27",
+          "\u2212\u2212",
+          "29"
+        ]
+      },
+      "source": {
+        "idx": 95,
+        "txt": "                BJX RADISSON POLIFORUM PLAZA LEON           524777100022   17.48       23 \u2212\u2212 25 26 27 \u2212\u2212 29\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 96,
+        "txt": "                    SHUTTLE                                                            \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0515/0515",
+        "calendar": []
+      },
+      "source": {
+        "idx": 97,
+        "txt": "                RPT 0515/0515\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "91",
+        "flight_number": "2263",
+        "deadhead": "",
+        "departure_station": "BJX",
+        "departure_time": "0615/0615",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "0852/0852",
+        "block": "2.37",
+        "synth": "0.00",
+        "ground": "1.47",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 98,
+        "txt": "2  2/2 91 2263  BJX 0615/0615    DFW 0852/0852   2.37          1.47X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "1355",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1039/1039",
+        "meal": "L",
+        "arrival_station": "CUU",
+        "arrival_time": "1136/1236",
+        "block": "1.57",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 99,
+        "txt": "2  2/2 92 1355  DFW 1039/1039  L CUU 1136/1236   1.57\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1151/1251",
+        "block": "4.34",
+        "synth": "0.00",
+        "total_pay": "4.34",
+        "duty": "7.36",
+        "flight_duty": "7.21",
+        "calendar": []
+      },
+      "source": {
+        "idx": 100,
+        "txt": "                                 RLS 1151/1251   4.34   0.00   4.34   7.36        7.21\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "CUU",
+        "name": "HOTEL INFO IN CCI/CREW PORTAL",
+        "phone": "",
+        "rest": "16.59",
+        "calendar": []
+      },
+      "source": {
+        "idx": 101,
+        "txt": "                CUU HOTEL INFO IN CCI/CREW PORTAL                          16.59\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "TRANS INFO IN CCI/CREW PORTAL",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 102,
+        "txt": "                    TRANS INFO IN CCI/CREW PORTAL\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0450/0550",
+        "calendar": []
+      },
+      "source": {
+        "idx": 103,
+        "txt": "                RPT 0450/0550\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "91",
+        "flight_number": "1076",
+        "deadhead": "",
+        "departure_station": "CUU",
+        "departure_time": "0550/0650",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "0852/0852",
+        "block": "2.02",
+        "synth": "0.00",
+        "ground": "1.35",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 104,
+        "txt": "3  3/3 91 1076  CUU 0550/0650    DFW 0852/0852   2.02          1.35X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "29",
+        "flight_number": "1273",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "1027/1027",
+        "meal": "L",
+        "arrival_station": "SDF",
+        "arrival_time": "1328/1228",
+        "block": "2.01",
+        "synth": "0.00",
+        "ground": "0.50",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 105,
+        "txt": "3  3/3 29 1273  DFW 1027/1027  L SDF 1328/1228   2.01          0.50\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "29",
+        "flight_number": "1273",
+        "deadhead": "",
+        "departure_station": "SDF",
+        "departure_time": "1418/1318",
+        "meal": "",
+        "arrival_station": "DFW",
+        "arrival_time": "1549/1549",
+        "block": "2.31",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 106,
+        "txt": "3  3/3 29 1273  SDF 1418/1318    DFW 1549/1549   2.31\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1604/1604",
+        "block": "6.34",
+        "synth": "0.00",
+        "total_pay": "6.34",
+        "duty": "10.14",
+        "flight_duty": "9.59",
+        "calendar": []
+      },
+      "source": {
+        "idx": 107,
+        "txt": "                                 RLS 1604/1604   6.34   0.00   6.34  10.14        9.59\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "13.36",
+        "synth": "2.29",
+        "total_pay": "16.05",
+        "tafb": "56.20",
+        "calendar": []
+      },
+      "source": {
+        "idx": 108,
+        "txt": "TTL                                             13.36   2.29  16.05        56.20\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 109,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "16438",
+        "ops_count": "2",
+        "positions": "CA FO",
+        "operations": "",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 110,
+        "txt": "SEQ 16438   2 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0745/0745",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "5",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 111,
+        "txt": "                RPT 0745/0745                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212  5 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "26",
+        "flight_number": "1550",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0845/0845",
+        "meal": "",
+        "arrival_station": "LAS",
+        "arrival_time": "0941/1141",
+        "block": "2.56",
+        "synth": "0.00",
+        "ground": "0.51",
+        "equipment_change": "",
+        "calendar": [
+          "9",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 112,
+        "txt": "1  1/1 26 1550  DFW 0845/0845    LAS 0941/1141   2.56          0.51                     9 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "26",
+        "flight_number": "1565",
+        "deadhead": "",
+        "departure_station": "LAS",
+        "departure_time": "1032/1232",
+        "meal": "L",
+        "arrival_station": "ORD",
+        "arrival_time": "1614/1614",
+        "block": "3.42",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 113,
+        "txt": "1  1/1 26 1565  LAS 1032/1232  L ORD 1614/1614   3.42                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1629/1629",
+        "block": "6.38",
+        "synth": "0.00",
+        "total_pay": "6.38",
+        "duty": "8.44",
+        "flight_duty": "8.29",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 114,
+        "txt": "                                 RLS 1629/1629   6.38   0.00   6.38   8.44        8.29 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "ORD",
+        "name": "HILTON O\u2019HARE AIRPORT",
+        "phone": "17736868000",
+        "rest": "12.44",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 115,
+        "txt": "                ORD HILTON O\u2019HARE AIRPORT                   17736868000    12.44       \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 116,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0513/0513",
+        "calendar": []
+      },
+      "source": {
+        "idx": 117,
+        "txt": "                RPT 0513/0513\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "598",
+        "deadhead": "",
+        "departure_station": "ORD",
+        "departure_time": "0613/0613",
+        "meal": "B",
+        "arrival_station": "BOS",
+        "arrival_time": "0931/0831",
+        "block": "2.18",
+        "synth": "0.00",
+        "ground": "0.59",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 118,
+        "txt": "2  2/2 92  598  ORD 0613/0613  B BOS 0931/0831   2.18          0.59\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "2146",
+        "deadhead": "",
+        "departure_station": "BOS",
+        "departure_time": "1030/0930",
+        "meal": "",
+        "arrival_station": "DCA",
+        "arrival_time": "1209/1109",
+        "block": "1.39",
+        "synth": "0.00",
+        "ground": "1.51",
+        "equipment_change": "X",
+        "calendar": []
+      },
+      "source": {
+        "idx": 119,
+        "txt": "2  2/2 92 2146  BOS 1030/0930    DCA 1209/1109   1.39          1.51X\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "2",
+        "dep_arr_day": "2/2",
+        "eq_code": "92",
+        "flight_number": "2149",
+        "deadhead": "",
+        "departure_station": "DCA",
+        "departure_time": "1400/1300",
+        "meal": "",
+        "arrival_station": "BOS",
+        "arrival_time": "1540/1440",
+        "block": "1.40",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 120,
+        "txt": "2  2/2 92 2149  DCA 1400/1300    BOS 1540/1440   1.40\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1555/1455",
+        "block": "5.37",
+        "synth": "0.00",
+        "total_pay": "5.37",
+        "duty": "9.42",
+        "flight_duty": "9.27",
+        "calendar": []
+      },
+      "source": {
+        "idx": 121,
+        "txt": "                                 RLS 1555/1455   5.37   0.00   5.37   9.42        9.27\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "BOS",
+        "name": "HILTON GARDEN INN BOS",
+        "phone": "16175676789",
+        "rest": "14.05",
+        "calendar": []
+      },
+      "source": {
+        "idx": 122,
+        "txt": "                BOS HILTON GARDEN INN BOS                   16175676789    14.05\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 123,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0600/0500",
+        "calendar": []
+      },
+      "source": {
+        "idx": 124,
+        "txt": "                RPT 0600/0500\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "63",
+        "flight_number": "1004",
+        "deadhead": "",
+        "departure_station": "BOS",
+        "departure_time": "0700/0600",
+        "meal": "B",
+        "arrival_station": "CLT",
+        "arrival_time": "0929/0829",
+        "block": "2.29",
+        "synth": "0.00",
+        "ground": "1.02",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 125,
+        "txt": "3  3/3 63 1004  BOS 0700/0600  B CLT 0929/0829   2.29          1.02\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "3",
+        "dep_arr_day": "3/3",
+        "eq_code": "63",
+        "flight_number": "2076",
+        "deadhead": "",
+        "departure_station": "CLT",
+        "departure_time": "1031/0931",
+        "meal": "L",
+        "arrival_station": "SLC",
+        "arrival_time": "1245/1345",
+        "block": "4.14",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 126,
+        "txt": "3  3/3 63 2076  CLT 1031/0931  L SLC 1245/1345   4.14\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1300/1400",
+        "block": "6.43",
+        "synth": "0.00",
+        "total_pay": "6.43",
+        "duty": "9.00",
+        "flight_duty": "8.45",
+        "calendar": []
+      },
+      "source": {
+        "idx": 127,
+        "txt": "                                 RLS 1300/1400   6.43   0.00   6.43   9.00        8.45\n"
+      }
+    },
+    {
+      "parse_ident": "Layover",
+      "parsed_data": {
+        "layover_city": "SLC",
+        "name": "HYATT HOUSE SALT LAKE CITY DOWNTOWN",
+        "phone": "18013594020",
+        "rest": "16.00",
+        "calendar": []
+      },
+      "source": {
+        "idx": 128,
+        "txt": "                SLC HYATT HOUSE SALT LAKE CITY DOWNTOWN     18013594020    16.00\n"
+      }
+    },
+    {
+      "parse_ident": "Transportation",
+      "parsed_data": {
+        "name": "SHUTTLE",
+        "phone": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 129,
+        "txt": "                    SHUTTLE\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0500/0600",
+        "calendar": []
+      },
+      "source": {
+        "idx": 130,
+        "txt": "                RPT 0500/0600\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "4",
+        "dep_arr_day": "4/4",
+        "eq_code": "64",
+        "flight_number": "1214",
+        "deadhead": "",
+        "departure_station": "SLC",
+        "departure_time": "0600/0700",
+        "meal": "B",
+        "arrival_station": "DFW",
+        "arrival_time": "0943/0943",
+        "block": "2.43",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": []
+      },
+      "source": {
+        "idx": 131,
+        "txt": "4  4/4 64 1214  SLC 0600/0700  B DFW 0943/0943   2.43\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "0958/0958",
+        "block": "2.43",
+        "synth": "0.00",
+        "total_pay": "2.43",
+        "duty": "3.58",
+        "flight_duty": "3.43",
+        "calendar": []
+      },
+      "source": {
+        "idx": 132,
+        "txt": "                                 RLS 0958/0958   2.43   0.00   2.43   3.58        3.43\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "21.41",
+        "synth": "0.00",
+        "total_pay": "21.41",
+        "tafb": "74.13",
+        "calendar": []
+      },
+      "source": {
+        "idx": 133,
+        "txt": "TTL                                             21.41   0.00  21.41        74.13\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 134,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripHeader",
+      "parsed_data": {
+        "number": "16439",
+        "ops_count": "2",
+        "positions": "CA FO",
+        "operations": "",
+        "qualifications": ""
+      },
+      "source": {
+        "idx": 135,
+        "txt": "SEQ 16439   2 OPS   POSN CA FO                                                         MO TU WE TH FR SA SU\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodReport",
+      "parsed_data": {
+        "report": "0747/0747",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "5",
+          "6",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 136,
+        "txt": "                RPT 0747/0747                                                          \u2212\u2212 \u2212\u2212 \u2212\u2212  5  6 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "64",
+        "flight_number": "2743",
+        "deadhead": "",
+        "departure_station": "DFW",
+        "departure_time": "0847/0847",
+        "meal": "",
+        "arrival_station": "SAN",
+        "arrival_time": "0952/1152",
+        "block": "3.05",
+        "synth": "0.00",
+        "ground": "0.52",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 137,
+        "txt": "1  1/1 64 2743  DFW 0847/0847    SAN 0952/1152   3.05          0.52                    \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "Flight",
+      "parsed_data": {
+        "dutyperiod_idx": "1",
+        "dep_arr_day": "1/1",
+        "eq_code": "64",
+        "flight_number": "2743",
+        "deadhead": "",
+        "departure_station": "SAN",
+        "departure_time": "1044/1244",
+        "meal": "L",
+        "arrival_station": "DFW",
+        "arrival_time": "1539/1539",
+        "block": "2.55",
+        "synth": "0.00",
+        "ground": "0.00",
+        "equipment_change": "",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 138,
+        "txt": "1  1/1 64 2743  SAN 1044/1244  L DFW 1539/1539   2.55                                  \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "DutyPeriodRelease",
+      "parsed_data": {
+        "release": "1554/1554",
+        "block": "6.00",
+        "synth": "0.00",
+        "total_pay": "6.00",
+        "duty": "8.07",
+        "flight_duty": "7.52",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 139,
+        "txt": "                                 RLS 1554/1554   6.00   0.00   6.00   8.07        7.52 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripFooter",
+      "parsed_data": {
+        "block": "6.00",
+        "synth": "0.00",
+        "total_pay": "6.00",
+        "tafb": "8.07",
+        "calendar": [
+          "\u2212\u2212",
+          "\u2212\u2212",
+          "\u2212\u2212"
+        ]
+      },
+      "source": {
+        "idx": 140,
+        "txt": "TTL                                              6.00   0.00   6.00         8.07       \u2212\u2212 \u2212\u2212 \u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "TripSeparator",
+      "parsed_data": {},
+      "source": {
+        "idx": 141,
+        "txt": "\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\u2212\n"
+      }
+    },
+    {
+      "parse_ident": "PageFooter",
+      "parsed_data": {
+        "issued": "08APR2022",
+        "effective": "02MAY2022",
+        "base": "DFW",
+        "satelite_base": "",
+        "equipment": "320",
+        "division": "DOM",
+        "page": "191"
+      },
+      "source": {
+        "idx": 143,
+        "txt": "COCKPIT  ISSUED 08APR2022  EFF 02MAY2022               DFW 320  DOM                              PAGE   191"
+      }
+    }
+  ]
+}

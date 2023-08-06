@@ -1,5 +1,6 @@
 from importlib import resources
 from logging import Logger
+import pytest
 from pathlib import Path
 
 from tests.aa_pbs_exporter.resources import RESOURCE_PATH
@@ -51,7 +52,7 @@ def test_compact_one_page(test_app_data_dir: Path, logger: Logger):
 
 def test_compact_three_pages(test_app_data_dir: Path, logger: Logger):
     file_stem: str = "three_pages"
-    page_count = 1
+    page_count = 3
 
     worker_compact(
         test_app_data_dir=test_app_data_dir,
@@ -61,9 +62,22 @@ def test_compact_three_pages(test_app_data_dir: Path, logger: Logger):
     )
 
 
+def test_compact_transportation_no_phone(test_app_data_dir: Path, logger: Logger):
+    file_stem: str = "transportation_no_phone"
+    page_count = 2
+
+    worker_compact(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        page_count=page_count,
+    )
+
+
+@pytest.mark.slow
 def test_compact_small_package(test_app_data_dir: Path, logger: Logger):
     file_stem: str = "PBS_DCA_May_2022_20220408124308"
-    page_count = 1
+    page_count = 173
 
     worker_compact(
         test_app_data_dir=test_app_data_dir,
@@ -73,9 +87,10 @@ def test_compact_small_package(test_app_data_dir: Path, logger: Logger):
     )
 
 
+@pytest.mark.slow
 def test_compact_large_package(test_app_data_dir: Path, logger: Logger):
     file_stem: str = "PBS_DFW_May_2022_20220408124407"
-    page_count = 1
+    page_count = 920
 
     worker_compact(
         test_app_data_dir=test_app_data_dir,

@@ -57,6 +57,18 @@ def test_collect_three_pages(test_app_data_dir: Path, logger: Logger):
     )
 
 
+def test_transportation_no_phone(test_app_data_dir: Path, logger: Logger):
+    file_stem: str = "transportation_no_phone"
+    page_count = 2
+
+    worker_collect(
+        test_app_data_dir=test_app_data_dir,
+        logger=logger,
+        file_stem=file_stem,
+        page_count=page_count,
+    )
+
+
 def test_collect_small_package(test_app_data_dir: Path, logger: Logger):
     file_stem: str = "PBS_DCA_May_2022_20220408124308"
     page_count = 173
