@@ -1,0 +1,3896 @@
+{
+  "uuid": "563ff75c-aa52-5e01-9a30-07ccf834d3ee",
+  "source": {
+    "file_path": "tests.aa_pbs_exporter.resources.extracted_txt.transportation_no_phone.txt",
+    "file_hash": "a85693b97d57964d01dcc8a3c8d9b3ed",
+    "hash_method": "md5"
+  },
+  "pages": [
+    {
+      "uuid": "434e6717-8a79-5edf-bc05-95a929c91232",
+      "base": "DFW",
+      "satellite_base": "",
+      "equipment": "320",
+      "division": "DOM",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "89a24318-cbaf-5ba7-9735-007e052e7247",
+          "compact_uuid": "6baa244c-dd6d-53c3-a73c-a29b6d2c621f",
+          "number": "17693",
+          "start": {
+            "utc_date": "2022-05-30T12:31:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-06-02T22:51:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "P1DT7020S",
+          "synth": "PT0S",
+          "total_pay": "P1DT7020S",
+          "tafb": "P3DT37200S",
+          "dutyperiods": [
+            {
+              "uuid": "9a61dfe4-cde4-53f6-81e3-4ad0a2c4b0f3",
+              "compact_uuid": "7a9b6bb7-cc2b-5bdd-a0f8-522d740eecba",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-30T12:31:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-31T01:29:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "LAS",
+              "block": "PT30480S",
+              "synth": "PT0S",
+              "total_pay": "PT30480S",
+              "duty": "PT46680S",
+              "flight_duty": "PT45780S",
+              "layover": {
+                "uuid": "dc87b5ff-c4d8-5f71-8c44-65038a8a5783",
+                "odl": "PT44160S",
+                "city": "LAS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "047b7960-644d-58f1-b755-1068d1bd60c3",
+                      "name": "HYATT PLACE LAS VEGAS AT SILVERTON VILL",
+                      "phone": "7025756201"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "7b794f25-7d91-5a5b-a659-16d41b3659dd",
+                        "name": "WORLDWIDE FLIGHT SERVICES",
+                        "phone": "7025912180"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "e66b55f4-d997-5cb0-8aa0-fec0dc9c5fde",
+                  "compact_uuid": "648752cb-7f9d-55b4-9ec3-e9f200172a9b",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "397",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-30T13:31:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "PHL",
+                  "arrival": {
+                    "utc_date": "2022-05-30T16:45:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT11640S",
+                  "synth": "PT0S",
+                  "ground": "PT11700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "39ffddce-921a-5374-8912-6e3bfd614115",
+                  "compact_uuid": "11694ac3-e6bb-5401-8c55-01cb1305f1bc",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "1886",
+                  "deadhead": false,
+                  "departure_station": "PHL",
+                  "departure": {
+                    "utc_date": "2022-05-31T20:00:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "utc_date": "2022-06-01T01:14:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT18840S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "8dfcc3c3-52e6-5a3d-b085-777a538ff573",
+              "compact_uuid": "f4d19430-bea1-526d-9816-906a9f4824c7",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-31T13:45:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "LAS",
+              "release": {
+                "utc_date": "2022-05-31T23:00:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "ORD",
+              "block": "PT18540S",
+              "synth": "PT0S",
+              "total_pay": "PT18540S",
+              "duty": "PT33300S",
+              "flight_duty": "PT32400S",
+              "layover": {
+                "uuid": "db5be8b5-98e4-5045-86a9-52505d8df6a0",
+                "odl": "PT43380S",
+                "city": "ORD",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "06e2d48c-f020-575f-8358-574f3b696d9e",
+                      "name": "HILTON O’HARE AIRPORT",
+                      "phone": "17736868000"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "c503e5dc-a5f4-567d-8a44-35b17aba858e",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "1c24103c-0aaf-5bc6-be71-5d4b794b4553",
+                  "compact_uuid": "1df8312c-afc4-57ee-b556-960736531efd",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "654",
+                  "deadhead": false,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "utc_date": "2022-05-31T14:45:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-31T17:28:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9780S",
+                  "synth": "PT0S",
+                  "ground": "PT10260S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "020d8e4d-08dc-5140-bf79-140ff4f8b766",
+                  "compact_uuid": "9f259843-49d5-5044-b745-3f89ba343403",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "64",
+                  "number": "2223",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-06-01T20:19:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "ORD",
+                  "arrival": {
+                    "utc_date": "2022-06-01T22:45:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT8760S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "5400600c-ab1a-505b-b3eb-f1656acdfb4f",
+              "compact_uuid": "57b0b870-03ce-5978-b9ba-17edaa509f4f",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-06-01T11:03:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "ORD",
+              "release": {
+                "utc_date": "2022-06-01T17:50:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "ORD",
+              "block": "PT17520S",
+              "synth": "PT0S",
+              "total_pay": "PT17520S",
+              "duty": "PT24420S",
+              "flight_duty": "PT23520S",
+              "layover": {
+                "uuid": "cae35096-5773-5d37-af13-28f92f7428d9",
+                "odl": "PT67200S",
+                "city": "ORD",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "7150ad41-bff1-5fed-925d-a7ff85cd5fcd",
+                      "name": "CHICAGO MARRIOTT DOWNTOWN MAGNIFICENT M",
+                      "phone": "3128360100"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5fba3e38-e096-5852-9a7f-c570874ab9e5",
+                        "name": "EMPIRE LIMO",
+                        "phone": "7737770300"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "bfde58d0-e217-5ca4-b5c7-e5a7f59f3471",
+                  "compact_uuid": "fdd8b9d7-ad43-5150-b7bf-b1b8fbd48cce",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "92",
+                  "number": "1872",
+                  "deadhead": false,
+                  "departure_station": "ORD",
+                  "departure": {
+                    "utc_date": "2022-06-01T12:03:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "B",
+                  "arrival_station": "EWR",
+                  "arrival": {
+                    "utc_date": "2022-06-01T14:10:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT7620S",
+                  "synth": "PT0S",
+                  "ground": "PT2400S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "0cd9b88d-2e24-5953-b9ce-eb072c75a7e5",
+                  "compact_uuid": "b7ec1d71-0795-55e4-9d0e-cfa694c8fa80",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "92",
+                  "number": "1872",
+                  "deadhead": false,
+                  "departure_station": "EWR",
+                  "departure": {
+                    "utc_date": "2022-06-02T14:50:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "ORD",
+                  "arrival": {
+                    "utc_date": "2022-06-02T17:35:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9900S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "8444d64c-a7b5-561c-a954-d55591ea8fa4",
+              "compact_uuid": "cd3feeb6-35e9-5725-a576-aea28fe9f0f2",
+              "idx": 4,
+              "report": {
+                "utc_date": "2022-06-02T12:30:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "ORD",
+              "release": {
+                "utc_date": "2022-06-02T22:51:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT26880S",
+              "synth": "PT0S",
+              "total_pay": "PT26880S",
+              "duty": "PT37260S",
+              "flight_duty": "PT36360S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "c9c94f4d-432e-59dc-bf7d-ed65c9ad6e50",
+                  "compact_uuid": "3d32dc3e-c85e-5708-ba76-ef7d23abeef7",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "2882",
+                  "deadhead": false,
+                  "departure_station": "ORD",
+                  "departure": {
+                    "utc_date": "2022-06-02T13:30:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "LAX",
+                  "arrival": {
+                    "utc_date": "2022-06-02T17:57:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT16020S",
+                  "synth": "PT0S",
+                  "ground": "PT5880S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "5c4b9991-59f0-5be4-93a0-1d525dc5ea5b",
+                  "compact_uuid": "b44e9b9f-4724-5100-a4ee-292b64f4aaa2",
+                  "dp_idx": 4,
+                  "idx": 2,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "26",
+                  "number": "2318",
+                  "deadhead": false,
+                  "departure_station": "LAX",
+                  "departure": {
+                    "utc_date": "2022-06-03T19:35:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-06-03T22:36:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT10860S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "5ad69bb4-1d73-5767-adf6-34a227c26284",
+          "compact_uuid": "1f4e4ebb-1e72-5bb9-bd3d-998bfb1d17e7",
+          "number": "17694",
+          "start": {
+            "utc_date": "2022-05-30T12:35:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-31T23:01:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT37680S",
+          "synth": "PT120S",
+          "total_pay": "PT37800S",
+          "tafb": "P1DT37560S",
+          "dutyperiods": [
+            {
+              "uuid": "70e01fc8-b901-5e9f-b9df-105304c09b2f",
+              "compact_uuid": "2d4fa4df-535a-51b5-aa19-3ba9b740c7f9",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-30T12:35:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-30T23:53:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SAN",
+              "block": "PT27000S",
+              "synth": "PT0S",
+              "total_pay": "PT27000S",
+              "duty": "PT40680S",
+              "flight_duty": "PT39780S",
+              "layover": {
+                "uuid": "e3971c25-dfe5-5ade-b85d-8b62dea1b2dd",
+                "odl": "PT68100S",
+                "city": "SAN",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "1a605053-a5fb-5c59-a90a-540b118bb330",
+                      "name": "WESTGATE HOTEL",
+                      "phone": "16192381818"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "a4bc3bcf-ce1b-532d-a42f-e14b4b3312bb",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "9b7558ab-1862-5ab2-92d9-2ccd0b85cd1c",
+                  "compact_uuid": "a5bd872e-0f11-514d-9b9e-2834a8133c11",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "514",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-30T13:35:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "utc_date": "2022-05-30T16:07:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT9120S",
+                  "synth": "PT0S",
+                  "ground": "PT9180S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "586d968c-d84a-5452-849c-d6c321a72e47",
+                  "compact_uuid": "eaebbf2c-a6de-568e-81bb-682218ea4dd1",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "63",
+                  "number": "1603",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "utc_date": "2022-05-31T18:40:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SAN",
+                  "arrival": {
+                    "utc_date": "2022-05-31T23:38:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT17880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "77f13f3a-6d63-5065-b11a-12be34b65125",
+              "compact_uuid": "100d8e29-1c1e-58b7-bb95-9a46dd05d3c3",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-31T18:48:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SAN",
+              "release": {
+                "utc_date": "2022-05-31T23:01:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT10680S",
+              "synth": "PT0S",
+              "total_pay": "PT10680S",
+              "duty": "PT15180S",
+              "flight_duty": "PT14280S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "3d62077c-ba30-5aa4-b4c3-089590a1edbd",
+                  "compact_uuid": "2bd075be-0415-50fe-85ac-e5acd6c8d56a",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "63",
+                  "number": "1955",
+                  "deadhead": false,
+                  "departure_station": "SAN",
+                  "departure": {
+                    "utc_date": "2022-05-31T19:48:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-31T22:46:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT10680S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "2b0ca83b-2973-5e29-96b4-9b47cf426f69",
+          "compact_uuid": "47946a12-db6a-5972-a80e-813595d63bdc",
+          "number": "17695",
+          "start": {
+            "utc_date": "2022-05-30T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-06-02T23:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT78300S",
+          "synth": "PT6360S",
+          "total_pay": "PT84660S",
+          "tafb": "P3DT37200S",
+          "dutyperiods": [
+            {
+              "uuid": "e7f99b58-ae9d-5587-a663-23ad9eb8f45f",
+              "compact_uuid": "34777b21-f1a3-55d7-b470-086e8b03eddc",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-30T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-30T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "40327cb3-ecfc-54d5-b782-b4f7f452221e",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "596359fe-d93b-5370-8569-4f15010c4ce1",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "59fe5df9-b16a-5590-ac5e-b093abab7ceb",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "62336c6f-df65-5006-b819-9f032d6596bf",
+                  "compact_uuid": "cdb32d28-0f95-5f22-bc56-c43565b2e98d",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-30T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-30T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "d7977188-daab-5516-8792-8037ca504548",
+              "compact_uuid": "724aa060-19cd-5123-9972-b748b40114bd",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-31T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-31T16:56:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "LIT",
+              "block": "PT13740S",
+              "synth": "PT0S",
+              "total_pay": "PT13740S",
+              "duty": "PT24060S",
+              "flight_duty": "PT23160S",
+              "layover": {
+                "uuid": "b10052ea-06f8-5dec-b7c9-4726355ad913",
+                "odl": "PT65280S",
+                "city": "LIT",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "be8936e4-ddf6-5b4f-b2a2-58e9d91346dd",
+                      "name": "LITTLE ROCK MARRIOTT",
+                      "phone": "5019064000"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "d0ad8a38-f301-5da1-a51a-2373e91ec28e",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "b61deca9-4ada-5c77-a43a-04552e48c56b",
+                  "compact_uuid": "9f681e13-7887-51a1-bea4-1a45824a5df9",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-31T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-31T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT5820S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "c18e4734-b93b-5977-af08-50e83520f1b2",
+                  "compact_uuid": "868c1793-d1bf-5eeb-bff6-cd4796314d60",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "2838",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-06-01T15:29:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "B",
+                  "arrival_station": "LIT",
+                  "arrival": {
+                    "utc_date": "2022-06-01T16:41:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT4320S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "983eeaab-33f6-55ec-bde2-598ef4e862db",
+              "compact_uuid": "7528de1d-f0cb-5398-8063-79f0eb7a5ed2",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-06-01T11:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "LIT",
+              "release": {
+                "utc_date": "2022-06-01T21:42:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "release_station": "SFO",
+              "block": "PT27840S",
+              "synth": "PT0S",
+              "total_pay": "PT27840S",
+              "duty": "PT38280S",
+              "flight_duty": "PT37380S",
+              "layover": {
+                "uuid": "5c6398e8-63ac-5970-8eb3-b4db9c4ef2aa",
+                "odl": "PT51480S",
+                "city": "SFO",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f6d612af-bcb5-5511-b66b-a086f9951d60",
+                      "name": "WESTIN SFO AIRPORT",
+                      "phone": "16506923500"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "8e9e686a-a68e-5367-ad3f-14457b1fe0ed",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "ae729477-7400-5f0f-a9ad-a9385ac7e8f5",
+                  "compact_uuid": "490d2917-ecda-59f4-aa4a-0efbba371030",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "1772",
+                  "deadhead": false,
+                  "departure_station": "LIT",
+                  "departure": {
+                    "utc_date": "2022-06-01T12:04:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "B",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "utc_date": "2022-06-01T14:06:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5940S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "a1a997af-da7b-51e6-bb88-533b631b9eb3",
+                  "compact_uuid": "876f60c0-8180-50ad-acea-bf1218658d37",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "2651",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "utc_date": "2022-06-02T15:45:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SFO",
+                  "arrival": {
+                    "utc_date": "2022-06-02T21:27:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT20520S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "0ba7e813-6dad-552b-8294-22ad60087c0e",
+              "compact_uuid": "f9f097f8-52a1-519d-b7da-d707a3b0bac1",
+              "idx": 4,
+              "report": {
+                "utc_date": "2022-06-02T12:00:00Z",
+                "tz_name": "America/Los_Angeles"
+              },
+              "report_station": "SFO",
+              "release": {
+                "utc_date": "2022-06-02T23:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT27840S",
+              "synth": "PT0S",
+              "total_pay": "PT27840S",
+              "duty": "PT39840S",
+              "flight_duty": "PT38940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "cc9fda19-40ab-5889-bcf2-48685a08cbfe",
+                  "compact_uuid": "07c5f74b-b2ad-5e3e-a0e1-7c5327039aa4",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "1198",
+                  "deadhead": false,
+                  "departure_station": "SFO",
+                  "departure": {
+                    "utc_date": "2022-06-02T13:00:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-06-02T16:34:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT12840S",
+                  "synth": "PT0S",
+                  "ground": "PT4260S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "f9f37855-9bc1-5032-b90a-6b90a1792e87",
+                  "compact_uuid": "75e55e47-f6a3-588b-aaf6-c5044a1b8493",
+                  "dp_idx": 4,
+                  "idx": 2,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "1321",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-06-03T17:45:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "DEN",
+                  "arrival": {
+                    "utc_date": "2022-06-03T19:49:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "block": "PT7440S",
+                  "synth": "PT0S",
+                  "ground": "PT3240S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "30b35804-a1d4-563b-ab2e-223ce4881205",
+                  "compact_uuid": "288ae7b1-d220-5992-9af1-feab4e28fdba",
+                  "dp_idx": 4,
+                  "idx": 3,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "1321",
+                  "deadhead": false,
+                  "departure_station": "DEN",
+                  "departure": {
+                    "utc_date": "2022-06-04T20:43:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-06-04T22:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7560S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "number": "587"
+    },
+    {
+      "uuid": "6568b75b-e875-50c5-913f-cdf885a2d872",
+      "base": "DFW",
+      "satellite_base": "",
+      "equipment": "320",
+      "division": "DOM",
+      "issued": "2022-04-08",
+      "effective": "2022-05-02",
+      "start": "2022-05-02",
+      "end": "2022-06-01",
+      "trips": [
+        {
+          "uuid": "f0be2267-a2b2-5ca2-a1c2-f97390feb2a1",
+          "compact_uuid": "23dc20a7-cf97-508c-93df-ddfd9670ad1d",
+          "number": "16436",
+          "start": {
+            "utc_date": "2022-05-11T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-13T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "d65d4de8-77f9-566c-900b-815bea208aec",
+              "compact_uuid": "e9f540d5-a20e-5257-9cfe-fd3b17a07345",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-11T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-11T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "6b7e9f64-854a-566a-9db9-03cbf5f51ea8",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "3e7faba1-5584-5d70-aeb8-c97431851da8",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "7cfefb7e-9af3-5ab1-8810-fd1b41fbbaa7",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "0061c0dc-601b-5b53-99e6-2190221ff3ff",
+                  "compact_uuid": "c5c95cee-1b0e-5924-bd23-15dcbacfaeb1",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-11T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-11T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "ee3247d4-e5be-5b71-91d0-6484c181f461",
+              "compact_uuid": "54816abf-5adf-5fcb-a225-b66eb932837a",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-12T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-12T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "1112f6e0-bb4a-5d94-8e9a-75e93c5f96de",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "a3ed7347-92d7-5c93-be34-228fe8d6832b",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "eee584fd-518f-55b8-96c4-c8e4bcfa7a7e",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "0568e459-ba9d-5902-903f-64ded99205e7",
+                  "compact_uuid": "e5e8287a-0ad8-5404-aa1d-090c5d76a909",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-12T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-12T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "56b85fab-0194-5b4b-8c5a-ca5f6316ac4f",
+                  "compact_uuid": "67541b85-1fb9-50da-ac4b-196d0d87fe40",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-13T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-13T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "a8d00d18-725c-5ae5-9992-a4c79a831629",
+              "compact_uuid": "94c8ca0e-2907-5dc3-8991-f81f71dc4b09",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-13T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-13T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "d481a276-750e-5c6a-8f2f-3654de2f1dbf",
+                  "compact_uuid": "fc829275-4c17-59e9-879e-76384d09ec80",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-13T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-13T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "feab4a8f-22c0-5cc3-ad10-20fddacfa019",
+                  "compact_uuid": "2f809cbc-cae6-514a-b4c8-f2befdb888bf",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-14T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-14T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "4cff7127-4eb8-5e56-8b74-f4c313bea969",
+                  "compact_uuid": "ac55aa46-5b2d-5e05-92f3-08c306fd24f4",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-15T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-15T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "6062fb6f-d91e-53bb-b1db-9b4422b3e9eb",
+          "compact_uuid": "23dc20a7-cf97-508c-93df-ddfd9670ad1d",
+          "number": "16436",
+          "start": {
+            "utc_date": "2022-05-12T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-14T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "34856dac-7102-5faf-a76f-18325b3e3c7e",
+              "compact_uuid": "e9f540d5-a20e-5257-9cfe-fd3b17a07345",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-12T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-12T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "6b7e9f64-854a-566a-9db9-03cbf5f51ea8",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "3e7faba1-5584-5d70-aeb8-c97431851da8",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "7cfefb7e-9af3-5ab1-8810-fd1b41fbbaa7",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "7f6b6eab-5ae9-534e-a77d-18815c255cdf",
+                  "compact_uuid": "c5c95cee-1b0e-5924-bd23-15dcbacfaeb1",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-12T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-12T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "f205c30e-0ddb-5616-a389-3d965066ba43",
+              "compact_uuid": "54816abf-5adf-5fcb-a225-b66eb932837a",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-13T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-13T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "1112f6e0-bb4a-5d94-8e9a-75e93c5f96de",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "a3ed7347-92d7-5c93-be34-228fe8d6832b",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "eee584fd-518f-55b8-96c4-c8e4bcfa7a7e",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "bc97a650-f1e2-5b11-a5d6-c03a2887d273",
+                  "compact_uuid": "e5e8287a-0ad8-5404-aa1d-090c5d76a909",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-13T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-13T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "0ea2ac28-85f8-5b04-8769-6d5acb042db7",
+                  "compact_uuid": "67541b85-1fb9-50da-ac4b-196d0d87fe40",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-14T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-14T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "f473d135-30b4-5cfe-94b4-6b31e3db24d1",
+              "compact_uuid": "94c8ca0e-2907-5dc3-8991-f81f71dc4b09",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-14T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-14T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "182dfc29-40a3-57db-9e07-edf44e9cb774",
+                  "compact_uuid": "fc829275-4c17-59e9-879e-76384d09ec80",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-14T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-14T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "1177d327-0cc7-5840-ad5f-522623978499",
+                  "compact_uuid": "2f809cbc-cae6-514a-b4c8-f2befdb888bf",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-15T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-15T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "445dcc87-41e8-5bac-8e71-f09ba938aa8f",
+                  "compact_uuid": "ac55aa46-5b2d-5e05-92f3-08c306fd24f4",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-16T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-16T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "8a51e10e-c42f-57da-a18a-389bd23c7e6f",
+          "compact_uuid": "3c33a699-0cea-59c8-b93f-33be82f34210",
+          "number": "16437",
+          "start": {
+            "utc_date": "2022-05-23T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-25T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "9b044d9d-5ca2-525c-b2af-c9f380e3f5fb",
+              "compact_uuid": "e7d4f4dc-ff34-5fd1-8af1-9237b7ae0f32",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-23T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-23T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "de969c26-ebb4-5302-a2eb-2f7ce5c0970b",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "113bbce2-4b04-52e4-9d4f-d9cb4f3eb130",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "0047d0d1-5ba0-5fad-862f-f739e6e10eab",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "5f8f7741-acfe-5e48-b9f7-4bac8f3121c6",
+                  "compact_uuid": "79a4f8f7-1cb4-5539-9202-8a376c58874c",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-23T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-23T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "b48fc02c-17c1-502e-bd0e-84fff4c4b3b7",
+              "compact_uuid": "43fdbb43-8f4e-56df-af1c-c5d136cbd07e",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-24T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-24T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "bfae2215-3bdd-5d91-a8ed-4b903b3cc3d6",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92bdbe0-f915-5dcf-b19a-da8aab0099b1",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5c1e2a73-6a07-505c-9f09-f0566e95f60f",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "9f4a805c-c004-5625-84af-c0bbb660579c",
+                  "compact_uuid": "8545decc-0030-5466-b98b-efea6a3a5d95",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-24T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-24T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "7f4fd6f4-2fb6-58a1-8422-15ff55c139cf",
+                  "compact_uuid": "9e091ef2-5060-5803-ac94-c86d70f636df",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-25T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-25T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "e0b7f2e2-e000-578d-95d7-d73961e78cb4",
+              "compact_uuid": "61f2b2e5-4f30-5314-830b-0efbc20108f6",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-25T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-25T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "5f8d1c59-d537-512f-b7cc-20939de209f4",
+                  "compact_uuid": "2a17e2de-a8f9-55cf-aa05-83cd8a7eb03c",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-25T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-25T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "7a194c43-dd76-5c0f-9f21-b6efbc8ab41e",
+                  "compact_uuid": "ae15ef40-fe32-5ff4-9462-740116c9bedb",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-26T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-26T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "1f868b45-8f8a-5841-ac15-eef4cdad02b2",
+                  "compact_uuid": "f51e58d4-6711-56cd-8420-cbcd913430c1",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-27T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-27T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "5c395404-4abc-56d6-8878-88a82812c118",
+          "compact_uuid": "3c33a699-0cea-59c8-b93f-33be82f34210",
+          "number": "16437",
+          "start": {
+            "utc_date": "2022-05-25T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-27T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "a1454f14-765c-511e-9347-dd67b4bbfe25",
+              "compact_uuid": "e7d4f4dc-ff34-5fd1-8af1-9237b7ae0f32",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-25T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-25T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "de969c26-ebb4-5302-a2eb-2f7ce5c0970b",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "113bbce2-4b04-52e4-9d4f-d9cb4f3eb130",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "0047d0d1-5ba0-5fad-862f-f739e6e10eab",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "a2b65345-3c3c-5002-a1a4-8de0cefddec2",
+                  "compact_uuid": "79a4f8f7-1cb4-5539-9202-8a376c58874c",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-25T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-25T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "08d4c161-aad5-5cb9-be0a-7c0c59a66235",
+              "compact_uuid": "43fdbb43-8f4e-56df-af1c-c5d136cbd07e",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-26T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-26T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "bfae2215-3bdd-5d91-a8ed-4b903b3cc3d6",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92bdbe0-f915-5dcf-b19a-da8aab0099b1",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5c1e2a73-6a07-505c-9f09-f0566e95f60f",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "8d496831-1fbd-5aaf-a330-5447b19184e7",
+                  "compact_uuid": "8545decc-0030-5466-b98b-efea6a3a5d95",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-26T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-26T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "fa39832f-ed68-5ef6-8355-9f5d0dcc24d7",
+                  "compact_uuid": "9e091ef2-5060-5803-ac94-c86d70f636df",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-27T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-27T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "4e63eecc-f1a0-521c-99a6-6f82e7c789f6",
+              "compact_uuid": "61f2b2e5-4f30-5314-830b-0efbc20108f6",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-27T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-27T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "bc5e970d-9c07-51f9-8485-5f583754216f",
+                  "compact_uuid": "2a17e2de-a8f9-55cf-aa05-83cd8a7eb03c",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-27T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-27T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "c67d5554-5ada-51a7-9772-be80d07621c6",
+                  "compact_uuid": "ae15ef40-fe32-5ff4-9462-740116c9bedb",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-28T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-28T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "4c8b2bb4-ca6f-5b39-b9e0-8d3d36c348aa",
+                  "compact_uuid": "f51e58d4-6711-56cd-8420-cbcd913430c1",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-29T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-29T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "34d79ffe-399a-57a8-84fb-f29955c0c2cf",
+          "compact_uuid": "3c33a699-0cea-59c8-b93f-33be82f34210",
+          "number": "16437",
+          "start": {
+            "utc_date": "2022-05-26T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-28T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "aabe211e-a9f2-5e44-9630-159a85ff405e",
+              "compact_uuid": "e7d4f4dc-ff34-5fd1-8af1-9237b7ae0f32",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-26T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-26T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "de969c26-ebb4-5302-a2eb-2f7ce5c0970b",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "113bbce2-4b04-52e4-9d4f-d9cb4f3eb130",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "0047d0d1-5ba0-5fad-862f-f739e6e10eab",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "a7d7885e-8d94-557f-a7ee-b2912dfeed5e",
+                  "compact_uuid": "79a4f8f7-1cb4-5539-9202-8a376c58874c",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-26T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-26T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "c56c8191-e444-57df-a1d6-2080dbf9c3d5",
+              "compact_uuid": "43fdbb43-8f4e-56df-af1c-c5d136cbd07e",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-27T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-27T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "bfae2215-3bdd-5d91-a8ed-4b903b3cc3d6",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92bdbe0-f915-5dcf-b19a-da8aab0099b1",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5c1e2a73-6a07-505c-9f09-f0566e95f60f",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "8d2a2f6c-369e-54c7-8225-cd18d77baaa1",
+                  "compact_uuid": "8545decc-0030-5466-b98b-efea6a3a5d95",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-27T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-27T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "0671e2b4-27c9-52ab-a294-0fc7c89435fe",
+                  "compact_uuid": "9e091ef2-5060-5803-ac94-c86d70f636df",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-28T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-28T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "9de1d382-3412-5776-ba07-9fa8b161a675",
+              "compact_uuid": "61f2b2e5-4f30-5314-830b-0efbc20108f6",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-28T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-28T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "4fb94440-cf1a-58d1-a8c6-08945e8c09f0",
+                  "compact_uuid": "2a17e2de-a8f9-55cf-aa05-83cd8a7eb03c",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-28T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-28T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "0425dbd3-5e89-54bb-8887-2170d64c5edd",
+                  "compact_uuid": "ae15ef40-fe32-5ff4-9462-740116c9bedb",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-29T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-29T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "4ed040e5-917a-5ddc-af6b-e62b2cec6cb0",
+                  "compact_uuid": "f51e58d4-6711-56cd-8420-cbcd913430c1",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-30T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-30T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "4aecf77a-5684-554e-8401-4db4162efa74",
+          "compact_uuid": "3c33a699-0cea-59c8-b93f-33be82f34210",
+          "number": "16437",
+          "start": {
+            "utc_date": "2022-05-27T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-29T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "fa50140b-4955-5d93-baa6-edc2c32bb7cf",
+              "compact_uuid": "e7d4f4dc-ff34-5fd1-8af1-9237b7ae0f32",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-27T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-27T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "de969c26-ebb4-5302-a2eb-2f7ce5c0970b",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "113bbce2-4b04-52e4-9d4f-d9cb4f3eb130",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "0047d0d1-5ba0-5fad-862f-f739e6e10eab",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "eedf5ae0-5c55-5a9c-83b1-8dcf8e5d7bfc",
+                  "compact_uuid": "79a4f8f7-1cb4-5539-9202-8a376c58874c",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-27T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-27T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "27d8b4f3-f6a0-5a66-9e1b-b76d31efb9a6",
+              "compact_uuid": "43fdbb43-8f4e-56df-af1c-c5d136cbd07e",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-28T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-28T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "bfae2215-3bdd-5d91-a8ed-4b903b3cc3d6",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92bdbe0-f915-5dcf-b19a-da8aab0099b1",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5c1e2a73-6a07-505c-9f09-f0566e95f60f",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "abdecd3e-5815-5ef2-ad17-9f07886df036",
+                  "compact_uuid": "8545decc-0030-5466-b98b-efea6a3a5d95",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-28T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-28T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "ed4dd138-bb40-522f-81ef-c62df32007e1",
+                  "compact_uuid": "9e091ef2-5060-5803-ac94-c86d70f636df",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-29T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-29T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "15ea0718-c145-58e3-9571-cd1186df7a16",
+              "compact_uuid": "61f2b2e5-4f30-5314-830b-0efbc20108f6",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-29T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-29T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "f945bfc2-e735-5f1d-8559-febbf304d016",
+                  "compact_uuid": "2a17e2de-a8f9-55cf-aa05-83cd8a7eb03c",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-29T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-29T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "9b662fbe-c59f-50d9-832b-8f65ee28c1ef",
+                  "compact_uuid": "ae15ef40-fe32-5ff4-9462-740116c9bedb",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-30T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-05-30T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "5ff79b40-c477-5928-ba25-12a7a99f4ffe",
+                  "compact_uuid": "f51e58d4-6711-56cd-8420-cbcd913430c1",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-05-31T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-31T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "f34e1193-94d7-5c67-97ea-1a16e1bed904",
+          "compact_uuid": "3c33a699-0cea-59c8-b93f-33be82f34210",
+          "number": "16437",
+          "start": {
+            "utc_date": "2022-05-29T12:44:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-31T21:04:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "SPANISH",
+          "qualifications": "",
+          "block": "PT48960S",
+          "synth": "PT8940S",
+          "total_pay": "PT57900S",
+          "tafb": "P2DT30000S",
+          "dutyperiods": [
+            {
+              "uuid": "b7c01c4a-3822-509d-8183-887bc12cc6f8",
+              "compact_uuid": "e7d4f4dc-ff34-5fd1-8af1-9237b7ae0f32",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-29T12:44:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-29T16:27:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "release_station": "BJX",
+              "block": "PT8880S",
+              "synth": "PT0S",
+              "total_pay": "PT8880S",
+              "duty": "PT13380S",
+              "flight_duty": "PT12480S",
+              "layover": {
+                "uuid": "de969c26-ebb4-5302-a2eb-2f7ce5c0970b",
+                "odl": "PT64080S",
+                "city": "BJX",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "113bbce2-4b04-52e4-9d4f-d9cb4f3eb130",
+                      "name": "RADISSON POLIFORUM PLAZA LEON",
+                      "phone": "524777100022"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "0047d0d1-5ba0-5fad-862f-f739e6e10eab",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "8b2e46b0-6707-5999-aa95-1c3675fd9c99",
+                  "compact_uuid": "79a4f8f7-1cb4-5539-9202-8a376c58874c",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "91",
+                  "number": "1263",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-29T13:44:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "BJX",
+                  "arrival": {
+                    "utc_date": "2022-05-29T16:12:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "block": "PT8880S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "7a6ca643-c3f5-57e9-8150-e8c3ae52fe90",
+              "compact_uuid": "43fdbb43-8f4e-56df-af1c-c5d136cbd07e",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-30T10:15:00Z",
+                "tz_name": "America/Mexico_City"
+              },
+              "report_station": "BJX",
+              "release": {
+                "utc_date": "2022-05-30T17:51:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "release_station": "CUU",
+              "block": "PT16440S",
+              "synth": "PT0S",
+              "total_pay": "PT16440S",
+              "duty": "PT27360S",
+              "flight_duty": "PT26460S",
+              "layover": {
+                "uuid": "bfae2215-3bdd-5d91-a8ed-4b903b3cc3d6",
+                "odl": "PT61140S",
+                "city": "CUU",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "f92bdbe0-f915-5dcf-b19a-da8aab0099b1",
+                      "name": "HOTEL INFO IN CCI/CREW PORTAL",
+                      "phone": ""
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "5c1e2a73-6a07-505c-9f09-f0566e95f60f",
+                        "name": "TRANS INFO IN CCI/CREW PORTAL",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "282f77a6-67a5-5e3e-8b68-8c172abe3ed6",
+                  "compact_uuid": "8545decc-0030-5466-b98b-efea6a3a5d95",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "91",
+                  "number": "2263",
+                  "deadhead": false,
+                  "departure_station": "BJX",
+                  "departure": {
+                    "utc_date": "2022-05-30T11:15:00Z",
+                    "tz_name": "America/Mexico_City"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-30T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9420S",
+                  "synth": "PT0S",
+                  "ground": "PT6420S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "66ab55ad-c141-5a5b-ac81-81dedc1a0723",
+                  "compact_uuid": "9e091ef2-5060-5803-ac94-c86d70f636df",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "1355",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-31T15:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "CUU",
+                  "arrival": {
+                    "utc_date": "2022-05-31T17:36:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "block": "PT7020S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "99f8eae6-a38c-5fe6-8f76-93a70f136dbe",
+              "compact_uuid": "61f2b2e5-4f30-5314-830b-0efbc20108f6",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-31T10:50:00Z",
+                "tz_name": "America/Mazatlan"
+              },
+              "report_station": "CUU",
+              "release": {
+                "utc_date": "2022-05-31T21:04:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT23640S",
+              "synth": "PT0S",
+              "total_pay": "PT23640S",
+              "duty": "PT36840S",
+              "flight_duty": "PT35940S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "58e1d131-3acb-5573-8b4e-07e7cfaab992",
+                  "compact_uuid": "2a17e2de-a8f9-55cf-aa05-83cd8a7eb03c",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "91",
+                  "number": "1076",
+                  "deadhead": false,
+                  "departure_station": "CUU",
+                  "departure": {
+                    "utc_date": "2022-05-31T11:50:00Z",
+                    "tz_name": "America/Mazatlan"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-31T13:52:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT7320S",
+                  "synth": "PT0S",
+                  "ground": "PT5700S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "ab9a1001-f932-585e-99e2-616e0181b74c",
+                  "compact_uuid": "ae15ef40-fe32-5ff4-9462-740116c9bedb",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-06-01T15:27:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SDF",
+                  "arrival": {
+                    "utc_date": "2022-06-01T17:28:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "block": "PT7260S",
+                  "synth": "PT0S",
+                  "ground": "PT3000S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "12acbac4-aebb-54c3-9646-52c6c91f4914",
+                  "compact_uuid": "f51e58d4-6711-56cd-8420-cbcd913430c1",
+                  "dp_idx": 3,
+                  "idx": 3,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "29",
+                  "number": "1273",
+                  "deadhead": false,
+                  "departure_station": "SDF",
+                  "departure": {
+                    "utc_date": "2022-06-02T18:18:00Z",
+                    "tz_name": "America/Kentucky/Louisville"
+                  },
+                  "meal": "",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-06-02T20:49:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9060S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "0da81143-6765-5716-aaf7-d8c116bc7143",
+          "compact_uuid": "bcfb4e6a-d18b-5e48-b062-c6f2e83c8ae0",
+          "number": "16438",
+          "start": {
+            "utc_date": "2022-05-05T12:45:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-08T14:58:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT78060S",
+          "synth": "PT0S",
+          "total_pay": "PT78060S",
+          "tafb": "P3DT7980S",
+          "dutyperiods": [
+            {
+              "uuid": "ff665499-4560-58d1-883e-7715d1986a5e",
+              "compact_uuid": "9e05386c-3249-5d8d-86f9-95b202e80d12",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-05T12:45:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-05T21:29:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "ORD",
+              "block": "PT23880S",
+              "synth": "PT0S",
+              "total_pay": "PT23880S",
+              "duty": "PT31440S",
+              "flight_duty": "PT30540S",
+              "layover": {
+                "uuid": "070b83e5-12ee-5fcd-9df8-2a3703f966d9",
+                "odl": "PT45840S",
+                "city": "ORD",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "12fb29e5-dd54-5e50-9cbf-c7c75085ac98",
+                      "name": "HILTON O’HARE AIRPORT",
+                      "phone": "17736868000"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "c38da6ff-f4af-534a-8188-997804070f75",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "1bcfa0df-12aa-5aab-b86f-08c42e941903",
+                  "compact_uuid": "9ca2a373-104e-5659-b2f7-60ac48686fb3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1550",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-05T13:45:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "utc_date": "2022-05-05T16:41:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT3060S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "25bbb1a7-0409-54c3-ba3e-d2bdcf22c4b2",
+                  "compact_uuid": "0a73e6fe-0ae9-5e51-9436-db0efe7c85e0",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1565",
+                  "deadhead": false,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "utc_date": "2022-05-06T17:32:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "ORD",
+                  "arrival": {
+                    "utc_date": "2022-05-06T21:14:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT13320S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "452ca830-5484-58db-a38f-a92718f78083",
+              "compact_uuid": "d3cb5963-b02a-5a06-9ef3-163885d4f424",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-06T10:13:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "ORD",
+              "release": {
+                "utc_date": "2022-05-06T19:55:00Z",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "BOS",
+              "block": "PT20220S",
+              "synth": "PT0S",
+              "total_pay": "PT20220S",
+              "duty": "PT34920S",
+              "flight_duty": "PT34020S",
+              "layover": {
+                "uuid": "6a8c814c-2b4c-58b4-8433-76408bb19a18",
+                "odl": "PT50700S",
+                "city": "BOS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "915abea5-0f4f-56dd-81eb-60867131f428",
+                      "name": "HILTON GARDEN INN BOS",
+                      "phone": "16175676789"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "e21afb59-d9b8-5c43-967b-3506a0a65b9f",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "5a12a9f9-a615-5578-aa85-555a84d2dde2",
+                  "compact_uuid": "30000ad7-ddfa-5e07-8116-00e4685e90d3",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "598",
+                  "deadhead": false,
+                  "departure_station": "ORD",
+                  "departure": {
+                    "utc_date": "2022-05-06T11:13:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "B",
+                  "arrival_station": "BOS",
+                  "arrival": {
+                    "utc_date": "2022-05-06T13:31:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT8280S",
+                  "synth": "PT0S",
+                  "ground": "PT3540S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "c7993a8e-a634-5feb-9e22-1a1d094f0390",
+                  "compact_uuid": "9edeef9f-b0c0-555b-82f6-ff76d5aa085b",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "2146",
+                  "deadhead": false,
+                  "departure_station": "BOS",
+                  "departure": {
+                    "utc_date": "2022-05-07T14:30:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "DCA",
+                  "arrival": {
+                    "utc_date": "2022-05-07T16:09:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT5940S",
+                  "synth": "PT0S",
+                  "ground": "PT6660S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "456f432c-1948-54ab-bf4c-e4081e303ec5",
+                  "compact_uuid": "fd8b7a77-be46-53c4-bd27-9fbc4d687477",
+                  "dp_idx": 2,
+                  "idx": 3,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "2149",
+                  "deadhead": false,
+                  "departure_station": "DCA",
+                  "departure": {
+                    "utc_date": "2022-05-08T18:00:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "BOS",
+                  "arrival": {
+                    "utc_date": "2022-05-08T19:40:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT6000S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "775759e6-3271-5d0f-aa27-c3df048f6ec8",
+              "compact_uuid": "c66c86d6-a0a6-5723-978e-e38343dadbce",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-07T10:00:00Z",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "BOS",
+              "release": {
+                "utc_date": "2022-05-07T19:00:00Z",
+                "tz_name": "America/Denver"
+              },
+              "release_station": "SLC",
+              "block": "PT24180S",
+              "synth": "PT0S",
+              "total_pay": "PT24180S",
+              "duty": "PT32400S",
+              "flight_duty": "PT31500S",
+              "layover": {
+                "uuid": "f95a26be-b1b6-5de0-8e91-553e9eb4a121",
+                "odl": "PT57600S",
+                "city": "SLC",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "577f8d9f-b3b1-50f1-bbe6-ffc66f18cace",
+                      "name": "HYATT HOUSE SALT LAKE CITY DOWNTOWN",
+                      "phone": "18013594020"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "9695b824-c145-5640-863e-a0242e48211b",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "80ebd6e1-6118-5342-a185-1eb5ecd1b90d",
+                  "compact_uuid": "7b6601b4-3639-5d8a-9db2-d823accb38c4",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "1004",
+                  "deadhead": false,
+                  "departure_station": "BOS",
+                  "departure": {
+                    "utc_date": "2022-05-07T11:00:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "B",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "utc_date": "2022-05-07T13:29:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT8940S",
+                  "synth": "PT0S",
+                  "ground": "PT3720S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "9b81ca58-4d42-5b51-8b36-d5dcfba2a70b",
+                  "compact_uuid": "a28b8565-3758-57a8-9bdd-933da0a7e53f",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "2076",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "utc_date": "2022-05-08T14:31:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SLC",
+                  "arrival": {
+                    "utc_date": "2022-05-08T18:45:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "block": "PT15240S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "b1a4d44d-9818-59bb-b7a6-ff8c67281983",
+              "compact_uuid": "d19e26f1-fc70-5aaf-bc69-554fab6e5158",
+              "idx": 4,
+              "report": {
+                "utc_date": "2022-05-08T11:00:00Z",
+                "tz_name": "America/Denver"
+              },
+              "report_station": "SLC",
+              "release": {
+                "utc_date": "2022-05-08T14:58:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT9780S",
+              "synth": "PT0S",
+              "total_pay": "PT9780S",
+              "duty": "PT14280S",
+              "flight_duty": "PT13380S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "64332cfd-82c8-54c8-8447-9dd7dc480634",
+                  "compact_uuid": "e1e033d5-a6bc-514a-943d-0d388d2ab69e",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "1214",
+                  "deadhead": false,
+                  "departure_station": "SLC",
+                  "departure": {
+                    "utc_date": "2022-05-08T12:00:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-08T14:43:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9780S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "0b03da98-659f-5359-9fb9-cac6565f36de",
+          "compact_uuid": "bcfb4e6a-d18b-5e48-b062-c6f2e83c8ae0",
+          "number": "16438",
+          "start": {
+            "utc_date": "2022-05-09T12:45:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-12T14:58:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT78060S",
+          "synth": "PT0S",
+          "total_pay": "PT78060S",
+          "tafb": "P3DT7980S",
+          "dutyperiods": [
+            {
+              "uuid": "7ff42176-e826-5ef3-8d83-814760d72276",
+              "compact_uuid": "9e05386c-3249-5d8d-86f9-95b202e80d12",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-09T12:45:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-09T21:29:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "ORD",
+              "block": "PT23880S",
+              "synth": "PT0S",
+              "total_pay": "PT23880S",
+              "duty": "PT31440S",
+              "flight_duty": "PT30540S",
+              "layover": {
+                "uuid": "070b83e5-12ee-5fcd-9df8-2a3703f966d9",
+                "odl": "PT45840S",
+                "city": "ORD",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "12fb29e5-dd54-5e50-9cbf-c7c75085ac98",
+                      "name": "HILTON O’HARE AIRPORT",
+                      "phone": "17736868000"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "c38da6ff-f4af-534a-8188-997804070f75",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "b9a78c17-6dd9-5693-822f-c473aa7928ae",
+                  "compact_uuid": "9ca2a373-104e-5659-b2f7-60ac48686fb3",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1550",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-09T13:45:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "LAS",
+                  "arrival": {
+                    "utc_date": "2022-05-09T16:41:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT10560S",
+                  "synth": "PT0S",
+                  "ground": "PT3060S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "eb72ac3d-32fc-5cc8-beed-fd6072084f68",
+                  "compact_uuid": "0a73e6fe-0ae9-5e51-9436-db0efe7c85e0",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "26",
+                  "number": "1565",
+                  "deadhead": false,
+                  "departure_station": "LAS",
+                  "departure": {
+                    "utc_date": "2022-05-10T17:32:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "ORD",
+                  "arrival": {
+                    "utc_date": "2022-05-10T21:14:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT13320S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "245a9f19-227b-57b8-b0ba-da1b53f5e8f3",
+              "compact_uuid": "d3cb5963-b02a-5a06-9ef3-163885d4f424",
+              "idx": 2,
+              "report": {
+                "utc_date": "2022-05-10T10:13:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "ORD",
+              "release": {
+                "utc_date": "2022-05-10T19:55:00Z",
+                "tz_name": "America/New_York"
+              },
+              "release_station": "BOS",
+              "block": "PT20220S",
+              "synth": "PT0S",
+              "total_pay": "PT20220S",
+              "duty": "PT34920S",
+              "flight_duty": "PT34020S",
+              "layover": {
+                "uuid": "6a8c814c-2b4c-58b4-8433-76408bb19a18",
+                "odl": "PT50700S",
+                "city": "BOS",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "915abea5-0f4f-56dd-81eb-60867131f428",
+                      "name": "HILTON GARDEN INN BOS",
+                      "phone": "16175676789"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "e21afb59-d9b8-5c43-967b-3506a0a65b9f",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "a65d48f3-3350-503a-831b-b825b167ccad",
+                  "compact_uuid": "30000ad7-ddfa-5e07-8116-00e4685e90d3",
+                  "dp_idx": 2,
+                  "idx": 1,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "598",
+                  "deadhead": false,
+                  "departure_station": "ORD",
+                  "departure": {
+                    "utc_date": "2022-05-10T11:13:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "B",
+                  "arrival_station": "BOS",
+                  "arrival": {
+                    "utc_date": "2022-05-10T13:31:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT8280S",
+                  "synth": "PT0S",
+                  "ground": "PT3540S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "6d9eb727-f9d1-5d34-93cf-b9fd3221bfc0",
+                  "compact_uuid": "9edeef9f-b0c0-555b-82f6-ff76d5aa085b",
+                  "dp_idx": 2,
+                  "idx": 2,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "2146",
+                  "deadhead": false,
+                  "departure_station": "BOS",
+                  "departure": {
+                    "utc_date": "2022-05-11T14:30:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "DCA",
+                  "arrival": {
+                    "utc_date": "2022-05-11T16:09:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT5940S",
+                  "synth": "PT0S",
+                  "ground": "PT6660S",
+                  "equipment_change": true
+                },
+                {
+                  "uuid": "b130e726-5c16-5d03-b1f8-b30e005b8c8b",
+                  "compact_uuid": "fd8b7a77-be46-53c4-bd27-9fbc4d687477",
+                  "dp_idx": 2,
+                  "idx": 3,
+                  "dep_arr_day": "2/2",
+                  "eq_code": "92",
+                  "number": "2149",
+                  "deadhead": false,
+                  "departure_station": "DCA",
+                  "departure": {
+                    "utc_date": "2022-05-12T18:00:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "",
+                  "arrival_station": "BOS",
+                  "arrival": {
+                    "utc_date": "2022-05-12T19:40:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT6000S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "73beffcf-6b34-5ba4-9b56-fa4ed50993d2",
+              "compact_uuid": "c66c86d6-a0a6-5723-978e-e38343dadbce",
+              "idx": 3,
+              "report": {
+                "utc_date": "2022-05-11T10:00:00Z",
+                "tz_name": "America/New_York"
+              },
+              "report_station": "BOS",
+              "release": {
+                "utc_date": "2022-05-11T19:00:00Z",
+                "tz_name": "America/Denver"
+              },
+              "release_station": "SLC",
+              "block": "PT24180S",
+              "synth": "PT0S",
+              "total_pay": "PT24180S",
+              "duty": "PT32400S",
+              "flight_duty": "PT31500S",
+              "layover": {
+                "uuid": "f95a26be-b1b6-5de0-8e91-553e9eb4a121",
+                "odl": "PT57600S",
+                "city": "SLC",
+                "hotel_info": [
+                  {
+                    "hotel": {
+                      "uuid": "577f8d9f-b3b1-50f1-bbe6-ffc66f18cace",
+                      "name": "HYATT HOUSE SALT LAKE CITY DOWNTOWN",
+                      "phone": "18013594020"
+                    },
+                    "transportation": [
+                      {
+                        "uuid": "9695b824-c145-5640-863e-a0242e48211b",
+                        "name": "SHUTTLE",
+                        "phone": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              "flights": [
+                {
+                  "uuid": "691f539d-d7bd-59cb-afe4-0733cdf76247",
+                  "compact_uuid": "7b6601b4-3639-5d8a-9db2-d823accb38c4",
+                  "dp_idx": 3,
+                  "idx": 1,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "1004",
+                  "deadhead": false,
+                  "departure_station": "BOS",
+                  "departure": {
+                    "utc_date": "2022-05-11T11:00:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "B",
+                  "arrival_station": "CLT",
+                  "arrival": {
+                    "utc_date": "2022-05-11T13:29:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "block": "PT8940S",
+                  "synth": "PT0S",
+                  "ground": "PT3720S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "cf0d5b6e-53d6-5ae6-85fd-a40612776619",
+                  "compact_uuid": "a28b8565-3758-57a8-9bdd-933da0a7e53f",
+                  "dp_idx": 3,
+                  "idx": 2,
+                  "dep_arr_day": "3/3",
+                  "eq_code": "63",
+                  "number": "2076",
+                  "deadhead": false,
+                  "departure_station": "CLT",
+                  "departure": {
+                    "utc_date": "2022-05-12T14:31:00Z",
+                    "tz_name": "America/New_York"
+                  },
+                  "meal": "L",
+                  "arrival_station": "SLC",
+                  "arrival": {
+                    "utc_date": "2022-05-12T18:45:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "block": "PT15240S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            },
+            {
+              "uuid": "2893df94-981d-58cc-b7ea-b1bbd0fc4bf0",
+              "compact_uuid": "d19e26f1-fc70-5aaf-bc69-554fab6e5158",
+              "idx": 4,
+              "report": {
+                "utc_date": "2022-05-12T11:00:00Z",
+                "tz_name": "America/Denver"
+              },
+              "report_station": "SLC",
+              "release": {
+                "utc_date": "2022-05-12T14:58:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT9780S",
+              "synth": "PT0S",
+              "total_pay": "PT9780S",
+              "duty": "PT14280S",
+              "flight_duty": "PT13380S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "e1f14014-c905-50bd-8d67-8d5a4c5135b4",
+                  "compact_uuid": "e1e033d5-a6bc-514a-943d-0d388d2ab69e",
+                  "dp_idx": 4,
+                  "idx": 1,
+                  "dep_arr_day": "4/4",
+                  "eq_code": "64",
+                  "number": "1214",
+                  "deadhead": false,
+                  "departure_station": "SLC",
+                  "departure": {
+                    "utc_date": "2022-05-12T12:00:00Z",
+                    "tz_name": "America/Denver"
+                  },
+                  "meal": "B",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-12T14:43:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT9780S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "b42adb8d-0364-5093-9dc7-9ef4b10528bb",
+          "compact_uuid": "ac4efe02-c7a2-5468-ad10-3f6e7d0ce362",
+          "number": "16439",
+          "start": {
+            "utc_date": "2022-05-05T12:47:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-05T20:54:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21600S",
+          "synth": "PT0S",
+          "total_pay": "PT21600S",
+          "tafb": "PT29220S",
+          "dutyperiods": [
+            {
+              "uuid": "d3ada816-bd5c-56a5-adfb-ba0e35793ac3",
+              "compact_uuid": "41310422-8a0e-5cfb-82ce-f7422b2d5a14",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-05T12:47:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-05T20:54:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT21600S",
+              "synth": "PT0S",
+              "total_pay": "PT21600S",
+              "duty": "PT29220S",
+              "flight_duty": "PT28320S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "ccc485e9-9dea-572f-bb10-fbab91340fee",
+                  "compact_uuid": "7efd265c-53ff-5964-9727-3f2b7b858f5a",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "64",
+                  "number": "2743",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-05T13:47:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "SAN",
+                  "arrival": {
+                    "utc_date": "2022-05-05T16:52:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT11100S",
+                  "synth": "PT0S",
+                  "ground": "PT3120S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "03f97095-18c0-5191-a4d2-38ce36257191",
+                  "compact_uuid": "5251b85f-735b-5ee1-b8d3-427ccc28f281",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "64",
+                  "number": "2743",
+                  "deadhead": false,
+                  "departure_station": "SAN",
+                  "departure": {
+                    "utc_date": "2022-05-06T17:44:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-06T20:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT10500S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "0b6ce8ad-045d-5713-a963-17b259ab3c4e",
+          "compact_uuid": "ac4efe02-c7a2-5468-ad10-3f6e7d0ce362",
+          "number": "16439",
+          "start": {
+            "utc_date": "2022-05-06T12:47:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "end": {
+            "utc_date": "2022-05-06T20:54:00Z",
+            "tz_name": "America/Chicago"
+          },
+          "positions": [
+            "CA",
+            "FO"
+          ],
+          "operations": "",
+          "qualifications": "",
+          "block": "PT21600S",
+          "synth": "PT0S",
+          "total_pay": "PT21600S",
+          "tafb": "PT29220S",
+          "dutyperiods": [
+            {
+              "uuid": "9357d80a-e306-58f6-bd6f-582e80169af4",
+              "compact_uuid": "41310422-8a0e-5cfb-82ce-f7422b2d5a14",
+              "idx": 1,
+              "report": {
+                "utc_date": "2022-05-06T12:47:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "report_station": "DFW",
+              "release": {
+                "utc_date": "2022-05-06T20:54:00Z",
+                "tz_name": "America/Chicago"
+              },
+              "release_station": "DFW",
+              "block": "PT21600S",
+              "synth": "PT0S",
+              "total_pay": "PT21600S",
+              "duty": "PT29220S",
+              "flight_duty": "PT28320S",
+              "layover": null,
+              "flights": [
+                {
+                  "uuid": "90128732-9d93-54a3-b6b0-0320f8b33dcd",
+                  "compact_uuid": "7efd265c-53ff-5964-9727-3f2b7b858f5a",
+                  "dp_idx": 1,
+                  "idx": 1,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "64",
+                  "number": "2743",
+                  "deadhead": false,
+                  "departure_station": "DFW",
+                  "departure": {
+                    "utc_date": "2022-05-06T13:47:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "meal": "",
+                  "arrival_station": "SAN",
+                  "arrival": {
+                    "utc_date": "2022-05-06T16:52:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "block": "PT11100S",
+                  "synth": "PT0S",
+                  "ground": "PT3120S",
+                  "equipment_change": false
+                },
+                {
+                  "uuid": "e924f797-3cf6-54be-94e7-9982a1f68dfa",
+                  "compact_uuid": "5251b85f-735b-5ee1-b8d3-427ccc28f281",
+                  "dp_idx": 1,
+                  "idx": 2,
+                  "dep_arr_day": "1/1",
+                  "eq_code": "64",
+                  "number": "2743",
+                  "deadhead": false,
+                  "departure_station": "SAN",
+                  "departure": {
+                    "utc_date": "2022-05-07T17:44:00Z",
+                    "tz_name": "America/Los_Angeles"
+                  },
+                  "meal": "L",
+                  "arrival_station": "DFW",
+                  "arrival": {
+                    "utc_date": "2022-05-07T20:39:00Z",
+                    "tz_name": "America/Chicago"
+                  },
+                  "block": "PT10500S",
+                  "synth": "PT0S",
+                  "ground": "PT0S",
+                  "equipment_change": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "number": "191"
+    }
+  ]
+}
