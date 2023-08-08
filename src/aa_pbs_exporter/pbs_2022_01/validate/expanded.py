@@ -291,7 +291,7 @@ class Checks:
         expanded_flight: expanded.Flight,
         trip_number: str,
     ):
-        arrival_time = expanded_flight.arrival.local().time()
+        arrival_time = expanded_flight.arrival.localize().time()
         if not compare_time(
             arrival_time,
             compact_flight.arrival.lcl.time,
@@ -312,7 +312,7 @@ class Checks:
         expanded_flight: expanded.Flight,
         trip_number: str,
     ):
-        departure_time = expanded_flight.departure.local().time()
+        departure_time = expanded_flight.departure.localize().time()
         if not compare_time(
             departure_time,
             compact_flight.departure.lcl.time,
@@ -362,7 +362,7 @@ class Checks:
         expanded_dutyperiod: expanded.DutyPeriod,
         trip_number: str,
     ):
-        report_time = expanded_dutyperiod.report.local().time()
+        report_time = expanded_dutyperiod.report.localize().time()
         if not compare_time(
             report_time,
             compact_dutyperiod.report.lcl.time,
@@ -383,7 +383,7 @@ class Checks:
         expanded_dutyperiod: expanded.DutyPeriod,
         trip_number: str,
     ):
-        release_time = expanded_dutyperiod.release.local().time()
+        release_time = expanded_dutyperiod.release.localize().time()
         if not compare_time(
             release_time,
             compact_dutyperiod.release.lcl.time,

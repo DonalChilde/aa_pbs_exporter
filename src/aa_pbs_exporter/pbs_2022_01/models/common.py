@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class HashedFile(BaseModel):
@@ -32,14 +32,12 @@ class Instant(BaseModel):
     Enforced use of utc time should prevent ambiguous math.
     """
 
+    model_config = ConfigDict(frozen=True)
+
     utc_date: datetime
     tz_name: str
 
-    class Config:
-        allow_mutation = False
-        # frozen = True
-
-    def local(self, tz_name: str | None = None) -> datetime:
+    def localize(self, tz_name: str | None = None) -> datetime:
         if tz_name is None:
             return self.utc_date.astimezone(tz=ZoneInfo(self.tz_name))
         return self.utc_date.astimezone(tz=ZoneInfo(tz_name))
@@ -55,9 +53,6 @@ class Instant(BaseModel):
             return Instant(utc_date=utc_date, tz_name=self.tz_name)
         assert tz_name is not None
         return Instant(utc_date=self.utc_date, tz_name=tz_name)
-
-    # def new_tz(self, tz_name: str) -> "Instant":
-    #     return Instant(utc_date=self.utc_date, tz_name=tz_name)
 
     def __copy__(self) -> "Instant":
         return Instant(utc_date=self.utc_date, tz_name=self.tz_name)
@@ -77,7 +72,7 @@ class Instant(BaseModel):
     def __str__(self) -> str:
         return (
             f"utc_date={self.utc_date.isoformat()}, tz_name={self.tz_name}, "
-            f"local={self.local().isoformat()}"
+            f"local={self.localize().isoformat()}"
         )
 
     def __repr__(self) -> str:

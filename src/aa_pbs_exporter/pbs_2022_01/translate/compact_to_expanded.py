@@ -107,7 +107,7 @@ class CompactToExpanded:
         for idx, compact_dutyperiod in enumerate(compact_trip.dutyperiods, start=1):
             self.debug_write(
                 f"Translating compact dutyperiod {idx} of {dutyperiods_len} for "
-                f"Trip:{expanded_trip.number} - {expanded_trip.start.local().date()}.",
+                f"Trip:{expanded_trip.number} - {expanded_trip.start.localize().date()}.",
                 Level.DP,
             )
 
@@ -406,6 +406,6 @@ def complete_time_instant(
         is_future=is_future,
     )
     instant = Instant(utc_date=new_datetime.astimezone(timezone.utc), tz_name=tz_name)
-    if instant.local().time().hour != naive_time.hour:
+    if instant.localize().time().hour != naive_time.hour:
         raise ValueError("WTF!")
     return instant
