@@ -205,17 +205,6 @@ class ExpandedValidator:
         pass
 
 
-def validate_expanded_bid_package(
-    compact_bid_package: compact.BidPackage,
-    expanded_bid_package: expanded.BidPackage,
-    debug_file: Path | None = None,
-):
-    with ExpandedValidator(debug_file=debug_file) as validator:
-        validator.validate(
-            compact_bid=compact_bid_package, expanded_bid=expanded_bid_package
-        )
-
-
 class Checks:
     def __init__(self, debug_fp: TextIOWrapper | None = None) -> None:
         self.debug_fp = debug_fp

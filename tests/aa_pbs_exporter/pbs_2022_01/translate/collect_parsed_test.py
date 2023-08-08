@@ -23,10 +23,15 @@ def worker_collect(
 
     with resources.as_file(input_res.file_resource()) as input_path:
         parse_results = api.load_parse_results(input_path)
-    bid_package = api.parsed_to_collated(
+    bid_package, translation_errors, validation_errors = api.parsed_to_collated(
         parse_results=parse_results, debug_file=debug_file
     )
+
     api.save_collated(output_file, bid_package)
+    print(f"translation errors: {translation_errors!s}")
+    print(f"validation errors: {validation_errors!s}")
+    assert not translation_errors
+    assert not validation_errors
     with resources.as_file(expected_res.file_resource()) as expected_path:
         expected = api.load_collated(expected_path)
     assert expected == bid_package

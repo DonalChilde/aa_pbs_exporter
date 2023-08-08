@@ -2,6 +2,7 @@ from io import TextIOWrapper
 from pathlib import Path
 import traceback
 from typing import Self
+from uuid import UUID
 from aa_pbs_exporter.pbs_2022_01.validate.validation_error import ValidationError
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
@@ -42,6 +43,11 @@ class CollatedValidator:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = ValidationError(msg=msg, uuid=uuid)
+        self.validation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
+
     def validate(
         self, parse_results: CollectedParseResults, bid_package: collated.BidPackage
     ) -> list[ValidationError]:
@@ -51,7 +57,7 @@ class CollatedValidator:
             return self.validation_errors
         except Exception as error:
             logger.exception("Unexpected error during validation.")
-            self.debug_write("".join(traceback.format_exception(error)), 0)
+            self.report_error("".join(traceback.format_exception(error)), uuid=None)
             raise error
 
     def _validate(
@@ -69,15 +75,10 @@ class Checks:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
-
-def validate_collated_bid_package(
-    parse_results: CollectedParseResults,
-    bid_package: collated.BidPackage,
-    debug_file: Path | None,
-):
-    # TODO compare calendar entries that are mumbers, with ops count
-    with CollatedValidator(debug_file=debug_file) as validator:
-        validator.validate(parse_results=parse_results, bid_package=bid_package)
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = ValidationError(msg=msg, uuid=uuid)
+        self.validation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
 
 
 # from io import TextIOWrapper

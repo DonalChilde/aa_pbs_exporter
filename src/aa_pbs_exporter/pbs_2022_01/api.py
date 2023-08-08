@@ -6,16 +6,8 @@ from aa_pbs_exporter.pbs_2022_01.helpers.parse_pbs_strings_td import pbs_data_fi
 from aa_pbs_exporter.pbs_2022_01.helpers.serialize_json import SerializeJson
 from aa_pbs_exporter.pbs_2022_01.models import collated, compact, expanded
 from aa_pbs_exporter.pbs_2022_01.parser.parse_scheme import parser_lookup
-from aa_pbs_exporter.pbs_2022_01.translate import (
-    translate_parsed_to_collated,
-    translate_collated_to_compact,
-    translate_compact_to_expanded,
-)
-from aa_pbs_exporter.pbs_2022_01.validate import (
-    validate_compact_bid_package,
-    validate_expanded_bid_package,
-    validate_collated_bid_package,
-)
+from aa_pbs_exporter.pbs_2022_01 import translate
+from aa_pbs_exporter.pbs_2022_01 import validate
 from aa_pbs_exporter.snippets.hash.file_hash import make_hashed_file_dict
 from aa_pbs_exporter.snippets.indexed_string.typedict.index_strings import Indexer
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.parse_file import (
@@ -90,41 +82,117 @@ def parse_pbs_txt_file(
 
 def parsed_to_collated(
     parse_results: CollectedParseResults, debug_file: Path | None
-) -> collated.BidPackage:
-    collated_bid_package = translate_parsed_to_collated(
+) -> tuple[
+    collated.BidPackage,
+    list[translate.TranslationError],
+    list[validate.ValidationError],
+]:
+    collated_bid_package, translation_errors = translate_parsed_to_collated(
         parse_results=parse_results, debug_file=debug_file
     )
-    validate_collated_bid_package(
+    validation_errors = validate_collated_bid_package(
         parse_results=parse_results,
         bid_package=collated_bid_package,
         debug_file=debug_file,
     )
-    return collated_bid_package
+    return collated_bid_package, translation_errors, validation_errors
 
 
 def collated_to_compact(
     bid_package: collated.BidPackage, debug_file: Path | None
-) -> compact.BidPackage:
-    compact_bid_package = translate_collated_to_compact(
+) -> tuple[
+    compact.BidPackage, list[translate.TranslationError], list[validate.ValidationError]
+]:
+    compact_bid_package, translation_errors = translate_collated_to_compact(
         collated_bid_package=bid_package, debug_file=debug_file
     )
-    validate_compact_bid_package(
+    validation_errors = validate_compact_bid_package(
         raw_bid_package=bid_package,
         compact_bid_package=compact_bid_package,
         debug_file=debug_file,
     )
-    return compact_bid_package
+    return compact_bid_package, translation_errors, validation_errors
 
 
 def compact_to_expanded(
     bid_package: compact.BidPackage, debug_file: Path | None
-) -> expanded.BidPackage:
-    expanded_bid_package = translate_compact_to_expanded(
+) -> tuple[
+    expanded.BidPackage,
+    list[translate.TranslationError],
+    list[validate.ValidationError],
+]:
+    expanded_bid_package, translation_errors = translate_compact_to_expanded(
         compact_package=bid_package, debug_file=debug_file
     )
-    validate_expanded_bid_package(
+    validation_errors = validate_expanded_bid_package(
         compact_bid_package=bid_package,
         expanded_bid_package=expanded_bid_package,
         debug_file=debug_file,
     )
-    return expanded_bid_package
+    return expanded_bid_package, translation_errors, validation_errors
+
+
+def translate_parsed_to_collated(
+    parse_results: CollectedParseResults, debug_file: Path | None
+) -> tuple[collated.BidPackage, list[translate.TranslationError]]:
+    with translate.ParsedToCollated(debug_file=debug_file) as translator:
+        collated_bid_package = translator.translate(parse_results=parse_results)
+        errors = translator.translation_errors
+    return collated_bid_package, errors
+
+
+def translate_collated_to_compact(
+    collated_bid_package: collated.BidPackage, debug_file: Path | None
+) -> tuple[compact.BidPackage, list[translate.TranslationError]]:
+    with translate.CollatedToCompact(debug_file=debug_file) as translator:
+        compact_bid_package = translator.translate(
+            collated_bid_package=collated_bid_package
+        )
+        errors = translator.translation_errors
+    return compact_bid_package, errors
+
+
+def translate_compact_to_expanded(
+    compact_package: compact.BidPackage,
+    debug_file: Path | None = None,
+) -> tuple[expanded.BidPackage, list[translate.TranslationError]]:
+    with translate.CompactToExpanded(debug_file=debug_file) as translator:
+        expanded_package = translator.translate(compact_package)
+        errors = translator.translation_errors
+    return expanded_package, errors
+
+
+def validate_collated_bid_package(
+    parse_results: CollectedParseResults,
+    bid_package: collated.BidPackage,
+    debug_file: Path | None,
+) -> list[validate.ValidationError]:
+    with validate.CollatedValidator(debug_file=debug_file) as validator:
+        errors = validator.validate(
+            parse_results=parse_results, bid_package=bid_package
+        )
+    return errors
+
+
+def validate_compact_bid_package(
+    raw_bid_package: collated.BidPackage,
+    compact_bid_package: compact.BidPackage,
+    debug_file: Path | None = None,
+) -> list[validate.ValidationError]:
+    with validate.CompactValidator(debug_file=debug_file) as validator:
+        errors = validator.validate(
+            collated_package=raw_bid_package, compact_package=compact_bid_package
+        )
+    return errors
+
+
+def validate_expanded_bid_package(
+    compact_bid_package: compact.BidPackage,
+    expanded_bid_package: expanded.BidPackage,
+    debug_file: Path | None = None,
+) -> list[validate.ValidationError]:
+    with validate.ExpandedValidator(debug_file=debug_file) as validator:
+        errors = validator.validate(
+            compact_bid=compact_bid_package, expanded_bid=expanded_bid_package
+        )
+    return errors

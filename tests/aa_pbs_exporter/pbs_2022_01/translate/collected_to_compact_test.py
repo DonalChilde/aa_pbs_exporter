@@ -26,10 +26,19 @@ def worker_compact(
 
     with resources.as_file(input_res.file_resource()) as input_path:
         collated_parse_results = api.load_collated(file_in=input_path)
-    compact_bid_package = api.collated_to_compact(
-        bid_package=collated_parse_results, debug_file=debug_file
+    (
+        compact_bid_package,
+        translation_errors,
+        validation_errors,
+    ) = api.collated_to_compact(
+        bid_package=collated_parse_results,
+        debug_file=debug_file,
     )
     api.save_compact(file_out=output_file, bid_package=compact_bid_package)
+    print(f"translation errors: {translation_errors!s}")
+    print(f"validation errors: {validation_errors!s}")
+    assert not translation_errors
+    assert not validation_errors
 
     if not SERIALIZE_ONLY:
         with resources.as_file(expected_res.file_resource()) as expected_path:

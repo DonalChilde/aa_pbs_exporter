@@ -15,6 +15,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.date_range import date_range
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.helpers.tz_from_iata import tz_from_iata
 from aa_pbs_exporter.pbs_2022_01.models import collated, common, compact, parsed
+from aa_pbs_exporter.pbs_2022_01.translate.translation_error import TranslationError
 from aa_pbs_exporter.snippets.datetime.parse_duration_regex import (
     parse_duration,
     pattern_HHHMM,
@@ -41,7 +42,7 @@ DEBUG = "raw.translation.debug"
 class CollatedToCompact:
     def __init__(
         self,
-        tz_lookup: Callable[[str], str],
+        tz_lookup: Callable[[str], str] = tz_from_iata,
         debug_file: Path | None = None,
     ) -> None:
         self.tz_lookup = tz_lookup
@@ -49,6 +50,7 @@ class CollatedToCompact:
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
         self.hbt_tz_name: str = ""
+        self.translation_errors: list[TranslationError] = []
 
     def __enter__(self) -> Self:
         if self.debug_file is not None:
@@ -64,6 +66,11 @@ class CollatedToCompact:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = TranslationError(msg=msg, uuid=uuid)
+        self.translation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
+
     def translate_source(self, raw_source: dict[str, str]) -> common.HashedFile:
         source = cast(HashedFileDict, raw_source)
         return common.HashedFile(**source)
@@ -75,7 +82,7 @@ class CollatedToCompact:
             return self._translate(collated_bid_package=collated_bid_package)
         except Exception as error:
             logger.exception("Unexpected error during translation.")
-            self.debug_write("".join(traceback.format_exception(error)), 0)
+            self.report_error("".join(traceback.format_exception(error)), uuid=None)
             raise error
 
     def _translate(
@@ -283,8 +290,6 @@ class CollatedToCompact:
             self.debug_write(
                 f"Translating flight {collated_flight['flight']['parsed_data']['flight_number']} "
                 f"{flt_idx} of {len(collated_flights)}"
-                f"uuid: {collated_flight['uuid']}",
-                Level.FLT,
             )
             compact_flight = self.translate_flight(collated_flight, dp_idx, flt_idx)
             compact_flights.append(compact_flight)
@@ -378,37 +383,29 @@ class CollatedToCompact:
         hbt_instant = instant.InstantTime(time=hbt_time, tz_name=hbt_tz_name)
         return compact.LclHbt(lcl=local_instant, hbt=hbt_instant)
 
-    # def split_times(self, lclhbt: str, iata: str) -> compact.LclHbt:
-    #     lcl_str, hbt_str = lclhbt.split("/")
-    #     tz_str = self.tz_lookup(iata)
-    #     local_time = datetime.strptime(lcl_str, TIME).time()
-    #     hbt_time = datetime.strptime(hbt_str, TIME).time()
-    #     return compact.LclHbt(lcl=local_time, hbt=hbt_time, tz_name=tz_str)
-
     def collect_start_dates(
         self,
         valid_dates: Sequence[date],
         collated_trip: collated.Trip,
     ) -> list[date]:
-        # TODO consider moving the collection of calendar entries here?
         if not len(collated_trip["calendar_entries"]) == len(valid_dates):
-            self.debug_write(
+            msg = (
                 f"Count of calendar_entries: {len(collated_trip['calendar_entries'])} "
                 f"does not match valid_dates: {len(valid_dates)}. "
-                f"uuid: {collated_trip['uuid']}",
-                Level.TRIP + 1,
             )
+            self.report_error(msg, UUID(collated_trip["uuid"]), Level.TRIP + 1)
+
         start_dates: list[date] = []
         days = self.collect_start_days(collated_trip=collated_trip)
         for day in days:
             start_date = valid_dates[day[0]]
             if day[1] != start_date.day:
-                self.debug_write(
+                msg = (
                     f"Partial date: {day!r} does not match day of date: "
                     f"{start_date.isoformat()}. "
-                    f"uuid:{collated_trip['uuid']}",
-                    Level.TRIP + 1,
                 )
+                self.report_error(msg, UUID(collated_trip["uuid"]), Level.TRIP + 1)
+
             start_dates.append(start_date)
         return start_dates
 
@@ -419,13 +416,3 @@ class CollatedToCompact:
             )
         )
         return [(x.idx, int(x.txt)) for x in indexed_days]
-
-
-def translate_collated_to_compact(
-    collated_bid_package: collated.BidPackage, debug_file: Path | None
-) -> compact.BidPackage:
-    with CollatedToCompact(tz_lookup=tz_from_iata, debug_file=debug_file) as translator:
-        compact_bid_package = translator.translate(
-            collated_bid_package=collated_bid_package
-        )
-    return compact_bid_package

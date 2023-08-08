@@ -190,17 +190,6 @@ class CompactValidator:
         pass
 
 
-def validate_compact_bid_package(
-    raw_bid_package: collated.BidPackage,
-    compact_bid_package: compact.BidPackage,
-    debug_file: Path | None = None,
-):
-    with CompactValidator(debug_file=debug_file) as validator:
-        validator.validate(
-            collated_package=raw_bid_package, compact_package=compact_bid_package
-        )
-
-
 class Checks:
     def __init__(self, debug_fp: TextIOWrapper | None = None) -> None:
         self.debug_fp = debug_fp

@@ -4,7 +4,7 @@ from datetime import datetime, time, timedelta, timezone
 from pathlib import Path
 import traceback
 from typing import Self, Sequence
-from uuid import uuid5
+from uuid import UUID, uuid5
 from zoneinfo import ZoneInfo
 from time import perf_counter_ns
 
@@ -13,6 +13,7 @@ from aa_pbs_exporter.pbs_2022_01.helpers.complete_time import complete_time
 from aa_pbs_exporter.pbs_2022_01.helpers.indent_level import Level
 from aa_pbs_exporter.pbs_2022_01.models import compact, expanded
 from aa_pbs_exporter.pbs_2022_01.models.common import Instant
+from aa_pbs_exporter.pbs_2022_01.translate.translation_error import TranslationError
 from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.string.indent import indent
 
@@ -30,6 +31,7 @@ class CompactToExpanded:
     ) -> None:
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
+        self.translation_errors: list[TranslationError] = []
 
     def __enter__(self) -> Self:
         if self.debug_file is not None:
@@ -46,6 +48,11 @@ class CompactToExpanded:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = TranslationError(msg=msg, uuid=uuid)
+        self.translation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
+
     def translate(
         self,
         compact_bid_package: compact.BidPackage,
@@ -55,7 +62,7 @@ class CompactToExpanded:
             return self._translate(compact_bid_package=compact_bid_package, ctx=ctx)
         except Exception as error:
             logger.exception("Unexpected error during translation.")
-            self.debug_write("".join(traceback.format_exception(error)), 0)
+            self.report_error("".join(traceback.format_exception(error)), uuid=None)
             raise error
 
     def _translate(
@@ -380,15 +387,6 @@ class CompactToExpanded:
             phone=compact_transportation.phone,
         )
         return expanded_transportation
-
-
-def translate_compact_to_expanded(
-    compact_package: compact.BidPackage,
-    debug_file: Path | None = None,
-):
-    with CompactToExpanded(debug_file=debug_file) as translator:
-        expanded_package = translator.translate(compact_package)
-    return expanded_package
 
 
 def complete_time_instant(

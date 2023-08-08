@@ -1,22 +1,18 @@
 import logging
+import traceback
 from io import TextIOWrapper
 from pathlib import Path
-import traceback
 from typing import Self
-
-from aa_pbs_exporter.pbs_2022_01.models import compact
-from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
-from aa_pbs_exporter.snippets.string.indent import indent
 from uuid import UUID, uuid5
 
 from aa_pbs_exporter.pbs_2022_01 import PARSER_DNS
 from aa_pbs_exporter.pbs_2022_01.models import collated
-from aa_pbs_exporter.snippets.indexed_string.typedict.indexed_string import (
-    IndexedStringDict,
-)
+from aa_pbs_exporter.pbs_2022_01.translate.translation_error import TranslationError
+from aa_pbs_exporter.snippets.file.validate_file_out import validate_file_out
 from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_protocols import (
     CollectedParseResults,
 )
+from aa_pbs_exporter.snippets.string.indent import indent
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -29,6 +25,7 @@ class ParsedToCollated:
     ) -> None:
         self.debug_file = debug_file
         self.debug_fp: TextIOWrapper | None = None
+        self.translation_errors: list[TranslationError] = []
 
     def __enter__(self) -> Self:
         if self.debug_file is not None:
@@ -44,12 +41,17 @@ class ParsedToCollated:
         if self.debug_fp is not None:
             print(indent(value, indent_level), file=self.debug_fp)
 
+    def report_error(self, msg: str, uuid: UUID | None, indent_level: int = 0):
+        error = TranslationError(msg=msg, uuid=uuid)
+        self.translation_errors.append(error)
+        self.debug_write(str(error), indent_level=indent_level)
+
     def translate(self, parse_results: CollectedParseResults) -> collated.BidPackage:
         try:
             return self._translate(parse_results=parse_results)
         except Exception as error:
             logger.exception("Unexpected error during translation.")
-            self.debug_write("".join(traceback.format_exception(error)), 0)
+            self.report_error("".join(traceback.format_exception(error)), uuid=None)
             raise error
 
     def _translate(self, parse_results: CollectedParseResults) -> collated.BidPackage:
@@ -168,11 +170,3 @@ class ParsedToCollated:
                 case _:
                     raise ValueError(f"{value} did not find a matching case.")
         return bid_package
-
-
-def translate_parsed_to_collated(
-    parse_results: CollectedParseResults, debug_file: Path | None
-) -> collated.BidPackage:
-    with ParsedToCollated(debug_file=debug_file) as translator:
-        collated_bid_package = translator.translate(parse_results=parse_results)
-    return collated_bid_package
