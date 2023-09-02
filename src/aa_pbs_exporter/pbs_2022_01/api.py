@@ -25,8 +25,10 @@ def load_collated(file_in: Path) -> collated.BidPackage:
     return data
 
 
-def save_collated(file_out: Path, bid_package: collated.BidPackage):
-    collated.save_json(file_out=file_out, bid_package=bid_package)
+def save_collated(
+    file_out: Path, bid_package: collated.BidPackage, overwrite: bool = False
+):
+    collated.save_json(file_out=file_out, bid_package=bid_package, overwrite=overwrite)
 
 
 def load_compact(file_in: Path) -> compact.BidPackage:
@@ -34,8 +36,10 @@ def load_compact(file_in: Path) -> compact.BidPackage:
     return data
 
 
-def save_compact(file_out: Path, bid_package: compact.BidPackage):
-    compact.save_json(file_out=file_out, bid_package=bid_package)
+def save_compact(
+    file_out: Path, bid_package: compact.BidPackage, overwrite: bool = False
+):
+    compact.save_json(file_out=file_out, bid_package=bid_package, overwrite=overwrite)
 
 
 def load_expanded(file_in: Path) -> expanded.BidPackage:
@@ -43,8 +47,10 @@ def load_expanded(file_in: Path) -> expanded.BidPackage:
     return data
 
 
-def save_expanded(file_out: Path, bid_package: expanded.BidPackage):
-    expanded.save_json(file_out=file_out, bid_package=bid_package)
+def save_expanded(
+    file_out: Path, bid_package: expanded.BidPackage, overwrite: bool = False
+):
+    expanded.save_json(file_out=file_out, bid_package=bid_package, overwrite=overwrite)
 
 
 def load_parse_results(file_in: Path) -> CollectedParseResults:
@@ -54,19 +60,22 @@ def load_parse_results(file_in: Path) -> CollectedParseResults:
     return serializer.load_json(file_in=file_in)
 
 
-def save_parse_results(file_out: Path, parse_results: CollectedParseResults):
+def save_parse_results(
+    file_out: Path, parse_results: CollectedParseResults, overwrite: bool = False
+):
     serializer = SerializeJson[CollectedParseResults](
         data_type_name="CollectedParseResults"
     )
-    serializer.save_json(file_out=file_out, data=parse_results)
+    serializer.save_json(file_out=file_out, data=parse_results, overwrite=overwrite)
 
 
 def parse_pbs_txt_file(
     file_in: Path, debug_file: Path | None, job_name: str, metadata: dict[str, Any]
 ) -> CollectedParseResults:
     local_metadata: dict[str, Any] = {}
-    source = make_hashed_file_dict(file_path=file_in)
-    local_metadata["source"] = source
+    if not "source" in metadata:
+        source = make_hashed_file_dict(file_path=file_in)
+        local_metadata["source"] = source
     local_metadata.update(metadata)
     result = parse_text_file(
         file_in=file_in,
