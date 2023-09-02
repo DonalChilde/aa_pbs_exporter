@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-11-10T08:32:51-07:00            #
-# Last Modified: 2023-06-20T23:38:15.658195+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 
@@ -72,3 +72,9 @@ def do_extract_jobs(
 ):
     with multiprocessing.Pool(processes=processes) as pool:
         pool.map(do_extract_job, jobs)
+
+
+def extracted_text_default_file_name(source: Path) -> Path:
+    """Return a default file name for text extracted from a pdf."""
+    extracted_file_name = Path(f"{source.stem}-extracted.txt")
+    return extracted_file_name

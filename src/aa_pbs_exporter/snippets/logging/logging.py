@@ -5,7 +5,7 @@
 ####################################################
 # Created by: Chad Lowe                            #
 # Created on: 2022-10-31T08:12:18-07:00            #
-# Last Modified: 2023-04-30T17:01:31.844931+00:00  #
+# Last Modified:   #
 # Source: https://github.com/DonalChilde/snippets  #
 ####################################################
 """
@@ -61,13 +61,32 @@ def rotating_file_handler(
     return handler
 
 
+def file_handler(
+    log_dir: Path,
+    file_name: str,
+    log_level: int,
+    formater: logging.Formatter | None = None,
+) -> logging.FileHandler:
+    log_dir.mkdir(parents=True, exist_ok=True)
+    if file_name.endswith(".log"):
+        log_file = log_dir / Path(file_name)
+    else:
+        log_file = log_dir / Path(f"{file_name}.log")
+    handler = logging.FileHandler(filename=log_file)
+    if formater is None:
+        formater = UtcFormatter(fmt=DEFAULT_FORMAT)
+    handler.setFormatter(fmt=formater)
+    handler.setLevel(log_level)
+    return handler
+
+
 def rotating_file_logger(
     logger_name: str,
     log_dir: Path,
     log_level: int,
     logfile_name: str | None = None,
     formater: logging.Formatter | None = None,
-):
+) -> logging.Logger:
     """
     Configures a logger with a rotating file handler.
 
@@ -90,6 +109,25 @@ def rotating_file_logger(
     logger_.addHandler(handler)
     logger_.setLevel(log_level)
     logger_.info("Rotating file logger initialized with %r", handler)
+    return logger_
+
+
+def file_logger(
+    logger_name: str,
+    log_dir: Path,
+    log_level: int,
+    logfile_name: str | None = None,
+    formater: logging.Formatter | None = None,
+) -> logging.Logger:
+    logger_ = logging.getLogger(logger_name)
+    if logfile_name is None:
+        logfile_name = logger_name
+    handler = file_handler(
+        log_dir=log_dir, file_name=logfile_name, log_level=log_level, formater=formater
+    )
+    logger_.addHandler(handler)
+    logger_.setLevel(log_level)
+    logger_.info("File logger initialized with %r", handler)
     return logger_
 
 
