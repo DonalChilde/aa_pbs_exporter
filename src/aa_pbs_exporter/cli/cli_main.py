@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime, timezone
 from pathlib import Path
 from time import perf_counter_ns
 
@@ -6,8 +7,9 @@ import click
 
 from aa_pbs_exporter import PROJECT_SLUG
 from aa_pbs_exporter.cli.extract_text_cli import extract
-from aa_pbs_exporter.cli.parse_text import parse
-from aa_pbs_exporter.snippets.logging.logging import rotating_file_logger
+from aa_pbs_exporter.cli.parse import parse
+from aa_pbs_exporter.snippets.file.clean_filename import clean_filename_valid
+from aa_pbs_exporter.snippets.logging.logging import file_logger
 
 # To override default settings by loading from config file, see:
 # https://click.palletsprojects.com/en/8.1.x/commands/#overriding-defaults
@@ -15,9 +17,10 @@ from aa_pbs_exporter.snippets.logging.logging import rotating_file_logger
 APP_DIR = click.get_app_dir(PROJECT_SLUG)
 LOG_DIR = Path(APP_DIR).expanduser() / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
+CLEAN_DATE = clean_filename_valid(datetime.now(timezone.utc).isoformat())
+LOGGER_NAME = f"{PROJECT_SLUG}-{CLEAN_DATE}"
 # TODO change init location so that can make customizable log level based on verbosity,
-# TODO custom file name based on date? so that each run gets its own log?
-rotating_file_logger(logger_name=PROJECT_SLUG, log_dir=LOG_DIR, log_level=logging.DEBUG)
+file_logger(logger_name=LOGGER_NAME, log_dir=LOG_DIR, log_level=logging.DEBUG)
 
 
 @click.command()
