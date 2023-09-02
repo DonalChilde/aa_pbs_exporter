@@ -8,6 +8,7 @@ from aa_pbs_exporter.snippets.pdf.extract_text_from_pdf_to_file import (
     ExtractJob,
     do_extract_job,
     do_extract_jobs,
+    extracted_text_default_file_name,
 )
 from time import perf_counter_ns
 
@@ -68,9 +69,9 @@ def extract(
                 ctx=ctx,
             )
         if name is None:
-            file_out = keep_name(file_in=path_in, dir_out=path_out)
+            file_out = default_name(file_in=path_in, dir_out=path_out)
         else:
-            file_out = new_name(dir_out=path_out, name=name)
+            file_out = path_out / name
         job = make_job(file_in=path_in, file_out=file_out, overwrite=overwrite)
         click.echo(f"Extracting {path_in.name} to {file_out}")
         do_extract_job(job)
@@ -85,7 +86,7 @@ def extract(
             raise click.UsageError(f"No pdf files found at {path_in}", ctx=ctx)
         jobs: list[ExtractJob] = []
         for idx, pdf_file in enumerate(pdf_files):
-            file_out = keep_name(pdf_file, path_out)
+            file_out = default_name(pdf_file, path_out)
             job = make_job(
                 file_in=pdf_file,
                 file_out=file_out,
@@ -129,18 +130,8 @@ def finish_cb(job: ExtractJob):
     click.echo(f"Extracted {job.job_id}")
 
 
-def new_name(
-    dir_out: Path,
-    name: Path,
-) -> Path:
-    file_out = dir_out / append_suffix(name, ".txt")
-    return file_out
-
-
-def keep_name(file_in: Path, dir_out: Path) -> Path:
-    original_name = Path(file_in.name)
-    name = append_suffix(original_name, ".txt")
-    file_out = dir_out / name
+def default_name(file_in: Path, dir_out: Path) -> Path:
+    file_out = dir_out / extracted_text_default_file_name(source=file_in)
     return file_out
 
 
@@ -160,6 +151,7 @@ def append_suffix(path: Path, suffix: str) -> Path:
 
     Can be used to append a suffix to a filename, without removing the old suffix.
     """
+    # TODO make snippet - no longer used here
     if not path.parts:
         raise ValueError(f"{path} has no parts. Was Path('') used to make it?")
     return path.parent / f"{path.parts[-1]}{suffix}"

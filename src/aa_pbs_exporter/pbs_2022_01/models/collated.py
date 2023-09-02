@@ -8,6 +8,8 @@ from aa_pbs_exporter.snippets.indexed_string.typedict.state_parser.state_parser_
     ParseResult,
 )
 
+# TODO define bid package metadata
+
 
 class Layover(TypedDict):
     uuid: str
@@ -46,9 +48,13 @@ class Page(TypedDict):
     trips: list[Trip]
 
 
+class Metadata(TypedDict):
+    source: dict[str, str]
+
+
 class BidPackage(TypedDict):
     uuid: str
-    metadata: dict
+    metadata: Metadata | None
     pages: list[Page]
 
 
@@ -112,6 +118,21 @@ class PackageBrowser:
             if layover is None:
                 continue
             yield layover
+
+    @classmethod
+    def default_file_name(cls, source: Path, bid_package: BidPackage) -> str:
+        extracted_stub = "-extracted.txt"
+        source_file = source.name
+        if source_file.endswith(extracted_stub):
+            source_file_stub = source_file.removesuffix(extracted_stub)
+        else:
+            source_file_stub = source.stem
+        hash_stub = ""
+        if bid_package["metadata"] is not None:
+            source_metadata = bid_package["metadata"].get("source", None)
+            if source_metadata is not None:
+                hash_stub = f'-{source_metadata.get("hash", "hash_missing")}'
+        return f"{source_file_stub}{hash_stub}-collated.json"
 
 
 class Stats:

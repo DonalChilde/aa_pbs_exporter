@@ -152,22 +152,35 @@ class PackageBrowser:
         return self._lookup[str(uuid)]
 
     @classmethod
-    def default_file_name(cls, bid_package: BidPackage) -> str:
+    def file_name_stub(cls, bid_package: BidPackage) -> str:
         return (
             f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
-            f"{bid_package.pages[0].base}_{bid_package.uuid}_compact.json"
+            f"{bid_package.pages[0].base}_{bid_package.uuid}"
         )
+
+    @classmethod
+    def default_file_name(cls, bid_package: BidPackage) -> str:
+        hash_stub = ""
+        if bid_package.source is not None:
+            hash_stub = f"-{bid_package.source.file_hash}"
+        return f"{cls.file_name_stub(bid_package)}{hash_stub}-compact.json"
+        # return (
+        #     f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
+        #     f"{bid_package.pages[0].base}_{bid_package.uuid}{hash_stub}-compact.json"
+        # )
 
     @classmethod
     def default_debug_file(
         cls, debug_dir: Path | None, bid_package: BidPackage
     ) -> Path | None:
+        # FIXME refactor to act the same as default_file_name
         if debug_dir is None:
             return None
-        return Path(
-            f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
-            f"{bid_package.pages[0].base}_{bid_package.uuid}_compact-debug.txt"
-        )
+        return Path(f"{cls.file_name_stub(bid_package)}-compact-debug.txt")
+        # return Path(
+        #     f"{bid_package.pages[0].start}_{bid_package.pages[0].end}_"
+        #     f"{bid_package.pages[0].base}_{bid_package.uuid}_compact-debug.txt"
+        # )
 
     def pages(self) -> Generator[Page, None, None]:
         for page in self.package.pages:
