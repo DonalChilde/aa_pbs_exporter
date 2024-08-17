@@ -5,7 +5,7 @@ from typing import Iterable
 def date_range(
     start_date: date | datetime, end_date: date | datetime, inclusive: bool = True
 ) -> Iterable[date]:
-    # TODO move to snippets
+    # made snippet
     # TODO make uasable forwards and backwards, right now assumes forwards
     # https://stackoverflow.com/a/32616832/105844
     if inclusive:

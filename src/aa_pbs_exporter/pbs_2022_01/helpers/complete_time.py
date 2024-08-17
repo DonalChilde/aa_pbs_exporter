@@ -21,7 +21,7 @@ def complete_time(
     Returns:
         _description_
     """
-    # TODO make snippet
+    # made snippet next_datetime.next_time
 
     if ref_datetime.tzinfo is None:
         raise ValueError(f"ref_datetime {ref_datetime!r} must have tzinfo.")

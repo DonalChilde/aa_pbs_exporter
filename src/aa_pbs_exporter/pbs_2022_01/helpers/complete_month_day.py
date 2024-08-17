@@ -6,7 +6,7 @@ def complete_month_day(
     ref_date: date, struct: struct_time, future: bool = True
 ) -> date:
     """Get the next occurrance of a month and day."""
-    # TODO add to snippets
+    # added to next_datetime
     month = struct.tm_mon
     year = ref_date.year
     day = struct.tm_mday

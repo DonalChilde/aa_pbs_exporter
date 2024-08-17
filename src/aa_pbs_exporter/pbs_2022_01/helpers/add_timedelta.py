@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 def add_timedelta(
     ref_datetime: datetime, t_delta: timedelta, *, utc_out: bool = False
 ) -> datetime:
-    # TODO make snippet
+    # made into a snippet, time_shift
     """
     Combine an aware datetime with a timedelta. Enforce utc manipulation.
 
